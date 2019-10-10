@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Android.Bluetooth;
 using NUnit.Framework;
 
 namespace nUnitTests
@@ -8,19 +9,31 @@ namespace nUnitTests
     [TestFixture]
     class story06UserViewsCurrentBeverageTemperature
     {
+        MockBluetooth mockBluetooth;
+
+        private class MockBluetooth
+        {
+            public int CurrentTemp { get; set; }
+
+            public MockBluetooth()
+            {
+
+            }
+        }
+
         [SetUp]
         public void Init()
         {
-            
+            mockBluetooth = new MockBluetooth();
         }
 
-        [TearDown]
-        public void Dispose() { }
+        //[TearDown]
+        //public void Dispose() { }
 
         [Test]
         public void TestThatTemperatureIsBelowRange()
         {
-
+            mockBluetooth.CurrentTemp = -41;
         }
 
         [Test]
