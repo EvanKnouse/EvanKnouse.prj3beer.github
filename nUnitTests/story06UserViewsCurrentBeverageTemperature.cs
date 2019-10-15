@@ -21,6 +21,12 @@ namespace nUnitTests
             }
         }
 
+        public string TemperatureCheck(int nCurrentTemp)
+        {
+            //does nothing
+            return null;
+        }
+
         [SetUp]
         public void Init()
         {
@@ -32,83 +38,115 @@ namespace nUnitTests
         [Test]
         public void TestThatTemperatureIsBelowRange()
         {
-            string ErrorMsg = "Temperature Too Low";
+            string errorMsg = "Temperature Too Low";
             mockBluetooth.CurrentTemp = -31;
-            Assert.IsTrue( ErrorMsg , TemperatureCheck(mockBluetooth.CurrentTemp));
+            string result = TemperatureCheck(mockBluetooth.CurrentTemp);
+            Assert.IsTrue( result.Equals(errorMsg) );
 
         }
 
         [Test]
         public void TestThatTemperatureIsAtMinimum()
         {
+            string msg = "-30\u00B0C";
             mockBluetooth.CurrentTemp = -30;
-            Assert.AreEqual('-30', TemperatureCheck(mockBluetooth.CurrentTemp));
+            string result = TemperatureCheck(mockBluetooth.CurrentTemp);
+            Assert.IsTrue(result.Equals(msg));
         }
 
         [Test]
         public void TestThatTemperatureBelowZero()
         {
+            string msg = "-1\u00B0C";
             mockBluetooth.CurrentTemp = -1;
-            Assert.AreEqual(-1, TemperatureCheck(mockBluetooth.CurrentTemp));
+            string result = TemperatureCheck(mockBluetooth.CurrentTemp);
+            Assert.IsTrue(result.Equals(msg));
         }
 
         [Test]
         public void TestThatTemperatureIsZero()
         {
+            string msg = "0\u00B0C";
             mockBluetooth.CurrentTemp = 0;
-            Assert.AreEqual(0, TemperatureCheck(mockBluetooth.CurrentTemp));
+            string result = TemperatureCheck(mockBluetooth.CurrentTemp);
+            Assert.IsTrue(result.Equals(msg));
         }
 
         [Test]
         public void TestThatTemperatureIsAboveZero()
         {
+            string msg = "1\u00B0C";
             mockBluetooth.CurrentTemp = 1;
-            Assert.AreEqual(1, TemperatureCheck(mockBluetooth.CurrentTemp));
+            string result = TemperatureCheck(mockBluetooth.CurrentTemp);
+            Assert.IsTrue(result.Equals(msg));
         }
 
         [Test]
         public void TestThatTemperatureIsAtMaximum()
         {
+            string msg = "30\u00B0C";
             mockBluetooth.CurrentTemp = 30;
-            Assert.AreEqual(30, TemperatureCheck(mockBluetooth.CurrentTemp));
+            string result = TemperatureCheck(mockBluetooth.CurrentTemp);
+            Assert.IsTrue(result.Equals(msg));
         }
 
         [Test]
         public void TestThatTemperatureIsAboveMaximum()
         {
+            string errorMsg = "Temperature Too High";
             mockBluetooth.CurrentTemp = 31;
-            Assert.AreEqual(30, TemperatureCheck(mockBluetooth.CurrentTemp));
+            string result = TemperatureCheck(mockBluetooth.CurrentTemp);
+            Assert.IsTrue(result.Equals(errorMsg));
         }
 
         [Test]
         public void TestThatDeviceIsDisconnected()
         {
-            mockBluetooth  = null;
-            Assert.Equals(mockBluetooth.CurrentTemp, 40);
+            string msg = "2\u00B0C";
+            mockBluetooth.CurrentTemp = 2;
+            TemperatureCheck(mockBluetooth.CurrentTemp);
+            mockBluetooth = null;
+            string result = TemperatureCheck(mockBluetooth.CurrentTemp);
+            Assert.IsTrue(result.Equals(msg));
         }
 
         [Test]
         public void TestThatDeviceIsDisconnectedForExtendedPeriod()
         {
+            string errorMsg = "Device connection error.";
             mockBluetooth = null;
-            Assert.Equals(mockBluetooth.CurrentTemp, 40);
-            Assert.Equals(mockBluetooth.CurrentTemp, 40);
-            Assert.Equals(mockBluetooth.CurrentTemp, 40);
-            Assert.Equals(mockBluetooth.CurrentTemp, 40);
-            Assert.AreEqual(mockBluetooth.CurrentTemp, 40);
 
+            TemperatureCheck(mockBluetooth.CurrentTemp);
+            TemperatureCheck(mockBluetooth.CurrentTemp);
+            TemperatureCheck(mockBluetooth.CurrentTemp);
+            TemperatureCheck(mockBluetooth.CurrentTemp);
+            string result = TemperatureCheck(mockBluetooth.CurrentTemp);
+            Assert.IsTrue(result.Equals(errorMsg));
         }
 
         [Test]
         public void TestThatDeviceSendsErrantData()
         {
-
+            string msg = "2\u00B0C";
+            mockBluetooth.CurrentTemp = 2;
+            TemperatureCheck(mockBluetooth.CurrentTemp);
+            mockBluetooth.CurrentTemp = -274;
+            string result = TemperatureCheck(mockBluetooth.CurrentTemp);
+            Assert.IsTrue(result.Equals(msg));
         }
 
         [Test]
-        public void TestThatDeviceIsContinuouslySendsErrantData()
+        public void TestThatDeviceContinuouslySendsErrantData()
         {
+            string errorMsg = "Device connection error.";
+            mockBluetooth.CurrentTemp = -274;
 
+            TemperatureCheck(mockBluetooth.CurrentTemp);
+            TemperatureCheck(mockBluetooth.CurrentTemp);
+            TemperatureCheck(mockBluetooth.CurrentTemp);
+            TemperatureCheck(mockBluetooth.CurrentTemp);
+            string result = TemperatureCheck(mockBluetooth.CurrentTemp);
+            Assert.IsTrue(result.Equals(errorMsg));
         }
 
     }
