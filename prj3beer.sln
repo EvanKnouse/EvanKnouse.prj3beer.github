@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "prj3beer", "prj3beer\prj3be
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A16C591E-F622-4514-8EBD-46E97DAFADFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nUnitTests", "nUnitTests\nUnitTests.csproj", "{99757809-C386-473C-8092-738F7296CC1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nUnitTests", "nUnitTests\nUnitTests.csproj", "{99757809-C386-473C-8092-738F7296CC1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UITests", "UITests\UITests.csproj", "{C863DBF5-71CD-4678-A2F9-25DEE8CC1E71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,6 +111,18 @@ Global
 		{99757809-C386-473C-8092-738F7296CC1D}.Release|iPhone.Build.0 = Release|Any CPU
 		{99757809-C386-473C-8092-738F7296CC1D}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{99757809-C386-473C-8092-738F7296CC1D}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{C863DBF5-71CD-4678-A2F9-25DEE8CC1E71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C863DBF5-71CD-4678-A2F9-25DEE8CC1E71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C863DBF5-71CD-4678-A2F9-25DEE8CC1E71}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{C863DBF5-71CD-4678-A2F9-25DEE8CC1E71}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{C863DBF5-71CD-4678-A2F9-25DEE8CC1E71}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{C863DBF5-71CD-4678-A2F9-25DEE8CC1E71}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{C863DBF5-71CD-4678-A2F9-25DEE8CC1E71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C863DBF5-71CD-4678-A2F9-25DEE8CC1E71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C863DBF5-71CD-4678-A2F9-25DEE8CC1E71}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{C863DBF5-71CD-4678-A2F9-25DEE8CC1E71}.Release|iPhone.Build.0 = Release|Any CPU
+		{C863DBF5-71CD-4678-A2F9-25DEE8CC1E71}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{C863DBF5-71CD-4678-A2F9-25DEE8CC1E71}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
