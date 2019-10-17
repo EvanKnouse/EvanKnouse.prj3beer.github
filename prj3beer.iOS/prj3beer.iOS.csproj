@@ -139,10 +139,4 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\prj3beer\prj3beer.csproj">
-      <Project>{83A890E1-BDD8-4737-A882-09B9D8D6F390}</Project>
-      <Name>prj3beer</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>

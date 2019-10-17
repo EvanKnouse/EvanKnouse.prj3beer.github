@@ -39,29 +39,10 @@ namespace nUnitTests
         }
 
         [Test]
-        public void testTargetTemperatureIsDisplayed()
-        {
-
-            //Assert.IsTrue(textBox != null);
-        }
-
-        [Test]
         public void testBeverageTemperatureIsNull()
         {
             Assert.IsTrue(mockBev.idealTemp == iNull);
             Assert.IsTrue(error.Equals("Ideal temperature is not available"));
-        }
-
-        [Test]
-        public void testIdealTempTextBoxIsDisplayedCorrectly()
-        {
-
-        }
-
-        [Test]
-        public void testIdealTempTextBoxIsDisplayedIncorrectly()
-        {
-
         }
 
         [Test]

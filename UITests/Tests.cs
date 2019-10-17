@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using NUnit.Framework;
+using Xamarin.Forms;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
 
@@ -13,6 +14,7 @@ namespace UITests
     {
         IApp app;
         Platform platform;
+        MockBeverage mockBev;
 
         public Tests(Platform platform)
         {
@@ -23,6 +25,37 @@ namespace UITests
         public void BeforeEachTest()
         {
             app = AppInitializer.StartApp(platform);
+            mockBev = new MockBeverage("Banquet", "Coors", 0);
+        }
+
+        [Test]
+        public void testTargetTemperatureIsDisplayed()
+        {
+            MockScreen.displayTargetTemp(mockBev);
+
+            Assert.IsTrue(MockScreen.lblTargetTemp.Equals("0"));
+
+
+        }
+        
+        [Test]
+        public void testIdealTempTextBoxIsDisplayedCorrectly()
+        {
+            Label myLabel = new Label { Text = mockBev.idealTemp.ToString() };
+
+            myLabel.AnchorX = 540;
+
+            Assert.IsTrue(540 == myLabel.AnchorX);
+
+            myLabel.AnchorY = 1700;
+
+            Assert.IsTrue(1700 == myLabel.AnchorY);
+        }
+
+        [Test]
+        public void testIdealTempTextBoxIsDisplayedIncorrectly()
+        {
+
         }
 
         [Test]
