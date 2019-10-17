@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Text;
 using Android.Bluetooth;
 using NUnit.Framework;
+using Plugin.BLE.Abstractions;
 
 namespace nUnitTests
 {
     [TestFixture]
     class story06UserViewsCurrentBeverageTemperature
     {
-        MockBluetooth mockBluetooth;
+        MockBluetooth mockBluetooth;    
+
 
         private class MockBluetooth
         {
@@ -20,6 +22,9 @@ namespace nUnitTests
                 this.CurrentTemp = 0;
             }
         }
+
+        
+
 
         public string TemperatureCheck(int nCurrentTemp)
         {
