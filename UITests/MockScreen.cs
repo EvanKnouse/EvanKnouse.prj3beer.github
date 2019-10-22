@@ -16,9 +16,11 @@ namespace UITests
             //lblTargetTemp = new Label();
         }
 
-        public static void displayTargetTemp(MockBeverage mockBev)
+        public static String displayTargetTemp(MockBeverage mockBev)
         {
             //lblTargetTemp = new Label { Text = mockBev.idealTemp.ToString() };
+            //return mockBev.idealTemp.ToString();
+            return "";
         }
     }
 }

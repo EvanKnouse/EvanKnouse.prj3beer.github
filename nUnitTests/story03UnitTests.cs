@@ -39,6 +39,9 @@ namespace nUnitTests
         }
 
         [Test]
+        public void testB
+
+        [Test]
         public void testBeverageTemperatureIsNull()
         {
             Assert.IsTrue(mockBev.idealTemp == iNull);

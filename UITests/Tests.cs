@@ -15,9 +15,6 @@ namespace UITests
         IApp app;
         Platform platform;
         MockBeverage mockBev;
-        int upperThreshold;
-        int lowerThreshold;
-        String error;
 
         //In place of "null", -800 will be used for ints
         int iNull = -800;
@@ -37,10 +34,17 @@ namespace UITests
         [Test]
         public void testTargetTemperatureIsDisplayed()
         {
-            MockScreen.displayTargetTemp(mockBev);
+            string test = MockScreen.displayTargetTemp(mockBev);
 
-            Assert.IsTrue(MockScreen.lblTargetTemp.Equals("0"));
+            app.EnterText(x => x.Marked("tempLabel"), test);
 
+            string tempLabelValue = app.Query(x => x.Marked("tempLabel"))[0].Text;
+
+            Assert.IsTrue(!tempLabelValue.Equals(""));
+
+            //MockScreen.displayTargetTemp(mockBev);
+
+            //Assert.IsTrue(MockScreen.lblTargetTemp.Equals("0"));
         }
  
         [Test]
@@ -48,6 +52,17 @@ namespace UITests
         {
             //Set temperature to -800 to signify null from the database
             mockBev = new MockBeverage("Banquet", "Coors", iNull);
+
+            string test = mockBev.idealTemp.ToString();
+
+            app.EnterText(x => x.Marked("tempLabel"), test);
+
+            string tempLabelValue = app.Query(x => x.Marked("tempLabel"))[0].Text;
+
+            Assert.IsTrue(tempLabelValue.Equals("Error message"));
+
+
+
 
             MockScreen.displayTargetTemp(mockBev);
 
