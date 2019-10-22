@@ -9,12 +9,18 @@ using Xamarin.UITest.Queries;
 namespace UITests
 {
     [TestFixture(Platform.Android)]
-    [TestFixture(Platform.iOS)]
+    //[TestFixture(Platform.iOS)]
     public class Tests
     {
         IApp app;
         Platform platform;
         MockBeverage mockBev;
+        int upperThreshold;
+        int lowerThreshold;
+        String error;
+
+        //In place of "null", -800 will be used for ints
+        int iNull = -800;
 
         public Tests(Platform platform)
         {
@@ -35,9 +41,39 @@ namespace UITests
 
             Assert.IsTrue(MockScreen.lblTargetTemp.Equals("0"));
 
-
         }
-        
+ 
+        [Test]
+        public void testBeverageTemperatureIsNull()
+        {
+            //Set temperature to -800 to signify null from the database
+            mockBev = new MockBeverage("Banquet", "Coors", iNull);
+
+            MockScreen.displayTargetTemp(mockBev);
+
+            Assert.IsTrue(MockScreen.lblTargetTemp.Equals("Ideal temperature is not available"));
+        }
+
+        [Test]
+        public void testIdealTempIsAboveUpperThreshold()
+        {
+            mockBev = new MockBeverage("Banquet", "Coors", 32);
+
+            MockScreen.displayTargetTemp(mockBev);
+
+            Assert.IsTrue(MockScreen.lblTargetTemp.Equals("Ideal temperature is out of range."));
+        }
+
+        [Test]
+        public void testIdealTempIsBelowLowerThreshold()
+        {
+            mockBev = new MockBeverage("Banquet", "Coors", -31);
+
+            MockScreen.displayTargetTemp(mockBev);
+
+            Assert.IsTrue(MockScreen.lblTargetTemp.Equals("Ideal temperature is out of range."));
+        }
+
         [Test]
         public void testIdealTempTextBoxIsDisplayedCorrectly()
         {
@@ -55,7 +91,15 @@ namespace UITests
         [Test]
         public void testIdealTempTextBoxIsDisplayedIncorrectly()
         {
+            Label myLabel = new Label { Text = mockBev.idealTemp.ToString() };
 
+            myLabel.AnchorX = 541;
+
+            Assert.IsTrue(540 != myLabel.AnchorX);
+
+            myLabel.AnchorY = 1701;
+
+            Assert.IsTrue(1700 != myLabel.AnchorY);
         }
 
         [Test]
