@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using Android.Bluetooth;
 using NUnit.Framework;
-using Plugin.BLE.Abstractions;
 
 namespace nUnitTests
 {
