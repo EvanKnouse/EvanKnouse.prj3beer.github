@@ -17,6 +17,5 @@ namespace nUnitTests
             this.brand = sBrand;
             this.idealTemp = nIdealTemp;
         }
-
     }
 }

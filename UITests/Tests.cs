@@ -9,7 +9,7 @@ using Xamarin.UITest.Queries;
 namespace UITests
 {
     [TestFixture(Platform.Android)]
-    //[TestFixture(Platform.iOS)]
+    [TestFixture(Platform.iOS)]
     public class Tests
     {
         IApp app;
@@ -34,17 +34,13 @@ namespace UITests
         [Test]
         public void testTargetTemperatureIsDisplayed()
         {
-            string test = MockScreen.displayTargetTemp(mockBev);
+            string test = mockBev.idealTemp.ToString();
 
             app.EnterText(x => x.Marked("tempLabel"), test);
 
             string tempLabelValue = app.Query(x => x.Marked("tempLabel"))[0].Text;
 
             Assert.IsTrue(!tempLabelValue.Equals(""));
-
-            //MockScreen.displayTargetTemp(mockBev);
-
-            //Assert.IsTrue(MockScreen.lblTargetTemp.Equals("0"));
         }
  
         [Test]
@@ -60,39 +56,14 @@ namespace UITests
             string tempLabelValue = app.Query(x => x.Marked("tempLabel"))[0].Text;
 
             Assert.IsTrue(tempLabelValue.Equals("Error message"));
-
-
-
-
-            MockScreen.displayTargetTemp(mockBev);
-
-            Assert.IsTrue(MockScreen.lblTargetTemp.Equals("Ideal temperature is not available"));
-        }
-
-        [Test]
-        public void testIdealTempIsAboveUpperThreshold()
-        {
-            mockBev = new MockBeverage("Banquet", "Coors", 32);
-
-            MockScreen.displayTargetTemp(mockBev);
-
-            Assert.IsTrue(MockScreen.lblTargetTemp.Equals("Ideal temperature is out of range."));
-        }
-
-        [Test]
-        public void testIdealTempIsBelowLowerThreshold()
-        {
-            mockBev = new MockBeverage("Banquet", "Coors", -31);
-
-            MockScreen.displayTargetTemp(mockBev);
-
-            Assert.IsTrue(MockScreen.lblTargetTemp.Equals("Ideal temperature is out of range."));
         }
 
         [Test]
         public void testIdealTempTextBoxIsDisplayedCorrectly()
         {
-            Label myLabel = new Label { Text = mockBev.idealTemp.ToString() };
+            app.Query(x => x.Marked("tempLabel"));
+
+            Label myLabel = (Label) app.Query(x => x.Marked("tempLabel"));
 
             myLabel.AnchorX = 540;
 
@@ -117,13 +88,13 @@ namespace UITests
             Assert.IsTrue(1700 != myLabel.AnchorY);
         }
 
-        [Test]
-        public void WelcomeTextIsDisplayed()
-        {
-            AppResult[] results = app.WaitForElement(c => c.Marked("Welcome to Xamarin.Forms!"));
-            app.Screenshot("Welcome screen.");
+        //[Test]
+        //public void WelcomeTextIsDisplayed()
+        //{
+        //    AppResult[] results = app.WaitForElement(c => c.Marked("Welcome to Xamarin.Forms!"));
+        //    app.Screenshot("Welcome screen.");
 
-            Assert.IsTrue(results.Any());
-        }
+        //    Assert.IsTrue(results.Any());
+        //}
     }
 }
