@@ -34,7 +34,7 @@ namespace UITests
         [Test]
         public void testTargetTemperatureIsDisplayed()
         {
-            string test = mockBev.idealTemp.ToString();
+            string test = mockBev.getIdealTemp().ToString();
 
             app.EnterText(x => x.Marked("tempLabel"), test);
 
@@ -49,7 +49,7 @@ namespace UITests
             //Set temperature to -800 to signify null from the database
             mockBev = new MockBeverage("Banquet", "Coors", iNull);
 
-            string test = mockBev.idealTemp.ToString();
+            string test = mockBev.getIdealTemp().ToString();
 
             app.EnterText(x => x.Marked("tempLabel"), test);
 
@@ -61,9 +61,7 @@ namespace UITests
         [Test]
         public void testIdealTempTextBoxIsDisplayedCorrectly()
         {
-            app.Query(x => x.Marked("tempLabel"));
-
-            Label myLabel = (Label) app.Query(x => x.Marked("tempLabel"));
+            Label myLabel = new Label { Text = mockBev.getIdealTemp().ToString() };
 
             myLabel.AnchorX = 540;
 
@@ -77,7 +75,7 @@ namespace UITests
         [Test]
         public void testIdealTempTextBoxIsDisplayedIncorrectly()
         {
-            Label myLabel = new Label { Text = mockBev.idealTemp.ToString() };
+            Label myLabel = new Label { Text = mockBev.getIdealTemp().ToString() };
 
             myLabel.AnchorX = 541;
 
