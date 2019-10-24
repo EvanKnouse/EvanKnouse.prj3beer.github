@@ -26,12 +26,39 @@ namespace UITests
         }
 
         [Test]
-        public void WelcomeTextIsDisplayed()
+        public void TemperatureBelowRange()
         {
-            AppResult[] results = app.WaitForElement(c => c.Marked("Welcome to Xamarin.Forms!"));
-            app.Screenshot("Welcome screen.");
+            AppResult[] results = app.WaitForElement(c => c.Marked("currentTemp"));
+            app.Screenshot("Status screen.");
 
-            Assert.IsTrue(results.Any());
+            Assert.Equals(results[0].Text, "Temperature reading outside of range");
+        }
+
+        [Test]
+        public void TemperatureAboveRange()
+        {
+            AppResult[] results = app.WaitForElement(c => c.Marked("currentTemp"));
+            app.Screenshot("Status screen.");
+
+            Assert.Equals(results[0].Text, "Temperature reading outside of range");
+        }
+
+        [Test]
+        public void DeviceNotFound()
+        {
+            AppResult[] results = app.WaitForElement(c => c.Marked("currentTemp"));
+            app.Screenshot("Status screen.");
+
+            Assert.Equals(results[0].Text, "Waiting for device");
+        }
+
+        [Test]
+        public void TemperatureInRangeAtMinusOne()
+        {
+            AppResult[] results = app.WaitForElement(c => c.Marked("currentTemp"));
+            app.Screenshot("Status screen.");
+            Assert.Equals(results[0].Text, "-1\u00B0C");
+
         }
     }
 }
