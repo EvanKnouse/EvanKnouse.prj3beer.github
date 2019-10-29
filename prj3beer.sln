@@ -14,6 +14,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A16C591E-F622-4514-8EBD-46E97DAFADFA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nUnitTests", "nUnitTests\nUnitTests.csproj", "{99757809-C386-473C-8092-738F7296CC1D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BD25FD43-C944-4B3D-AB8F-C066A89D7DC0} = {BD25FD43-C944-4B3D-AB8F-C066A89D7DC0}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UITests", "UITests\UITests.csproj", "{C863DBF5-71CD-4678-A2F9-25DEE8CC1E71}"
 EndProject
