@@ -1,10 +1,6 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Xamarin.Forms;
 using Xamarin.UITest;
-using Xamarin.UITest.Queries;
 
 namespace UITests
 {
@@ -14,7 +10,7 @@ namespace UITests
     {
         IApp app;
         Platform platform;
-        MockBeverage mockBev;
+        Beverage mockBev;
 
         //In place of "null", -800 will be used for ints
         int iNull = -800;
@@ -28,13 +24,13 @@ namespace UITests
         public void BeforeEachTest()
         {
             app = AppInitializer.StartApp(platform);
-            mockBev = new MockBeverage("Banquet", "Coors", 0);
+            mockBev = new Beverage("Banquet", "Coors", 0);
         }
 
         [Test]
         public void testTargetTemperatureIsDisplayed()
         {
-            string test = mockBev.idealTemp.ToString();
+            string test = mockBev.getIdealTemp().ToString();
 
             app.EnterText(x => x.Marked("tempLabel"), test);
 
@@ -47,9 +43,9 @@ namespace UITests
         public void testBeverageTemperatureIsNull()
         {
             //Set temperature to -800 to signify null from the database
-            mockBev = new MockBeverage("Banquet", "Coors", iNull);
+            mockBev = new Beverage("Banquet", "Coors", iNull);
 
-            string test = mockBev.idealTemp.ToString();
+            string test = mockBev.getIdealTemp().ToString();
 
             app.EnterText(x => x.Marked("tempLabel"), test);
 
@@ -61,9 +57,7 @@ namespace UITests
         [Test]
         public void testIdealTempTextBoxIsDisplayedCorrectly()
         {
-            app.Query(x => x.Marked("tempLabel"));
-
-            Label myLabel = (Label) app.Query(x => x.Marked("tempLabel"));
+            Label myLabel = new Label { Text = mockBev.getIdealTemp().ToString() };
 
             myLabel.AnchorX = 540;
 
@@ -77,7 +71,7 @@ namespace UITests
         [Test]
         public void testIdealTempTextBoxIsDisplayedIncorrectly()
         {
-            Label myLabel = new Label { Text = mockBev.idealTemp.ToString() };
+            Label myLabel = new Label { Text = mockBev.getIdealTemp().ToString() };
 
             myLabel.AnchorX = 541;
 

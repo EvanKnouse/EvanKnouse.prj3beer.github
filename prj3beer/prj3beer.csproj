@@ -17,11 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\nUnitTests\nUnitTests.csproj" />
-    <ProjectReference Include="..\UITests\UITests.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
