@@ -8,5 +8,12 @@ namespace prj3beer.Services
     {
         private int ReadError { get; set; }
         private int RangeError { get; set; }
+
+        public DeviceConnection()
+        {
+            ReadError = 0;
+            RangeError = 0;
+        }
     }
+    
 }

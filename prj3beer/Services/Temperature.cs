@@ -13,10 +13,11 @@ namespace prj3beer.Services
 
         public Temperature()
         {
-            //TODO: code this, initialize temperatures list.
+            temperatures = new List<int>();
+            temperatures.Capacity = 5;
         }
 
-        private int HexToCelsius(string hexVal)
+        private int HexToCelsius(string[] hexArray)
         {
             //TODO: convert a hex value reprenting a temperature into that temperature measured in degrees celsius
             return 0;
@@ -24,24 +25,46 @@ namespace prj3beer.Services
 
         private int CelsiusToFahrenheit(int tempInCels)
         {
-            //TODO: perform the conversion
-            return 0;
+            return (int)(Math.Round(tempInCels * 1.8 + 32));
         }
 
-        public string TemperatureCheck(string[] temperature)
+        public int TemperatureCheck(string[] deviceTemperature)
         {
-            //TODO: error checks
+            int currentTemp = 0;
+            int totalTemp = 0;
+            string printOut = "";
+            int hexVal1;
+            int hexVal2;
 
+
+           
             //TODO: call HexToCelsius
+            currentTemp = HexToCelsius(deviceTemperature);
 
             //TODO: validate temperature value
+            if (currentTemp > -30 && currentTemp < 30)
+            {
+                //TODO: push to temperature queue/list
+                this.temperatures.Add(currentTemp);
 
-            //TODO: push to temperature queue/list
+                //TODO: calculate average temp
+                foreach (int temp in this.temperatures)
+                {
+                    totalTemp += temp;
+                }
+                totalTemp = totalTemp / this.temperatures.Count;
+
+                if (!isCelsius)
+                {
+                    totalTemp = CelsiusToFahrenheit(totalTemp);
+                }
+                   
+            }
+        
             
-            //TODO: calculate average temp
 
             //return an appropriately incremented temperature value or relevant error message.
-            return "";
+            return totalTemp;
         }
     }
 }
