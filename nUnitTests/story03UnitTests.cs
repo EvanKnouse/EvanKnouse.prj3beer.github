@@ -32,7 +32,7 @@ namespace nUnitTests
         public void verifyProperties() /* not an actual test */
         {
             //Verify the properties of the mock beverage
-            Assert.IsTrue(mockBev.idealTemp == -2);
+            Assert.IsTrue(mockBev.getIdealTemp() == -2);
             Assert.IsTrue(mockBev.name.Equals("Banquet"));
             Assert.IsTrue(mockBev.brand.Equals("Coors"));
         }
@@ -43,7 +43,7 @@ namespace nUnitTests
             // beverage is created with data from database, idealTemp is null from database, mocked with -800
             mockBev = new MockBeverage("Banquet", "Coors", iNull);
 
-            Assert.IsTrue(mockBev.idealTemp == 4);
+            Assert.IsTrue(mockBev.getIdealTemp() == 4);
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace nUnitTests
             // beverage is created with data from database, idealTemp is above upper threshold of 30
             mockBev = new MockBeverage("Banquet", "Coors", 31);
 
-            Assert.IsTrue(mockBev.idealTemp == 4);
+            Assert.IsTrue(mockBev.getIdealTemp() == 4);
         }
 
         [Test]
@@ -61,7 +61,7 @@ namespace nUnitTests
             // beverage is created with data from database, idealTemp is below lower threshold of -30
             mockBev = new MockBeverage("Banquet", "Coors", -31);
 
-            Assert.IsTrue(mockBev.idealTemp == 4);
+            Assert.IsTrue(mockBev.getIdealTemp() == 4);
         }
     }
 }
