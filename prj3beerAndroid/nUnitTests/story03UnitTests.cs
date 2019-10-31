@@ -6,31 +6,19 @@ namespace nUnitTests
     public class story03UnitTests
     {
         Beverage mockBev;
-        int iNull;
+        int iDefault = 2;
 
         [SetUp]
         public void Setup()
         {
             //Create a mock Beverage object to test with
-            mockBev = new Beverage("Banquet","Coors", -2);
-
-            // set mock null for integers
-            iNull = -800;
-        }
-
-        [Test]
-        public void verifyProperties() /* not an actual test */
-        {
-            //Verify the properties of the mock beverage
-            Assert.IsTrue(mockBev.getIdealTemp() == -2);
-            Assert.IsTrue(mockBev.name.Equals("Banquet"));
-            Assert.IsTrue(mockBev.brand.Equals("Coors"));
+            mockBev = new Beverage("Banquet","Coors", iDefault);
         }
 
         public void testAppCanGetBeverageIdealTemp()
         {
             // beverage is created with data from database, idealTemp is the expected value
-            mockBev = new Beverage("Banquet", "Coors", 2);
+            mockBev = new Beverage("Banquet", "Coors", iDefault);
 
             Assert.IsTrue(mockBev.getIdealTemp() == 2);
         }
@@ -39,9 +27,9 @@ namespace nUnitTests
         public void testBeverageTemperatureIsNull()
         {
             // beverage is created with data from database, idealTemp is null from database, mocked with -800
-            mockBev = new Beverage("Banquet", "Coors", iNull);
+            mockBev = new Beverage("Banquet", "Coors", iDefault);
 
-            Assert.IsTrue(mockBev.getIdealTemp() == 4);
+            Assert.IsTrue(mockBev.getIdealTemp() == 2);
         }
 
         [Test]

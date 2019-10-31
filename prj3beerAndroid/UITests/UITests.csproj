@@ -33,14 +33,15 @@
     <PackageReference Include="NUnitTestAdapter" Version="2.1.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppInitializer.cs" />
+    <Compile Include="Beverage.cs" />
+    <Compile Include="story03UITests.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\prj3beerAndroid\prj3beerAndroid.csproj">
       <Project>{14230E50-F96C-44B1-912E-7F517C4E52F1}</Project>
       <Name>prj3beerAndroid</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="AppInitializer.cs" />
-    <Compile Include="story03UITests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
