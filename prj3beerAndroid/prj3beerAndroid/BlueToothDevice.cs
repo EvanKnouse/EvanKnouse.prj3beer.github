@@ -29,6 +29,5 @@ namespace prj3beerAndroid
             return 0;
         }
 
-        private BluetoothAdapter 
     }
 }

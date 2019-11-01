@@ -23,6 +23,11 @@ namespace prj3beerAndroid
             this.currentValue = -1;
         }
 
+        public MockDevice()
+        {
+            this.dummyValues = new int[]{ 1, 3, 5, 7, 9, 11};
+        }
+
         public int GetTemp()
         {
             return dummyValues[++currentValue];
