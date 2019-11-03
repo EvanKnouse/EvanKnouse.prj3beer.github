@@ -12,10 +12,12 @@ using Android.Widget;
 
 namespace prj3beerAndroid
 {
-    class MockDevice : I_Reader
+    public class MockDevice : I_Reader
     {
         int[] dummyValues;
         int currentValue;
+
+        public int[] Temps { set => dummyValues = value; }
 
         public MockDevice(params int[] values)
         {
@@ -31,6 +33,11 @@ namespace prj3beerAndroid
         public int GetTemp()
         {
             return dummyValues[++currentValue];
+        }
+
+        public void Reset()
+        {
+            this.currentValue = -1;
         }
     }
 }

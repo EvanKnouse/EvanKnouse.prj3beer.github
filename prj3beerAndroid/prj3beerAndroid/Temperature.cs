@@ -81,7 +81,7 @@ namespace prj3beerAndroid
             int hexVal2;
 
             //TODO: call HexToCelsius
-            currentTemp = HexToCelsius(deviceTemperature);
+            //currentTemp = HexToCelsius(deviceTemperature);
 
             //TODO: validate temperature value
             if (currentTemp > -30 && currentTemp < 30)

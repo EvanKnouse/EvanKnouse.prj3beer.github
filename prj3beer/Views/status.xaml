@@ -7,7 +7,7 @@
              x:Class="prj3beer.Views.status">
     <ContentPage.Content>
         <StackLayout>
-            <Label x:Name="currentTemp"  Text="Waiting for device"
+            <Label x:Name="currentTemp"  Text=""
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
         </StackLayout>

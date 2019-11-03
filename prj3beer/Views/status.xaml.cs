@@ -17,11 +17,9 @@ namespace prj3beer.Views
         {
             InitializeComponent();
 
-            Temperature temperature = new Temperature();
+            DeviceConnection dc = new DeviceConnection();
 
-            string[] array = { "1", "2" };
-
-            currentTemp.Text = temperature.TemperatureCheck(array);
+            currentTemp.Text = dc.TemperatureCheck();
 
         }
     }

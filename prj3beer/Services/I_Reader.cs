@@ -1,19 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace prj3beer.Services
 {
-    interface I_Reading
+    public interface I_Reader
     {
-
-
-
-
-
-
-
-
-
+        int GetTemp();
     }
 }
