@@ -1,5 +1,6 @@
-﻿using NUnit.Framework;
-using prj3beer.Services;
+﻿using Android.Widget;
+using NUnit.Framework;
+using prj3beerAndroid;
 using Xamarin.UITest;
 
 namespace UITests
@@ -9,27 +10,26 @@ namespace UITests
     {
         IApp app;
         Platform platform;
-        Beverage mockBev;
+        // beverage object for testing
+        Beverage beverage;
 
-        //In place of "null", -800 will be used for ints
-        int iNull = -800;
-
+        // initialize the platform
         public Tests(Platform platform)
         {
             this.platform = platform;
         }
 
-        [SetUp]
+        [SetUp] // initialize the application and beverage object
         public void BeforeEachTest()
         {
             app = AppInitializer.StartApp(platform);
-            mockBev = new Beverage("Banquet", "Coors", 0);
+            beverage = new Beverage("Banquet", "Coors", 0);
         }
 
-        [Test]
+        [Test] // test that the target temperature is displayed in the temperature label
         public void testTargetTemperatureIsDisplayed()
         {
-            string test = mockBev.getIdealTemp().ToString();
+            string test = beverage.getIdealTemp().ToString();
 
             app.EnterText(x => x.Marked("tempLabel"), test);
 
@@ -38,13 +38,13 @@ namespace UITests
             Assert.IsTrue(!tempLabelValue.Equals(""));
         }
  
-        [Test]
+        [Test] // we no longer test nulls?
         public void testBeverageTemperatureIsNull()
         {
             //Set temperature to -800 to signify null from the database
-            mockBev = new Beverage("Banquet", "Coors", iNull);
+            beverage = new Beverage("Banquet", "Coors", 2);
 
-            string test = mockBev.getIdealTemp().ToString();
+            string test = beverage.getIdealTemp().ToString();
 
             app.EnterText(x => x.Marked("tempLabel"), test);
 
@@ -53,41 +53,18 @@ namespace UITests
             Assert.IsTrue(tempLabelValue.Equals("Error message"));
         }
 
-        [Test]
+        [Test] // test the temperature label is displayed in the correct spot
         public void testIdealTempTextBoxIsDisplayedCorrectly()
         {
-            Label myLabel = new Label { Text = mockBev.getIdealTemp().ToString() };
+            TextView tvIdealTemp = new TextView();
 
-            myLabel.AnchorX = 540;
+            tvIdealTemp.AnchorX = 540;
 
-            Assert.IsTrue(540 == myLabel.AnchorX);
+            Assert.IsTrue(540 == tvIdealTemp.AnchorX);
 
-            myLabel.AnchorY = 1700;
+            tvIdealTemp.AnchorY = 1700;
 
-            Assert.IsTrue(1700 == myLabel.AnchorY);
+            Assert.IsTrue(1700 == tvIdealTemp.AnchorY);
         }
-
-        [Test]
-        public void testIdealTempTextBoxIsDisplayedIncorrectly()
-        {
-            Label myLabel = new Label { Text = mockBev.getIdealTemp().ToString() };
-
-            myLabel.AnchorX = 541;
-
-            Assert.IsTrue(540 != myLabel.AnchorX);
-
-            myLabel.AnchorY = 1701;
-
-            Assert.IsTrue(1700 != myLabel.AnchorY);
-        }
-
-        //[Test]
-        //public void WelcomeTextIsDisplayed()
-        //{
-        //    AppResult[] results = app.WaitForElement(c => c.Marked("Welcome to Xamarin.Forms!"));
-        //    app.Screenshot("Welcome screen.");
-
-        //    Assert.IsTrue(results.Any());
-        //}
     }
 }

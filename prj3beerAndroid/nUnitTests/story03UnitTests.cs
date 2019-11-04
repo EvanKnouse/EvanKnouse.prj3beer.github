@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using prj3beer.Services;
+using prj3beerAndroid;
 
 namespace nUnitTests
 {

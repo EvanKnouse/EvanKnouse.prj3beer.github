@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:p4="http://xamarin.com/mono/android/designer"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+    <TextView
+        android:text="Text"
+        android:layout_width="105.0dp"
+        android:layout_height="82.0dp"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_weight="0"
+        android:textAlignment="center"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:id="@+id/tvIdealTemp"
+        android:paddingTop="25dp"
+        android:translationY="-25dp"
+        android:textSize="25sp"
+        android:textStyle="normal" />
+</LinearLayout>

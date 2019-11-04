@@ -3337,8 +3337,8 @@ namespace prj3beerAndroid
 			// aapt resource value: 0x7f0a006b
 			public const int action_mode_close_button = 2131361899;
 			
-			// aapt resource value: 0x7f0a00ca
-			public const int action_settings = 2131361994;
+			// aapt resource value: 0x7f0a00cb
+			public const int action_settings = 2131361995;
 			
 			// aapt resource value: 0x7f0a00b6
 			public const int action_text = 2131361974;
@@ -3562,8 +3562,8 @@ namespace prj3beerAndroid
 			// aapt resource value: 0x7f0a0070
 			public const int list_item = 2131361904;
 			
-			// aapt resource value: 0x7f0a00c3
-			public const int masked = 2131361987;
+			// aapt resource value: 0x7f0a00c4
+			public const int masked = 2131361988;
 			
 			// aapt resource value: 0x7f0a009c
 			public const int message = 2131361948;
@@ -3583,23 +3583,23 @@ namespace prj3beerAndroid
 			// aapt resource value: 0x7f0a002f
 			public const int multiply = 2131361839;
 			
-			// aapt resource value: 0x7f0a00c4
-			public const int nav_camera = 2131361988;
-			
 			// aapt resource value: 0x7f0a00c5
-			public const int nav_gallery = 2131361989;
-			
-			// aapt resource value: 0x7f0a00c7
-			public const int nav_manage = 2131361991;
-			
-			// aapt resource value: 0x7f0a00c9
-			public const int nav_send = 2131361993;
-			
-			// aapt resource value: 0x7f0a00c8
-			public const int nav_share = 2131361992;
+			public const int nav_camera = 2131361989;
 			
 			// aapt resource value: 0x7f0a00c6
-			public const int nav_slideshow = 2131361990;
+			public const int nav_gallery = 2131361990;
+			
+			// aapt resource value: 0x7f0a00c8
+			public const int nav_manage = 2131361992;
+			
+			// aapt resource value: 0x7f0a00ca
+			public const int nav_send = 2131361994;
+			
+			// aapt resource value: 0x7f0a00c9
+			public const int nav_share = 2131361993;
+			
+			// aapt resource value: 0x7f0a00c7
+			public const int nav_slideshow = 2131361991;
 			
 			// aapt resource value: 0x7f0a009e
 			public const int nav_view = 2131361950;
@@ -3856,6 +3856,9 @@ namespace prj3beerAndroid
 			// aapt resource value: 0x7f0a0013
 			public const int transition_transform = 2131361811;
 			
+			// aapt resource value: 0x7f0a00c2
+			public const int tvIdealTemp = 2131361986;
+			
 			// aapt resource value: 0x7f0a0034
 			public const int uniform = 2131361844;
 			
@@ -3871,8 +3874,8 @@ namespace prj3beerAndroid
 			// aapt resource value: 0x7f0a001b
 			public const int view_offset_helper = 2131361819;
 			
-			// aapt resource value: 0x7f0a00c2
-			public const int visible = 2131361986;
+			// aapt resource value: 0x7f0a00c3
+			public const int visible = 2131361987;
 			
 			// aapt resource value: 0x7f0a0043
 			public const int withText = 2131361859;
@@ -4154,7 +4157,10 @@ namespace prj3beerAndroid
 			public const int select_dialog_singlechoice_material = 2130968634;
 			
 			// aapt resource value: 0x7f04003b
-			public const int support_simple_spinner_dropdown_item = 2130968635;
+			public const int status_screen = 2130968635;
+			
+			// aapt resource value: 0x7f04003c
+			public const int support_simple_spinner_dropdown_item = 2130968636;
 			
 			static Layout()
 			{
