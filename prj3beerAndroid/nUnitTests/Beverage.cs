@@ -14,6 +14,7 @@
 
         }
 
+        //Beverage constructor - takes in and sets the beverage's name, brand name, and ideal temperature (from database)
         public Beverage(string sName, string sBrand, int nIdealTemp)
         {
             this.name = sName;
