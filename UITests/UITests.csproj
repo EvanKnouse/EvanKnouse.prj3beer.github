@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C863DBF5-71CD-4678-A2F9-25DEE8CC1E71}</ProjectGuid>
+    <ProjectGuid>{B1E76A96-2449-4673-AFAE-E4A53F901930}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>UITests</RootNamespace>
     <AssemblyName>UITests</AssemblyName>
@@ -30,14 +30,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit" Version="2.6.4" />
-    <PackageReference Include="Xamarin.Forms">
-      <Version>4.0.0.425677</Version>
-    </PackageReference>
     <PackageReference Include="Xamarin.UITest" Version="2.2.7" />
     <PackageReference Include="NUnitTestAdapter" Version="2.1.1" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="story03UITests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tests.cs" />
     <Compile Include="AppInitializer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
