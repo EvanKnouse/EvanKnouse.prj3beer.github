@@ -37,7 +37,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppInitializer.cs" />
-    <Compile Include="Beverage.cs" />
     <Compile Include="story03UITests.cs" />
   </ItemGroup>
   <ItemGroup>
