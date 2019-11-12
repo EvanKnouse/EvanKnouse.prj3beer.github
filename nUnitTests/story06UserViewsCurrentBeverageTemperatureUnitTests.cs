@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
-using prj3beer;
 using prj3beer.Services;
 
 namespace nUnitTests

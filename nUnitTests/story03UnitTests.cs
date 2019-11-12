@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
-using prj3beer.Services;
+using prj3beer.Models;
+
 
 namespace nUnitTests
 {

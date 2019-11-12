@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="prj3beer.Views.signUpPage"
+             x:Name="signUpPageName"
+             AutomationId="signUpPage">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="Center">
+            <StackLayout HorizontalOptions="CenterAndExpand">
+                <Label x:Name="labelEmail" Text="Email"/>
+                <Entry AutomationId="entryEmail" x:Name="entryEmail" Placeholder="Enter email address"/>
+            </StackLayout>
+            <StackLayout HorizontalOptions="CenterAndExpand">
+                <Label x:Name="labelPassword" Text="Password"/>
+                <Entry AutomationId="entryPassword" x:Name="entryPassword" Placeholder="Enter your password"/>
+            </StackLayout>
+            <StackLayout HorizontalOptions="CenterAndExpand">
+                <Label x:Name="labelName" Text="Name"/>
+                <Entry AutomationId="entryName" x:Name="entryName" Placeholder="Enter your name"/>
+            </StackLayout>
+            <StackLayout HorizontalOptions="CenterAndExpand">
+                <Label x:Name="labelAge" Text="Birthday"/>
+                <DatePicker AutomationId="datePickerAge" x:Name="datePickerAge" Format="D" VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
+            <StackLayout>
+                <Picker AutomationId="pickerGender" x:Name="pickerGender" Title="Gender">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Male</x:String>
+                            <x:String>Female</x:String>
+                            <x:String>Other</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+            </StackLayout>
+            <Button AutomationId="signUpButton" x:Name="signUpButton" Text="Submit" Clicked="Button_Clicked"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,9 +1,9 @@
-﻿namespace prj3beer.Services
+﻿namespace prj3beer.Models
 {
     public class Beverage
     {
-        public String name;
-        public String brand;
+        public string name;
+        public string brand;
         private int idealTemp;
         public int faveTemp;
         private const int defaultTemp = 4;
@@ -14,7 +14,7 @@
 
         }
 
-        public Beverage(String sName, String sBrand, int nIdealTemp)
+        public Beverage(string sName, string sBrand, int nIdealTemp)
         {
             this.name = sName;
             this.brand = sBrand;

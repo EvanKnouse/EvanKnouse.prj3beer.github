@@ -6,10 +6,18 @@
              mc:Ignorable="d"
              x:Class="prj3beer.Views.status">
     <ContentPage.Content>
-        <StackLayout>
-            <Label x:Name="currentTemp"  Text=""
+        <StackLayout VerticalOptions="Center">
+            <StackLayout>
+            <Label x:Name="currentTemp"  Text="Test1"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            </StackLayout>
+            <StackLayout>
+                <Label x:Name="currentTarget"  Text="Test2"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            </StackLayout>
         </StackLayout>
+        
     </ContentPage.Content>
 </ContentPage>

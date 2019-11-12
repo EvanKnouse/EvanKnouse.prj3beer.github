@@ -13,13 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\prj3beer\prj3beer.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Mono.Android">
-      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v8.1\Mono.Android.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\prj3beer\prj3beer\prj3beer.csproj" />
+    <ProjectReference Include="..\UITests\UITests.csproj" />
   </ItemGroup>
 
 </Project>

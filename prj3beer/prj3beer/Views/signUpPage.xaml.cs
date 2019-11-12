@@ -10,16 +10,16 @@ using Xamarin.Forms.Xaml;
 namespace prj3beer.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class StatusPage : ContentPage
+    public partial class signUpPage : ContentPage
     {
-        public StatusPage()
+        public signUpPage()
         {
             InitializeComponent();
         }
-        
+
         private void Button_Clicked(object sender, EventArgs e)
         {
-            DisplayAlert("Test", "Hello world", "Okay");
+            
         }
     }
 }
