@@ -14,7 +14,7 @@ namespace prj3beer
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
-            MainPage = new signUpPage();
+            MainPage = new MainPage();
         }
 
         protected override void OnStart()

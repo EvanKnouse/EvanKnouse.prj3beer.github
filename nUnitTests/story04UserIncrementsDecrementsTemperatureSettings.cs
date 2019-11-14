@@ -11,14 +11,16 @@ namespace nUnitTests
         [SetUp]
         public void Setup()
         {
-            
+            Beverage mockBev = new Beverage("MGD", "Miller", 2);
+            Preference preference = new Preference();
         }
 
         #region Story04
         [Test]
         public void TestTargetTemperatureIncrementsBy1()
         {
-            
+
+            Assert.IsTrue(Preference.);
         }
 
         [Test]
@@ -54,7 +56,7 @@ namespace nUnitTests
         }
 
         [Test]
-        public void testBeverageTemperatureIsNull()
+        public void testBeverageTemperatureCannotBeNull()
         {
             
         }

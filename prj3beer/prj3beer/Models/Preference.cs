@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
+using System.Windows;
 
 namespace prj3beer.Models
 {
-    class Preference
+    public class Preference
     {
         #region Attributes
         Beverage prefBev;
@@ -23,6 +25,7 @@ namespace prj3beer.Models
         }
         #endregion
 
+        [Required]
         #region Properties
         public Beverage PrefBev
         {
@@ -36,6 +39,8 @@ namespace prj3beer.Models
             }
         }
 
+        [Required]
+        [Range(-30, 30, ErrorMessage = "Target Temperature cannot be below -30C or above 30C")]
         public int FaveTemp
         {
             get
@@ -48,5 +53,7 @@ namespace prj3beer.Models
             }
         }
         #endregion
+
+
     }
 }

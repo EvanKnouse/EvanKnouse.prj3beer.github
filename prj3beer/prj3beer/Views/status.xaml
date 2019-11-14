@@ -8,12 +8,7 @@
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center">
             <StackLayout>
-            <Label x:Name="currentTemp"  Text="Test1"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            </StackLayout>
-            <StackLayout>
-                <Label x:Name="currentTarget"  Text="Test2"
+                <Label x:Name="currentTarget"  Text="TestTarget"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
             </StackLayout>
