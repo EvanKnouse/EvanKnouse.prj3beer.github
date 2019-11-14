@@ -28,6 +28,7 @@ namespace nUnitTests
             Assert.IsTrue(mockBev.brand.Equals("Coors"));
         }
 
+        [Test]
         public void testAppCanGetBeverageIdealTemp()
         {
             // beverage is created with data from database, idealTemp is the expected value
