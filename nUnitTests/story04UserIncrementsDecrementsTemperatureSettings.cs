@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
 using prj3beer.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace nUnitTests
 {
@@ -13,8 +14,10 @@ namespace nUnitTests
         [SetUp]
         public void Setup()
         {
+            
             mockBev = new Beverage("MGD", "Miller", 2);
             Preference preference = new Preference();
+          
         }
 
         #region Story04
@@ -22,73 +25,73 @@ namespace nUnitTests
         [Test]
         public void TestTargetTemperatureIncrementsBy1()
         {
-            float increment = 1;
+            double increment = 1;
 
-            float previousTemp = mockBev.getIdealTemp();
+            double previousTemp = mockBev.IdealTemp;
 
             // increment the target temperature
-            mockBev.SetTargetTemp(previousTemp + increment);
+            mockBev.IdealTemp = previousTemp + increment;
 
-            Assert.IsTrue(mockBev.getIdealTemp() == previousTemp + increment);
+            Assert.IsTrue(mockBev.IdealTemp == previousTemp + increment);
         }
 
         // The target temperature value is decremented by 1
         [Test]
         public void TestTargetTemperatureDecrementsBy1()
         {
-            float decrement = -1;
+            double decrement = -1;
 
-            float previousTemp = mockBev.getIdealTemp();
+            double previousTemp = mockBev.IdealTemp;
 
             // decrement the target temperature
-            mockBev.SetTargetTemp(previousTemp + decrement);
+            mockBev.IdealTemp = previousTemp + decrement;
 
-            Assert.IsTrue(mockBev.getIdealTemp() == previousTemp + decrement);
+            Assert.IsTrue(mockBev.IdealTemp == previousTemp + decrement);
         }
 
         [Test]
         public void TestUserTypesInTargetTemp()
         {
-            float userTemp = 7;
+            double userTemp = 7;
 
             // set the target temperature
-            mockBev.SetTargetTemp(userTemp);
+            mockBev.IdealTemp = userTemp;
 
-            Assert.IsTrue(mockBev.getIdealTemp() == userTemp);
+            Assert.IsTrue(mockBev.IdealTemp == userTemp);
         }
 
         [Test]
         public void TestTargetTempDoesNotIncrementsPastPlus30()
         {
-            float maxTemp = 30;
+            double maxTemp = 30;
 
-            mockBev.SetTargetTemp(maxTemp);
+            mockBev.IdealTemp = maxTemp;
 
-            float increment = 1;
+            double increment = 1;
 
-            float previousTemp = mockBev.getIdealTemp();
+            double previousTemp = mockBev.IdealTemp;
 
             // increment the target temperature
-            mockBev.SetTargetTemp(previousTemp + increment);
+            mockBev.IdealTemp = previousTemp + increment;
 
-            Assert.IsTrue(mockBev.getIdealTemp() == maxTemp);
+            Assert.IsTrue(mockBev.IdealTemp == maxTemp);
         }
 
         [Test]
         public void TestTargetTempDoesNotDecrementsPastNegative30()
         {
-            float minTemp = -30;
+            double minTemp = -30;
 
-            mockBev.SetTargetTemp(minTemp);
+            mockBev.IdealTemp = minTemp;
 
-            float decrement = -1;
+            double decrement = -1;
 
-            float previousTemp = mockBev.getIdealTemp();
+            double previousTemp = mockBev.IdealTemp;
 
             // decrement the target temperature
-            mockBev.SetTargetTemp(previousTemp + decrement);
+            mockBev.IdealTemp = previousTemp + decrement;
 
-            Assert.IsTrue(mockBev.getIdealTemp() == minTemp);
+            Assert.IsTrue(mockBev.IdealTemp == minTemp);
         }
         #endregion
 
@@ -96,25 +99,38 @@ namespace nUnitTests
         [Test]
         public void testAppCanGetBeverageIdealTemp()
         {
-            
+            double idealTemp = 2;
+
+            Assert.IsTrue(mockBev.IdealTemp == idealTemp);
         }
 
         [Test]
         public void testBeverageTemperatureCannotBeNull()
         {
+            double? noValue = null;
+
+           // mockBev.SetTargetTemp();
+
+            //Assert.IsFalse(mockBev.IdealTemp != null);
             
         }
 
         [Test]
         public void testIdealTempIsAboveUpperThreshold()
         {
-            
+            Assert.AreEqual("Target Temperature cannot be below -30C or above 30C", mockBev = new Beverage("Banquet", "Coors", 31));
         }
 
         [Test]
         public void testIdealTempisBelowLowerThreshold()
         {
+           mockBev = new Beverage("Banquet", "Coors", -31);
 
+           List<ValidationResult> results = new List<ValidationResult>();
+
+           Validator.TryValidateObject(mockBev, new ValidationContext(mockBev), results);
+
+           Assert.AreEqual("Target Temperature cannot be below -30C or above 30C", results);
         }
         #endregion
     }

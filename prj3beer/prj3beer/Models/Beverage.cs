@@ -1,10 +1,17 @@
-﻿namespace prj3beer.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace prj3beer.Models
 {
     public class Beverage
     {
+        [Required]
         public string name;
+
+        [Required]
         public string brand;
-        private int idealTemp;
+
+        
+        private double idealTemp;
         public int faveTemp;
         private const int defaultTemp = 4;
 
@@ -31,14 +38,10 @@
             }
         }
 
-        public int getIdealTemp()
-        {
-            return this.idealTemp;
-        }
+        [Required]
+        [Range(-30, 30, ErrorMessage = "Target Temperature cannot be below -30C or above 30C")]
+        public double IdealTemp { get; set; }
 
-        public void SetTargetTemp(float temp)
-        {
-
-        }
+       
     }
 }
