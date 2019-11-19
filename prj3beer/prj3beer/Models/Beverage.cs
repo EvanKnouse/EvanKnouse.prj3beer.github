@@ -35,5 +35,10 @@
         {
             return this.idealTemp;
         }
+
+        public void SetTargetTemp(float temp)
+        {
+
+        }
     }
 }
