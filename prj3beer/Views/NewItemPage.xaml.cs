@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
+using prj3beer.UIElements;
 using prj3beer.Models;
 
 namespace prj3beer.Views

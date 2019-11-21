@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
+using prj3beer.UIElements;
 using prj3beer.Models;
 using prj3beer.Views;
 using prj3beer.ViewModels;

@@ -1,6 +1,7 @@
 ﻿using System;
 
 using prj3beer.Models;
+using prj3beer.UIElements;
 
 namespace prj3beer.ViewModels
 {
