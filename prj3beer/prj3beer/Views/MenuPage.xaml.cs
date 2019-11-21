@@ -20,6 +20,7 @@ namespace prj3beer.Views
 
             menuItems = new List<HomeMenuItem>
             {
+                new HomeMenuItem {Id = MenuItemType.Status, Title="Status" },
                 new HomeMenuItem {Id = MenuItemType.Browse, Title="Browse" },
                 new HomeMenuItem {Id = MenuItemType.About, Title="About" }
             };

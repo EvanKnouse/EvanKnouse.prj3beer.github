@@ -23,12 +23,12 @@
 
   <ItemGroup>
     <Compile Update="Views\status.xaml.cs">
-      <DependentUpon>Status.xaml</DependentUpon>
+      <DependentUpon>status.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\Status.xaml">
+    <EmbeddedResource Update="Views\status.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>

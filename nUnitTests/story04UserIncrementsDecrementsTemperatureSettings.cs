@@ -15,7 +15,7 @@ namespace nUnitTests
         [SetUp]
         public void Setup()
         {
-            mockBev = new Beverage("MGD", "Miller", 2);
+            mockBev = new Beverage(1,"MGD", "Miller", 2);
             Preference preference = new Preference();
         }
 
@@ -165,13 +165,13 @@ namespace nUnitTests
         [Test]
         public void testIdealTempIsAboveUpperThreshold()
         {
-            Assert.AreEqual("Target Temperature cannot be below -30C or above 30C", mockBev = new Beverage("Banquet", "Coors", 31));
+            Assert.AreEqual("Target Temperature cannot be below -30C or above 30C", mockBev = new Beverage(2,"Banquet", "Coors", 31));
         }
 
         [Test]
         public void testIdealTempisBelowLowerThreshold()
         {
-           mockBev = new Beverage("Banquet", "Coors", -31);
+           mockBev = new Beverage(2,"Banquet", "Coors", -31);
 
            List<ValidationResult> results = new List<ValidationResult>();
 

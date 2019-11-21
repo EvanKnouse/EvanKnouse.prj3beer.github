@@ -4,16 +4,24 @@ namespace prj3beer.Models
 {
     public class Beverage
     {
+        private const int defaultTemp = 4;
+
+
+        [Key]
+        [Required]
+        private int bevId; 
+
         [Required]
         public string name;
 
         [Required]
         public string brand;
 
-        
+        [Required]
+        [Range(-30, 30, ErrorMessage = "Target Temperature cannot be below -30C or above 30C")]
         private double idealTemp;
-        public int faveTemp;
-        private const int defaultTemp = 4;
+       
+        
 
         //Default Beverage Constructor
         public Beverage()
@@ -21,8 +29,9 @@ namespace prj3beer.Models
 
         }
 
-        public Beverage(string sName, string sBrand, int nIdealTemp)
+        public Beverage(int id, string sName, string sBrand, int nIdealTemp)
         {
+            this.bevId = id;
             this.name = sName;
             this.brand = sBrand;
             this.idealTemp = nIdealTemp;

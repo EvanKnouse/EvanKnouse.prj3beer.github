@@ -34,8 +34,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="debug.cs" />
-    <Compile Include="story10SignupPage.cs" />
+    <Compile Include="examples.cs" />
     <Compile Include="AppInitializer.cs" />
+    <Compile Include="statusPageUITests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\prj3beer\prj3beer.Android\prj3beer.Android.csproj">

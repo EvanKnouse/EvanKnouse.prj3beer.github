@@ -30,6 +30,9 @@ namespace prj3beer.Views
             {
                 switch (id)
                 {
+                    case (int)MenuItemType.Status:
+                        MenuPages.Add(id, new NavigationPage(new status()));
+                        break;
                     case (int)MenuItemType.Browse:
                         MenuPages.Add(id, new NavigationPage(new ItemsPage()));
                         break;
