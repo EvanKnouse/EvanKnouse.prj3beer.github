@@ -36,6 +36,12 @@ namespace prj3beer.Views
                     case (int)MenuItemType.About:
                         MenuPages.Add(id, new NavigationPage(new AboutPage()));
                         break;
+                    case (int)MenuItemType.Status:
+                        MenuPages.Add(id, new NavigationPage(new Status()));
+                        break;
+                    case (int)MenuItemType.Selection:
+                        MenuPages.Add(id, new NavigationPage(new Selection()));
+                        break;
                 }
             }
 
