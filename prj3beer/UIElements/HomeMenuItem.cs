@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace prj3beer.Models
+namespace prj3beer.UIElements
 {
     public enum MenuItemType
     {

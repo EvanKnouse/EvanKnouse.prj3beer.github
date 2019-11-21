@@ -1,24 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Linq;
+using System.Threading.Tasks;
+using prj3beer.Models;
 using Microsoft.EntityFrameworkCore;
 
 
 namespace prj3beer.Models
 {
-    public class BrandContext : DbContext
+    public class BeerContext : DbContext
     {
         public DbSet<Brand> Brands { get; set; }
 
+        // Add more DBsets<> here
+
+
+
         private string _databasePath { get; set; }
 
-        public BrandContext()
+        public BeerContext()
         {
 
         }
 
-        public BrandContext(string databasePath)
+        public BeerContext(string databasePath)
         {
             _databasePath = databasePath;
         }
