@@ -11,17 +11,16 @@ namespace nUnitTests
     {
         Beverage mockBev;
 
+        // Setup the Beverage object for testing
         [SetUp]
         public void Setup()
         {
-            
             mockBev = new Beverage("MGD", "Miller", 2);
             Preference preference = new Preference();
-          
         }
 
         #region Story04
-        // The target temperature value is incremented by 1
+        // Test the target temperature value is incremented by 1
         [Test]
         public void TestTargetTemperatureIncrementsBy1()
         {
@@ -35,7 +34,7 @@ namespace nUnitTests
             Assert.IsTrue(mockBev.IdealTemp == previousTemp + increment);
         }
 
-        // The target temperature value is decremented by 1
+        // Test the target temperature value is decremented by 1
         [Test]
         public void TestTargetTemperatureDecrementsBy1()
         {
@@ -49,17 +48,7 @@ namespace nUnitTests
             Assert.IsTrue(mockBev.IdealTemp == previousTemp + decrement);
         }
 
-        [Test]
-        public void TestUserTypesInTargetTemp()
-        {
-            double userTemp = 7;
-
-            // set the target temperature
-            mockBev.IdealTemp = userTemp;
-
-            Assert.IsTrue(mockBev.IdealTemp == userTemp);
-        }
-
+        // Test the target temperature value does not increment past 30
         [Test]
         public void TestTargetTempDoesNotIncrementsPastPlus30()
         {
@@ -77,6 +66,7 @@ namespace nUnitTests
             Assert.IsTrue(mockBev.IdealTemp == maxTemp);
         }
 
+        // Test the target temperature value does not decrement past -30
         [Test]
         public void TestTargetTempDoesNotDecrementsPastNegative30()
         {
@@ -93,6 +83,63 @@ namespace nUnitTests
 
             Assert.IsTrue(mockBev.IdealTemp == minTemp);
         }
+
+        #region User Input
+        // Test the target temperature value is set to the valid user input value
+        // and the Beverage object does not send an error
+        [Test]
+        public void TestUserTypesInValidTargetTemp()
+        {
+            double userTemp = 7;
+
+            // set the target temperature
+            mockBev.IdealTemp = userTemp;
+
+            var errors = ValidationHelper.Validate(mockBev);
+
+            Assert.IsTrue(errors.Count == 0);
+
+            Assert.IsTrue(mockBev.IdealTemp == userTemp);
+        }
+
+        // Test the target temperature value is not set to the high invalid user input value
+        // and the Beverage object sends an error
+        [Test]
+        public void TestUserTypesInInvalidHighTargetTemp()
+        {
+            //mockBev.IdealTemp = 2;
+
+            double userTemp = 31;
+
+            // set the target temperature
+            mockBev.IdealTemp = userTemp;
+
+            var errors = ValidationHelper.Validate(mockBev);
+
+            Assert.AreEqual("Target Temperature cannot be below -30C or above 30C", errors[0].ErrorMessage);
+
+            //Assert.IsTrue(mockBev.IdealTemp == 2);
+        }
+
+        // Test the target temperature value is not set to the low invalid user input value
+        // and the Beverage object sends an error
+        [Test]
+        public void TestUserTypesInInvalidLowTargetTemp()
+        {
+            //mockBev.IdealTemp = 2;
+
+            double userTemp = -31;
+
+            // set the target temperature
+            mockBev.IdealTemp = userTemp;
+
+            var errors = ValidationHelper.Validate(mockBev);
+
+            Assert.AreEqual("Target Temperature cannot be below -30C or above 30C", errors[0].ErrorMessage);
+
+            //Assert.IsTrue(mockBev.IdealTemp == 2);
+        }
+        #endregion
         #endregion
 
         #region Story03
