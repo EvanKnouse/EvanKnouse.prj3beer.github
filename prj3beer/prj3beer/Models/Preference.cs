@@ -19,8 +19,6 @@ namespace prj3beer.Models
 
         [ForeignKey("bevId")]
         Beverage prefBev;
-
-       
         #endregion
 
         #region Constructors
@@ -37,7 +35,6 @@ namespace prj3beer.Models
         }
         #endregion
 
-        
         #region Properties
         public Beverage PrefBev
         {
@@ -51,7 +48,6 @@ namespace prj3beer.Models
             }
         }
 
-        
         [Range(-30, 30, ErrorMessage = "Target Temperature cannot be below -30C or above 30C")]
         public int FaveTemp
         {
@@ -65,7 +61,5 @@ namespace prj3beer.Models
             }
         }
         #endregion
-
-
     }
 }

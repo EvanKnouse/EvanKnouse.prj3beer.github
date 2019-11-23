@@ -6,7 +6,6 @@ namespace prj3beer.Models
     {
         private const int defaultTemp = 4;
 
-
         [Key]
         [Required]
         private int bevId; 
@@ -20,8 +19,6 @@ namespace prj3beer.Models
         [Required]
         [Range(-30, 30, ErrorMessage = "Target Temperature cannot be below -30C or above 30C")]
         private double idealTemp;
-       
-        
 
         //Default Beverage Constructor
         public Beverage()
@@ -50,7 +47,5 @@ namespace prj3beer.Models
         [Required]
         [Range(-30, 30, ErrorMessage = "Target Temperature cannot be below -30C or above 30C")]
         public double IdealTemp { get; set; }
-
-       
     }
 }

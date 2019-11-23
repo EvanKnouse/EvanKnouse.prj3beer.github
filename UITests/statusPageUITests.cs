@@ -28,28 +28,36 @@ namespace UITests
             {
                 //app = AppInitializer.StartApp(platform);
                 app = ConfigureApp.Android.ApkFile(@"D:\prj3beer\prj3.beer\prj3beer\prj3beer.Android\bin\Debug\com.companyname.prj3beer.apk").StartApp();
-                app.Tap("HomeMenu");
+                app.TapCoordinates(150, 90);
+                //app.Tap("ScreenSelectButton");
                 app.Tap("Status");
             }
-
 
             [Test]
             public void AppIsOnStatusPage()
             {
+                app.WaitForElement("StatusPage");
+
                 AppResult[] results = app.Query("StatusPage");
+
                 Assert.IsTrue(results.Any());
             }
 
             [Test]
             public void TargetTempEntryIsOnPage()
             {
+                app.WaitForElement("currentTarget");
+
                 AppResult[] results = app.Query("currentTarget");
+
                 Assert.IsTrue(results.Any());
             }
 
             [Test]
             public void IncrementButtonIsOnPage()
             {
+                app.WaitForElement("btnIncTemp");
+
                 AppResult[] results = app.Query("btnIncTemp");
                 Assert.IsTrue(results.Any());
             }
@@ -57,6 +65,8 @@ namespace UITests
             [Test]
             public void DecrementButtonIsOnPage()
             {
+                app.WaitForElement("btnDecTemp");
+
                 AppResult[] results = app.Query("btnDecTemp");
                 Assert.IsTrue(results.Any());
             }
@@ -64,7 +74,8 @@ namespace UITests
             [Test]
             public void TargetTempEntryFieldCanBeSetManually()
             {
-                app.EnterText(c => c.Marked("entryEmail"), "jimBob@hotmail.com");
+                //app.EnterText(c => c.Marked("entryEmail"), "jimBob@hotmail.com");
+                app.WaitForElement("currentTarget");
 
                 int userInput = 5;
 
@@ -79,6 +90,8 @@ namespace UITests
             [Test]
             public void TargetTempIsIncrementedByButton()
             {
+                app.WaitForElement("currentTarget");
+
                 int startTemp = int.Parse(app.Query("currentTarget")[0].Text);
 
                 app.Tap("btnIncTemp");
@@ -91,6 +104,8 @@ namespace UITests
             [Test]
             public void TargetTempIsDecrementedByButton()
             {
+                app.WaitForElement("currentTarget");
+
                 int startTemp =  int.Parse(app.Query("currentTarget")[0].Text);
 
                 app.Tap("btnDecTemp");
@@ -104,6 +119,8 @@ namespace UITests
             [Test]
             public void TargetTempIsChangedInFahrenheit()
             {
+                app.WaitForElement("currentTarget");
+
                 int startTemp = int.Parse(app.Query("currentTarget")[0].Text);
 
                 app.Tap("btnIncTemp");
