@@ -5,13 +5,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="prj3beer.Views.status"
-             AutomationId="Status">
+             AutomationId="StatusPage">
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center">
             <StackLayout>
-                <Label x:Name="currentTarget"  Text="TestTarget"
+                <Entry AutomationId="currentTarget" x:Name="currentTarget"  Text="TestTarget"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                HorizontalOptions="CenterAndExpand" Keyboard="Numeric"></Entry>
+
+            </StackLayout>
+            <StackLayout HorizontalOptions="Center">
+                <Button AutomationId="btnIncTemp" x:Name="btnIncTemp" Text="Increment"></Button>
+                <Button AutomationId="btnDecTemp" x:Name='btnDecTemp' Text="Decrement"></Button>
             </StackLayout>
         </StackLayout>
         

@@ -36,9 +36,85 @@ namespace UITests
             [Test]
             public void AppIsOnStatusPage()
             {
-                AppResult[] results = app.Query("Status");
+                AppResult[] results = app.Query("StatusPage");
                 Assert.IsTrue(results.Any());
             }
+
+            [Test]
+            public void TargetTempEntryIsOnPage()
+            {
+                AppResult[] results = app.Query("currentTarget");
+                Assert.IsTrue(results.Any());
+            }
+
+            [Test]
+            public void IncrementButtonIsOnPage()
+            {
+                AppResult[] results = app.Query("btnIncTemp");
+                Assert.IsTrue(results.Any());
+            }
+
+            [Test]
+            public void DecrementButtonIsOnPage()
+            {
+                AppResult[] results = app.Query("btnDecTemp");
+                Assert.IsTrue(results.Any());
+            }
+
+            [Test]
+            public void TargetTempEntryFieldCanBeSetManually()
+            {
+                app.EnterText(c => c.Marked("entryEmail"), "jimBob@hotmail.com");
+
+                int userInput = 5;
+
+                app.Tap("currentTarget");
+                app.EnterText("currentTarget", userInput.ToString());
+
+                String targetTemperature = app.Query("currentTarget")[0].Text;
+
+                Assert.AreEqual(userInput.ToString(), targetTemperature);
+            }
+
+            [Test]
+            public void TargetTempIsIncrementedByButton()
+            {
+                int startTemp = int.Parse(app.Query("currentTarget")[0].Text);
+
+                app.Tap("btnIncTemp");
+
+                String targetTemperature = app.Query("currentTarget")[0].Text;
+
+                Assert.AreEqual((startTemp + 1).ToString(), targetTemperature);
+            }
+
+            [Test]
+            public void TargetTempIsDecrementedByButton()
+            {
+                int startTemp =  int.Parse(app.Query("currentTarget")[0].Text);
+
+                app.Tap("btnDecTemp");
+
+                String targetTemperature = app.Query("currentTarget")[0].Text;
+
+                Assert.AreEqual((startTemp - 1).ToString(), targetTemperature);
+            }
+
+
+            [Test]
+            public void TargetTempIsChangedInFahrenheit()
+            {
+                int startTemp = int.Parse(app.Query("currentTarget")[0].Text);
+
+                app.Tap("btnIncTemp");
+
+                //Still need to implement
+            }
+
+
+
+
+
         }
 
     }

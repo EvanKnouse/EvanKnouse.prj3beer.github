@@ -10,16 +10,16 @@ using Xamarin.Forms.Xaml;
 
 namespace prj3beer.Views
 {
-    //[XamlCompilation(XamlCompilationOptions.Compile)]
-    //public partial class status : ContentPage
-    //{
-    //    public status()
-    //    {
-    //        InitializeComponent();
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class status : ContentPage
+    {
+        public status()
+        {
+            InitializeComponent();
 
-            
 
-    //    }
-    //}
+
+        }
+    }
 
 }
