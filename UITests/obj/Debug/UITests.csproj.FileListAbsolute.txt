@@ -1,0 +1,2 @@
+D:\COSACPMG\prj3.beer\UITests\obj\Debug\UITests.csprojAssemblyReference.cache
+D:\COSACPMG\prj3.beer\UITests\obj\Debug\UITests.csproj.CoreCompileInputs.cache
