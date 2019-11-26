@@ -4,17 +4,12 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="prj3beer.Views.Status"
-             AutomationId="Status"
-             Title="Status">
-    
+             x:Class="prj3beer.Views.SettingsMenu">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Don't Get Eliminated!"
+            <Label Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-            <Switch x:Name="fahrenheitEnabled"></Switch>
-            <Button x:Name="button">Button?</Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

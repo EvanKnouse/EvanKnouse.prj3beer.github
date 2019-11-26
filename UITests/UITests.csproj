@@ -37,6 +37,10 @@
       <Project>{1e7759dd-1c5c-4c25-baf0-deeb33a71610}</Project>
       <Name>prj3beer.Android</Name>
     </ProjectReference>
+    <ProjectReference Include="..\prj3beer\prj3beer.csproj">
+      <Project>{bd25fd43-c944-4b3d-ab8f-c066a89d7dc0}</Project>
+      <Name>prj3beer</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Story01UserViewsAndInteractsWithSettingsMenuUITests.cs" />

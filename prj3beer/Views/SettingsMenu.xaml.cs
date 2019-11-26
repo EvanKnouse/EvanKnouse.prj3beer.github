@@ -10,14 +10,12 @@ using Xamarin.Forms.Xaml;
 namespace prj3beer.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Status : ContentPage
+    public partial class SettingsMenu : ContentPage
     {
-        public Status()
+        public SettingsMenu()
         {
             InitializeComponent();
-
-            Button butt = (Button)button;
-            
+            this.FindByName
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using NUnit.Framework;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
+using Xamarin.Forms;
 
 namespace UITests
 {
@@ -24,8 +25,10 @@ namespace UITests
         {
             //Initialize the app, arrive at home page (default for now)
             app = ConfigureApp.Android.ApkFile(@"D:\virpc\prj3beer\prj3.beer\prj3beer.Android\bin\Debug\com.companyname.prj3beer.apk").StartApp();
-            //Tap into the screen navigation menu (default for now)
-            app.Tap("ScreenSelectButton");
+            //Tap into the screen navigation menu
+            app.TapCoordinates(150, 90);
+            ////Tap into the screen navigation menu (default for now)
+            //app.Tap("ScreenSelectButton");
         }
 
         [Test]
@@ -114,12 +117,20 @@ namespace UITests
             //Press Settings menu button
             app.Tap("SettingsMenuButton");
             //Tap on the toggle button to change the temperature setting to fahrenheit 
-            app.Tap("temperatureToggle");
+            app.Tap("fahrenheitEnabled");
             //Go back to the Status screen
             app.Back();
             //Go back to the Settings menu button
             app.Tap("SettingsMenuButton");
-            bool isToggled = app.Query((Xamarin.Forms Switch)"temperatureToggle");
+            bool toggled = app.Query(c => c.Id("fahrenheitEnabled"))[0].Enabled;
+
+            Switch testSwitch = new Switch();
+            testSwitch.IsToggled = toggled;
+
+            
+
+            bool isToggled = app.Query("fahrenheitEnabled")[0].Enabled;
+
         }
     }
 }
