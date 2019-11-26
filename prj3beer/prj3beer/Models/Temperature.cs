@@ -45,49 +45,7 @@ namespace prj3beer.Services
             return (int)(Math.Round(tempInCels * 1.8 + 32));
         }
 
-        /// <summary>
-        /// This method will iterate through the internal list and return the current average temperature.
-        /// </summary>
-        /// <returns>Current Average Temperature</returns>
-        internal int CaclulateCurrentTemp()
-        {
-            // initialize variable for returning
-            int returnTemp = 0;
-
-            // Foreach Loop, will iterate through every temperature in the List.
-            foreach( int temp in this.temperatures)
-            {   
-                // Will total up all the temps into returnTemp
-                returnTemp += temp; 
-            }
-
-            // Check to see if the isCelsuis is set to Fahrenheit
-            if (!isCelsius)
-            {   
-                // Set returnTemp to be the result of Celsius to Fahrenheit
-                returnTemp = CelsiusToFahrenheit(returnTemp);
-            }
-            // Return the average of the list
-            return returnTemp/temperatures.Count;
-        }
-
-        /// <summary>
-        /// This method will add a temperature to the LIST if it is between the boundary temperatures.
-        /// </summary>
-        /// <param name="newTemp">Temperature to add to list</param>
-        internal void addToTemp(int newTemp)
-        {
-            // If the temperature is equal to or less than 30, and equal to or greater than -30,
-            if(newTemp <= MAX_TEMP && newTemp >= MIN_TEMP)
-            {   
-                // If our List is at current capacity (5),
-                if(temperatures.Count == temperatures.Capacity)
-                {   // Then remove the first element in the list
-                    temperatures.RemoveAt(0);
-                }
-                // Add the new temperature to the list.
-                temperatures.Add(newTemp);
-            }
-        }
+       
+    
     }
 }

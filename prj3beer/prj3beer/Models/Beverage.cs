@@ -7,16 +7,16 @@ namespace prj3beer.Models
         private const int defaultTemp = 4;
 
         [Key]
-        [Required]
+        [Required (ErrorMessage = "Beverage ID is Required")]
         private int bevId; 
 
-        [Required]
+        [Required (ErrorMessage = "Beverage Name is Required")]
         public string name;
 
-        [Required]
+        [Required (ErrorMessage = "Brand is Required")]
         public string brand;
 
-        [Required]
+        [Required (ErrorMessage = "Ideal Temperature is Required")]
         [Range(-30, 30, ErrorMessage = "Target Temperature cannot be below -30C or above 30C")]
         private double idealTemp;
 
@@ -44,8 +44,7 @@ namespace prj3beer.Models
             }
         }
 
-        //[Required]
-        //[Range(-30, 30, ErrorMessage = "Target Temperature cannot be below -30C or above 30C")]
+     
         public double IdealTemp { get; set; }
     }
 }
