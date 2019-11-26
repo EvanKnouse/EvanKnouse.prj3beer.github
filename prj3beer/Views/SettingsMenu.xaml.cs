@@ -15,7 +15,6 @@ namespace prj3beer.Views
         public SettingsMenu()
         {
             InitializeComponent();
-            this.FindByName
         }
     }
 }

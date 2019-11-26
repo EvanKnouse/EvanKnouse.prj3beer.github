@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using NUnit.Framework;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
@@ -87,9 +85,9 @@ namespace UITests
             //Press Settings Menu button
             app.Tap("SettingsMenuButton");
             //Look for the toggle button on the Settings Menu
-            AppResult[] button = app.Query(("temperatureToggle"));
+            AppResult[] temperatureSwitch = app.Query(c=>c.Id("temperatureToggle"));
             //Will be greater than 0 if it exists, returns AppResult[]
-            Assert.IsTrue(button.Any());
+            Assert.IsTrue(temperatureSwitch.Any());
         }
 
         [Test]
@@ -104,7 +102,7 @@ namespace UITests
             //Go back to the Status screen
             app.Back();
             //Check that the label for the current temperature is set to "\u00B0F"
-            string tempLabel = app.Query("currentTempLabel")[0].Text;
+            string tempLabel = app.Query(c=>c.Id("currentTempLabel"))[0].Text;
 
             Assert.AreEqual("\u00B0F", tempLabel);
         }
@@ -120,6 +118,7 @@ namespace UITests
             app.Tap("fahrenheitEnabled");
             //Go back to the Status screen
             app.Back();
+
             //Go back to the Settings menu button
             app.Tap("SettingsMenuButton");
             bool toggled = app.Query(c => c.Id("fahrenheitEnabled"))[0].Enabled;
@@ -127,10 +126,7 @@ namespace UITests
             Switch testSwitch = new Switch();
             testSwitch.IsToggled = toggled;
 
-            
-
-            bool isToggled = app.Query("fahrenheitEnabled")[0].Enabled;
-
+            Assert.AreEqual(testSwitch.IsToggled, true);
         }
     }
 }

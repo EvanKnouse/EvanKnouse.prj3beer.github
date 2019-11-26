@@ -4,7 +4,7 @@ using System.Text;
 
 namespace prj3beer.Services
 {
-    public class Temperature
+    public static class Temperature
     {
         public static int ConvertToFahrenheit(double dDegrees)
         {

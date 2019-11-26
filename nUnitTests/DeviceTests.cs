@@ -1,11 +1,12 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using prj3beer.Services;
 
 namespace nUnitTests
 {
     [TestFixture]
-    class Story01UserViewsCurrentBeverageTemperature
+    class DeviceTests
     {
+        //Device connection for device temperature reporting
         DeviceConnection dc = new DeviceConnection();
 
         [Test]
@@ -21,7 +22,6 @@ namespace nUnitTests
             dc.TemperatureCheck();
             string result = dc.TemperatureCheck();
             Assert.IsTrue(result.Equals(errorMsg));
-
         }
 
         [Test]
@@ -36,7 +36,7 @@ namespace nUnitTests
         }
 
         [Test]
-        public void TestThatTemperatureBelowZero()
+        public void TestThatTemperatureIsBelowZero()
         {
             MockDevice md = new MockDevice(-1);
             dc = new DeviceConnection(md);
@@ -98,8 +98,6 @@ namespace nUnitTests
             Assert.IsTrue(result.Equals(errorMsg));
         }
 
-
-
         [Test]
         public void TestThatDeviceSendsErrantData()
         {
@@ -159,51 +157,6 @@ namespace nUnitTests
 
             string result = dc.TemperatureCheck();
             Assert.IsTrue(result.Equals(errorMsg));
-        }
-
-        [Test]
-        public void TestThatAppConvertsPositiveCelsiusTempIntoFahrenheit()
-        {
-            //target temperature in positive degrees celsius to convert
-            double c = 20.0;
-
-            //Expected result of converstion method
-            int control = 68;
-
-            //Result of conversion method
-            int converted = Temperature.ConvertToFahrenheit(c);
-
-            Assert.AreEqual(control, converted);
-        }
-
-        [Test]
-        public void TestThatAppConvertsNegativeCelsiusTempIntoFahrenheit()
-        {
-            //target temperature in negative degrees celsius to convert
-            double c = -20.0;
-
-            //Expected result of converstion method
-            int control = -4;
-
-            //Result of conversion method
-            int converted = Temperature.ConvertToFahrenheit(c);
-
-            Assert.AreEqual(control, converted);
-        }
-
-        [Test]
-        public void TestThatAppConvertsZeroDegreesCelsiusIntoFahrenheit()
-        {
-            //target temperature, 0 degrees celsius, to convert
-            double c = 0.0;
-
-            //Expected result of converstion method
-            int control = 32;
-
-            //Result of conversion method
-            int converted = Temperature.ConvertToFahrenheit(c);
-
-            Assert.AreEqual(control, converted);
         }
     }
 }
