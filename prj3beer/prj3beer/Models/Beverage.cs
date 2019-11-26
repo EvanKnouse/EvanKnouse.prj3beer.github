@@ -26,26 +26,26 @@ namespace prj3beer.Models
 
         }
 
-        public Beverage(int id, string sName, string sBrand, int nIdealTemp)
+        public Beverage(int id, string sName, string sBrand, double dIdealTemp)
         {
             this.bevId = id;
             this.name = sName;
             this.brand = sBrand;
-            this.idealTemp = nIdealTemp;
+            this.idealTemp = dIdealTemp;
 
             //If the idealTemp is set outside the allowed range, set it to default value
-            if (nIdealTemp > 30 || nIdealTemp < -30)
+            if (dIdealTemp > 30 || dIdealTemp < -30)
             {
                 this.idealTemp = defaultTemp;
             }
             else
             {
-                this.idealTemp = nIdealTemp;
+                this.idealTemp = dIdealTemp;
             }
         }
 
-        [Required]
-        [Range(-30, 30, ErrorMessage = "Target Temperature cannot be below -30C or above 30C")]
+        //[Required]
+        //[Range(-30, 30, ErrorMessage = "Target Temperature cannot be below -30C or above 30C")]
         public double IdealTemp { get; set; }
     }
 }

@@ -11,13 +11,15 @@ namespace prj3beer.Models
     {
         #region Attributes
         [Key]
-        [Required]
+        [Required(ErrorMessage = "ID is required")]
         private int prefId;
 
-        [Required]
-        int faveTemp;
+        [Required(ErrorMessage = "Favourite temperature is required")]
+        [Range(-30, 30, ErrorMessage = "Target Temperature cannot be below -30C or above 30C")]
+        double faveTemp;
 
         [ForeignKey("bevId")]
+        [Required(ErrorMessage = "Beverage object is required")]
         Beverage prefBev;
         #endregion
 
@@ -27,7 +29,7 @@ namespace prj3beer.Models
 
         }
 
-        public Preference(int prefId, Beverage prefBev, int faveTemp)
+        public Preference(int prefId, Beverage prefBev, double faveTemp)
         {
             this.prefId = prefId;
             this.prefBev = prefBev;
@@ -36,30 +38,10 @@ namespace prj3beer.Models
         #endregion
 
         #region Properties
-        public Beverage PrefBev
-        {
-            get
-            {
-                return prefBev;
-            }
-            set
-            {
-                prefBev = value;
-            }
-        }
+        public Beverage PrefBev { get; set; }
 
-        [Range(-30, 30, ErrorMessage = "Target Temperature cannot be below -30C or above 30C")]
-        public int FaveTemp
-        {
-            get
-            {
-                return faveTemp;
-            }
-            set
-            {
-                faveTemp = value;
-            }
-        }
+
+        public double FaveTemp { get; set; }
         #endregion
     }
 }

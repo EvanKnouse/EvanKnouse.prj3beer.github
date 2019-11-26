@@ -7,8 +7,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace nUnitTests
 {
-    class story04UserIncrementsDecrementsTemperatureSettings
+    class BeverageTests
     {
+        // Objects
         Beverage mockBev;
 
         // Setup the Beverage object for testing
@@ -16,7 +17,6 @@ namespace nUnitTests
         public void Setup()
         {
             mockBev = new Beverage(1,"MGD", "Miller", 2);
-            Preference preference = new Preference();
         }
 
         #region Story04

@@ -15,8 +15,8 @@
 
             </StackLayout>
             <StackLayout HorizontalOptions="Center">
-                <Button AutomationId="btnIncTemp" x:Name="btnIncTemp" Text="Increment"></Button>
-                <Button AutomationId="btnDecTemp" x:Name='btnDecTemp' Text="Decrement"></Button>
+                <Button AutomationId="btnIncTemp" x:Name="btnIncTemp" Text="Increment" Clicked="BtnIncTemp_Clicked"></Button>
+                <Button AutomationId="btnDecTemp" x:Name='btnDecTemp' Text="Decrement" Clicked="BtnDecTemp_Clicked"></Button>
             </StackLayout>
         </StackLayout>
         

@@ -16,10 +16,16 @@ namespace prj3beer.Views
         public status()
         {
             InitializeComponent();
+        }
 
+        private void BtnIncTemp_Clicked(object sender, EventArgs e)
+        {
 
+        }
+
+        private void BtnDecTemp_Clicked(object sender, EventArgs e)
+        {
 
         }
     }
-
 }

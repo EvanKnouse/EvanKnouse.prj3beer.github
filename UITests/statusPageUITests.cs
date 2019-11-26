@@ -9,20 +9,22 @@ using Xamarin.UITest.Queries;
 
 namespace UITests
 {
-    class statusPageUITests
+    class StatusPageUITests
     {
-
         [TestFixture(Platform.Android)]
         public class Tests
         {
+            // Objects
             IApp app;
             Platform platform;
 
+            // Constructor for the Tests class, initialize the platform object
             public Tests(Platform platform)
             {
                 this.platform = platform;
             }
 
+            // Start the application and navigate to the status screen before each individual test is ran
             [SetUp]
             public void BeforeEachTest()
             {
@@ -33,6 +35,7 @@ namespace UITests
                 app.Tap("Status");
             }
 
+            // Test that the application is currently on the status page
             [Test]
             public void AppIsOnStatusPage()
             {
@@ -43,6 +46,7 @@ namespace UITests
                 Assert.IsTrue(results.Any());
             }
 
+            // Test that the target temperature entry field is on the status page
             [Test]
             public void TargetTempEntryIsOnPage()
             {
@@ -53,6 +57,7 @@ namespace UITests
                 Assert.IsTrue(results.Any());
             }
 
+            // Test that the target temperature increment button is on the status page
             [Test]
             public void IncrementButtonIsOnPage()
             {
@@ -62,6 +67,7 @@ namespace UITests
                 Assert.IsTrue(results.Any());
             }
 
+            // Test that the target temperature decrement button is on the status page
             [Test]
             public void DecrementButtonIsOnPage()
             {
@@ -71,6 +77,8 @@ namespace UITests
                 Assert.IsTrue(results.Any());
             }
 
+            // Test that a temperature value can be entered in the entry field on the status page
+            // The entry field does not currently clear when being tapped, so this test fails with "Test5Target" instead of "5"
             [Test]
             public void TargetTempEntryFieldCanBeSetManually()
             {
@@ -87,6 +95,7 @@ namespace UITests
                 Assert.AreEqual(userInput.ToString(), targetTemperature);
             }
 
+            // Test that the target temperature value in the entry field is incremented by 1
             [Test]
             public void TargetTempIsIncrementedByButton()
             {
@@ -101,6 +110,7 @@ namespace UITests
                 Assert.AreEqual((startTemp + 1).ToString(), targetTemperature);
             }
 
+            // Test that the target temperature value in the entry field is decremented by 1
             [Test]
             public void TargetTempIsDecrementedByButton()
             {
@@ -115,7 +125,7 @@ namespace UITests
                 Assert.AreEqual((startTemp - 1).ToString(), targetTemperature);
             }
 
-
+            // Not yet implemented
             [Test]
             public void TargetTempIsChangedInFahrenheit()
             {
@@ -127,12 +137,6 @@ namespace UITests
 
                 //Still need to implement
             }
-
-
-
-
-
         }
-
     }
 }
