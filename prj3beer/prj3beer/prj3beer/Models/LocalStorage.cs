@@ -9,7 +9,7 @@ namespace prj3beer.Models
     public class LocalStorage
     {
         APIMockManager apiConnection; 
-        public  List<Brand> brandList;
+        public List<Brand> brandList;
 
         public LocalStorage()
         {

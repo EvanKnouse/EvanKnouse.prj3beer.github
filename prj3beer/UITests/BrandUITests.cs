@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using NUnit.Framework;
 using prj3beer.Models;
 using Xamarin.UITest;
@@ -29,40 +27,40 @@ namespace UITests
         [SetUp]
         public void BeforeEachTest()
         {
-            app = AppInitializer.StartApp(platform);
-        }
-
-        [Test]
-        public void WelcomeTextIsDisplayed()
-        {
-            AppResult[] results = app.WaitForElement(c => c.Marked("Welcome to Xamarin.Forms!"));
-            app.Screenshot("Welcome screen.");
-
-            Assert.IsTrue(results.Any());
+            //app = AppInitializer.StartApp(platform);
+            app = ConfigureApp.Android.ApkFile(@"..\prj3beer\prj3beer.Android\bin\Debug\com.companyname.prj3beer.apk").StartApp();
+            app.TapCoordinates(150, 90);
+            app.Tap("Brand");
         }
 
         [Test]
         public void TestThatListViewExistsOnPage()
         {
+            app.WaitForElement("brandList");
             AppResult[] brandList = app.Query("brandList");
             Assert.IsTrue(brandList.Any());
-        
         }
 
         [Test]
         public void TestThatListContainsValidBrands()
         {
-            AppResult[] brandList = app.Query("brandList");
-            foreach (AppResult brand in brandList)
-            {
-                   //brand.Text
-            }
+            app.WaitForElement("brandList");
+            AppResult[] brandList = app.Query(GWBbrand.brandName);
+            Assert.IsTrue(brandList.Any());
+            brandList = app.Query(CBCbrand.brandName);
+            Assert.IsTrue(brandList.Any());
+            brandList = app.Query(PSBbrand.brandName);
+            Assert.IsTrue(brandList.Any());
         }
 
         [Test]
         public void TestThatListDoesNotContainInvalidBrands()
         {
-
+            app.WaitForElement("brandList");
+            AppResult[] brandList = app.Query(Emptybrand.brandName);
+            Assert.IsFalse(brandList.Any());
+            brandList = app.Query(TooLongbrand.brandName);
+            Assert.IsFalse(brandList.Any());
         }
 
     }
