@@ -16,15 +16,16 @@ namespace Tests
         Brand TooLongbrand = new Brand() { brandID = 7, brandName = "aaaaaaaaaabbbbbbbbbbccccccccccddddddddddeeeeeeeeeeffffffffffg" };
 
         List<Brand> apibrands = new List<Brand>();
-        List<Brand> brands = new List<Brand>();
-
+        List<Brand> localBrandList = new List<Brand>();
+        LocalStorage db = new LocalStorage();
 
         APIMockManager api = new APIMockManager();
 
         [SetUp]
         public async Task SetupAsync()
         {
-           brands = await api.GetBrands();
+
+            localBrandList = db.brandList;
            apibrands = await api.GetBrands();
         }
 
@@ -33,15 +34,15 @@ namespace Tests
         {
             int index = 0;
 
-            for (int i = 0; i < brands.Count; i++)
+            for (int i = 0; i < apibrands.Count; i++)
             {
-                if(brands[i].brandName == "Great Western Brewery")
+                if(apibrands[i].brandName == "Great Western Brewery")
                 {
                     index = i;
                 }
             }
 
-            Brand compBrand = brands[index] ;
+            Brand compBrand = apibrands[index] ;
 
             Assert.IsTrue(compBrand.brandID.CompareTo(GWBbrand.brandID)==0);
             Assert.IsTrue(compBrand.brandName.CompareTo(GWBbrand.brandName) == 0);
@@ -51,7 +52,7 @@ namespace Tests
         [Test]
         public void TestThatInvalidBrandIsNotCreatedFromAPI()
         {
-            Assert.IsFalse(brands.Contains(new Brand() {brandID=4, brandName="Great Western Brewery"}));
+            Assert.IsFalse(apibrands.Contains(new Brand() {brandID=4, brandName="Great Western Brewery"}));
 
 
         }
@@ -60,15 +61,15 @@ namespace Tests
         {
             int index = 0;
 
-            for (int i = 0; i < brands.Count; i++)
+            for (int i = 0; i < localBrandList.Count; i++)
             {
-                if (brands[i].brandName == "Great Western Brewery")
+                if (localBrandList[i].brandName == "Great Western Brewery")
                 {
                     index = i;
                 }
             }
 
-            Brand compBrand = brands[index];
+            Brand compBrand = localBrandList[index];
 
             Assert.IsTrue(compBrand.brandID.CompareTo(GWBbrand.brandID) == 0);
             Assert.IsTrue(compBrand.brandName.CompareTo(GWBbrand.brandName) == 0);
@@ -76,14 +77,47 @@ namespace Tests
         [Test]
         public void TestThatBrandIsAddedToList()
         {
-
-
+            Assert.IsTrue(localBrandList.Contains(GWBbrand));
         }
         [Test]
         public void TestThatBrandWithTooManyCharactersIsNotAddedToBrandList()
         {
-            Assert.IsFalse(brands.Contains(TooLongbrand));
+            Assert.IsTrue(!localBrandList.Contains(TooLongbrand));
         }
+
+        [Test]
+        public void TestThatValidBrandsAreStoredLocally()
+        {
+            Assert.IsTrue(localBrandList.Contains(GWBbrand));
+            Assert.IsTrue(localBrandList.Contains(PSBbrand));
+            Assert.IsTrue(localBrandList.Contains(CBCbrand));
+
+        }
+
+        [Test]
+        public void TestThatInvalidBrandsAreNotStoredLocally()
+        {
+            Assert.IsTrue(!localBrandList.Contains(Emptybrand));
+            Assert.IsTrue(!localBrandList.Contains(TooLongbrand));
+
+        }
+
+        [Test]
+        public void TestThatListIsPopulatedFromLocalStorage()
+        {
+            Assert.IsTrue(localBrandList.Count == 3);
+        }
+
+        [Test]
+        public void TestThatListIsNotPopulatedFromLocalStorageWithIncorrectValues()
+        {
+            Assert.IsTrue(!localBrandList.Contains(Emptybrand));
+            Assert.IsTrue(!localBrandList.Contains(TooLongbrand));
+            Assert.IsTrue(localBrandList.Count == 3);
+        }
+
+
+
 
     }
 }
