@@ -30,6 +30,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.1.0\ref\netcoreapp2.1\System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit" Version="2.6.4" />
@@ -37,10 +39,6 @@
     <PackageReference Include="NUnitTestAdapter" Version="2.1.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\prj3beer.Android\prj3beer.Android.csproj">
-      <Project>{1e7759dd-1c5c-4c25-baf0-deeb33a71610}</Project>
-      <Name>prj3beer.Android</Name>
-    </ProjectReference>
     <ProjectReference Include="..\prj3beer\prj3beer.csproj">
       <Project>{bd25fd43-c944-4b3d-ab8f-c066a89d7dc0}</Project>
       <Name>prj3beer</Name>
@@ -50,6 +48,9 @@
     <Compile Include="Story01UserViewsAndInteractsWithSettingsMenuUITests.cs" />
     <Compile Include="AppInitializer.cs" />
     <Compile Include="ValidationHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
