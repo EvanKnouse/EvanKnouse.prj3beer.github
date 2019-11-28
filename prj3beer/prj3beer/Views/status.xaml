@@ -15,10 +15,9 @@
 
             </StackLayout>
             <StackLayout HorizontalOptions="Center">
-                <Button AutomationId="btnIncTemp" x:Name="btnIncTemp" Text="Increment" Clicked="BtnIncTemp_Clicked"></Button>
-                <Button AutomationId="btnDecTemp" x:Name='btnDecTemp' Text="Decrement" Clicked="BtnDecTemp_Clicked"></Button>
+                <Stepper x:Name="stpTemp" Maximum="30" Minimum="-30" Increment="1" HorizontalOptions="Center" ValueChanged="StpTemp_ValueChanged"></Stepper>
             </StackLayout>
         </StackLayout>
-        
+
     </ContentPage.Content>
 </ContentPage>
