@@ -27,9 +27,9 @@ namespace prj3beer.Models
 
         }
 
-        List<Brand> getBrandsFromLocalStorage()
+       public void getBrandsFromLocalStorage()
         {
-            return null;
+            this.brandList = null; 
         }
     }
 }
