@@ -1,20 +1,22 @@
-﻿using System.Linq;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
-using Xamarin.Forms;
 
 namespace UITests
 {
-    [TestFixture(Platform.Android)]
-    //[TestFixture(Platform.iOS)]
-    public class CurrentTempTests
+    class CurrentTemperatureTests
     {
+
         IApp app;
         Platform platform;
         string apkFile = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
 
-        public CurrentTempTests(Platform platform)
+        public CurrentTemperatureTests(Platform platform)
         {
             this.platform = platform;
         }
@@ -27,7 +29,7 @@ namespace UITests
             //Tap into the screen navigation menu
             //app.TapCoordinates(150, 90);
             ////Tap into the screen navigation menu (default for now)
-            app.Tap(c=>c.Marked("ScreenSelectButton"));
+            app.Tap(c => c.Marked("ScreenSelectButton"));
         }
 
         [Test]

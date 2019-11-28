@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using System.Linq;
-using Xamarin.Forms;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
 
@@ -84,10 +83,9 @@ namespace UITests
             app.Tap("SettingsMenuButton");
             bool toggled = app.Query(c => c.Id("fahrenheitEnabled"))[0].Enabled;
 
-            Switch testSwitch = new Switch();
-            testSwitch.IsToggled = toggled;
+        
 
-            Assert.AreEqual(testSwitch.IsToggled, true);
+            Assert.AreEqual(toggled, true);
         }
     }
 }

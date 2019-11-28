@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{37733C92-519F-4747-A7CA-184C858FC65A}</ProjectGuid>
+    <ProjectGuid>{A6C82A53-8256-4EDF-9426-41ECB63067C8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>UITests</RootNamespace>
     <AssemblyName>UITests</AssemblyName>
@@ -26,12 +26,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Annotations, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.1.0\ref\netcoreapp2.1\System.ComponentModel.Annotations.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit" Version="2.6.4" />
@@ -39,18 +33,16 @@
     <PackageReference Include="NUnitTestAdapter" Version="2.1.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\prj3beer\prj3beer.csproj">
-      <Project>{bd25fd43-c944-4b3d-ab8f-c066a89d7dc0}</Project>
-      <Name>prj3beer</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Story01UserViewsAndInteractsWithSettingsMenuUITests.cs" />
     <Compile Include="AppInitializer.cs" />
-    <Compile Include="ValidationHelper.cs" />
+    <Compile Include="CurrentTemperatureTests.cs" />
+    <Compile Include="SelectionTests.cs" />
+    <Compile Include="StatusTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <ProjectReference Include="..\prj3beer\prj3beer.Android\prj3beer.Android.csproj">
+      <Project>{5e951504-de3e-40dd-ac1c-ab2ae78b2d9a}</Project>
+      <Name>prj3beer.Android</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

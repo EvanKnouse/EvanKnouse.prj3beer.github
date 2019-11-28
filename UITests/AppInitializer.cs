@@ -10,7 +10,7 @@ namespace UITests
         {
             if (platform == Platform.Android)
             {
-                return ConfigureApp.Android.ApkFile(@"D:\virpc\prj3beer\prj3.beer\prj3beer.Android\bin\Debug\com.companyname.prj3beer.apk").StartApp();
+                return ConfigureApp.Android.StartApp();
             }
 
             return ConfigureApp.iOS.StartApp();

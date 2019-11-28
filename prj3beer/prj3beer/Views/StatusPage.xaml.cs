@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace prj3beer.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Selection : ContentPage
+    public partial class StatusPage : ContentPage
     {
-        public Selection()
+        public StatusPage()
         {
             InitializeComponent();
         }

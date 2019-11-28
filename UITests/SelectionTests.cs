@@ -1,5 +1,9 @@
 ﻿using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
 
@@ -7,13 +11,13 @@ namespace UITests
 {
     [TestFixture(Platform.Android)]
     //[TestFixture(Platform.iOS)]
-    public class SelectionTests
+    public class CurrentTempTests
     {
         IApp app;
         Platform platform;
-        string apkFile = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
+        const string apkFile = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
 
-        public SelectionTests(Platform platform)
+        public CurrentTempTests(Platform platform)
         {
             this.platform = platform;
         }
@@ -30,19 +34,31 @@ namespace UITests
         }
 
         [Test]
-        public void TestSettingsMenuIsDisplayedOnSelectionScreenWhenSettingsButtonIsPressed()
+        public void TestTemperatureBelowRangeError()
         {
-            //Pick Status screen from the screen selection menu
-            app.Tap("Selection");
+            AppResult[] results = app.WaitForElement(c => c.Marked("CurrentTempBox"));
+            Assert.Equals(results[0].Text, "Temperature reading outside of range");
+        }
 
-            //Press Settings Menu button
-            app.Tap("SettingsMenuButton");
+        [Test]
+        public void TestTemperatureAboveRangeError()
+        {
+            AppResult[] results = app.WaitForElement(c => c.Marked("currentTemp"));
+            Assert.Equals(results[0].Text, "Temperature reading outside of range");
+        }
 
-            //Look for the toggle button on the Settings Menu
-            AppResult[] temperatureSwitch = app.Query(c => c.Id("temperatureToggle"));
+        [Test]
+        public void TestDeviceNotFoundError()
+        {
+            AppResult[] results = app.WaitForElement(c => c.Marked("currentTemp"));
+            Assert.Equals(results[0].Text, "Waiting for device");
+        }
 
-            //Will be greater than 0 if it exists, returns AppResult[]
-            Assert.IsTrue(temperatureSwitch.Any());
+        [Test]
+        public void TestTemperatureInRangeAtMinusOne()
+        {
+            AppResult[] results = app.WaitForElement(c => c.Marked("currentTemp"));
+            Assert.Equals(results[0].Text, "-1\u00B0C");
         }
     }
 }

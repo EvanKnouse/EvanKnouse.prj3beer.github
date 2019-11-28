@@ -7,9 +7,7 @@ namespace prj3beer.Models
     public enum MenuItemType
     {
         Browse,
-        About,
-        Status,
-        Selection
+        About
     }
     public class HomeMenuItem
     {
