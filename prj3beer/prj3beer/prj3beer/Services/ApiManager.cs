@@ -6,11 +6,16 @@ using prj3beer.Models;
 
 namespace prj3beer.Services
 {
+    /// <summary>
+    /// This class is responsible for connecting to an external API and getting the brands from it
+    /// </summary>
     public class ApiManager : IAPIManager
     {
-    public String BaseURL = "";
-
+        // This string will store the URL for the API
+        public String BaseURL = "";
         
+          
+        // Use methods from MOCK API MANAGER HERE
 
         public Task<List<Brand>> GetBrands()
         {

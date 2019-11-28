@@ -8,7 +8,7 @@ namespace prj3beer.Models
     {
         Browse,
         About,
-        Brand
+        Brand // Added to Navigation Menu
     }
     public class HomeMenuItem
     {

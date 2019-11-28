@@ -25,9 +25,10 @@ namespace Tests
         public async Task SetupAsync()
         {
 
-            localBrandList = db.brandList;
+           localBrandList = db.brandList;
            apibrands = await api.GetBrands();
         }
+
 
         [Test]
         public void TestThatValidBrandIsCreatedFromAPI()
@@ -36,15 +37,15 @@ namespace Tests
 
             for (int i = 0; i < apibrands.Count; i++)
             {
-                if(apibrands[i].brandName == "Great Western Brewery")
+                if (apibrands[i].brandName == "Great Western Brewery")
                 {
                     index = i;
                 }
             }
 
-            Brand compBrand = apibrands[index] ;
+            Brand compBrand = apibrands[index];
 
-            Assert.IsTrue(compBrand.brandID.CompareTo(GWBbrand.brandID)==0);
+            Assert.IsTrue(compBrand.brandID.CompareTo(GWBbrand.brandID) == 0);
             Assert.IsTrue(compBrand.brandName.CompareTo(GWBbrand.brandName) == 0);
 
         }
@@ -52,10 +53,31 @@ namespace Tests
         [Test]
         public void TestThatInvalidBrandIsNotCreatedFromAPI()
         {
-            Assert.IsFalse(apibrands.Contains(new Brand() {brandID=4, brandName="Great Western Brewery"}));
+            Assert.IsFalse(apibrands.Contains(new Brand() { brandID = 4, brandName = "Great Western Brewery" }));
 
 
         }
+
+        [Test]
+        public void TestThatValidBrandIsAddedToList()
+        {
+            Assert.IsTrue(localBrandList.Contains(GWBbrand));
+        }
+
+        [Test]
+        public void TestThatValidBrandsAreStoredLocally()
+        {
+            Assert.IsTrue(localBrandList.Contains(GWBbrand));
+            Assert.IsTrue(localBrandList.Contains(PSBbrand));
+            Assert.IsTrue(localBrandList.Contains(CBCbrand));
+        }
+
+        [Test]
+        public void TestThatInvalidBrandIsNotAddedToBrandList()
+        {
+            Assert.IsTrue(!localBrandList.Contains(Emptybrand));
+        }
+
         [Test]
         public void TestThatSpecificBrandIsAddedToList()
         {
@@ -73,25 +95,6 @@ namespace Tests
 
             Assert.IsTrue(compBrand.brandID.CompareTo(GWBbrand.brandID) == 0);
             Assert.IsTrue(compBrand.brandName.CompareTo(GWBbrand.brandName) == 0);
-        }
-        [Test]
-        public void TestThatBrandIsAddedToList()
-        {
-            Assert.IsTrue(localBrandList.Contains(GWBbrand));
-        }
-        [Test]
-        public void TestThatBrandWithTooManyCharactersIsNotAddedToBrandList()
-        {
-            Assert.IsTrue(!localBrandList.Contains(TooLongbrand));
-        }
-
-        [Test]
-        public void TestThatValidBrandsAreStoredLocally()
-        {
-            Assert.IsTrue(localBrandList.Contains(GWBbrand));
-            Assert.IsTrue(localBrandList.Contains(PSBbrand));
-            Assert.IsTrue(localBrandList.Contains(CBCbrand));
-
         }
 
         [Test]
@@ -116,7 +119,19 @@ namespace Tests
             Assert.IsTrue(localBrandList.Count == 3);
         }
 
+        [Test]
+        public void TestThatASuccessfulConnectionToTheAPIIsEstablished()
+        {
+            Assert.IsNotNull(api);
+        }
 
+        [Test]
+        public void TestThatUnsuccessfulConnectionToTheAPIIsNotMade()
+        {
+            api = null;
+
+            Assert.IsNull(api);
+        }
 
 
     }

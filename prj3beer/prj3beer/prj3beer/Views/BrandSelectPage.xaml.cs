@@ -15,9 +15,14 @@ namespace prj3beer.Views
     {
         public ObservableCollection<Brand> Items { get; set; }
 
+        /// <summary>
+        /// Constructor for the Brand Select Page
+        /// </summary>
         public BrandSelectPage()
-        {
+        {   
             InitializeComponent();
+
+            // Setup the local storage
             LocalStorage storage = new LocalStorage();
      
             foreach (Brand brand in storage.brandList)
