@@ -16,7 +16,7 @@ namespace prj3beer.Models
         [Required (ErrorMessage = "Brand is Required")]
         public string brand;
 
-        [Required (ErrorMessage = "Ideal Temperature is Required")]
+        [Required(ErrorMessage = "Ideal Temperature is Required")]
         [Range(-30, 30, ErrorMessage = "Target Temperature cannot be below -30C or above 30C")]
         private double idealTemp;
 
@@ -31,7 +31,7 @@ namespace prj3beer.Models
             this.bevId = id;
             this.name = sName;
             this.brand = sBrand;
-            this.idealTemp = dIdealTemp;
+            this.IdealTemp = dIdealTemp;
 
             //If the idealTemp is set outside the allowed range, set it to default value
             if (dIdealTemp > 30 || dIdealTemp < -30)
@@ -44,7 +44,6 @@ namespace prj3beer.Models
             }
         }
 
-     
-        public double IdealTemp { get; set; }
+        public double IdealTemp { get => idealTemp; set => idealTemp = value; }
     }
 }

@@ -12,9 +12,11 @@ using Xamarin.Forms.Xaml;
 namespace prj3beer.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class status : ContentPage
+    public partial class Status : ContentPage
     {
-        public status()
+        Beverage currentBeverage;
+
+        public Status()
         {
             InitializeComponent();
 
@@ -28,15 +30,18 @@ namespace prj3beer.Views
             Beverage currentBeverage = getBeverageFromLocalStorage();
             setTargetTempEntryOnStartUp(currentBeverage);
 
+            StpTemp_ValueChanged(currentBeverage,null);
+
         }
 
         private void setTargetTempEntryOnStartUp(Beverage currentBeverage)
         {
-
             //Should check to see if a preference exists for the currentbeverage
 
             //Sets the currenTarget text to the currentbeverage's ideal temp
-            currentTarget.Text = currentBeverage.IdealTemp.ToString();
+            double temp = currentBeverage.IdealTemp;
+
+            currentTarget.Text = temp.ToString();
         }
 
         private Beverage getBeverageFromLocalStorage()
@@ -66,8 +71,6 @@ namespace prj3beer.Views
              *       maybe on Entry change call this even handler with the new value passed in
              * 
              */
-
-
 
             currentTarget.Text = e.NewValue.ToString();
         }

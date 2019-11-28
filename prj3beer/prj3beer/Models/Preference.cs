@@ -38,10 +38,10 @@ namespace prj3beer.Models
         #endregion
 
         #region Properties
-        public Beverage PrefBev { get; set; }
+        public Beverage PrefBev { get => prefBev; set => prefBev = value; }
 
 
-        public double FaveTemp { get; set; }
+        public double FaveTemp { get => faveTemp; set => faveTemp = value; }
         #endregion
     }
 }
