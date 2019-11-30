@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 using Foundation;
@@ -22,8 +23,13 @@ namespace prj3beer.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            // iOS
+            var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "..", "Library", "beer.db");
+
+            SQLitePCL.Batteries_V2.Init();
+
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+            LoadApplication(new App(dbPath));
 
             return base.FinishedLaunching(app, options);
         }

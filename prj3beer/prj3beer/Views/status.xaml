@@ -9,13 +9,13 @@
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center">
             <StackLayout>
-                <Entry AutomationId="currentTarget" x:Name="currentTarget"  Text="TestTarget"
+                <Entry AutomationId="currentTarget" x:Name="currentTarget"  Text="Temp"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" Keyboard="Numeric"></Entry>
+                HorizontalTextAlignment="Center" MinimumWidthRequest="3" Keyboard="Numeric" Completed="RegisterTemperatureChange"></Entry>
 
             </StackLayout>
             <StackLayout HorizontalOptions="Center">
-                <Stepper x:Name="stpTemp" Maximum="30" Minimum="-30" Increment="1" HorizontalOptions="Center" ValueChanged="StpTemp_ValueChanged"></Stepper>
+                <Stepper x:Name="stpTemp" Maximum="30" Minimum="-30" Increment="1.0" HorizontalOptions="Center" ValueChanged="StpTemp_ValueChanged"></Stepper>
             </StackLayout>
         </StackLayout>
 

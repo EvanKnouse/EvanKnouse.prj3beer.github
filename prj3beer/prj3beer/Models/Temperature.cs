@@ -18,7 +18,7 @@ namespace prj3beer.Services
         private const int MAX_TEMP = 30;
 
         // Getter for the List of stored Temperatures
-        internal List<int> temperatures  { get; }
+        internal List<double> temperatures  { get; }
 
         // Boolean for checking if the user has their settings set to Fahrenheit.
         internal bool isCelsius = true;
@@ -30,7 +30,7 @@ namespace prj3beer.Services
         /// </summary>
         public Temperature()
         {
-            temperatures = new List<int>();
+            temperatures = new List<double>();
             temperatures.Capacity = 5;
         }
 
@@ -39,13 +39,10 @@ namespace prj3beer.Services
         /// </summary>
         /// <param name="tempInCels">Passed in Celsius Temp</param>
         /// <returns>Returns the value in Fahrenheit</returns>
-        internal int CelsiusToFahrenheit(int tempInCels)
+        public double CelsiusToFahrenheit(double tempInCels)
         {   
             // Returns the rounded integer of the celsuis to fahrenheit temperature
-            return (int)(Math.Round(tempInCels * 1.8 + 32));
+            return (double)(Math.Round(tempInCels * 1.8 + 32));
         }
-
-       
-    
     }
 }

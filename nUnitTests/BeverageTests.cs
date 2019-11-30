@@ -16,7 +16,10 @@ namespace nUnitTests
         [SetUp]
         public void Setup()
         {
-            mockBev = new Beverage(1,"MGD", "Miller", 2);
+            Beverage mockBev = new Beverage();
+            mockBev.BevID = 1;
+            mockBev.Name = "Miller";
+            mockBev.IdealTemp = 2;
         }
 
         #region Story04
@@ -165,13 +168,25 @@ namespace nUnitTests
         [Test]
         public void testIdealTempIsAboveUpperThreshold()
         {
-            Assert.AreEqual("Target Temperature cannot be below -30C or above 30C", mockBev = new Beverage(2,"Banquet", "Coors", 31));
+            Beverage mockBev = new Beverage();
+            mockBev.BevID = 2;
+            mockBev.Name = "Banquet";
+            mockBev.IdealTemp = 31;
+
+            List<ValidationResult> results = new List<ValidationResult>();
+
+            Validator.TryValidateObject(mockBev, new ValidationContext(mockBev), results);
+
+            Assert.AreEqual("Target Temperature cannot be below -30C or above 30C", results);
         }
 
         [Test]
         public void testIdealTempisBelowLowerThreshold()
         {
-           mockBev = new Beverage(2,"Banquet", "Coors", -31);
+           Beverage mockBev = new Beverage();
+           mockBev.BevID = 2;
+           mockBev.Name = "Banquet";
+           mockBev.IdealTemp = -31;
 
            List<ValidationResult> results = new List<ValidationResult>();
 

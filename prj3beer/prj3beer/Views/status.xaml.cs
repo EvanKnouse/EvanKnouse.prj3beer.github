@@ -15,10 +15,17 @@ namespace prj3beer.Views
     public partial class Status : ContentPage
     {
         Beverage currentBeverage;
-
+        
+        Temperature currentTemp = new Temperature();
+       
         public Status()
         {
             InitializeComponent();
+
+            currentTemp.isCelsius = false;
+
+            
+
 
             /**
              * Get the beverage
@@ -27,11 +34,31 @@ namespace prj3beer.Views
               *         else display the beverages target temp
               *  
               */
-            Beverage currentBeverage = getBeverageFromLocalStorage();
+            currentBeverage = getBeverageFromLocalStorage();
             setTargetTempEntryOnStartUp(currentBeverage);
 
-            StpTemp_ValueChanged(currentBeverage,null);
+            stpTemp.Value = currentBeverage.IdealTemp;
 
+            updateSteppers();
+            //StpTemp_ValueChanged(currentBeverage, null);
+
+        }
+
+        private void updateSteppers()
+        {
+            if (currentTemp.isCelsius)
+            {
+                stpTemp.Minimum = -30;
+                stpTemp.Maximum =  30;
+
+            }
+            else
+            {
+                stpTemp.Minimum = currentTemp.CelsiusToFahrenheit(-30);
+                stpTemp.Maximum = currentTemp.CelsiusToFahrenheit( 30);
+                stpTemp.Value = Math.Round(currentBeverage.IdealTemp * 1.8 + 32);
+            }
+            
         }
 
         private void setTargetTempEntryOnStartUp(Beverage currentBeverage)
@@ -48,9 +75,20 @@ namespace prj3beer.Views
         {
             //Right now We dont have local storage working, for now send back a Beverage object
 
-            Beverage mockBev = new Beverage(1, "MGD", "Miller", 2);
+            Beverage mockBev = new Beverage();
+            mockBev.BevID = 1;
+            mockBev.Name = "Miller";
+            mockBev.IdealTemp = 2;
 
             return mockBev;
+        }
+
+        private void RegisterTemperatureChange(object sender, EventArgs e)
+        {
+            double newVal = Convert.ToDouble(((Entry)sender).Text);
+
+            currentBeverage.IdealTemp = newVal;
+            stpTemp.Value = currentBeverage.IdealTemp;
         }
 
         private void StpTemp_ValueChanged(object sender, ValueChangedEventArgs e)
@@ -72,7 +110,9 @@ namespace prj3beer.Views
              * 
              */
 
-            currentTarget.Text = e.NewValue.ToString();
+            currentBeverage.IdealTemp = e.NewValue;
+
+            currentTarget.Text = Math.Round(e.NewValue).ToString();
         }
     }
 }
