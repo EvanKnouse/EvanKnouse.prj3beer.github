@@ -9,6 +9,10 @@
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center">
             <StackLayout>
+                <Button Text="Celsius/Fahrenheit" Clicked="ChangeTempMetric"></Button>
+                <Label x:Name="currentMetric"></Label>
+            </StackLayout>
+            <StackLayout>
                 <Entry AutomationId="currentTarget" x:Name="currentTarget"  Text="Temp"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalTextAlignment="Center" MinimumWidthRequest="3" Keyboard="Numeric" Completed="RegisterTemperatureChange"></Entry>
@@ -16,6 +20,7 @@
             </StackLayout>
             <StackLayout HorizontalOptions="Center">
                 <Stepper x:Name="stpTemp" Maximum="30" Minimum="-30" Increment="1.0" HorizontalOptions="Center" ValueChanged="StpTemp_ValueChanged"></Stepper>
+                <Label x:Name="currentIdealTemp"></Label>
             </StackLayout>
         </StackLayout>
 
