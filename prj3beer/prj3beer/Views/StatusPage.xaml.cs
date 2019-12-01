@@ -16,5 +16,10 @@ namespace prj3beer.Views
         {
             InitializeComponent();
         }
+
+        async void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new NavigationPage(new SettingsMenu()));
+        }
     }
 }

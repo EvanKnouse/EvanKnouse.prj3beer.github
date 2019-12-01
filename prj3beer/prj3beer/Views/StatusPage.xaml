@@ -7,6 +7,11 @@
              x:Class="prj3beer.Views.StatusPage"
              AutomationId="StatusPage"
              Title="Status Page">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Settings" Clicked="ToolbarItem_Clicked" />
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Welcome to the status page!"
