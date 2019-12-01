@@ -4,12 +4,20 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="prj3beer.Views.SettingsMenu">
+             x:Class="prj3beer.Views.SettingsMenu"
+             Title="Settings"
+             AutomationId="settingsPage">
+    
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="This is the settings menu"
+        <StackLayout VerticalOptions="Center">
+            <Label Text="Celsius"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                HorizontalOptions="CenterAndExpand" 
+                x:Name="lblTemp"
+                AutomationId="lblTemp"/>
+            <Switch IsToggled="true" VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" Toggled="Switch_Toggled"
+                    x:Name="swTemp" AutomationId="swTemp"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

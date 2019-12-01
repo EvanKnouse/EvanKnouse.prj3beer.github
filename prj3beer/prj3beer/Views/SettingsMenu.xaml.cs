@@ -16,5 +16,15 @@ namespace prj3beer.Views
         {
             InitializeComponent();
         }
+
+        private void Switch_Toggled(object sender, ToggledEventArgs e)
+        {
+
+            lblTemp.Text = e.Value ? "Celsius" : "Fahrenheit";
+            
+            
+
+        }
+            
     }
 }
