@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using prj3beer.Models;
 using Microsoft.EntityFrameworkCore;
+using prj3beer.Utilities;
 
 namespace prj3beer.Utilities
 {
@@ -20,6 +21,19 @@ namespace prj3beer.Utilities
 
         // Add more DBsets<> here
 
+        //Configuration for connecting to database which stores brand objects
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            var dbPath = "SQLiteDataBase.db3";
+            switch (Device.RuntimePlatform)
+            {
+                //case Device.iOS:
+                case Device.Android:
+                    dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), dbPath);
+                    break;
+            }
+            optionsBuilder.UseSqlite($"Data Source={dbPath}");
+        }
 
         // Getter/Setter for the database path
         private string _databasePath { get; set; }

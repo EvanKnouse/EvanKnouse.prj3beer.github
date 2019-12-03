@@ -8,7 +8,7 @@ namespace prj3beer.Models
     /// <summary>
     /// This is the validation helper for validating objects passed into it
     /// </summary>
-    class ValidationHelper
+    public class ValidationHelper
     {
         public static IList<ValidationResult> Validate(object model)
         {
