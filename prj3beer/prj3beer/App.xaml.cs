@@ -10,7 +10,7 @@ namespace prj3beer
     public partial class App : Application
     {
 
-        public App(string dbPath)
+        public App()
         {
             InitializeComponent();
 

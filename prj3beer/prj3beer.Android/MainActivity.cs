@@ -23,11 +23,11 @@ namespace prj3beer.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             // Android
-            var dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "beer.db");
+            //var dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "beer.db");
             // iOS
             //var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "..", "Library", "exrin.db");
 
-            LoadApplication(new App(dbPath));
+            LoadApplication(new App());
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {

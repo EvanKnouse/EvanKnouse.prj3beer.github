@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
@@ -12,36 +13,31 @@ namespace prj3beer.Models
         #region Attributes
         [Key]
         [Required(ErrorMessage = "ID is required")]
-        private int prefId;
+        public int beverageID { get; set; }
 
         [Required(ErrorMessage = "Favourite temperature is required")]
         [Range(-30, 30, ErrorMessage = "Target Temperature cannot be below -30C or above 30C")]
-        double faveTemp;
+        public double prefTemp { get; set; }
 
-        [ForeignKey("bevId")]
-        [Required(ErrorMessage = "Beverage object is required")]
-        Beverage prefBev;
+        //[ForeignKey("bevId")]
+        //[Required(ErrorMessage = "Beverage object is required")]
+        //Beverage prefBev;
         #endregion
 
-        #region Constructors
-        public Preference()
-        {
 
-        }
+        //public Preference()
+        //{
 
-        public Preference(int prefId, Beverage prefBev, double faveTemp)
-        {
-            this.prefId = prefId;
-            this.prefBev = prefBev;
-            this.faveTemp = faveTemp;
-        }
-        #endregion
+        //}
 
-        #region Properties
-        public Beverage PrefBev { get => prefBev; set => prefBev = value; }
-
-
-        public double FaveTemp { get => faveTemp; set => faveTemp = value; }
-        #endregion
+        //public Preference(int prefId, Beverage prefBev, double faveTemp)
+        //{
+        //    this.prefId = prefId;
+        //    this.prefBev = prefBev;
+        //    this.faveTemp = faveTemp;
+        //}
+        
+      
+        
     }
 }

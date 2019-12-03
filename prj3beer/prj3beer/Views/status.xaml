@@ -17,13 +17,25 @@
                 <Label x:Name="currentMetric"></Label>
             </StackLayout>
             <StackLayout>
-                <Entry AutomationId="currentTarget" x:Name="TemperatureInput"  Text="Waiting For Beverage"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalTextAlignment="Center" MinimumWidthRequest="3" Keyboard="Numeric" Focused="ClearInput"  Completed="RegisterTemperatureChange"></Entry>
+                <Entry AutomationId="currentTarget" 
+                       x:Name="TemperatureInput"  
+                       Text="Waiting For Beverage"
+                       VerticalOptions="CenterAndExpand" 
+                       HorizontalTextAlignment="Center" 
+                       MinimumWidthRequest="3" 
+                       Keyboard="Numeric" 
+                       Focused="ClearInput"  
+                       Completed="RegisterTemperatureChange"></Entry>
 
             </StackLayout>
             <StackLayout HorizontalOptions="Center">
-                <Stepper x:Name="TemperatureStepper" Maximum="30" Minimum="-30" Increment="1.0" HorizontalOptions="Center" ValueChanged="StepperValueChange"></Stepper>
+                <Stepper x:Name="TemperatureStepper"
+
+                         Maximum="30" 
+                         Minimum="-30" 
+                         Increment="1.0" 
+                         HorizontalOptions="Center" 
+                         ValueChanged="StepperValueChange"></Stepper>
                 <Label x:Name="currentIdealTemp"></Label>
             </StackLayout>
         </StackLayout>

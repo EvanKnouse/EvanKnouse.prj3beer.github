@@ -1,7 +1,10 @@
-﻿using prj3beer.Models;
+﻿using Microsoft.Data.Sqlite;
+using prj3beer.Models;
 using prj3beer.Services;
+using prj3beer.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,14 +14,18 @@ using Xamarin.Forms.Xaml;
 namespace prj3beer.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Status : ContentPage
+    public partial class Status : ContentPage , INotifyPropertyChanged
     {
-        // beverage object, set from database selection or favourites selection
-        Beverage currentBeverage;
+        // Mock Beverage Object, (comes from bev select)
+        Beverage currentBeverage = new Beverage { BevID=1, IdealTemp=2 };
 
-        // Temp Bool Value
+        // Mock Temperature Bool, Set From Settings?
         bool isCelsius = false;
-       
+               
+        Preference preferredBeverage;
+        StatusViewModel statusViewModel;
+
+
         public Status()
         {
             InitializeComponent();
@@ -26,14 +33,12 @@ namespace prj3beer.Views
             // When you first start up the Status Screen, Disable The Inputs
             EnablePageElements(false);
 
-            // TODO: Grab Value from Internal Beverage Table OR Favorite Beverage Table
-            // set the currentBeverage to a beverage object returned from a database (eventually)
-            // currentBeverage = GetBeverageFromLocalStorage();
+            SetupPreference(currentBeverage);
 
             // If the current Beverage is set,
-            if (currentBeverage != null) {
+            if (preferredBeverage != null) {
                 //update steppers and enable inputs
-                UpdateSteppers();
+                //UpdateSteppers();
                 EnablePageElements(true);
             }
 
@@ -41,14 +46,41 @@ namespace prj3beer.Views
             //currentIdealTemp.Text = currentBeverage.IdealTemp.ToString();
         }
 
+        private void SetupPreference(Beverage passedInBeverage)
+        {
+            preferredBeverage = new Preference { beverageID = passedInBeverage.BevID, prefTemp = passedInBeverage.IdealTemp };
+        }
+
+        private async void UpdatePreference()
+        {
+            try
+            {
+                var db = new BeerContext();
+
+                db.Add(preferredBeverage);
+            }
+            catch (SqliteException){ throw; }
+
+        }
+
+
         /// <summary>
         /// This method will enable or disable all inputs on the screen
         /// </summary>
         /// <param name="enabled">True or False</param>
         private void EnablePageElements(bool enabled)
-        {
+        {   // WORK ON IT
+            //statusViewModel = new StatusViewModel { IdealTemperature = BindableProperty.Create()
+
+
+
+            //TemperatureStepper.SetBinding(statusViewModel.Temperature, TemperatureStepper.Value);
+            
+
+
             // Enable/Disable Steppers
             this.TemperatureStepper.IsEnabled = enabled;
+            
             // Enable / Disable Entry
             this.TemperatureInput.IsEnabled = enabled;
         }
@@ -59,7 +91,7 @@ namespace prj3beer.Views
             Beverage mockBev = new Beverage();
             // hardcoded values, will eventually get these values from a table
             mockBev.BevID = 1;
-            mockBev.Name = "Miller";
+            //mockBev.Name = "Miller";
             mockBev.IdealTemp = 2;
 
             // return the beverage, to be set to the status page's currentBeverage attribute
