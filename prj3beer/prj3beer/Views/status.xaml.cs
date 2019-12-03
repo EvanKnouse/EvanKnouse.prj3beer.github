@@ -14,7 +14,7 @@ namespace prj3beer.Views
     public partial class Status : ContentPage
     {
         // beverage object, set from database selection or favourites selection
-        Beverage currentBeverage; 
+        Beverage currentBeverage;
 
         // Temp Bool Value
         bool isCelsius = false;
