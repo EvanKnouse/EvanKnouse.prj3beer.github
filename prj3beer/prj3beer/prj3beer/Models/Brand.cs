@@ -14,6 +14,8 @@ namespace prj3beer.Models
     {
         [Key] // Primary Key
         [JsonProperty("id")] // JSON Property
+        [Range(0,200)]
+        [Required(ErrorMessage = "Brand ID is Required")] // Validation - Required. If not set, will return error
         public int brandID { get; set; }    
 
         [Required(ErrorMessage ="Brand Name Required")] // Validation - Required. If not set, will return error

@@ -15,7 +15,7 @@ namespace Tests
         Brand TooLongbrand = new Brand() { brandID = 7, brandName = new string('a', 61) };
         Brand MaxBoundaryNamebrand = new Brand() { brandID = 7, brandName = new string('a', 60) };
         Brand MinBoundaryNamebrand = new Brand() { brandID = 7, brandName = new string('a', 1) };
-
+        Brand noIDBrand = new Brand() { brandID = -1, brandName = new string('a', 1) };
 
         #endregion
 
@@ -23,7 +23,7 @@ namespace Tests
         [SetUp]
         public async Task SetupAsync()
         {
-            bc = new BeerContext();
+           BeerContext bc = new BeerContext();
         }
 
 
@@ -59,78 +59,15 @@ namespace Tests
         }
 
         [Test]
-        public void TestThatValidBrandIsAddedToList()
+        public void TestThatBrandIDIsNotEmpty()
         {
-            Assert.IsTrue(localBrandList.Contains(GWBbrand));
+            Assert.IsTrue(ValidationHelper.Validate(GWBbrand).Count == 0);
         }
 
         [Test]
-        public void TestThatValidBrandsAreStoredLocally()
+        public void TestThatEmptyBrandIDIsInvalid()
         {
-            Assert.IsTrue(localBrandList.Contains(GWBbrand));
-            Assert.IsTrue(localBrandList.Contains(PSBbrand));
-            Assert.IsTrue(localBrandList.Contains(CBCbrand));
-        }
-
-        [Test]
-        public void TestThatInvalidBrandIsNotAddedToBrandList()
-        {
-            Assert.IsTrue(!localBrandList.Contains(Emptybrand));
-        }
-
-        [Test]
-        public void TestThatSpecificBrandIsAddedToList()
-        {
-            int index = 0;
-
-            for (int i = 0; i < localBrandList.Count; i++)
-            {
-                if (localBrandList[i].brandName == "Great Western Brewery")
-                {
-                    index = i;
-                }
-            }
-
-            Brand compBrand = localBrandList[index];
-
-            Assert.IsTrue(compBrand.brandID.CompareTo(GWBbrand.brandID) == 0);
-            Assert.IsTrue(compBrand.brandName.CompareTo(GWBbrand.brandName) == 0);
-        }
-
-        [Test]
-        public void TestThatInvalidBrandsAreNotStoredLocally()
-        {
-            Assert.IsTrue(!localBrandList.Contains(Emptybrand));
-            Assert.IsTrue(!localBrandList.Contains(TooLongbrand));
-
-        }
-
-        [Test]
-        public void TestThatListIsPopulatedFromLocalStorage()
-        {
-            Assert.IsTrue(localBrandList.Count == 3);
-        }
-
-        [Test]
-        public void TestThatListIsNotPopulatedFromLocalStorageWithIncorrectValues()
-        {
-            Assert.IsTrue(!localBrandList.Contains(Emptybrand));
-            Assert.IsTrue(!localBrandList.Contains(TooLongbrand));
-            Assert.IsTrue(localBrandList.Count == 3);
-        }
-
-        [Test]
-        public void TestThatASuccessfulConnectionToTheAPIIsEstablished()
-        {
-            Assert.IsNotNull(api);
-        }
-
-        [Test]
-        public void TestThatUnsuccessfulConnectionToTheAPIIsNotMade()
-        {
-            api = null;
-
-            Assert.IsNull(api);
+            Assert.IsTrue(ValidationHelper.Validate(noIDBrand).Count == 1);
         }
 
 

@@ -7,13 +7,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prj3beer.Android", "prj3bee
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prj3beer.iOS", "prj3beer\prj3beer.iOS\prj3beer.iOS.csproj", "{38032DB6-98D6-46AC-B1A7-2C2C8F13FBB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prj3beer", "prj3beer\prj3beer\prj3beer.csproj", "{C65935A7-2083-4D25-B9B7-BE56D1F32E79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "prj3beer", "prj3beer\prj3beer\prj3beer.csproj", "{C65935A7-2083-4D25-B9B7-BE56D1F32E79}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5DC4D4F3-CB2E-4CF0-BBF2-7999949A4E64}"
+	ProjectSection(SolutionItems) = preProject
+		DatabaseFixture.cs = DatabaseFixture.cs
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UITests", "UITests\UITests.csproj", "{4F0EA9AF-60FB-43A5-A6CF-4C5FCD36C6AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nUnitTests", "nUnitTests\nUnitTests.csproj", "{C9F6C930-09B8-464E-90E5-8B3E3EA469C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nUnitTests", "nUnitTests\nUnitTests.csproj", "{C9F6C930-09B8-464E-90E5-8B3E3EA469C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

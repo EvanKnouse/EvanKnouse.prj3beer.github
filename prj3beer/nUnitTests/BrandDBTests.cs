@@ -8,6 +8,6 @@ namespace nUnitTests
     {
 
         //Container for a new context to work with the database
-        BeerContext bc;
+       // BeerContext bc;
     }
 }

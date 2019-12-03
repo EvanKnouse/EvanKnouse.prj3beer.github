@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using prj3beer.Models;
 using Microsoft.EntityFrameworkCore;
 using prj3beer.Utilities;
+using Xamarin.Forms;
+using System.IO;
 
 namespace prj3beer.Utilities
 {
@@ -55,13 +57,6 @@ namespace prj3beer.Utilities
             _databasePath = databasePath;
         }
 
-        /// <summary>
-        /// Allows you to use SQLite for all CRUD operations
-        /// </summary>
-        /// <param name="optionsBuilder"></param>
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {   // Setup the optionsbuilder to use SQLite using the passed in path
-            optionsBuilder.UseSqlite($"Filename={_databasePath}");
-        }
+      
     }
 }
