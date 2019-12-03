@@ -13,10 +13,28 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to the status page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout VerticalOptions="Center" >
+            <StackLayout>
+                <Label x:Name="currentTemperature"
+                       AutomationId="currentTemperature"
+                       Text="Current Temperature"
+                       VerticalOptions="CenterAndExpand" 
+                       HorizontalTextAlignment="Center" 
+                       MinimumWidthRequest="3"
+                       FontSize="38"></Label>                
+            </StackLayout>
+            
+            <StackLayout>
+                <Entry AutomationId="currentTarget" 
+                       x:Name="TemperatureInput"  
+                       Text="Waiting For Beverage"
+                       VerticalOptions="CenterAndExpand" 
+                       HorizontalTextAlignment="Center" 
+                       MinimumWidthRequest="3"
+                       Keyboard="Numeric"></Entry>
+                
+                
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

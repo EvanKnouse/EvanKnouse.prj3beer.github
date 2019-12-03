@@ -15,6 +15,7 @@ namespace prj3beer.Views
         public StatusPage()
         {
             InitializeComponent();
+
         }
 
         async void ToolbarItem_Clicked(object sender, EventArgs e)
