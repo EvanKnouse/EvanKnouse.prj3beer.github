@@ -7,7 +7,11 @@
              x:Class="prj3beer.Views.SettingsMenu"
              Title="Settings"
              AutomationId="settingsPage">
-    
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Close" Clicked="Close_Clicked" />
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center">
             <Label Text="Celsius"

@@ -9,7 +9,7 @@
              Title="Status Page">
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Settings" Clicked="ToolbarItem_Clicked" />
+        <ToolbarItem x:Name="BtnSettings" Text="Settings" Clicked="ToolbarItem_Clicked" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>

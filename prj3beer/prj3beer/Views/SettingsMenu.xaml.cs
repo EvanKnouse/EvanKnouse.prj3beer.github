@@ -11,16 +11,21 @@ namespace prj3beer.Views
         public SettingsMenu()
         {
             InitializeComponent();
+            swTemp.IsToggled = Models.Settings.TemperatureSettings;
         }
 
         private void Switch_Toggled(object sender, ToggledEventArgs e)
         {
+            
 
             lblTemp.Text = e.Value ? "Celsius" : "Fahrenheit";
-            
-            
 
+            Models.Settings.TemperatureSettings = e.Value;
         }
-            
+
+        async private void Close_Clicked(object sender, System.EventArgs e)
+        {
+            await Navigation.PopModalAsync();
+        }
     }
 }

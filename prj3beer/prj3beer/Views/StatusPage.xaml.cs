@@ -19,7 +19,12 @@ namespace prj3beer.Views
 
         async void ToolbarItem_Clicked(object sender, EventArgs e)
         {
+            ((ToolbarItem)(sender)).IsEnabled = false;
+
             await Navigation.PushModalAsync(new NavigationPage(new SettingsMenu()));
+
+            ((ToolbarItem)(sender)).IsEnabled = true;
         }
+
     }
 }
