@@ -2,12 +2,16 @@ using NUnit.Framework;
 using prj3beer.Models;
 using System.Threading.Tasks;
 using prj3beer.Utilities;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Tests
 {
     public class Tests 
     {
         #region Initializers
+        Brand EmptyIDBrand = new Brand() { brandName = "Molson Coors Brewing Company" };
+        Brand NegativeIDBrand = new Brand() { brandID = -1, brandName = "Molson Coors Brewing Company" };
         Brand Emptybrand = new Brand() { brandID = 3, brandName = "" };
         Brand GWBbrand = new Brand() { brandID = 4, brandName = "Great Western Brewery" };
         Brand CBCbrand = new Brand() { brandID = 5, brandName = "Churchhill Brewing Company" };
@@ -15,61 +19,68 @@ namespace Tests
         Brand TooLongbrand = new Brand() { brandID = 7, brandName = new string('a', 61) };
         Brand MaxBoundaryNamebrand = new Brand() { brandID = 7, brandName = new string('a', 60) };
         Brand MinBoundaryNamebrand = new Brand() { brandID = 7, brandName = new string('a', 1) };
-        Brand noIDBrand = new Brand() { brandID = -1, brandName = new string('a', 1) };
 
+        IList<ValidationResult> errors;
         #endregion
-
-
-        [SetUp]
-        public async Task SetupAsync()
-        {
-           BeerContext bc = new BeerContext();
-        }
-
 
         [Test]
         public void TestThatBrandSentThroughValidatorIsValid()
         {
-            Assert.IsTrue(ValidationHelper.Validate(GWBbrand).Count == 0);
+            errors = ValidationHelper.Validate(GWBbrand);
+            Assert.IsTrue(errors.Count == 0);
         }
 
         [Test]
         public void TestThatMaxBoundaryBrandSentThroughValidatorIsValid()
         {
-            Assert.IsTrue(ValidationHelper.Validate(MaxBoundaryNamebrand).Count == 0);
+            errors = ValidationHelper.Validate(MaxBoundaryNamebrand);
+            Assert.IsTrue(errors.Count == 0);
         }
 
         [Test]
         public void TestThatMinBoundaryBrandSentThroughValidatorIsValid()
         {
-            Assert.IsTrue(ValidationHelper.Validate(MinBoundaryNamebrand).Count == 0);
+            errors = ValidationHelper.Validate(MinBoundaryNamebrand);
+            Assert.IsTrue(errors.Count == 0);
         }
-
 
         [Test]
         public void TestThatTooLongBrandSentThroughValidatorIsInvalid()
         {
-            Assert.IsFalse(ValidationHelper.Validate(TooLongbrand).Count==0);
+            errors = ValidationHelper.Validate(TooLongbrand);
+            Assert.IsTrue(errors.Count == 1);
+            Assert.IsTrue(errors[0].ErrorMessage == "Brand Name Too Long, 60 Characters Maximum");
         }
 
         [Test]
         public void TestThatEmptyBrandSentThroughValidatorIsInvalid()
         {
-            Assert.IsFalse(ValidationHelper.Validate(Emptybrand).Count == 0);
+            errors = ValidationHelper.Validate(Emptybrand);
+            Assert.IsTrue(errors.Count == 1);
+            Assert.IsTrue(errors[0].ErrorMessage == "Brand Name Required");
         }
 
         [Test]
-        public void TestThatBrandIDIsNotEmpty()
+        public void TestThatBrandIDIsValid()
         {
-            Assert.IsTrue(ValidationHelper.Validate(GWBbrand).Count == 0);
+            errors = ValidationHelper.Validate(GWBbrand);
+            Assert.IsTrue(errors.Count == 0);
         }
 
         [Test]
         public void TestThatEmptyBrandIDIsInvalid()
         {
-            Assert.IsTrue(ValidationHelper.Validate(noIDBrand).Count == 1);
+            errors = ValidationHelper.Validate(EmptyIDBrand);
+            Assert.IsTrue(errors.Count == 1);
+            Assert.IsTrue(errors[0].ErrorMessage == "Brand ID must be a positive number less than 200");
         }
 
-
+        [Test]
+        public void TestThatNegativeBrandIDIsInvalid()
+        {
+            errors = ValidationHelper.Validate(NegativeIDBrand);
+            Assert.IsTrue(errors.Count == 1);
+            Assert.IsTrue(errors[0].ErrorMessage == "Brand ID must be a positive number less than 200");
+        }
     }
 }

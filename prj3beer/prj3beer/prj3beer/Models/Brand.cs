@@ -14,12 +14,13 @@ namespace prj3beer.Models
     {
         [Key] // Primary Key
         [JsonProperty("id")] // JSON Property
-        [Range(0,200)]
-        [Required(ErrorMessage = "Brand ID is Required")] // Validation - Required. If not set, will return error
+        //[Required(ErrorMessage = "Brand ID is Required")] // Validation - Required. If not set, will return error
+        [Range(1,200, ErrorMessage = "Brand ID must be a positive number less than 200")] //Brand ID must be a positive number between 1 and 200 (for now)
+
         public int brandID { get; set; }    
 
         [Required(ErrorMessage ="Brand Name Required")] // Validation - Required. If not set, will return error
-        [MaxLength(60,ErrorMessage ="Brand Name Too Long, 60 Characters Max")] // Validation - Max Length of 60
+        [MaxLength(60,ErrorMessage = "Brand Name Too Long, 60 Characters Maximum")] // Validation - Max Length of 60
         [JsonProperty("name")] // JSON property
         public String brandName { get; set; }
     }
