@@ -1,4 +1,5 @@
-﻿using System;
+﻿using prj3beer.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,11 +13,17 @@ namespace prj3beer.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class StatusPage : ContentPage
     {
+        
+        int bluetoothValue = 5;
+        int targetTempValue = 2;
+
         public StatusPage()
-        {
+        { 
             InitializeComponent();
-            TempReadingType(Models.Settings.TemperatureSettings);
+           
         }
+
+       
 
         async void ToolbarItem_Clicked(object sender, EventArgs e)
         {
@@ -34,19 +41,17 @@ namespace prj3beer.Views
 
         public void TempReadingType(bool type)
         {
-            if(type)
-            {
-                labelCF.Text = "\u00B0C";
-            }
-            else
-            {
-                labelCF.Text = "\u00B0F";
-            }
+            labelCFCurrentTemperature.Text = "\u00B0" + (type ? "C" : "F");
+            labelCFTargetTemperature.Text = "\u00B0" + (type ? "C" : "F");
         }
 
         protected override void OnAppearing()
         {
             TempReadingType(Models.Settings.TemperatureSettings);
+
+            currentTemperature.Text = Models.Settings.TemperatureSettings ? bluetoothValue + "" : (int)Temperature.CelsiusToFahrenheit(bluetoothValue) + "";
+            TemperatureInput.Text = Models.Settings.TemperatureSettings ? targetTempValue + "" : (int)Temperature.CelsiusToFahrenheit(targetTempValue) + "";
+
         }
 
     }

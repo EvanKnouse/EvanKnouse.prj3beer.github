@@ -32,7 +32,7 @@ namespace nUnitTests
             int control = 32;
 
             //Result of conversion method
-            int converted = (int)Temperature.FahrenheitToCelsius(c);
+            int converted = (int)Temperature.CelsiusToFahrenheit(c);
 
             Assert.AreEqual(control, converted);
         }

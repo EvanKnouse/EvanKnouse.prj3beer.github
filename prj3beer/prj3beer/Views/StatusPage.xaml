@@ -22,24 +22,30 @@
                        VerticalOptions="Center" 
                        MinimumWidthRequest="3"
                        FontSize="38"></Label>
-                <Label x:Name="labelCF"
-                       AutomationId="labelCF"
+                <Label x:Name="labelCFCurrentTemperature"
+                       AutomationId="labelCFCurrentTemperature"
                        Text="C"
                        VerticalOptions="Center"
                        FontSize="38"
                        ></Label>
             </StackLayout>
-            
-            <StackLayout>
-                <Entry AutomationId="currentTarget" 
-                       x:Name="TemperatureInput"  
+
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="CenterAndExpand">
+                <Entry AutomationId="TemperatureInput" 
+                       x:Name="TemperatureInput"
+                       FontSize="20"
                        Text="Waiting For Beverage"
                        VerticalOptions="CenterAndExpand" 
                        HorizontalTextAlignment="Center" 
-                       MinimumWidthRequest="3"
+                       MinimumWidthRequest="6"
                        Keyboard="Numeric"></Entry>
-                
-                
+                <Label x:Name="labelCFTargetTemperature"
+                       AutomationId="labelCFTargetTemperature"
+                       Text="C"
+                       VerticalOptions="Center"
+                       FontSize="20"
+                       ></Label>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
