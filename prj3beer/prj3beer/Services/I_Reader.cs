@@ -6,6 +6,6 @@ namespace prj3beer.Services
 {
     public interface I_Reader
     {
-        //does nothing
+        int GetTemp();
     }
 }

@@ -14,14 +14,20 @@
 
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center" >
-            <StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="CenterAndExpand">
                 <Label x:Name="currentTemperature"
                        AutomationId="currentTemperature"
-                       Text="Current Temperature"
-                       VerticalOptions="CenterAndExpand" 
-                       HorizontalTextAlignment="Center" 
+                       Text="Current Temp"
+                       VerticalOptions="Center" 
                        MinimumWidthRequest="3"
-                       FontSize="38"></Label>                
+                       FontSize="38"></Label>
+                <Label x:Name="labelCF"
+                       AutomationId="labelCF"
+                       Text="C"
+                       VerticalOptions="Center"
+                       FontSize="38"
+                       ></Label>
             </StackLayout>
             
             <StackLayout>

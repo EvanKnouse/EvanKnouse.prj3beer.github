@@ -13,20 +13,17 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout Padding="20" VerticalOptions="Start">
-            <StackLayout Margin="0,40,40,0">
+        <StackLayout Orientation="Horizontal" Padding="20" VerticalOptions="Start">
                 <Label Text="Celsius"
                 FontSize="35"
                 VerticalOptions="Center"
                 HorizontalOptions="StartAndExpand" 
                 x:Name="lblTemp"
                 AutomationId="lblTemp"/>
-            </StackLayout>
-            <StackLayout>
+
                 <Switch IsToggled="true" VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="EndAndExpand" Toggled="Switch_Toggled"
                     x:Name="switchTemp" AutomationId="switchTemp"/>
-            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

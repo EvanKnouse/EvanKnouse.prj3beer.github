@@ -13,10 +13,11 @@ namespace nUnitTests
             double c = -20.0;
 
             //Expected result of converstion method
-            string control = (-4).ToString() + "\u00B0F";
+            //string control = (-4).ToString() + "\u00B0F";
+            int control = -4;
 
             //Result of conversion method
-            string converted = Temperature.ConvertToFahrenheit(c);
+            double converted = Temperature.CelsiusToFahrenheit(c);
 
             Assert.AreEqual(control, converted);
         }
@@ -28,10 +29,10 @@ namespace nUnitTests
             double c = 0.0;
 
             //Expected result of converstion method
-            string control = (32).ToString() + "\u00B0F";
+            int control = 32;
 
             //Result of conversion method
-            string converted = Temperature.ConvertToFahrenheit(c);
+            int converted = (int)Temperature.FahrenheitToCelsius(c);
 
             Assert.AreEqual(control, converted);
         }
@@ -43,10 +44,10 @@ namespace nUnitTests
             double c = 20.0;
 
             //Expected result of converstion method
-            string control = (68).ToString() + "\u00B0F";
+            int control = 68;
 
             //Result of conversion method
-            string converted = Temperature.ConvertToFahrenheit(c);
+            int converted = (int)Temperature.CelsiusToFahrenheit(c);
 
             Assert.AreEqual(control, converted);
         }
