@@ -4,12 +4,13 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="prj3beer.Views.BrandSelectPage">
+             x:Class="prj3beer.Views.BrandSelectPage"
+             >
   <ListView x:Name="MyListView" 
             ItemsSource="{Binding Items}"
             ItemTapped="Handle_ItemTapped"
             CachingStrategy="RecycleElement">
-    <d:ListView.ItemsSource>
+    <!--<d:ListView.ItemsSource>
         <x:Array Type="{x:Type x:String}">
             <x:String>Item 1</x:String>
             <x:String>Item 2</x:String>
@@ -17,17 +18,18 @@
             <x:String>Item 4</x:String>
             <x:String>Item 5</x:String>
         </x:Array>
-    </d:ListView.ItemsSource>
+    </d:ListView.ItemsSource>-->
     <!--Built in Cells-->
-    <ListView.ItemTemplate>
+    <!--<ListView.ItemTemplate>
         <DataTemplate>
             <TextCell Text="{Binding .}" d:Text="{Binding .}" />
         </DataTemplate>
-    </ListView.ItemTemplate>
+    </ListView.ItemTemplate>-->
     
     <!--Custom View Cells-->
-    <!--
-    <ListView.ItemTemplate>
+ 
+      <!-- this was uncommented per Ernesto's instructions-->
+    <!--<ListView.ItemTemplate>
       <DataTemplate>
         <ViewCell>
           <StackLayout>
@@ -40,7 +42,7 @@
           </StackLayout>
         </ViewCell>
       </DataTemplate>
-    </ListView.ItemTemplate>
-    -->
+    </ListView.ItemTemplate>-->
+
   </ListView>
 </ContentPage>

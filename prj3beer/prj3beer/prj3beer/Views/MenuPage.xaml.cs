@@ -20,6 +20,8 @@ namespace prj3beer.Views
 
             menuItems = new List<HomeMenuItem>
             {
+                //TODO: Reroute the screen to the main menu page instead of directly to the brand select page\
+
                 //new HomeMenuItem {Id = MenuItemType.Browse, Title="Browse" },
                 new HomeMenuItem {Id = MenuItemType.Brand, Title="Brand Select" }
             };

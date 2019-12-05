@@ -19,8 +19,13 @@ namespace prj3beer.Views
         public BrandSelectPage(List<Brand> brands)
         {
             InitializeComponent();
-
-            MyListView.ItemsSource = brands;
+            List<String> listViewBrand = new List<String>();
+            foreach (Brand brand in brands)
+            {
+                listViewBrand.Add(brand.brandName);
+            }
+            
+            MyListView.ItemsSource = listViewBrand;
         }
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)

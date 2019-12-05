@@ -26,7 +26,9 @@ namespace prj3beer
             bc.Database.EnsureCreated();
             if (System.Diagnostics.Debugger.IsAttached) { loadFixtures(bc); }
             
-            MainPage = new NavigationPage(new prj3beer.Views.MainPage(bc));
+            
+          //  MainPage = new NavigationPage(new prj3beer.Views.MainPage(bc));
+            MainPage = new NavigationPage(new prj3beer.Views.BrandSelectPage(bc.Brands.ToList()));
         }
 
         private async void loadFixtures(BeerContext bc)
@@ -38,6 +40,7 @@ namespace prj3beer
                 var count = bc.Brands.Count();
                 if (count == 0)
                 {
+                    //TODO: Do validation on each brand before adding to BC
                     bc.Brands.Add(new Brand() { brandID = 4, brandName = "Great Western Brewery" });
                     bc.Brands.Add(new Brand() { brandID = 5, brandName = "Churchhill Brewing Company" });
                     bc.Brands.Add(new Brand() { brandID = 6, brandName = "Prarie Sun Brewery" });
