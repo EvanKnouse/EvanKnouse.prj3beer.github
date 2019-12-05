@@ -22,6 +22,7 @@ namespace prj3beer.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            SQLitePCL.raw.SetProvider(new SQLitePCL.SQLite3Provider_bait());
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 

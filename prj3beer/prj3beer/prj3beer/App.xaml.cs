@@ -1,9 +1,5 @@
-﻿using System;
-using Xamarin.Essentials;
+﻿using Xamarin.Essentials;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using prj3beer.Services;
-using prj3beer.Views;
 using prj3beer.Utilities;
 using System.Linq;
 using prj3beer.Models;

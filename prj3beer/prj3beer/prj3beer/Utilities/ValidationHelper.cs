@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 
-namespace prj3beer.Models
+namespace prj3beer.Utilities
 {
     /// <summary>
     /// This is the validation helper for validating objects passed into it

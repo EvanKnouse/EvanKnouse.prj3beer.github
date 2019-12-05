@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using prj3beer.Models;
+using prj3beer.Utilities;
 
 namespace prj3beer.Services
 {

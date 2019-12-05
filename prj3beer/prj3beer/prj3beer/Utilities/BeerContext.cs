@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using System.Threading.Tasks;
 using prj3beer.Models;
 using Microsoft.EntityFrameworkCore;
-using prj3beer.Utilities;
 using Xamarin.Forms;
 using System.IO;
 
@@ -29,7 +24,8 @@ namespace prj3beer.Utilities
             var dbPath = "Beverages.db3";
             switch (Device.RuntimePlatform)
             {
-                //case Device.iOS:
+                case Device.iOS:
+                    break;
                 case Device.Android:
                     dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), dbPath);
                     break;
