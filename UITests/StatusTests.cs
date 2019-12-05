@@ -11,7 +11,7 @@ namespace UITests
     {
         IApp app;
         Platform platform;
-        string apkFile = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
+        string apkFile = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
 
         public StatusTests(Platform platform)
         {
@@ -22,11 +22,11 @@ namespace UITests
         public void BeforeEachTest()
         {
             //Initialize the app, arrive at home page (default for now)
-            app = ConfigureApp.Android.ApkFile(apkFile).StartApp();
+            app = app = ConfigureApp.Android.ApkFile(apkFile).StartApp();
             //Tap into the screen navigation menu
-            //app.TapCoordinates(150, 90);
+            app.TapCoordinates(150, 90);
             ////Tap into the screen navigation menu (default for now)
-            app.Tap(c => c.Marked("ScreenSelectButton"));
+            //app.Tap(c => c.Marked("ScreenSelectButton"));
         }
 
         [Test]
@@ -35,11 +35,13 @@ namespace UITests
             //Pick Status screen from the screen selection menu
             app.Tap("Status");
 
+            app.WaitForElement("SettingsMenuButton");
+
             //Press Settings Menu button
             app.Tap("SettingsMenuButton");
 
             //Look for the toggle button on the Settings Menu
-            AppResult[] button = app.Query(("temperatureToggle"));
+            AppResult[] button = app.Query(("switchTemp"));
 
             //Will be greater than 0 if it exists, returns AppResult[]
             Assert.IsTrue(button.Any());
@@ -51,17 +53,19 @@ namespace UITests
             //Pick Status screen from the screen selection menu
             app.Tap("Status");
 
+           
+
             //Press Settings menu button
             app.Tap("SettingsMenuButton");
 
             //Tap on the toggle button to change the temperature setting to fahrenheit
-            app.Tap("temperatureToggle");
+            app.Tap("switchTemp");
 
             //Go back to the Status screen
             app.Back();
 
             //Check that the label for the current temperature is set to "\u00B0F"
-            string tempLabel = app.Query(c => c.Id("currentTempLabel"))[0].Text;
+            string tempLabel = app.Query(c => c.Id("currentTemperature"))[0].Text;
 
             //If equal, the temperature label has been set to fahrenheit and the settings have been applied
             Assert.AreEqual("\u00B0F", tempLabel);

@@ -9,7 +9,7 @@
              AutomationId="settingsPage">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Close" Clicked="Close_Clicked" />
+        <ToolbarItem  AutomationId="SettingsMenuButton" Text="Close" Clicked="Close_Clicked" IconImageSource="outline_clear_black_24.png"/>
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>

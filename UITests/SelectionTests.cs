@@ -15,7 +15,7 @@ namespace UITests
     {
         IApp app;
         Platform platform;
-        const string apkFile = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
+        string apkFile = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
 
         public CurrentTempTests(Platform platform)
         {
