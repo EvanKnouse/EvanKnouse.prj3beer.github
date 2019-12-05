@@ -17,19 +17,18 @@ namespace prj3beer.Views
     public partial class Status : ContentPage, INotifyPropertyChanged
     {
         // Mock Beverage Object, (comes from bev select)
-        Beverage currentBeverage = new Beverage { BevID = 1, IdealTemp = 2 };
-
+        //Beverage currentBeverage = new Beverage { BevID = 1, IdealTemp = 2 };
         Preference preferredBeverage;
-
         StatusViewModel statusViewModel;
+        //BeerContext db;
 
-        BeerContext db;
-
-        public Status()
+        public Status(StatusViewModel svm, BeerContext context, Beverage currentBeverage)
         {
             InitializeComponent();
 
-            EstablishDBConnection();
+            statusViewModel = svm;
+
+            //EstablishDBConnection();
 
             SetupPreference(currentBeverage);
 
@@ -46,33 +45,6 @@ namespace prj3beer.Views
 
             // DEBUG
             //currentIdealTemp.Text = currentBeverage.IdealTemp.ToString();
-        }
-
-        private void EstablishDBConnection()
-        {
-            db = new BeerContext();
-            db.Database.EnsureCreated();
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                LoadFixtures(db);
-            }
-        }
-
-        private async void LoadFixtures(BeerContext db)
-        {
-            try
-            {
-                await db.Database.EnsureDeletedAsync();
-                await db.Database.EnsureCreatedAsync();
-
-                db.Preference.Add(preferredBeverage);
-
-                await db.SaveChangesAsync();
-            }
-            catch (SqliteException)
-            {
-                throw;
-            }
         }
 
         private void SetupPreference(Beverage passedInBeverage)
@@ -104,10 +76,10 @@ namespace prj3beer.Views
             statusViewModel = new StatusViewModel();
 
             //TODO: REPLACE = true with the Boolean From Settings Menu
-            statusViewModel.isCelsius = true;
-            statusViewModel.PreferredTemperature = preferredBeverage.prefTemp;
-
-            BindingContext = statusViewModel;
+            statusViewModel.IsCelsius = false;
+            // trying to set the status view models to celsius or fahrenheit, no luck
+            double temptemp = preferredBeverage.prefTemp;
+            statusViewModel.PreferredTemperature = statusViewModel.IsCelsius ? temptemp : (temptemp * 1.8 + 32);
 
             // Enable/Disable Steppers
             this.TemperatureStepper.IsEnabled = enabled;
@@ -124,10 +96,10 @@ namespace prj3beer.Views
         /// <param name="args"></param>
         private void ChangeTempMetric(object sender, EventArgs args)
         {
-            statusViewModel.isCelsius = statusViewModel.isCelsius == true ? false : true;
+            statusViewModel.IsCelsius = statusViewModel.IsCelsius == true ? false : true;
 
             // debug purposes
-            currentMetric.Text = statusViewModel.isCelsius ? "Celsius" : "Fahrenheit";
+            currentMetric.Text = statusViewModel.IsCelsius ? "Celsius" : "Fahrenheit";
         }
 
         /// <summary>

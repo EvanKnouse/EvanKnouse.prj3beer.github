@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace prj3beer.Services
 {
-    class BeerContext : DbContext
+    public class BeerContext : DbContext
     {
         // DB set for Beverages
         public DbSet<Beverage> Beverage { get; set; }

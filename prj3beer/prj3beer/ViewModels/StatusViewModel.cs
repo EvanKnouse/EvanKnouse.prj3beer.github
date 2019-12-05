@@ -3,31 +3,31 @@ using Xamarin.Forms;
 
 namespace prj3beer.ViewModels
 {
-    class StatusViewModel : INotifyPropertyChanged
+    public class StatusViewModel : INotifyPropertyChanged
     {
         double? _prefTemp;
 
-        public bool isCelsius { get; set; }
+        bool _isCelsius;
 
         public string Scale
         {
             get
             {
-                return isCelsius ? "\u00B0C" : "\u00B0F";
+                return _isCelsius ? "\u00B0C" : "\u00B0F";
             }
         }
         public double Minimum
         {
             get
             {
-                return isCelsius ? -30 : -22;
+                return _isCelsius ? -30 : -22;
             }
         }
         public double Maximum
         {
             get
             {
-                return isCelsius ? 30 : 86;
+                return _isCelsius ? 30 : 86;
             }
         }
 
@@ -60,6 +60,34 @@ namespace prj3beer.ViewModels
             }
         }
 
+        public bool IsCelsius
+        {
+            get { return _isCelsius; }
+            set { _isCelsius = value; }
+        }
+
+        public bool IsCelsiusUpdate
+        {
+            get { return _isCelsius; }
+
+            set
+            {
+                _isCelsius = value;
+                OnPropertyChanged("IsCelsiusUpdate");
+                /*try
+                {
+                    isCelsius = value;
+                }
+                catch
+                {
+                    isCelsius = null;
+                }
+                finally
+                {
+                    OnPropertyChanged("IsCelsiusUpdate");
+                }*/
+            }
+        }
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
