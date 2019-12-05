@@ -6,6 +6,7 @@ using prj3beer.Models;
 using prj3beer.Utilities;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Microsoft.EntityFrameworkCore.Sqlite;
 
 namespace prj3beer.Views
 {
@@ -39,8 +40,8 @@ namespace prj3beer.Views
             try
             {
                 BeerContext bc = new BeerContext();
-
-               // await bc.Database.EnsureCreatedAsync();
+              
+                await bc.Database.EnsureCreatedAsync();
                 int count = bc.Brands.Count();
                 if (count == 0)
                 {

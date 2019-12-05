@@ -26,7 +26,7 @@ namespace prj3beer.Utilities
         //Configuration for connecting to database which stores brand objects
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var dbPath = "SQLiteDataBase.db3";
+            var dbPath = "Beverages.db3";
             switch (Device.RuntimePlatform)
             {
                 //case Device.iOS:
@@ -36,27 +36,6 @@ namespace prj3beer.Utilities
             }
             optionsBuilder.UseSqlite($"Data Source={dbPath}");
         }
-
-        // Getter/Setter for the database path
-        private string _databasePath { get; set; }
-
-        /// <summary>
-        /// Empty Constructor for Beer Context
-        /// </summary>
-        public BeerContext()
-        {
-
-        }
-
-        /// <summary>
-        /// Constructor that takes in a database path
-        /// </summary>
-        /// <param name="databasePath"></param>
-        public BeerContext(string databasePath)
-        {   // This will set the database path from the passed in string
-            _databasePath = databasePath;
-        }
-
       
     }
 }

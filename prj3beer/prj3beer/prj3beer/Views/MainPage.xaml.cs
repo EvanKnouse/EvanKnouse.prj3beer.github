@@ -6,6 +6,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 using prj3beer.Models;
+using prj3beer.Utilities;
 
 namespace prj3beer.Views
 {
@@ -15,7 +16,7 @@ namespace prj3beer.Views
     public partial class MainPage : MasterDetailPage
     {
         Dictionary<int, NavigationPage> MenuPages = new Dictionary<int, NavigationPage>();
-        public MainPage()
+        public MainPage(BeerContext bc)
         {
             InitializeComponent();
 
@@ -24,7 +25,7 @@ namespace prj3beer.Views
             MenuPages.Add((int)MenuItemType.Browse, (NavigationPage)Detail);
         }
 
-        public async Task NavigateFromMenu(int id)
+        public async Task NavigateFromMenu(int id, BeerContext bc)
         {
             if (!MenuPages.ContainsKey(id))
             {
@@ -34,7 +35,7 @@ namespace prj3beer.Views
                        // MenuPages.Add(id, new NavigationPage(new ItemsPage()));
                        // break;
                     case (int)MenuItemType.Brand:
-                        MenuPages.Add(id, new NavigationPage(new BrandSelectPage()));
+                        MenuPages.Add(id, new NavigationPage(new BrandSelectPage(bc)));
                         break;
                 }
             }
