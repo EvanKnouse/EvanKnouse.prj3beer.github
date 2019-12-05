@@ -13,6 +13,9 @@ namespace prj3beer.Services
         // DB set for Beverages
         public DbSet<Beverage> Beverage { get; set; }
 
+        public DbSet<Preference> Preference { get; set; }
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Database Name

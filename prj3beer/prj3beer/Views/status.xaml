@@ -9,33 +9,27 @@
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center">
             <StackLayout>
-                <Button Text="LoadBeverage" Clicked="GetBeverageFromLocalStorage"></Button>
-                
-            </StackLayout>
-            <StackLayout>
                 <Button Text="Celsius/Fahrenheit" Clicked="ChangeTempMetric"></Button>
                 <Label x:Name="currentMetric"></Label>
             </StackLayout>
             <StackLayout>
                 <Entry AutomationId="currentTarget" 
-                       x:Name="TemperatureInput"  
-                       Text="Waiting For Beverage"
-                       VerticalOptions="CenterAndExpand" 
-                       HorizontalTextAlignment="Center" 
-                       MinimumWidthRequest="3" 
-                       Keyboard="Numeric" 
-                       Focused="ClearInput"  
-                       Completed="RegisterTemperatureChange"></Entry>
-
+                       x:Name="TemperatureInput" 
+                       Keyboard="Numeric"
+                       HorizontalOptions="FillAndExpand"
+                       HorizontalTextAlignment="End"
+                       Text="{Binding Source={x:Reference TemperatureStepper},Path=Value,Mode=TwoWay}"
+                       Focused="SelectEntryText"
+                       />
+                <Label x:Name="Degree" Text="{Binding Scale}"/>
             </StackLayout>
             <StackLayout HorizontalOptions="Center">
                 <Stepper x:Name="TemperatureStepper"
-
-                         Maximum="30" 
-                         Minimum="-30" 
-                         Increment="1.0" 
-                         HorizontalOptions="Center" 
-                         ValueChanged="StepperValueChange"></Stepper>
+                         Value="{Binding PreferredTemperatureString, Mode=TwoWay}"
+                         Maximum="{Binding Maximum}" 
+                         Minimum="{Binding Minimum}" 
+                         Increment="1" 
+                         HorizontalOptions="Center"/>
                 <Label x:Name="currentIdealTemp"></Label>
             </StackLayout>
         </StackLayout>

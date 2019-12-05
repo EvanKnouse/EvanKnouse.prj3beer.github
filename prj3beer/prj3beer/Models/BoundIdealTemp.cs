@@ -9,9 +9,18 @@ namespace prj3beer.Models
     {
         public static readonly BindableProperty IdealTemperature = BindableProperty.Create("IdealTemp", typeof(double), typeof(Beverage), default(double));
 
-        public double IdealTemp
-        {
-            get { return }
+        public double IdealTemp {
+            get { return (double)GetValue(IdealTemperature); }
+            set {
+                try
+                {
+                    SetValue(IdealTemperature, value);
+                }
+                catch( ArgumentException e )
+                {
+
+                }
+            }
         }
     }
 }
