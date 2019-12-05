@@ -23,8 +23,6 @@ namespace prj3beer.Views
            
         }
 
-       
-
         async void ToolbarItem_Clicked(object sender, EventArgs e)
         {
             ((ToolbarItem)(sender)).IsEnabled = false;
@@ -41,7 +39,7 @@ namespace prj3beer.Views
 
         public void TempReadingType(bool type)
         {
-            labelCFCurrentTemperature.Text = "\u00B0" + (type ? "C" : "F");
+            //labelCFCurrentTemperature.Text = "\u00B0" + (type ? "C" : "F");
             labelCFTargetTemperature.Text = "\u00B0" + (type ? "C" : "F");
         }
 
@@ -49,7 +47,7 @@ namespace prj3beer.Views
         {
             TempReadingType(Models.Settings.TemperatureSettings);
 
-            currentTemperature.Text = Models.Settings.TemperatureSettings ? bluetoothValue + "" : (int)Temperature.CelsiusToFahrenheit(bluetoothValue) + "";
+            //currentTemperature.Text = Models.Settings.TemperatureSettings ? bluetoothValue + "" : (int)Temperature.CelsiusToFahrenheit(bluetoothValue) + "";
             TemperatureInput.Text = Models.Settings.TemperatureSettings ? targetTempValue + "" : (int)Temperature.CelsiusToFahrenheit(targetTempValue) + "";
 
         }
