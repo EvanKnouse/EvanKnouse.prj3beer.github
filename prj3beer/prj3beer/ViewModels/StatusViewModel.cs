@@ -5,53 +5,35 @@ namespace prj3beer.ViewModels
 {
     public class StatusViewModel : INotifyPropertyChanged
     {
-        double? _prefTemp;
+        double? _temperature;
 
-        bool _isCelsius;
+        public bool isCelsius { get; set; }
 
-        public string Scale
-        {
-            get
-            {
-                return _isCelsius ? "\u00B0C" : "\u00B0F";
-            }
-        }
-        public double Minimum
-        {
-            get
-            {
-                return _isCelsius ? -30 : -22;
-            }
-        }
-        public double Maximum
-        {
-            get
-            {
-                return _isCelsius ? 30 : 86;
-            }
-        }
+        public string Scale { get { return isCelsius ? "\u00B0C" : "\u00B0F"; } }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public double Minimum { get { return isCelsius ? -30 : -22; } }
+        
+        public double Maximum { get { return isCelsius ?  30 :  86; } }
 
-        public double? PreferredTemperature
+        public double? Temperature
         {
-            get { return _prefTemp; }
-            set { _prefTemp = value; }
+            get { return _temperature; }
+            set { _temperature = value; }
         }
 
         public string PreferredTemperatureString
         {
-            get { return _prefTemp.HasValue ? _prefTemp.ToString() : ""; }
+            get { return _temperature.HasValue ? _temperature.ToString() : ""; }
 
             set
             {
                 try
                 {
-                    _prefTemp = double.Parse(value);
+                    _temperature = double.Parse(value);
                 }
                 catch
                 {
-                    _prefTemp = null;
+                    _temperature = null;
                 }
                 finally
                 {
@@ -60,34 +42,7 @@ namespace prj3beer.ViewModels
             }
         }
 
-        public bool IsCelsius
-        {
-            get { return _isCelsius; }
-            set { _isCelsius = value; }
-        }
-
-        public bool IsCelsiusUpdate
-        {
-            get { return _isCelsius; }
-
-            set
-            {
-                _isCelsius = value;
-                OnPropertyChanged("IsCelsiusUpdate");
-                /*try
-                {
-                    isCelsius = value;
-                }
-                catch
-                {
-                    isCelsius = null;
-                }
-                finally
-                {
-                    OnPropertyChanged("IsCelsiusUpdate");
-                }*/
-            }
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
@@ -97,6 +52,5 @@ namespace prj3beer.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
     }
 }

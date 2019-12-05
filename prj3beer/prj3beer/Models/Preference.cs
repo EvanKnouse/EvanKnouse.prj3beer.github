@@ -13,11 +13,11 @@ namespace prj3beer.Models
         #region Attributes
         [Key]
         [Required(ErrorMessage = "ID is required")]
-        public int beverageID { get; set; }
+        public int BeverageID { get; set; }
 
         [Required(ErrorMessage = "Favourite temperature is required")]
         [Range(-30, 30, ErrorMessage = "Target Temperature cannot be below -30C or above 30C")]
-        public double prefTemp { get; set; }
+        public double Temperature { get; set; }
 
         //[ForeignKey("bevId")]
         //[Required(ErrorMessage = "Beverage object is required")]

@@ -29,9 +29,9 @@ namespace prj3beer
 
         private async void LoadFixtures(BeerContext context)
         {
-            Beverage bev1 = new Beverage { BevID = 1, IdealTemp = 2 };
-            Beverage bev2 = new Beverage { BevID = 2, IdealTemp = 4 };
-            Beverage bev3 = new Beverage { BevID = 3, IdealTemp = -1 };
+            Beverage bev1 = new Beverage { BeverageID = 1, Temperature = 2 };
+            Beverage bev2 = new Beverage { BeverageID = 2, Temperature = 4 };
+            Beverage bev3 = new Beverage { BeverageID = 3, Temperature = -1 };
 
             try
             {

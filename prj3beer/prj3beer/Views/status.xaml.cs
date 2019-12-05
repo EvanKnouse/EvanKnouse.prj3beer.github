@@ -20,17 +20,19 @@ namespace prj3beer.Views
         //Beverage currentBeverage = new Beverage { BevID = 1, IdealTemp = 2 };
         Preference preferredBeverage;
         StatusViewModel statusViewModel;
-        //BeerContext db;
+        BeerContext context;
 
         public Status(StatusViewModel svm, BeerContext context, Beverage currentBeverage)
         {
             InitializeComponent();
 
             statusViewModel = svm;
-
-            //EstablishDBConnection();
-
+            this.context = context;
+            statusViewModel.isCelsius = true;
             SetupPreference(currentBeverage);
+
+            statusViewModel.Temperature = 6;
+            BindingContext = statusViewModel;
 
             // When you first start up the Status Screen, Disable The Inputs
             EnablePageElements(false);
@@ -38,32 +40,35 @@ namespace prj3beer.Views
             // If the current Beverage is set,
             if (preferredBeverage != null)
             {
-                //update steppers and enable inputs
-                //UpdateSteppers();
                 EnablePageElements(true);
+                //currentMetric.Text = statusViewModel.isCelsius ? "Celsius" : "Fahrenheit";
             }
-
-            // DEBUG
-            //currentIdealTemp.Text = currentBeverage.IdealTemp.ToString();
         }
 
         private void SetupPreference(Beverage passedInBeverage)
         {
-            preferredBeverage = new Preference { beverageID = passedInBeverage.BevID, prefTemp = passedInBeverage.IdealTemp };
+            preferredBeverage = context.Preference.Find(passedInBeverage.BeverageID);
+
+            if(preferredBeverage == null)
+            {
+                preferredBeverage = new Preference() {BeverageID = passedInBeverage.BeverageID,Temperature = passedInBeverage.Temperature };
+               
+                context.Preference.Add(preferredBeverage);
+            }
+            else
+            {
+                context.Preference.Update(preferredBeverage);
+            }
+            
         }
 
-        private async void UpdatePreference()
+        private async void UpdatePreference(BeerContext context)
         {
             try
             {
-                var db = new BeerContext();
-
-                db.Update(preferredBeverage);
-
-                await db.SaveChangesAsync();
+                await context.SaveChangesAsync();
             }
             catch (SqliteException) { throw; }
-
         }
 
 
@@ -72,15 +77,7 @@ namespace prj3beer.Views
         /// </summary>
         /// <param name="enabled">True or False</param>
         private void EnablePageElements(bool enabled)
-        {   // WORK ON IT
-            statusViewModel = new StatusViewModel();
-
-            //TODO: REPLACE = true with the Boolean From Settings Menu
-            statusViewModel.IsCelsius = false;
-            // trying to set the status view models to celsius or fahrenheit, no luck
-            double temptemp = preferredBeverage.prefTemp;
-            statusViewModel.PreferredTemperature = statusViewModel.IsCelsius ? temptemp : (temptemp * 1.8 + 32);
-
+        {
             // Enable/Disable Steppers
             this.TemperatureStepper.IsEnabled = enabled;
 
@@ -96,10 +93,8 @@ namespace prj3beer.Views
         /// <param name="args"></param>
         private void ChangeTempMetric(object sender, EventArgs args)
         {
-            statusViewModel.IsCelsius = statusViewModel.IsCelsius == true ? false : true;
-
             // debug purposes
-            currentMetric.Text = statusViewModel.IsCelsius ? "Celsius" : "Fahrenheit";
+            //currentMetric.Text = statusViewModel.isCelsius ? "Celsius" : "Fahrenheit";
         }
 
         /// <summary>
@@ -109,13 +104,15 @@ namespace prj3beer.Views
         /// <param name="args"></param>
         private void SelectEntryText(object sender, EventArgs args)
         {
+            Entry text = (Entry)sender;
+
             string cursorPosition = ((StatusViewModel)BindingContext).PreferredTemperatureString;
             // Set the value of the entry to an empty string
-            ((Entry)sender).Text = "";
-            ((Entry)sender).Text = cursorPosition;
+            text.Text = "";
+            text.Text = cursorPosition;
 
-            ((Entry)sender).CursorPosition = 0;
-            ((Entry)sender).SelectionLength = ((Entry)sender).Text.Length;
+            text.CursorPosition = 0;
+            text.SelectionLength = text.Text.Length;
         }
     }
 }

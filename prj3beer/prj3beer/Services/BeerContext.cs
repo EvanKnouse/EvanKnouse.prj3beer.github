@@ -13,6 +13,7 @@ namespace prj3beer.Services
         // DB set for Beverages
         public DbSet<Beverage> Beverage { get; set; }
 
+        // DB Set for Preferences
         public DbSet<Preference> Preference { get; set; }
 
 

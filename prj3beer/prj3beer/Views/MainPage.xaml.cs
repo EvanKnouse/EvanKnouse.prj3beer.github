@@ -29,6 +29,7 @@ namespace prj3beer.Views
             MainPage.context = context;
 
             svm = new StatusViewModel();
+            currentBeverage = new Beverage() { BeverageID = 1, Temperature = 2 };
 
             MasterBehavior = MasterBehavior.Popover;
 

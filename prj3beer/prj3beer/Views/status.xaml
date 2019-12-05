@@ -8,10 +8,10 @@
              AutomationId="StatusPage">
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center">
-            <StackLayout>
+            <!--<StackLayout>
                 <Button Text="Celsius/Fahrenheit" Clicked="ChangeTempMetric"></Button>
                 <Label x:Name="currentMetric"></Label>
-            </StackLayout>
+            </StackLayout>-->
             <StackLayout>
                 <Entry AutomationId="currentTarget" 
                        x:Name="TemperatureInput" 
