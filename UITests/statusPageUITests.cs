@@ -11,9 +11,12 @@ namespace UITests
 {
     class StatusPageUITests
     {
+
         [TestFixture(Platform.Android)]
         public class Tests
         {
+            protected readonly string filepath = "D:\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
+
             // Objects
             IApp app;
             Platform platform;
@@ -29,7 +32,7 @@ namespace UITests
             public void BeforeEachTest()
             {
                 //app = AppInitializer.StartApp(platform);
-                app = ConfigureApp.Android.ApkFile(@"D:\prj3beer\prj3.beer\prj3beer\prj3beer.Android\bin\Debug\com.companyname.prj3beer.apk").StartApp();
+                app = ConfigureApp.Android.ApkFile(filepath).StartApp();
                 app.TapCoordinates(150, 90);
                 //app.Tap("ScreenSelectButton");
                 app.Tap("Status");
@@ -57,28 +60,17 @@ namespace UITests
                 Assert.IsTrue(results.Any());
             }
 
-            // Test that the target temperature increment button is on the status page
+            // Test that the target temperature stepper buttons are on the status page
             [Test]
-            public void IncrementButtonIsOnPage()
+            public void StepperIsOnPage()
             {
-                app.WaitForElement("btnIncTemp");
+                app.WaitForElement("TempStepper");
 
-                AppResult[] results = app.Query("btnIncTemp");
-                Assert.IsTrue(results.Any());
-            }
-
-            // Test that the target temperature decrement button is on the status page
-            [Test]
-            public void DecrementButtonIsOnPage()
-            {
-                app.WaitForElement("btnDecTemp");
-
-                AppResult[] results = app.Query("btnDecTemp");
+                AppResult[] results = app.Query("TempStepper");
                 Assert.IsTrue(results.Any());
             }
 
             // Test that a temperature value can be entered in the entry field on the status page
-            // The entry field does not currently clear when being tapped, so this test fails with "Test5Target" instead of "5"
             [Test]
             public void TargetTempEntryFieldCanBeSetManually()
             {
@@ -103,7 +95,7 @@ namespace UITests
 
                 int startTemp = int.Parse(app.Query("currentTarget")[0].Text);
 
-                app.Tap("btnIncTemp");
+                app.Tap(x => x.Marked("TempStepper").Text("+"));
 
                 String targetTemperature = app.Query("currentTarget")[0].Text;
 
@@ -116,26 +108,13 @@ namespace UITests
             {
                 app.WaitForElement("currentTarget");
 
-                int startTemp =  int.Parse(app.Query("currentTarget")[0].Text);
+                int startTemp = int.Parse(app.Query("currentTarget")[0].Text);
 
-                app.Tap("btnDecTemp");
+                app.Tap(x => x.Marked("TempStepper").Text("-"));
 
                 String targetTemperature = app.Query("currentTarget")[0].Text;
 
                 Assert.AreEqual((startTemp - 1).ToString(), targetTemperature);
-            }
-
-            // Not yet implemented
-            [Test]
-            public void TargetTempIsChangedInFahrenheit()
-            {
-                app.WaitForElement("currentTarget");
-
-                int startTemp = int.Parse(app.Query("currentTarget")[0].Text);
-
-                app.Tap("btnIncTemp");
-
-                //Still need to implement
             }
         }
     }

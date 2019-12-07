@@ -34,7 +34,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="debug.cs" />
-    <Compile Include="examples.cs" />
     <Compile Include="AppInitializer.cs" />
     <Compile Include="StatusPageUITests.cs" />
   </ItemGroup>

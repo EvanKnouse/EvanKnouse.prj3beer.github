@@ -19,18 +19,22 @@
                        HorizontalOptions="FillAndExpand"
                        HorizontalTextAlignment="End"
                        Text="{Binding Source={x:Reference TemperatureStepper},Path=Value,Mode=TwoWay}"
-                       Focused="SelectEntryText"
-                       />
+                       Focused="SelectEntryText"/>
                 <Label x:Name="Degree" Text="{Binding Scale}"/>
             </StackLayout>
             <StackLayout HorizontalOptions="Center">
-                <Stepper x:Name="TemperatureStepper"
-                         Value="{Binding PreferredTemperatureString, Mode=TwoWay}"
-                         Maximum="{Binding Maximum}" 
-                         Minimum="{Binding Minimum}" 
-                         Increment="1" 
-                         HorizontalOptions="Center"/>
+                <Stepper AutomationId="TempStepper"
+                    x:Name="TemperatureStepper"
+                    Value="{Binding PreferredTemperatureString, Mode=TwoWay}"
+                    Maximum="{Binding Maximum}" 
+                    Minimum="{Binding Minimum}" 
+                    Increment="1" 
+                    HorizontalOptions="Center"/>
                 <Label x:Name="currentIdealTemp"></Label>
+            </StackLayout>
+            <StackLayout>
+                <Label>Preferred Beverage Temp:</Label>
+                <Entry x:Name="PrefTemp" Text=""></Entry>
             </StackLayout>
         </StackLayout>
 
