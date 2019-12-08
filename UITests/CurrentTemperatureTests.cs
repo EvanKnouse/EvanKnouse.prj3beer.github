@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
-using prj3beer.ViewModels;
+using prj3beer.Services;
 using System.Threading;
 
 namespace UITests
@@ -47,7 +47,7 @@ namespace UITests
             app.WaitForElement("currentTemperature");
 
             //Wait for the temperature to dip below -30C
-            Thread.Sleep(60000);
+            Thread.Sleep(54000);
 
             //Store the labels text 
             String result = app.Query("currentTemperature")[0].Text;
@@ -59,6 +59,7 @@ namespace UITests
         [Test]
         public void TestTemperatureAboveRangeError()
         {
+
             //Tap on the status text to navigate the status screen
             app.Tap("Status");
 
@@ -66,7 +67,7 @@ namespace UITests
             app.WaitForElement("currentTemperature");
 
             //Wait for the temperature to go above 30C
-            Thread.Sleep(60000);
+            Thread.Sleep(121000);
 
             //Store the labels text 
             String result = app.Query("currentTemperature")[0].Text;

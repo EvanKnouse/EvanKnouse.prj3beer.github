@@ -13,7 +13,8 @@ namespace prj3beer
         {
             InitializeComponent();
 
-            //DependencyService.Register<MockDataStore>();
+            MockTempReadings.StartCounting();
+
             MainPage = new MainPage();
         }
 
