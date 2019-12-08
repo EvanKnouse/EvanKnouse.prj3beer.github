@@ -160,5 +160,10 @@ namespace prj3beer.Views
             UpdatePreference(this.context);
             this.PrefTemp.Text = preferredBeverage.Temperature.ToString();
         }
+
+        private void TemperatureStepperChanged(object sender, ValueChangedEventArgs e)
+        {
+            UpdatePreference(this.context);
+        }
     }
 }

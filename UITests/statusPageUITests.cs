@@ -15,7 +15,7 @@ namespace UITests
         [TestFixture(Platform.Android)]
         public class Tests
         {
-            protected readonly string filepath = "D:\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
+            protected readonly string filepath = "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
 
             // Objects
             IApp app;
@@ -74,7 +74,6 @@ namespace UITests
             [Test]
             public void TargetTempEntryFieldCanBeSetManually()
             {
-                //app.EnterText(c => c.Marked("entryEmail"), "jimBob@hotmail.com");
                 app.WaitForElement("currentTarget");
 
                 int userInput = 5;

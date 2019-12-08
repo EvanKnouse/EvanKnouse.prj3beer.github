@@ -29,7 +29,8 @@
                     Maximum="{Binding Maximum}" 
                     Minimum="{Binding Minimum}" 
                     Increment="1" 
-                    HorizontalOptions="Center"/>
+                    HorizontalOptions="Center"
+                    ValueChanged="TemperatureStepperChanged"/>
                 <Label x:Name="currentIdealTemp"></Label>
             </StackLayout>
             <StackLayout>
