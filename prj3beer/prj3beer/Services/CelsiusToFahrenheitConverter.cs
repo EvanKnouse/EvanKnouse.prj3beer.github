@@ -12,6 +12,11 @@ namespace prj3beer.Services
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             double temp = (double)value;
+
+            if (temp < -30.0 || temp > 30.0)
+            {
+                return "Temperature Out Of Range";
+            }
             
             return Models.Settings.TemperatureSettings ? temp + "\u00B0C" : Temperature.CelsiusToFahrenheit(temp) + "\u00B0F";
         }

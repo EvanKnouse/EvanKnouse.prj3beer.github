@@ -14,7 +14,6 @@ namespace prj3beer.Views
     public partial class StatusPage : ContentPage
     {
         
-        int bluetoothValue = 5;
         int targetTempValue = 2;
 
         public StatusPage()
@@ -51,6 +50,5 @@ namespace prj3beer.Views
             TemperatureInput.Text = Models.Settings.TemperatureSettings ? targetTempValue + "" : (int)Temperature.CelsiusToFahrenheit(targetTempValue) + "";
 
         }
-
     }
 }

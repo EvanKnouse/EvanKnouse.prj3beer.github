@@ -29,7 +29,9 @@
                        Text="{Binding CurrentTemp, Converter={StaticResource tempConverter}, StringFormat='{0:g}'}"
                        VerticalOptions="Center" 
                        MinimumWidthRequest="3"
-                       FontSize="38">
+                       FontSize="38"
+                       
+                       >
                     <Label.BindingContext>
                         <vm:CurrentTempViewModel />
                     </Label.BindingContext>
