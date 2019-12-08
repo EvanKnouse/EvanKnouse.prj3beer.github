@@ -2,7 +2,6 @@ D:\virpc\prj3.beer\prj3beer\prj3beer\bin\Debug\netstandard2.0\prj3beer.deps.json
 D:\virpc\prj3.beer\prj3beer\prj3beer\bin\Debug\netstandard2.0\prj3beer.dll
 D:\virpc\prj3.beer\prj3beer\prj3beer\bin\Debug\netstandard2.0\ref\prj3beer.dll
 D:\virpc\prj3.beer\prj3beer\prj3beer\bin\Debug\netstandard2.0\prj3beer.pdb
-D:\virpc\prj3.beer\prj3beer\prj3beer\obj\Debug\netstandard2.0\prj3beer.csprojAssemblyReference.cache
 D:\virpc\prj3.beer\prj3beer\prj3beer\obj\Debug\netstandard2.0\App.xaml.g.cs
 D:\virpc\prj3.beer\prj3beer\prj3beer\obj\Debug\netstandard2.0\Views\AboutPage.xaml.g.cs
 D:\virpc\prj3.beer\prj3beer\prj3beer\obj\Debug\netstandard2.0\Views\BrandSelectPage.xaml.g.cs
@@ -37,3 +36,4 @@ D:\COSACPMG\prj3.beer\prj3beer\prj3beer\obj\Debug\netstandard2.0\XamlC.stamp
 D:\COSACPMG\prj3.beer\prj3beer\prj3beer\obj\Debug\netstandard2.0\prj3beer.dll
 D:\COSACPMG\prj3.beer\prj3beer\prj3beer\obj\Debug\netstandard2.0\ref\prj3beer.dll
 D:\COSACPMG\prj3.beer\prj3beer\prj3beer\obj\Debug\netstandard2.0\prj3beer.pdb
+D:\virpc\prj3.beer\prj3beer\prj3beer\obj\Debug\netstandard2.0\prj3beer.csprojAssemblyReference.cache

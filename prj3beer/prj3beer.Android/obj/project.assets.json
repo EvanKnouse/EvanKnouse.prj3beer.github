@@ -3048,24 +3048,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\cst210\\.nuget\\packages\\": {},
+    "C:\\Users\\cst220\\.nuget\\packages\\": {},
     "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer.Android\\prj3beer.Android.csproj",
+      "projectUniqueName": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer.Android\\prj3beer.Android.csproj",
       "projectName": "prj3beer.Android",
-      "projectPath": "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer.Android\\prj3beer.Android.csproj",
-      "packagesPath": "C:\\Users\\cst210\\.nuget\\packages\\",
-      "outputPath": "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer.Android\\obj\\",
+      "projectPath": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer.Android\\prj3beer.Android.csproj",
+      "packagesPath": "C:\\Users\\cst220\\.nuget\\packages\\",
+      "outputPath": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer.Android\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\cst210\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\cst220\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -3079,8 +3079,8 @@
       "frameworks": {
         "monoandroid81": {
           "projectReferences": {
-            "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
-              "projectPath": "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj"
+            "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
+              "projectPath": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj"
             }
           }
         }

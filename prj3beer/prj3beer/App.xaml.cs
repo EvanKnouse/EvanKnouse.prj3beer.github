@@ -5,6 +5,7 @@ using System.Linq;
 using prj3beer.Models;
 using Microsoft.Data.Sqlite;
 using System.Collections.Generic;
+using prj3beer.Views;
 
 namespace prj3beer
 {
@@ -25,10 +26,10 @@ namespace prj3beer
             BeerContext bc = new BeerContext();
             bc.Database.EnsureCreated();
             if (System.Diagnostics.Debugger.IsAttached) { loadFixtures(bc); }
-            
-            
+
+
             //MainPage = new NavigationPage(new prj3beer.Views.MainPage(bc));
-            MainPage = new NavigationPage(new prj3beer.Views.BrandSelectPage(bc.Brands.ToList()));
+            MainPage = new MainPage(bc);
         }
 
         private async void loadFixtures(BeerContext bc)

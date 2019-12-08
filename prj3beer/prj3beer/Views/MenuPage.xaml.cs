@@ -29,13 +29,14 @@ namespace prj3beer.Views
             ListViewMenu.ItemsSource = menuItems;
 
             ListViewMenu.SelectedItem = menuItems[0];
-            ListViewMenu.ItemSelected += async (sender, e) =>
+            //Lambda expression and "_ =" added by C# suggestion
+            ListViewMenu.ItemSelected += (sender, e) =>
             {
                 if (e.SelectedItem == null)
                     return;
 
                 var id = (int)((HomeMenuItem)e.SelectedItem).Id;
-                await RootPage.NavigateFromMenu(id);
+                _ = RootPage.NavigateFromMenu(id);
             };
         }
     }

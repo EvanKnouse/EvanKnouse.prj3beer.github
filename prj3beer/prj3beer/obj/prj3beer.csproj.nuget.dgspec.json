@@ -1,24 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {}
+    "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {}
   },
   "projects": {
-    "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
+    "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj",
+        "projectUniqueName": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj",
         "projectName": "prj3beer",
-        "projectPath": "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj",
-        "packagesPath": "C:\\Users\\cst210\\.nuget\\packages\\",
-        "outputPath": "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer\\obj\\",
+        "projectPath": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj",
+        "packagesPath": "C:\\Users\\cst220\\.nuget\\packages\\",
+        "outputPath": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\cst210\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\cst220\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
