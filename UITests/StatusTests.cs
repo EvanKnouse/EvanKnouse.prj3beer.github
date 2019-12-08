@@ -2,6 +2,8 @@
 using System.Linq;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
+using prj3beer.Models;
+using Xamarin.Forms;
 
 namespace UITests
 {
@@ -9,6 +11,7 @@ namespace UITests
     //[TestFixture(Platform.iOS)]
     public class StatusTests
     {
+
         IApp app;
         Platform platform;
         string apkFile = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
@@ -27,6 +30,10 @@ namespace UITests
             app.TapCoordinates(150, 90);
             ////Tap into the screen navigation menu (default for now)
             //app.Tap(c => c.Marked("ScreenSelectButton"));
+
+            //Sets the Temperature settings to celcius everytest
+            Settings.TemperatureSettings = true;
+            
         }
 
         [Test]
@@ -35,10 +42,14 @@ namespace UITests
             //Pick Status screen from the screen selection menu
             app.Tap("Status");
 
-            app.WaitForElement("SettingsMenuButton");
+            //Wait for the Settings button to appear on screen
+            app.WaitForElement("Settings");
 
             //Press Settings Menu button
-            app.Tap("SettingsMenuButton");
+            app.Tap("Settings");
+
+            //Wait for the Temperature switch to appear on screen
+            app.WaitForElement("switchTemp");
 
             //Look for the toggle button on the Settings Menu
             AppResult[] button = app.Query(("switchTemp"));
@@ -53,10 +64,14 @@ namespace UITests
             //Pick Status screen from the screen selection menu
             app.Tap("Status");
 
-           
+            //Wait for the Settings button to appear on screen
+            app.WaitForElement("Settings");
 
             //Press Settings menu button
-            app.Tap("SettingsMenuButton");
+            app.Tap("Settings");
+
+            //Wait for the Temperature switch to appear on screen
+            app.WaitForElement("switchTemp");
 
             //Tap on the toggle button to change the temperature setting to fahrenheit
             app.Tap("switchTemp");
@@ -64,11 +79,14 @@ namespace UITests
             //Go back to the Status screen
             app.Back();
 
+            //Wait for the Current Temperature Label to appear on screen
+            app.WaitForElement("currentTemperature");
+
             //Check that the label for the current temperature is set to "\u00B0F"
-            string tempLabel = app.Query(c => c.Id("currentTemperature"))[0].Text;
+            string tempLabel = app.Query("currentTemperature")[0].Text;
 
             //If equal, the temperature label has been set to fahrenheit and the settings have been applied
-            Assert.AreEqual("\u00B0F", tempLabel);
+            Assert.AreEqual(tempLabel.Contains("\u00B0F"), true);
         }
 
         [Test]
@@ -76,20 +94,24 @@ namespace UITests
         {
             //Pick status screen from the screen selection menu
             app.Tap("Status");
+
+            //Wait for the Settings button to appear on screen
+            app.WaitForElement("Settings");
+
             //Press Settings menu button
-            app.Tap("SettingsMenuButton");
-            //Tap on the toggle button to change the temperature setting to fahrenheit 
-            app.Tap("fahrenheitEnabled");
-            //Go back to the Status screen
-            app.Back();
+            app.Tap("Settings");
 
-            //Go back to the Settings menu button
-            app.Tap("SettingsMenuButton");
-            bool toggled = app.Query(c => c.Id("fahrenheitEnabled"))[0].Enabled;
+            //Wait for the Temperature switch to appear on screen
+            app.WaitForElement("switchTemp");
 
-        
+            //Tap on the toggle button to change the temperature setting to fahrenheit
+            app.Tap("switchTemp");
 
-            Assert.AreEqual(toggled, true);
+            //Grab the temperature label text to prove it switched
+            string toggled = app.Query("lblTemp")[0].Text;
+
+            //Check if the enabled value is true
+            Assert.AreEqual(toggled, "Fahrenheit");
         }
     }
 }

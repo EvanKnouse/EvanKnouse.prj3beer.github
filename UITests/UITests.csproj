@@ -43,6 +43,10 @@
       <Project>{5e951504-de3e-40dd-ac1c-ab2ae78b2d9a}</Project>
       <Name>prj3beer.Android</Name>
     </ProjectReference>
+    <ProjectReference Include="..\prj3beer\prj3beer\prj3beer.csproj">
+      <Project>{ec22c617-7283-4d28-904b-7afb494a45b9}</Project>
+      <Name>prj3beer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

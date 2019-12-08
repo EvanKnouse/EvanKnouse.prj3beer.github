@@ -12,7 +12,7 @@
              >
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="BtnSettings"  Text="Settings" Clicked="ToolbarItem_Clicked" />
+        <ToolbarItem StyleId="btnSettings" x:Name="btnSettings"  Text="Settings" Clicked="ToolbarItem_Clicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <ResourceDictionary>
