@@ -35,7 +35,6 @@
   <ItemGroup>
     <Compile Include="AppInitializer.cs" />
     <Compile Include="CurrentTemperatureTests.cs" />
-    <Compile Include="SelectionTests.cs" />
     <Compile Include="StatusTests.cs" />
   </ItemGroup>
   <ItemGroup>
