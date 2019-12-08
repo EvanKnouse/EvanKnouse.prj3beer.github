@@ -3705,25 +3705,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\cst220\\.nuget\\packages\\": {},
+    "C:\\Users\\cst210\\.nuget\\packages\\": {},
     "C:\\Microsoft\\Xamarin\\NuGet\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj",
+      "projectUniqueName": "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj",
       "projectName": "prj3beer",
-      "projectPath": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj",
-      "packagesPath": "C:\\Users\\cst220\\.nuget\\packages\\",
-      "outputPath": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\obj\\",
+      "projectPath": "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj",
+      "packagesPath": "C:\\Users\\cst210\\.nuget\\packages\\",
+      "outputPath": "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\cst220\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\cst210\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],

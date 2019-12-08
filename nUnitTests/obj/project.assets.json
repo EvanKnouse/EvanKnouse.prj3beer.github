@@ -6970,25 +6970,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\cst220\\.nuget\\packages\\": {},
+    "C:\\Users\\cst210\\.nuget\\packages\\": {},
     "C:\\Microsoft\\Xamarin\\NuGet\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\virpc\\prj3.beer\\nUnitTests\\nUnitTests.csproj",
+      "projectUniqueName": "D:\\COSACPMG\\prj3.beer\\nUnitTests\\nUnitTests.csproj",
       "projectName": "nUnitTests",
-      "projectPath": "D:\\virpc\\prj3.beer\\nUnitTests\\nUnitTests.csproj",
-      "packagesPath": "C:\\Users\\cst220\\.nuget\\packages\\",
-      "outputPath": "D:\\virpc\\prj3.beer\\nUnitTests\\obj\\",
+      "projectPath": "D:\\COSACPMG\\prj3.beer\\nUnitTests\\nUnitTests.csproj",
+      "packagesPath": "C:\\Users\\cst210\\.nuget\\packages\\",
+      "outputPath": "D:\\COSACPMG\\prj3.beer\\nUnitTests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\cst220\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\cst210\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -7002,11 +7002,11 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
-              "projectPath": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj"
+            "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
+              "projectPath": "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj"
             },
-            "D:\\virpc\\prj3.beer\\UITests\\UITests.csproj": {
-              "projectPath": "D:\\virpc\\prj3.beer\\UITests\\UITests.csproj"
+            "D:\\COSACPMG\\prj3.beer\\UITests\\UITests.csproj": {
+              "projectPath": "D:\\COSACPMG\\prj3.beer\\UITests\\UITests.csproj"
             }
           }
         }

@@ -10,7 +10,7 @@ namespace UITests
     //[TestFixture(Platform.iOS)]
     public class BrandUITests
     {
-        string apkPath = "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
+        string apkPath = "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debugcom.companyname.prj3beer.apk";
 
         IApp app;
         Platform platform;
@@ -71,15 +71,11 @@ namespace UITests
             Assert.IsFalse(brandList.Any());
         }
 
-        [Test]
-        public void TestThatValidBrandIsAddedToList()
-        {
-            //Assert.IsTrue(localBrandList.Contains(GWBbrand));
-        }
 
         [Test]
         public void TestThatValidBrandsAreStoredLocally()
         {
+            
             //Assert.IsTrue(localBrandList.Contains(GWBbrand));
             //Assert.IsTrue(localBrandList.Contains(PSBbrand));
             //Assert.IsTrue(localBrandList.Contains(CBCbrand));
@@ -88,62 +84,56 @@ namespace UITests
         [Test]
         public void TestThatInvalidBrandIsNotAddedToBrandList()
         {
-            //Assert.IsTrue(!localBrandList.Contains(Emptybrand));
+            app.WaitForElement("brandList");
+            AppResult[] brandList = app.Query(Emptybrand.brandName);
+
+            Assert.IsFalse(brandList.Any());
+            brandList = app.Query(TooLongbrand.brandName);
+            Assert.IsFalse(brandList.Any());
         }
 
         [Test]
         public void TestThatSpecificBrandIsAddedToList()
         {
-            //int index = 0;
-
-            //for (int i = 0; i < localBrandList.Count; i++)
-            //{
-            //    if (localBrandList[i].brandName == "Great Western Brewery")
-            //    {
-            //        index = i;
-            //    }
-            //}
-
-            //Brand compBrand = localBrandList[index];
-
-            //Assert.IsTrue(compBrand.brandID.CompareTo(GWBbrand.brandID) == 0);
-            //Assert.IsTrue(compBrand.brandName.CompareTo(GWBbrand.brandName) == 0);
-        }
-
-        [Test]
-        public void TestThatInvalidBrandsAreNotStoredLocally()
-        {
-            //Assert.IsTrue(!localBrandList.Contains(Emptybrand));
-            //Assert.IsTrue(!localBrandList.Contains(TooLongbrand));
-
+            app.WaitForElement("brandList");
+            AppResult[] brandList = app.Query(GWBbrand.brandName);
+            Assert.IsTrue(brandList.Any());
         }
 
         [Test]
         public void TestThatListIsPopulatedFromLocalStorage()
         {
-            //Assert.IsTrue(localBrandList.Count == 3);
+            app.WaitForElement("brandList");
+            AppResult[] brandList = app.Query("brandList");
+
+            Assert.IsTrue(brandList.Length == 3);
         }
 
         [Test]
         public void TestThatListIsNotPopulatedFromLocalStorageWithIncorrectValues()
         {
-            //Assert.IsTrue(!localBrandList.Contains(Emptybrand));
-            //Assert.IsTrue(!localBrandList.Contains(TooLongbrand));
-            //Assert.IsTrue(localBrandList.Count == 3);
+            app.WaitForElement("brandList");
+            AppResult[] brandList = app.Query("brandList");
+
+            brandList = app.Query(TooLongbrand.brandName);
+            Assert.IsFalse(brandList.Any());
+
+            brandList = app.Query(Emptybrand.brandName);
+            Assert.IsFalse(brandList.Any());
         }
 
-        [Test]
-        public void TestThatASuccessfulConnectionToTheAPIIsEstablished()
+       [Test]
+        public void TestThatListIsSortedAlphabetically()
         {
-            //Assert.IsNotNull(api);
-        }
+            app.WaitForElement("brandList");
+            AppResult[] brandList = app.Query("brandList");
 
-        [Test]
-        public void TestThatUnsuccessfulConnectionToTheAPIIsNotMade()
-        {
-            //api = null;
 
-            //Assert.IsNull(api);
+            Assert.AreEqual(brandList[0].Text, CBCbrand.brandName);
+
+            Assert.AreEqual(brandList[1].Text, GWBbrand.brandName);
+
+            Assert.AreEqual(brandList[2].Text, PSBbrand.brandName);
         }
     }
 }

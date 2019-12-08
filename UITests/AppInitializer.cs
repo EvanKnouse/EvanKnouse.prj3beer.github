@@ -8,9 +8,13 @@ namespace UITests
     {
         public static IApp StartApp(Platform platform)
         {
+            string apkPath = "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debugcom.companyname.prj3beer.apk";
+
+            IApp app;
+
             if (platform == Platform.Android)
             {
-                return ConfigureApp.Android.StartApp();
+                return ConfigureApp.Android.ApkFile(apkPath).StartApp();
             }
 
             return ConfigureApp.iOS.StartApp();

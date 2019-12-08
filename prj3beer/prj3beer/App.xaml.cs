@@ -27,8 +27,8 @@ namespace prj3beer
             if (System.Diagnostics.Debugger.IsAttached) { loadFixtures(bc); }
             
             
-            MainPage = new NavigationPage(new prj3beer.Views.MainPage(bc));
-            //MainPage = new NavigationPage(new prj3beer.Views.BrandSelectPage(bc.Brands.ToList()));
+            //MainPage = new NavigationPage(new prj3beer.Views.MainPage(bc));
+            MainPage = new NavigationPage(new prj3beer.Views.BrandSelectPage(bc.Brands.ToList()));
         }
 
         private async void loadFixtures(BeerContext bc)
