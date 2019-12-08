@@ -4,7 +4,7 @@ using prj3beer.Utilities;
 using System.Linq;
 using prj3beer.Models;
 using Microsoft.Data.Sqlite;
-
+using System.Collections.Generic;
 
 namespace prj3beer
 {
@@ -27,8 +27,8 @@ namespace prj3beer
             if (System.Diagnostics.Debugger.IsAttached) { loadFixtures(bc); }
             
             
-          //  MainPage = new NavigationPage(new prj3beer.Views.MainPage(bc));
-            MainPage = new NavigationPage(new prj3beer.Views.BrandSelectPage(bc.Brands.ToList()));
+            MainPage = new NavigationPage(new prj3beer.Views.MainPage(bc));
+            //MainPage = new NavigationPage(new prj3beer.Views.BrandSelectPage(bc.Brands.ToList()));
         }
 
         private async void loadFixtures(BeerContext bc)
@@ -38,20 +38,40 @@ namespace prj3beer
                 await bc.Database.EnsureDeletedAsync();
                 await bc.Database.EnsureCreatedAsync();
                 var count = bc.Brands.Count();
+                //If count is 0, add new brands to the brand list for validation, before sending to database/context
                 if (count == 0)
                 {
-                    //TODO: Do validation on each brand before adding to BC
-                    bc.Brands.Add(new Brand() { brandID = 4, brandName = "Great Western Brewery" });
-                    bc.Brands.Add(new Brand() { brandID = 5, brandName = "Churchhill Brewing Company" });
-                    bc.Brands.Add(new Brand() { brandID = 6, brandName = "Prarie Sun Brewery" });
-                    bc.Brands.Add(new Brand() { brandID = 7, brandName = new string('a', 61) });
-                    bc.Brands.Add(new Brand() { brandID = 3, brandName = "" });
+                   List<Brand> brandList = new List<Brand>();
+                   brandList.Add(new Brand() { brandID = 4, brandName = "Great Western Brewery" });
+                   brandList.Add(new Brand() { brandID = 5, brandName = "Churchhill Brewing Company" });
+                   brandList.Add(new Brand() { brandID = 6, brandName = "Prarie Sun Brewery" });
+                   brandList.Add(new Brand() { brandID = 7, brandName = new string('a', 61) });
+                   brandList.Add(new Brand() { brandID = 3, brandName = "" });
+
+                    ValidateBrands(brandList, bc);
                 }
                 await bc.SaveChangesAsync();
             }
             catch (SqliteException)
             {
                 throw;
+            }
+        }
+
+        /// <summary>
+        /// This helper function will validate all of the brands in the brands list 
+        /// that is being loaded into the app from the database fixture before saving into the database
+        /// </summary>
+        /// <param name="brandList"></param>
+        /// <param name="bc"></param>
+        private void ValidateBrands(List<Brand> brandList, BeerContext bc)
+        {
+            foreach(Brand brand in brandList)
+            {
+                if(ValidationHelper.Validate(brand).Count() == 0)               //If the validation returns 0 for count, brand is valid
+                {
+                    bc.Brands.Add(brand);
+                }
             }
         }
 

@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Data.Sqlite;
 using prj3beer.Models;
-using prj3beer.Utilities;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Microsoft.EntityFrameworkCore.Sqlite;
 
 namespace prj3beer.Views
 {
@@ -22,10 +18,10 @@ namespace prj3beer.Views
             List<String> listViewBrand = new List<String>();
             foreach (Brand brand in brands)
             {
-                listViewBrand.Add(brand.brandName);
+                listViewBrand.Add(brand.brandName);             //Brands have already been validated by this point (app.xaml.cs)
             }
-            
-            MyListView.ItemsSource = listViewBrand;
+            listViewBrand.Sort();                               //Sort the list of brands alphabetically (default)
+            MyListView.ItemsSource = listViewBrand;             //Setting the item source of our list view to the brands list
         }
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)

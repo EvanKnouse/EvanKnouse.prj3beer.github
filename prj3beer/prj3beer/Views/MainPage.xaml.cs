@@ -26,7 +26,7 @@ namespace prj3beer.Views
 
             MasterBehavior = MasterBehavior.Popover;
 
-            MenuPages.Add((int)MenuItemType.Browse, (NavigationPage)Detail);
+            MenuPages.Add((int)MenuItemType.Brand, (NavigationPage)Detail);
 
 
         }
