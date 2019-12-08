@@ -34,6 +34,9 @@
             "projectReferences": {
               "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
                 "projectPath": "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj"
+              },
+              "D:\\COSACPMG\\prj3.beer\\UITests\\UITests.csproj": {
+                "projectPath": "D:\\COSACPMG\\prj3.beer\\UITests\\UITests.csproj"
               }
             }
           }
@@ -70,6 +73,88 @@
           ],
           "assetTargetFallback": true,
           "warn": true
+        }
+      }
+    },
+    "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer.Android\\prj3beer.Android.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer.Android\\prj3beer.Android.csproj",
+        "projectName": "prj3beer.Android",
+        "projectPath": "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer.Android\\prj3beer.Android.csproj",
+        "packagesPath": "C:\\Users\\cst210\\.nuget\\packages\\",
+        "outputPath": "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer.Android\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\cst210\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "monoandroid81"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "monoandroid81": {
+            "projectReferences": {
+              "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
+                "projectPath": "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "monoandroid81": {
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[11.0.2, )"
+            },
+            "Xamarin.Android.Support.Core.Utils": {
+              "target": "Package",
+              "version": "[28.0.0.1, )"
+            },
+            "Xamarin.Android.Support.CustomTabs": {
+              "target": "Package",
+              "version": "[28.0.0.1, )"
+            },
+            "Xamarin.Android.Support.Design": {
+              "target": "Package",
+              "version": "[28.0.0.1, )"
+            },
+            "Xamarin.Android.Support.v4": {
+              "target": "Package",
+              "version": "[28.0.0.1, )"
+            },
+            "Xamarin.Android.Support.v7.AppCompat": {
+              "target": "Package",
+              "version": "[28.0.0.1, )"
+            },
+            "Xamarin.Android.Support.v7.CardView": {
+              "target": "Package",
+              "version": "[28.0.0.1, )"
+            },
+            "Xamarin.Android.Support.v7.MediaRouter": {
+              "target": "Package",
+              "version": "[28.0.0.1, )"
+            },
+            "Xamarin.Essentials": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
+            "Xamarin.Forms": {
+              "target": "Package",
+              "version": "[4.0.0.425677, )"
+            }
+          }
         }
       }
     },
@@ -112,19 +197,19 @@
       "frameworks": {
         "netstandard2.0": {
           "dependencies": {
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[2.2.6, )"
-            },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[2.2.6, )"
+              "version": "[2.2.2, )"
             },
             "NETStandard.Library": {
               "suppressParent": "All",
               "target": "Package",
               "version": "[2.0.3, )",
               "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[11.0.2, )"
             },
             "Xamarin.Essentials": {
               "target": "Package",
@@ -140,6 +225,74 @@
           ],
           "assetTargetFallback": true,
           "warn": true
+        }
+      }
+    },
+    "D:\\COSACPMG\\prj3.beer\\UITests\\UITests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\COSACPMG\\prj3.beer\\UITests\\UITests.csproj",
+        "projectName": "UITests",
+        "projectPath": "D:\\COSACPMG\\prj3.beer\\UITests\\UITests.csproj",
+        "packagesPath": "C:\\Users\\cst210\\.nuget\\packages\\",
+        "outputPath": "D:\\COSACPMG\\prj3.beer\\UITests\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\cst210\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net461"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net461": {
+            "projectReferences": {
+              "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer.Android\\prj3beer.Android.csproj": {
+                "projectPath": "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer.Android\\prj3beer.Android.csproj"
+              },
+              "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
+                "projectPath": "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net461": {
+          "dependencies": {
+            "NUnit": {
+              "target": "Package",
+              "version": "[2.6.4, )"
+            },
+            "NUnitTestAdapter": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Xamarin.UITest": {
+              "target": "Package",
+              "version": "[2.2.7, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
         }
       }
     }

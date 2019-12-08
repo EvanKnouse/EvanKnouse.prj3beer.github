@@ -23,14 +23,14 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "monoandroid90"
+          "monoandroid81"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "monoandroid90": {
+          "monoandroid81": {
             "projectReferences": {
               "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
                 "projectPath": "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj"
@@ -40,8 +40,12 @@
         }
       },
       "frameworks": {
-        "monoandroid90": {
+        "monoandroid81": {
           "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[11.0.2, )"
+            },
             "Xamarin.Android.Support.Core.Utils": {
               "target": "Package",
               "version": "[28.0.0.1, )"
@@ -121,19 +125,19 @@
       "frameworks": {
         "netstandard2.0": {
           "dependencies": {
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[2.2.6, )"
-            },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[2.2.6, )"
+              "version": "[2.2.2, )"
             },
             "NETStandard.Library": {
               "suppressParent": "All",
               "target": "Package",
               "version": "[2.0.3, )",
               "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[11.0.2, )"
             },
             "Xamarin.Essentials": {
               "target": "Package",
@@ -182,6 +186,9 @@
             "projectReferences": {
               "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer.Android\\prj3beer.Android.csproj": {
                 "projectPath": "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer.Android\\prj3beer.Android.csproj"
+              },
+              "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
+                "projectPath": "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj"
               }
             }
           }
