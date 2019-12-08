@@ -26,6 +26,8 @@ namespace prj3beer.Services
             switch (Device.RuntimePlatform)
             {
                 case Device.iOS:
+                    dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "..", "Library", dbPath);
+                    break;
                 case Device.Android:
                     dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), dbPath);
                     break;

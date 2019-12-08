@@ -29,7 +29,7 @@ namespace prj3beer.iOS
             SQLitePCL.Batteries_V2.Init();
 
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App(dbPath));
+            LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
         }
