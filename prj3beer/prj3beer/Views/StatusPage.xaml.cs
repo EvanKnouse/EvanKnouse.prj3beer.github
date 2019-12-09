@@ -1,4 +1,6 @@
-﻿using prj3beer.Services;
+﻿using prj3beer.Models;
+using prj3beer.Services;
+using prj3beer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +15,23 @@ namespace prj3beer.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class StatusPage : ContentPage
     {
+        static StatusViewModel svm;
+        static Beverage currentBeverage;
+
         //Placeholder for target temperature element, implemented in another story.
         int targetTempValue = 2;
 
         public StatusPage()
         { 
             InitializeComponent();
+
+            // Instantiate new StatusViewModel
+            svm = new StatusViewModel();
+
+            // Setup the current Beverage (find it from the Context) -- This will be passed in from a viewmodel/bundle/etc in the future.
+            currentBeverage = svm.Context.Beverage.Find(2);
+
+
            
         }
 

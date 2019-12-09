@@ -2,11 +2,17 @@
 using System.ComponentModel;
 using Xamarin.Forms;
 using prj3beer.Views;
+using prj3beer.Services;
 
 namespace prj3beer.ViewModels
 {
     public class StatusViewModel : INotifyPropertyChanged
-    {   // Nullable double value for our temperature
+    {
+        BeerContext context = new BeerContext();
+
+        public BeerContext Context { get { return this.context; } }
+        
+        // Nullable double value for our temperature
         double? _temperature;
 
         /// Boolean for wether or not we are in Celsius or Fahrenheit (Default Celsius)
