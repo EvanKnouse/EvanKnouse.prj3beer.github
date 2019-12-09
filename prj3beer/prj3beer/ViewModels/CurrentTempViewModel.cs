@@ -7,6 +7,10 @@ using prj3beer.Services;
 
 namespace prj3beer.ViewModels
 {
+    /// <summary>
+    /// A class implementing INotifyPropertyChanged to bind the read temperature values to an element on the
+    /// Status page.
+    /// </summary>
     public class CurrentTempViewModel : INotifyPropertyChanged
     {
         double currentTemp;
@@ -15,8 +19,8 @@ namespace prj3beer.ViewModels
 
         public CurrentTempViewModel()
         {
-            //this.currentTemp = 20.0;
-
+            //Checks for update temps every second.  Will eventually poll an object associated with a
+            //bluetooth reading.  Currently communicates with a class bouncing between -35 and 35 degrees celsius.
             Device.StartTimer(TimeSpan.FromSeconds(1), () =>
             {
                 this.CurrentTemp = MockTempReadings.Temp;
@@ -34,6 +38,7 @@ namespace prj3beer.ViewModels
 
                     if (PropertyChanged != null)
                     {
+                        //If the property has changed, fire an event.
                         PropertyChanged(this, new PropertyChangedEventArgs("CurrentTemp"));
                     }
                 }

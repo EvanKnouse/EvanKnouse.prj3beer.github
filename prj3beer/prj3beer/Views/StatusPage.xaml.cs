@@ -13,7 +13,7 @@ namespace prj3beer.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class StatusPage : ContentPage
     {
-        
+        //Placeholder for target temperature element, implemented in another story.
         int targetTempValue = 2;
 
         public StatusPage()
@@ -31,14 +31,9 @@ namespace prj3beer.Views
             ((ToolbarItem)(sender)).IsEnabled = true;
         }
 
-        public void UpdateTempField()
-        {
-
-        }
-
         public void TempReadingType(bool type)
         {
-            //labelCFCurrentTemperature.Text = "\u00B0" + (type ? "C" : "F");
+            //Applies appropriate units to the temporary/placeholder target temperature element.  Target temperature implemented in another story.
             labelCFTargetTemperature.Text = "\u00B0" + (type ? "C" : "F");
         }
 
@@ -46,7 +41,7 @@ namespace prj3beer.Views
         {
             TempReadingType(Models.Settings.TemperatureSettings);
 
-            //currentTemperature.Text = Models.Settings.TemperatureSettings ? bluetoothValue + "" : (int)Temperature.CelsiusToFahrenheit(bluetoothValue) + "";
+            //Temporary/placeholder for target temp element.  Displays a converted/unconverted temperature as appropriate.  Target temperature mplemented in another story.
             TemperatureInput.Text = Models.Settings.TemperatureSettings ? targetTempValue + "" : (int)Temperature.CelsiusToFahrenheit(targetTempValue) + "";
 
         }

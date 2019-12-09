@@ -11,9 +11,11 @@ namespace prj3beer.Views
         public SettingsMenu()
         {
             InitializeComponent();
+            //Check the Settings class to see if set to celsius or fahrenheit
             switchTemp.IsToggled = Models.Settings.TemperatureSettings;
         }
 
+        //changes temperature display settings in response to the switch 
         private void Switch_Toggled(object sender, ToggledEventArgs e)
         {
             
@@ -22,6 +24,7 @@ namespace prj3beer.Views
             Models.Settings.TemperatureSettings = e.Value;
         }
 
+        //Closes the settings modal
         async private void Close_Clicked(object sender, System.EventArgs e)
         {
             await Navigation.PopModalAsync();

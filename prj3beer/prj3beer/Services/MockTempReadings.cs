@@ -6,11 +6,13 @@ using Xamarin.Forms;
 
 namespace prj3beer.Services
 {
+    /// <summary>
+    /// Placeholder for temperature inputs.  Bounces between -35 and 35 degrees celsius
+    /// </summary>
     public static class MockTempReadings
     {
         private static double temp;
-        private static bool goesDown;
-        private static bool repeat = true;
+        private static bool goesDown; //whether the temperature counts down or up.
 
         public static double Temp
         {
@@ -33,19 +35,18 @@ namespace prj3beer.Services
             set
             {
                 goesDown = value;
-                repeat = false;
             }
         }
 
-
+        /// <summary>
+        /// Initiates the counting.
+        /// </summary>
+        /// <param name="newTemp">The temperature to start counting from.  20 by default.</param>
+        /// <param name="direction">Which direciton to incrememnt.  Down by default.</param>
         public static void StartCounting(double newTemp=20.0, bool direction=true)
         {
             Temp = newTemp;
             GoesDown = direction;
-
-            Thread.Sleep(1001);
-
-            repeat = true;
 
             Device.StartTimer(TimeSpan.FromSeconds(1), () =>
             {
@@ -65,7 +66,7 @@ namespace prj3beer.Services
                 {
                     temp += 1.0;
                 }
-                return repeat;
+                return true;
             });
         }
     }
