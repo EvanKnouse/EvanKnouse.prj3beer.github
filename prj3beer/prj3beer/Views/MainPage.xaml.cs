@@ -6,9 +6,6 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 using prj3beer.Models;
-using prj3beer.Services;
-using Microsoft.Data.Sqlite;
-using prj3beer.ViewModels;
 
 namespace prj3beer.Views
 {
@@ -16,36 +13,15 @@ namespace prj3beer.Views
     // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(false)]
     public partial class MainPage : MasterDetailPage
-    {   // Static Database
-        static BeerContext context;
-        // Static ViewModel
-        static StatusViewModel svm;
-        // Static Beverage (the one currently selected)
-        static Beverage currentBeverage;
-
+    {
         Dictionary<int, NavigationPage> MenuPages = new Dictionary<int, NavigationPage>();
-
-        /// <summary>
-        /// Mainpage - Takes in the database that was passed in to it. 
-        /// </summary>
-        /// <param name="context">Database</param>
-        public MainPage(BeerContext context)
-        {   // Initialize the page
+        public MainPage()
+        {
             InitializeComponent();
 
-            // Set this page's context to the one passed in
-            MainPage.context = context;
-
-            // Set this page's View Model to a new Status View Model
-            svm = new StatusViewModel();
-
-            // Set values for the current Beverage (Find the 2nd beverage for mocking)
-            currentBeverage = context.Beverage.Find(2);
-
-
-
             MasterBehavior = MasterBehavior.Popover;
-            MenuPages.Add((int)MenuItemType.Browse, (NavigationPage)Detail);
+
+            //MenuPages.Add((int)MenuItemType.Status, (NavigationPage)Detail);
         }
 
         public async Task NavigateFromMenu(int id)
@@ -53,17 +29,10 @@ namespace prj3beer.Views
             if (!MenuPages.ContainsKey(id))
             {
                 switch (id)
-                {   // Add the Status Screen to the Navigation Menu
+                {
                     case (int)MenuItemType.Status:
-                        // Pass in the Status View Model, Context (Database) and the current beverage object
-                        MenuPages.Add(id, new NavigationPage(new Status(svm, context, currentBeverage)));
+                        MenuPages.Add(id, new NavigationPage(new StatusPage()));
                         break;
-                    //case (int)MenuItemType.Browse:
-                    //    MenuPages.Add(id, new NavigationPage(new ItemsPage()));
-                    //    break;
-                    //case (int)MenuItemType.About:
-                    //    MenuPages.Add(id, new NavigationPage(new AboutPage()));
-                    //    break;
                 }
             }
 

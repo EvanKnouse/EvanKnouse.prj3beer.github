@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B0D164AF-82B7-4945-80BD-CBA7693AD914}</ProjectGuid>
+    <ProjectGuid>{242C1903-0B68-4BA7-93A4-2AA34279443A}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{65C0771A-452F-423B-995C-F0AE46E643BA}</TemplateGuid>
     <OutputType>Exe</OutputType>
@@ -139,7 +139,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\prj3beer\prj3beer.csproj">
-      <Project>{901D91A8-AEF1-4B67-AD36-1E83E834519E}</Project>
+      <Project>{D04E2BA2-773F-45AB-8CE5-1E46A9FFF9E9}</Project>
       <Name>prj3beer</Name>
     </ProjectReference>
   </ItemGroup>
