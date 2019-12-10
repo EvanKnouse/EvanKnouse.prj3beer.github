@@ -6,7 +6,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 using prj3beer.Models;
-using prj3beer.Utilities;
+using prj3beer.Services;
 using System.Linq;
 
 namespace prj3beer.Views

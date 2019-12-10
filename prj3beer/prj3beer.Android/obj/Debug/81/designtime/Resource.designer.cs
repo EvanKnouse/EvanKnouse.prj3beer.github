@@ -5051,14 +5051,44 @@ namespace prj3beer.Droid
 			// aapt resource value: 0x7F09000C
 			public const int notify_panel_notification_icon_bg = 2131296268;
 			
+			// aapt resource value: 0x7F010002
+			public const int outline_clear_24 = 2130771970;
+			
+			// aapt resource value: 0x7F010007
+			public const int outline_clear_black_18 = 2130771975;
+			
+			// aapt resource value: 0x7F010003
+			public const int outline_clear_black_24 = 2130771971;
+			
+			// aapt resource value: 0x7F010008
+			public const int outline_clear_black_36 = 2130771976;
+			
+			// aapt resource value: 0x7F010009
+			public const int outline_clear_black_48 = 2130771977;
+			
+			// aapt resource value: 0x7F010004
+			public const int outline_settings_applications_24 = 2130771972;
+			
+			// aapt resource value: 0x7F010010
+			public const int outline_settings_applications_black_18 = 2130771984;
+			
+			// aapt resource value: 0x7F010005
+			public const int outline_settings_applications_black_24 = 2130771973;
+			
+			// aapt resource value: 0x7F010011
+			public const int outline_settings_applications_black_36 = 2130771985;
+			
+			// aapt resource value: 0x7F010012
+			public const int outline_settings_applications_black_48 = 2130771986;
+			
 			// aapt resource value: 0x7F090069
 			public const int tooltip_frame_dark = 2131296361;
 			
 			// aapt resource value: 0x7F09006A
 			public const int tooltip_frame_light = 2131296362;
 			
-			// aapt resource value: 0x7F010002
-			public const int xamarin_logo = 2130771970;
+			// aapt resource value: 0x7F010006
+			public const int xamarin_logo = 2130771974;
 			
 			static Drawable()
 			{

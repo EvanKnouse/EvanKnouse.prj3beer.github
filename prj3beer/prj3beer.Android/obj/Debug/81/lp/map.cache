@@ -18,6 +18,8 @@ Microsoft.Extensions.Logging
 Microsoft.Extensions.Options
 Microsoft.Extensions.Primitives
 Newtonsoft.Json
+Plugin.Settings.Abstractions
+Plugin.Settings
 prj3beer
 Remotion.Linq
 SQLitePCLRaw.batteries_green

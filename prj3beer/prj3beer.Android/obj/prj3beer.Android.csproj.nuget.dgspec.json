@@ -10,7 +10,7 @@
         "projectUniqueName": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\prj3beer.Android.csproj",
         "projectName": "prj3beer.Android",
         "projectPath": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\prj3beer.Android.csproj",
-        "packagesPath": "C:\\Users\\cst220\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\cst210\\.nuget\\packages\\",
         "outputPath": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
@@ -18,19 +18,19 @@
           "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\cst220\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\cst210\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "monoandroid90"
+          "monoandroid81"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "monoandroid90": {
+          "monoandroid81": {
             "projectReferences": {
               "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
                 "projectPath": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj"
@@ -40,7 +40,7 @@
         }
       },
       "frameworks": {
-        "monoandroid90": {
+        "monoandroid81": {
           "dependencies": {
             "Newtonsoft.Json": {
               "target": "Package",
@@ -92,7 +92,7 @@
         "projectUniqueName": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj",
         "projectName": "prj3beer",
         "projectPath": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj",
-        "packagesPath": "C:\\Users\\cst220\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\cst210\\.nuget\\packages\\",
         "outputPath": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
@@ -100,7 +100,7 @@
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\cst220\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\cst210\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -125,19 +125,19 @@
       "frameworks": {
         "netstandard2.0": {
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[2.2.6, )"
+            },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[2.2.2, )"
+              "version": "[2.2.6, )"
             },
             "NETStandard.Library": {
               "suppressParent": "All",
               "target": "Package",
               "version": "[2.0.3, )",
               "autoReferenced": true
-            },
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[11.0.2, )"
             },
             "Xam.Plugins.Settings": {
               "target": "Package",
