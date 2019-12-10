@@ -4,6 +4,7 @@ using Xamarin.UITest;
 using Xamarin.UITest.Queries;
 using prj3beer.Models;
 using Xamarin.Forms;
+using System.Threading;
 
 namespace UITests
 {
@@ -14,7 +15,8 @@ namespace UITests
 
         IApp app;
         Platform platform;
-        string apkFile = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
+        //string apkFile = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
+        string apkFile = "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
 
         public StatusTests(Platform platform)
         {
@@ -114,12 +116,18 @@ namespace UITests
             Assert.AreEqual(toggled, "Fahrenheit");
         }
 
+        #region Story 04 UI Tests
         // Test that the application is currently on the status page
         [Test]
         public void AppIsOnStatusPage()
         {
             //Pick Status screen from the screen selection menu
-            app.Tap("Status");
+            //app.Tap("Status");
+            //Thread.Sleep(5000);
+
+            app.TapCoordinates(150, 90);
+
+            //Thread.Sleep(5000);
 
             app.WaitForElement("StatusPage");
 
@@ -164,10 +172,12 @@ namespace UITests
 
             app.WaitForElement("currentTarget");
 
-            int userInput = 5;
+            int userInput = 2;
 
             app.Tap("currentTarget");
+            app.ClearText("currentTarget");
             app.EnterText("currentTarget", userInput.ToString());
+            app.PressEnter();
 
             string targetTemperature = app.Query("currentTarget")[0].Text;
 
@@ -185,7 +195,7 @@ namespace UITests
 
             int startTemp = int.Parse(app.Query("currentTarget")[0].Text);
 
-            app.Tap(x => x.Marked("TempStepper").Text("+"));
+            app.TapCoordinates(860,1650);
 
             string targetTemperature = app.Query("currentTarget")[0].Text;
 
@@ -203,11 +213,12 @@ namespace UITests
 
             int startTemp = int.Parse(app.Query("currentTarget")[0].Text);
 
-            app.Tap(x => x.Marked("TempStepper").Text("-"));
+            app.TapCoordinates(560, 1560);
 
             string targetTemperature = app.Query("currentTarget")[0].Text;
 
             Assert.AreEqual((startTemp - 1).ToString(), targetTemperature);
         }
+        #endregion
     }
 }

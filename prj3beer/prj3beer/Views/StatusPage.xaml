@@ -33,7 +33,8 @@
                        
                        >
                     <Label.BindingContext>
-                        <vm:CurrentTempViewModel />
+                        <vm:CurrentTempViewModel 
+                            PropertyChanged="updateViewModel"/>
                     </Label.BindingContext>
                 </Label>
                 <!--<Label x:Name="labelCFCurrentTemperature"
@@ -44,7 +45,7 @@
                        ></Label>-->
             </StackLayout>
 
-            <StackLayout Orientation="Horizontal"
+            <!--StackLayout Orientation="Horizontal"
                          HorizontalOptions="CenterAndExpand">
                 <Entry AutomationId="TemperatureInput" 
                        x:Name="TemperatureInput"
@@ -60,7 +61,34 @@
                        VerticalOptions="Center"
                        FontSize="20"
                        ></Label>
+            </-->
+
+            <!-- STORY 04 XAML -->
+            <StackLayout>
+                <Entry AutomationId="currentTarget" 
+                       x:Name="TemperatureInput" 
+                       Keyboard="Numeric"
+                       HorizontalOptions="FillAndExpand"
+                       HorizontalTextAlignment="End"
+                       Text="{Binding Source={x:Reference TemperatureStepper},Path=Value,Mode=TwoWay}"
+		        Focused="SelectEntryText"/>
+                <Label x:Name="Degree" Text="{Binding Scale}"/>
             </StackLayout>
+            
+            <StackLayout HorizontalOptions="Center">
+                <Stepper AutomationId="TempStepper"
+                    x:Name="TemperatureStepper"
+                    Value="{Binding PreferredTemperatureString, Mode=TwoWay}"
+                    Maximum="{Binding Maximum}" 
+                    Minimum="{Binding Minimum}" 
+                    Increment="1" 
+                    HorizontalOptions="Center"
+		ValueChanged="TemperatureStepperChanged"/>
+            </StackLayout>
+            <!--StackLayout>
+                <Label>Preferred Beverage Temp:</Label>
+                <Entry x:Name="PrefTemp" Text=""></Entry>
+            </-->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

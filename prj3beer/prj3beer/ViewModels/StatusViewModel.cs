@@ -15,17 +15,22 @@ namespace prj3beer.ViewModels
         // Nullable double value for our temperature
         double? _temperature;
 
+        double _minimum;
+
+        double _maximum;
+
+
         /// Boolean for wether or not we are in Celsius or Fahrenheit (Default Celsius)
-        public bool isCelsius { get; set; }
+        public bool isCelsius;
 
         // string to return, either Degree C or Degree F based on Celsius Value
         public string Scale { get { return isCelsius ? "\u00B0C" : "\u00B0F"; } }
 
         // Double for storing Minimum Values for Steppers based on Celsius/Fahrenheit
-        public double Minimum { get { return isCelsius ? -30 : -22; } }
+        public double Minimum { get { return _minimum; } set { _minimum = value; } }
 
         // Double for storing Maximum Values for Steppers based on Celsius/Fahrenheit
-        public double Maximum { get { return isCelsius ?  30 :  86; } }
+        public double Maximum { get { return _maximum; } set { _maximum = value; } }
 
         // Double for setting/getting values to/from our backing field (nullable double)
         public double? Temperature
@@ -34,7 +39,20 @@ namespace prj3beer.ViewModels
             get { return _temperature; }
 
             // Store the passed in value to the backing field. Do a calculation depending if we are monitoring in Fahrenheit or Celsius
-            set { _temperature = isCelsius ? value : ((value * 1.8) +32); }
+            set {
+                try
+                {
+                    _minimum = isCelsius ? -30 : -22;
+                    _maximum = isCelsius ? 30 : 86;
+
+                    _temperature = isCelsius ? value : ((value * 1.8) + 32);
+                    
+                }
+                finally
+                {
+                    OnPropertyChanged("Temperature");
+                }
+            }
             //set { _temperature = value; }
         }
 
@@ -57,7 +75,7 @@ namespace prj3beer.ViewModels
                 }
                 finally
                 {   
-                    OnPropertyChanged("PreferredTempString");
+                    OnPropertyChanged("PreferredTemperatureString");
                 }
             }
         }

@@ -35,6 +35,8 @@ namespace prj3beer
             Beverage bev2 = new Beverage { BeverageID = 2, Temperature = 4 };
             Beverage bev3 = new Beverage { BeverageID = 3, Temperature = -1 };
 
+            Preference pref1 = new Preference { BeverageID = 1, Temperature = 10 };
+
             try
             {   // Try to Delete The Database
                 await context.Database.EnsureDeletedAsync();
@@ -44,6 +46,7 @@ namespace prj3beer
                 context.Beverage.Add(bev1);
                 context.Beverage.Add(bev2);
                 context.Beverage.Add(bev3);
+                context.Preference.Add(pref1);
 
                 // Save Changes (updates/new) to the database
                 await context.SaveChangesAsync();
