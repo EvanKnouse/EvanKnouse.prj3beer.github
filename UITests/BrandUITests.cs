@@ -2,7 +2,6 @@
 using System.Linq;
 using NUnit.Framework;
 using prj3beer.Models;
-using Xamarin.Forms;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
 
@@ -74,36 +73,27 @@ namespace UITests
             Assert.IsFalse(brandList.Any());
         }
 
-
-
-
         [Test]
         public void TestThatSpecificBrandIsAddedToList()
         {
             app.WaitForElement("brandList");
             AppResult[] brandList = app.Query(GWBbrand.brandName);
-            Assert.AreEqual("Great Western Brewery", brandList.Any());
+            Assert.AreEqual("Great Western Brewery", brandList.ElementAt(0).Text);
         }
 
-
-       [Test]
+        //Test borrowed from https://stackoverflow.com/questions/44113109/
+        // how-to-validate-alphabetical-order-of-tableview-elements-in-xamarin-ui-tests
+        [Test]
         public void TestThatListIsSortedAlphabetically()
         {
             app.WaitForElement("brandList");
-            AppResult[] brandList = app.Query();
-            List<string> listOfBrands = new List<string>();
+            AppResult[] brandList = app.Query("brandList");
+            //List<string> listOfBrands = new List<string>();
 
-            foreach (AppResult result in brandList)
-            {
-                if (!result.Text.Contains(null))
-                {
-                    listOfBrands.Add(result.Text);
-                }
-            }
-            List<string> expectedBrand = listOfBrands;
-            listOfBrands.Sort();
-            Assert.AreEqual(listOfBrands, expectedBrand);
-           
+            var ascending = brandList.OrderBy(a => a.Text);
+
+            Assert.IsTrue(brandList.SequenceEqual(ascending));
+
         }
     }
 }

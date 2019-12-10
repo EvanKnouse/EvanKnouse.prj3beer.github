@@ -92,3 +92,4 @@ D:\prj3beer\prj3.beer\prj3beer\prj3beer\obj\Debug\netstandard2.0\XamlC.stamp
 D:\prj3beer\prj3.beer\prj3beer\prj3beer\obj\Debug\netstandard2.0\prj3beer.dll
 D:\prj3beer\prj3.beer\prj3beer\prj3beer\obj\Debug\netstandard2.0\ref\prj3beer.dll
 D:\prj3beer\prj3.beer\prj3beer\prj3beer\obj\Debug\netstandard2.0\prj3beer.pdb
+D:\virpc\prj3beer\prj3.beer\prj3beer\prj3beer\obj\Debug\netstandard2.0\prj3beer.csprojAssemblyReference.cache

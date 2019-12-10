@@ -3,8 +3,6 @@ using System.Linq;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
 using prj3beer.Models;
-using Xamarin.Forms;
-using System.Threading;
 
 namespace UITests
 {
@@ -12,11 +10,10 @@ namespace UITests
     //[TestFixture(Platform.iOS)]
     public class StatusTests
     {
-
         IApp app;
         Platform platform;
-        //string apkFile = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
-        string apkFile = "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
+
+        string apkFile = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
 
         public StatusTests(Platform platform)
         {
@@ -34,8 +31,7 @@ namespace UITests
             //app.Tap(c => c.Marked("ScreenSelectButton"));
 
             //Sets the Temperature settings to celcius everytest
-            Settings.TemperatureSettings = true;
-            
+            Settings.TemperatureSettings = true; 
         }
 
         [Test]
@@ -75,6 +71,12 @@ namespace UITests
             //Wait for the Temperature switch to appear on screen
             app.WaitForElement("switchTemp");
 
+            //Check that the label for the current temperature is set to "\u00B0C"
+            string tempLabel = app.Query("currentTemperature")[0].Text;
+
+            //If equal, the temperature label has been set to Celsius
+            Assert.AreEqual(tempLabel.Contains("\u00B0C"), true);
+
             //Tap on the toggle button to change the temperature setting to fahrenheit
             app.Tap("switchTemp");
 
@@ -85,7 +87,7 @@ namespace UITests
             app.WaitForElement("currentTemperature");
 
             //Check that the label for the current temperature is set to "\u00B0F"
-            string tempLabel = app.Query("currentTemperature")[0].Text;
+            tempLabel = app.Query("currentTemperature")[0].Text;
 
             //If equal, the temperature label has been set to fahrenheit and the settings have been applied
             Assert.AreEqual(tempLabel.Contains("\u00B0F"), true);
@@ -106,11 +108,17 @@ namespace UITests
             //Wait for the Temperature switch to appear on screen
             app.WaitForElement("switchTemp");
 
+            //Grab the temperature label text to prove it was Celsius before it switched
+            string toggled = app.Query("lblTemp")[0].Text;
+
+            //If it was originally Celsius it would pass
+            Assert.AreEqual(toggled, "Celsius");
+
             //Tap on the toggle button to change the temperature setting to fahrenheit
             app.Tap("switchTemp");
 
             //Grab the temperature label text to prove it switched
-            string toggled = app.Query("lblTemp")[0].Text;
+            toggled = app.Query("lblTemp")[0].Text;
 
             //Check if the enabled value is true
             Assert.AreEqual(toggled, "Fahrenheit");

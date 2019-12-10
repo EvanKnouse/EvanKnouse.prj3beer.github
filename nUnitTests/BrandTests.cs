@@ -1,13 +1,11 @@
 using NUnit.Framework;
 using prj3beer.Models;
-using System.Threading.Tasks;
-using prj3beer.Utilities;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Tests
+namespace nUnitTests
 {
-    public class Tests 
+    class BrandTests 
     {
         #region Initializers
         Brand EmptyIDBrand = new Brand() { brandName = "Molson Coors Brewing Company" };
@@ -20,6 +18,7 @@ namespace Tests
         Brand MaxBoundaryNamebrand = new Brand() { brandID = 7, brandName = new string('a', 60) };
         Brand MinBoundaryNamebrand = new Brand() { brandID = 7, brandName = new string('a', 1) };
 
+        //Create a container for validation results (error messages)
         IList<ValidationResult> errors;
         #endregion
 

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using prj3beer.Models;
-using prj3beer.Utilities;
 
 namespace prj3beer.Services
 {
@@ -29,9 +27,11 @@ namespace prj3beer.Services
 
             // For each Brand in the API Brands,
             foreach (Brand currentBrand in APIBrands)
-            {   // If the Validation Helper does not contain any errors for the current brand, 
+            {   
+                // If the Validation Helper does not contain any errors for the current brand, 
                 if (ValidationHelper.Validate(currentBrand).Count == 0)
-                {   // Add it to the valid Brands list
+                {   
+                    // Add it to the valid Brands list
                     validBrands.Add(currentBrand);
                 }
                 //else statement to add errors to a string[]

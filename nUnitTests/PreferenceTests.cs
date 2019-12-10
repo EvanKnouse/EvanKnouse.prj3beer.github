@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using prj3beer.Models;
-using System.ComponentModel.DataAnnotations;
 
 namespace nUnitTests
 {
@@ -20,7 +16,6 @@ namespace nUnitTests
             mockPref.BeverageID = 1;
             mockPref.Temperature = 2;
         }
-
 
         [Test]
         public void TestThatPreferenceHasValidPreferenceID()

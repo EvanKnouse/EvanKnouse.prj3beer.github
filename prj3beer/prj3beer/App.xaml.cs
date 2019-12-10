@@ -1,6 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
 using prj3beer.Services;
 using prj3beer.Views;
 using prj3beer.Models;
@@ -21,16 +19,21 @@ namespace prj3beer
 
             // Instantiate a new Context (Database)
             BeerContext context = new BeerContext();
+
             // Ensure the Database is Created
             context.Database.EnsureCreated();
 
+            //This bit of code will be used in production, such that we will only grab sample data for debugging purposes
+            //For now, we will simply load the sample data on the creation of the app instance
             //if (System.Diagnostics.Debugger.IsAttached)
             //{   // Load Fixtures for Sample Data
-                LoadFixtures(context);
+            //    LoadFixtures(context);
             //}
+            LoadFixtures(context);
 
             MainPage = new MainPage(context);
         }
+
         private async void LoadFixtures(BeerContext context)
         {   // Create a series of 3 new beverages with different values.
             Beverage bev1 = new Beverage { BeverageID = 1, Temperature = 2 };
@@ -70,34 +73,20 @@ namespace prj3beer
         }
 
 
-         /// <summary>
-
-
+        /// <summary>
         /// This helper function will validate all of the brands in the brands list 
-
-
-      /// that is being loaded into the app from the database fixture before saving into the database
-
-
+        /// that is being loaded into the app from the database fixture before saving into the database
         /// </summary>
-
-
         /// <param name="brandList"></param>
-
-
         /// <param name="bc"></param>
-
         private void ValidateBrands(List<Brand> brandList, BeerContext bc)
         {
             foreach (Brand brand in brandList)
             {
                 if (ValidationHelper.Validate(brand).Count() == 0)               //If the validation returns 0 for count, brand is valid
                 {
-
-
                     bc.Brands.Add(brand);
                 }
-
             }
         }
 
