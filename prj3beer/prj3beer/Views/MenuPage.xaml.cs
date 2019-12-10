@@ -1,9 +1,7 @@
 ﻿using prj3beer.Models;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace prj3beer.Views
 {
@@ -20,7 +18,8 @@ namespace prj3beer.Views
 
             menuItems = new List<HomeMenuItem>
             {
-                new HomeMenuItem {Id = MenuItemType.Status, Title="Status" }
+                new HomeMenuItem {Id = MenuItemType.Status, Title="Status" },
+                new HomeMenuItem {Id = MenuItemType.Brand, Title="Brand Select" }
             };
 
             ListViewMenu.ItemsSource = menuItems;

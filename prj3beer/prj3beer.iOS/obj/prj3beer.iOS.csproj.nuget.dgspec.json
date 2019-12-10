@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer.iOS\\prj3beer.iOS.csproj": {}
+    "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.iOS\\prj3beer.iOS.csproj": {}
   },
   "projects": {
-    "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer.iOS\\prj3beer.iOS.csproj": {
+    "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.iOS\\prj3beer.iOS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer.iOS\\prj3beer.iOS.csproj",
+        "projectUniqueName": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.iOS\\prj3beer.iOS.csproj",
         "projectName": "prj3beer.iOS",
-        "projectPath": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer.iOS\\prj3beer.iOS.csproj",
+        "projectPath": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.iOS\\prj3beer.iOS.csproj",
         "packagesPath": "C:\\Users\\cst220\\.nuget\\packages\\",
-        "outputPath": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer.iOS\\obj\\",
+        "outputPath": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.iOS\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
@@ -32,8 +32,8 @@
         "frameworks": {
           "xamarinios10": {
             "projectReferences": {
-              "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
-                "projectPath": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj"
+              "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
+                "projectPath": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj"
               }
             }
           }
@@ -42,10 +42,6 @@
       "frameworks": {
         "xamarinios10": {
           "dependencies": {
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[11.0.2, )"
-            },
             "Xamarin.Essentials": {
               "target": "Package",
               "version": "[1.1.0, )"
@@ -69,14 +65,14 @@
         }
       }
     },
-    "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
+    "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj",
+        "projectUniqueName": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj",
         "projectName": "prj3beer",
-        "projectPath": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj",
+        "projectPath": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj",
         "packagesPath": "C:\\Users\\cst220\\.nuget\\packages\\",
-        "outputPath": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\obj\\",
+        "outputPath": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -121,6 +117,10 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[11.0.2, )"
+            },
+            "Xam.Plugins.Settings": {
+              "target": "Package",
+              "version": "[3.1.1, )"
             },
             "Xamarin.Essentials": {
               "target": "Package",

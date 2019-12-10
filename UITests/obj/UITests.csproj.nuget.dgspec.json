@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\virpc\\prj3.beer\\UITests\\UITests.csproj": {}
+    "D:\\virpc\\prj3beer\\prj3.beer\\UITests\\UITests.csproj": {}
   },
   "projects": {
-    "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer.Android\\prj3beer.Android.csproj": {
+    "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\prj3beer.Android.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer.Android\\prj3beer.Android.csproj",
+        "projectUniqueName": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\prj3beer.Android.csproj",
         "projectName": "prj3beer.Android",
-        "projectPath": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer.Android\\prj3beer.Android.csproj",
+        "projectPath": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\prj3beer.Android.csproj",
         "packagesPath": "C:\\Users\\cst220\\.nuget\\packages\\",
-        "outputPath": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer.Android\\obj\\",
+        "outputPath": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
@@ -23,24 +23,24 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "monoandroid81"
+          "monoandroid90"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "monoandroid81": {
+          "monoandroid90": {
             "projectReferences": {
-              "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
-                "projectPath": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj"
+              "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
+                "projectPath": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj"
               }
             }
           }
         }
       },
       "frameworks": {
-        "monoandroid81": {
+        "monoandroid90": {
           "dependencies": {
             "Newtonsoft.Json": {
               "target": "Package",
@@ -86,14 +86,14 @@
         }
       }
     },
-    "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
+    "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj",
+        "projectUniqueName": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj",
         "projectName": "prj3beer",
-        "projectPath": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj",
+        "projectPath": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj",
         "packagesPath": "C:\\Users\\cst220\\.nuget\\packages\\",
-        "outputPath": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\obj\\",
+        "outputPath": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -139,6 +139,10 @@
               "target": "Package",
               "version": "[11.0.2, )"
             },
+            "Xam.Plugins.Settings": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
             "Xamarin.Essentials": {
               "target": "Package",
               "version": "[1.1.0, )"
@@ -156,14 +160,14 @@
         }
       }
     },
-    "D:\\virpc\\prj3.beer\\UITests\\UITests.csproj": {
+    "D:\\virpc\\prj3beer\\prj3.beer\\UITests\\UITests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\virpc\\prj3.beer\\UITests\\UITests.csproj",
+        "projectUniqueName": "D:\\virpc\\prj3beer\\prj3.beer\\UITests\\UITests.csproj",
         "projectName": "UITests",
-        "projectPath": "D:\\virpc\\prj3.beer\\UITests\\UITests.csproj",
+        "projectPath": "D:\\virpc\\prj3beer\\prj3.beer\\UITests\\UITests.csproj",
         "packagesPath": "C:\\Users\\cst220\\.nuget\\packages\\",
-        "outputPath": "D:\\virpc\\prj3.beer\\UITests\\obj\\",
+        "outputPath": "D:\\virpc\\prj3beer\\prj3.beer\\UITests\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
@@ -184,11 +188,11 @@
         "frameworks": {
           "net461": {
             "projectReferences": {
-              "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer.Android\\prj3beer.Android.csproj": {
-                "projectPath": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer.Android\\prj3beer.Android.csproj"
+              "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\prj3beer.Android.csproj": {
+                "projectPath": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\prj3beer.Android.csproj"
               },
-              "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
-                "projectPath": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj"
+              "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
+                "projectPath": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj"
               }
             }
           }

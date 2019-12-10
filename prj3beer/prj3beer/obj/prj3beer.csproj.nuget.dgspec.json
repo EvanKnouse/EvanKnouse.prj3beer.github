@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {}
+    "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {}
   },
   "projects": {
-    "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
+    "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj",
+        "projectUniqueName": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj",
         "projectName": "prj3beer",
-        "projectPath": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj",
+        "projectPath": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\prj3beer.csproj",
         "packagesPath": "C:\\Users\\cst220\\.nuget\\packages\\",
-        "outputPath": "D:\\virpc\\prj3.beer\\prj3beer\\prj3beer\\obj\\",
+        "outputPath": "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -56,6 +56,10 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[11.0.2, )"
+            },
+            "Xam.Plugins.Settings": {
+              "target": "Package",
+              "version": "[3.1.1, )"
             },
             "Xamarin.Essentials": {
               "target": "Package",

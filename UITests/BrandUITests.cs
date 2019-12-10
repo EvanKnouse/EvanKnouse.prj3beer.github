@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using prj3beer.Models;
+using Xamarin.Forms;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
 
@@ -10,7 +12,7 @@ namespace UITests
     //[TestFixture(Platform.iOS)]
     public class BrandUITests
     {
-        string apkPath = "D:\\COSACPMG\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debugcom.companyname.prj3beer.apk";
+        string apkPath = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
 
         IApp app;
         Platform platform;
@@ -38,12 +40,13 @@ namespace UITests
             //app = AppInitializer.StartApp(platform);
             app = ConfigureApp.Android.ApkFile(apkPath).StartApp();
             app.TapCoordinates(150, 90);
-            app.Tap("Selection");
+            app.Tap("Brand Select");
         }
 
         [Test]
         public void TestThatListViewExistsOnPage()
         {
+
             app.WaitForElement("brandList");
             AppResult[] brandList = app.Query("brandList");
             Assert.IsTrue(brandList.Any());
@@ -72,68 +75,35 @@ namespace UITests
         }
 
 
-        [Test]
-        public void TestThatValidBrandsAreStoredLocally()
-        {
-            
-            //Assert.IsTrue(localBrandList.Contains(GWBbrand));
-            //Assert.IsTrue(localBrandList.Contains(PSBbrand));
-            //Assert.IsTrue(localBrandList.Contains(CBCbrand));
-        }
 
-        [Test]
-        public void TestThatInvalidBrandIsNotAddedToBrandList()
-        {
-            app.WaitForElement("brandList");
-            AppResult[] brandList = app.Query(Emptybrand.brandName);
-
-            Assert.IsFalse(brandList.Any());
-            brandList = app.Query(TooLongbrand.brandName);
-            Assert.IsFalse(brandList.Any());
-        }
 
         [Test]
         public void TestThatSpecificBrandIsAddedToList()
         {
             app.WaitForElement("brandList");
             AppResult[] brandList = app.Query(GWBbrand.brandName);
-            Assert.IsTrue(brandList.Any());
+            Assert.AreEqual("Great Western Brewery", brandList.Any());
         }
 
-        [Test]
-        public void TestThatListIsPopulatedFromLocalStorage()
-        {
-            app.WaitForElement("brandList");
-            AppResult[] brandList = app.Query("brandList");
-
-            Assert.IsTrue(brandList.Length == 3);
-        }
-
-        [Test]
-        public void TestThatListIsNotPopulatedFromLocalStorageWithIncorrectValues()
-        {
-            app.WaitForElement("brandList");
-            AppResult[] brandList = app.Query("brandList");
-
-            brandList = app.Query(TooLongbrand.brandName);
-            Assert.IsFalse(brandList.Any());
-
-            brandList = app.Query(Emptybrand.brandName);
-            Assert.IsFalse(brandList.Any());
-        }
 
        [Test]
         public void TestThatListIsSortedAlphabetically()
         {
             app.WaitForElement("brandList");
-            AppResult[] brandList = app.Query("brandList");
+            AppResult[] brandList = app.Query();
+            List<string> listOfBrands = new List<string>();
 
-
-            Assert.AreEqual(brandList[0].Text, CBCbrand.brandName);
-
-            Assert.AreEqual(brandList[1].Text, GWBbrand.brandName);
-
-            Assert.AreEqual(brandList[2].Text, PSBbrand.brandName);
+            foreach (AppResult result in brandList)
+            {
+                if (!result.Text.Contains(null))
+                {
+                    listOfBrands.Add(result.Text);
+                }
+            }
+            List<string> expectedBrand = listOfBrands;
+            listOfBrands.Sort();
+            Assert.AreEqual(listOfBrands, expectedBrand);
+           
         }
     }
 }

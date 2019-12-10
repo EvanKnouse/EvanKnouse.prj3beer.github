@@ -8,7 +8,8 @@ namespace prj3beer.Models
     {
         //Browse,
         //About,
-        Status
+        Status,
+        Brand
     }
     public class HomeMenuItem
     {

@@ -6,6 +6,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 using prj3beer.Models;
+using prj3beer.Utilities;
+using System.Linq;
 
 namespace prj3beer.Views
 {
@@ -14,9 +16,14 @@ namespace prj3beer.Views
     [DesignTimeVisible(false)]
     public partial class MainPage : MasterDetailPage
     {
+        //Static BeerContext to pass between pages for database operations
+        public static BeerContext context;
+
         Dictionary<int, NavigationPage> MenuPages = new Dictionary<int, NavigationPage>();
-        public MainPage()
+        public MainPage(BeerContext bc)
         {
+            context = bc;
+
             InitializeComponent();
 
             MasterBehavior = MasterBehavior.Popover;
@@ -32,6 +39,9 @@ namespace prj3beer.Views
                 {
                     case (int)MenuItemType.Status:
                         MenuPages.Add(id, new NavigationPage(new StatusPage()));
+                        break;
+                    case (int)MenuItemType.Brand:
+                        MenuPages.Add(id, new NavigationPage(new BrandSelectPage(context.Brands.ToList())));
                         break;
                 }
             }

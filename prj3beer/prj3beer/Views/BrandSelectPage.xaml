@@ -5,11 +5,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="prj3beer.Views.BrandSelectPage"
+             AutomationId="totalPage"
              >
-  <ListView x:Name="MyListView" 
+  <ListView x:Name="brandListView" 
             ItemsSource="{Binding Items}"
             ItemTapped="Handle_ItemTapped"
-            CachingStrategy="RecycleElement">
+            CachingStrategy="RecycleElement"
+            AutomationId="brandList">
     <!--<d:ListView.ItemsSource>
         <x:Array Type="{x:Type x:String}">
             <x:String>Item 1</x:String>
