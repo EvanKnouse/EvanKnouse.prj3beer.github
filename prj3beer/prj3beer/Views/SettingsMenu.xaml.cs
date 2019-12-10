@@ -18,7 +18,6 @@ namespace prj3beer.Views
         //changes temperature display settings in response to the switch 
         private void Switch_Toggled(object sender, ToggledEventArgs e)
         {
-            
             lblTemp.Text = e.Value ? "Celsius" : "Fahrenheit";
 
             Models.Settings.TemperatureSettings = e.Value;

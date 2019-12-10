@@ -23,11 +23,15 @@ namespace prj3beer.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+<<<<<<< HEAD
+            SQLitePCL.raw.SetProvider(new SQLitePCL.SQLite3Provider_bait());
+=======
             // iOS
             var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "..", "Library", "beer.db");
 
             SQLitePCL.Batteries_V2.Init();
 
+>>>>>>> master
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 

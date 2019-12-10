@@ -44,5 +44,4 @@ namespace prj3beer.Models
             }
         }
     }
-
 }
