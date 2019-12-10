@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:prj3beer.ViewModels"
+             mc:Ignorable="d"
+             x:Class="prj3beer.Views.StatusPage"
+             AutomationId="StatusPage"
+             Title="Status Page"
+             xmlns:src="clr-namespace:prj3beer.Services"
+             >
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem StyleId="btnSettings" x:Name="btnSettings"  Text="Settings" Clicked="ToolbarItem_Clicked" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <src:CelsiusToFahrenheitConverter x:Key="tempConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="Center" >
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="CenterAndExpand">
+                <Label x:Name="currentTemperature"
+                       AutomationId="currentTemperature"
+                       Text="{Binding CurrentTemp, Converter={StaticResource tempConverter}, StringFormat='{0:g}'}"
+                       VerticalOptions="Center" 
+                       MinimumWidthRequest="3"
+                       FontSize="38"
+                       
+                       >
+                    <Label.BindingContext>
+                        <vm:CurrentTempViewModel />
+                    </Label.BindingContext>
+                </Label>
+                <!--<Label x:Name="labelCFCurrentTemperature"
+                       AutomationId="labelCFCurrentTemperature"
+                       Text=""
+                       VerticalOptions="Center"
+                       FontSize="38"
+                       ></Label>-->
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="CenterAndExpand">
+                <Entry AutomationId="TemperatureInput" 
+                       x:Name="TemperatureInput"
+                       FontSize="20"
+                       Text="Waiting For Beverage"
+                       VerticalOptions="CenterAndExpand" 
+                       HorizontalTextAlignment="Center" 
+                       MinimumWidthRequest="6"
+                       Keyboard="Numeric"></Entry>
+                <Label x:Name="labelCFTargetTemperature"
+                       AutomationId="labelCFTargetTemperature"
+                       Text="C"
+                       VerticalOptions="Center"
+                       FontSize="20"
+                       ></Label>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

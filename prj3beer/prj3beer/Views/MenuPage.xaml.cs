@@ -20,23 +20,19 @@ namespace prj3beer.Views
 
             menuItems = new List<HomeMenuItem>
             {
-                //TODO: Reroute the screen to the main menu page instead of directly to the brand select page
-
-                //new HomeMenuItem {Id = MenuItemType.Browse, Title="Browse" },
-                new HomeMenuItem {Id = MenuItemType.Brand, Title="Brand Select" }
+                new HomeMenuItem {Id = MenuItemType.Status, Title="Status" }
             };
 
             ListViewMenu.ItemsSource = menuItems;
 
             ListViewMenu.SelectedItem = menuItems[0];
-            //Lambda expression and "_ =" added by C# suggestion
-            ListViewMenu.ItemSelected += (sender, e) =>
+            ListViewMenu.ItemSelected += async (sender, e) =>
             {
                 if (e.SelectedItem == null)
                     return;
 
                 var id = (int)((HomeMenuItem)e.SelectedItem).Id;
-                _ = RootPage.NavigateFromMenu(id);
+                await RootPage.NavigateFromMenu(id);
             };
         }
     }

@@ -1,10 +1,14 @@
-﻿namespace prj3beer.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace prj3beer.Models
 {
     public enum MenuItemType
     {
-        Browse,
-        About,
-        Brand // Added to Navigation Menu
+        //Browse,
+        //About,
+        Status
     }
     public class HomeMenuItem
     {

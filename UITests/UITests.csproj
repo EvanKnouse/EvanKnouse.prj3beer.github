@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4F0EA9AF-60FB-43A5-A6CF-4C5FCD36C6AC}</ProjectGuid>
+    <ProjectGuid>{A6C82A53-8256-4EDF-9426-41ECB63067C8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>UITests</RootNamespace>
     <AssemblyName>UITests</AssemblyName>
@@ -33,18 +33,19 @@
     <PackageReference Include="NUnitTestAdapter" Version="2.1.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppInitializer.cs" />
+    <Compile Include="CurrentTemperatureTests.cs" />
+    <Compile Include="StatusTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\prj3beer\prj3beer.Android\prj3beer.Android.csproj">
-      <Project>{d0150848-86c0-4a90-829d-630d9ad77ea0}</Project>
+      <Project>{5e951504-de3e-40dd-ac1c-ab2ae78b2d9a}</Project>
       <Name>prj3beer.Android</Name>
     </ProjectReference>
     <ProjectReference Include="..\prj3beer\prj3beer\prj3beer.csproj">
-      <Project>{C65935A7-2083-4D25-B9B7-BE56D1F32E79}</Project>
+      <Project>{ec22c617-7283-4d28-904b-7afb494a45b9}</Project>
       <Name>prj3beer</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="BrandUITests.cs" />
-    <Compile Include="AppInitializer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

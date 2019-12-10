@@ -4,10 +4,8 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using System.Linq;
 
 using prj3beer.Models;
-using prj3beer.Utilities;
 
 namespace prj3beer.Views
 {
@@ -16,31 +14,24 @@ namespace prj3beer.Views
     [DesignTimeVisible(false)]
     public partial class MainPage : MasterDetailPage
     {
-        public static BeerContext context;
-
         Dictionary<int, NavigationPage> MenuPages = new Dictionary<int, NavigationPage>();
-        public MainPage(BeerContext bc)
+        public MainPage()
         {
-            context = bc;
             InitializeComponent();
 
             MasterBehavior = MasterBehavior.Popover;
 
-            //MenuPages.Add((int)MenuItemType.Browse, (NavigationPage)Detail);
-            //MenuPages.Add((int)MenuItemType.Brand, (NavigationPage)Detail);
+            //MenuPages.Add((int)MenuItemType.Status, (NavigationPage)Detail);
         }
-        
+
         public async Task NavigateFromMenu(int id)
         {
             if (!MenuPages.ContainsKey(id))
             {
                 switch (id)
                 {
-                    //case (int)MenuItemType.Browse:
-                    //    MenuPages.Add(id, new NavigationPage(new ItemsPage()));
-                    //    break;
-                    case (int)MenuItemType.Brand:
-                        MenuPages.Add(id, new NavigationPage(new BrandSelectPage(context.Brands.ToList())));
+                    case (int)MenuItemType.Status:
+                        MenuPages.Add(id, new NavigationPage(new StatusPage()));
                         break;
                 }
             }
