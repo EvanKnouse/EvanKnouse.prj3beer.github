@@ -53,7 +53,7 @@ namespace prj3beer.Views
 
         public void updateViewModel(object sender, EventArgs args)
         {
-            svm.isCelsius = Settings.TemperatureSettings;
+            svm.IsCelsius = Settings.TemperatureSettings;
         }
 
         #region Story 04 Methods
@@ -91,7 +91,7 @@ namespace prj3beer.Views
             try
             {   // Set the Temperature of the Preferred beverage to the StatusViewModel's Temperature,
                 // Do a calculation if the temperature is currently set to fahrenheit
-                preferredBeverage.Temperature = svm.isCelsius ? svm.Temperature.Value : ((svm.Temperature.Value - 32) / 1.8);
+                preferredBeverage.Temperature = svm.IsCelsius ? svm.Temperature.Value : ((svm.Temperature.Value - 32) / 1.8);
             }
             catch (Exception)
             {
@@ -171,7 +171,7 @@ namespace prj3beer.Views
             svm = new StatusViewModel();
 
             // Set it's Monitored Celsius value to the value from the Settings 
-            svm.isCelsius = Settings.TemperatureSettings;
+            svm.IsCelsius = Settings.TemperatureSettings;
 
             // Set the Temperature Stepper to the Max/Minimum possible
             TemperatureStepper.Maximum = 86;
@@ -181,7 +181,7 @@ namespace prj3beer.Views
             svm.Temperature = preferredBeverage.Temperature;
 
             // is we are currently set to Celsius,
-            if (svm.isCelsius)
+            if (svm.IsCelsius)
             {   // Set the Steppers to Min/Max for Celsius,
                 TemperatureStepper.Minimum = -30;
                 TemperatureStepper.Maximum = 30;

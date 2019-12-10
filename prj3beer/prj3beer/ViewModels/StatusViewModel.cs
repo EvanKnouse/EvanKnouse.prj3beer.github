@@ -19,12 +19,11 @@ namespace prj3beer.ViewModels
 
         double _maximum;
 
-
         /// Boolean for wether or not we are in Celsius or Fahrenheit (Default Celsius)
-        public bool isCelsius;
+        public bool IsCelsius { get; set; }
 
         // string to return, either Degree C or Degree F based on Celsius Value
-        public string Scale { get { return isCelsius ? "\u00B0C" : "\u00B0F"; } }
+        public string Scale { get { return IsCelsius ? "\u00B0C" : "\u00B0F"; } }
 
         // Double for storing Minimum Values for Steppers based on Celsius/Fahrenheit
         public double Minimum { get { return _minimum; } set { _minimum = value; } }
@@ -42,10 +41,10 @@ namespace prj3beer.ViewModels
             set {
                 try
                 {
-                    _minimum = isCelsius ? -30 : -22;
-                    _maximum = isCelsius ? 30 : 86;
+                    _minimum = IsCelsius ? -30 : -22;
+                    _maximum = IsCelsius ? 30 : 86;
 
-                    _temperature = isCelsius ? value : ((value * 1.8) + 32);
+                    _temperature = IsCelsius ? value : ((value * 1.8) + 32);
                     
                 }
                 finally
