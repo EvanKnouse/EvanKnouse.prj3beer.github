@@ -8,14 +8,14 @@ namespace UITests
 {
     [TestFixture(Platform.Android)]
     //[TestFixture(Platform.iOS)]
-    public class StatusTests
+    public class StatusPageTests
     {
         IApp app;
         Platform platform;
 
         string apkFile = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
 
-        public StatusTests(Platform platform)
+        public StatusPageTests(Platform platform)
         {
             this.platform = platform;
         }
@@ -226,6 +226,38 @@ namespace UITests
             string targetTemperature = app.Query("currentTarget")[0].Text;
 
             Assert.AreEqual((startTemp - 1).ToString(), targetTemperature);
+        }
+        #endregion
+
+        #region story16 UI Tests
+        [Test]
+        public void TestThatAppDisplaysNotificationWhenReceivedTempMatchesDesiredTemp()
+        {
+
+        }
+
+        [Test]
+        public void TestThatAppDisplaysNotificationWhenReceivedTempIsTwoDegreesAboveDesiredTemp()
+        {
+
+        }
+
+        [Test]
+        public void TestThatAppDisplaysNotificationWhenReceivedTempIsTwoDegreesBelowDesiredTemp()
+        {
+
+        }
+
+        [Test]
+        public void TestThatAppDisplaysGettingTooColdNotification()
+        {
+
+        }
+
+        [Test]
+        public void TestThatAppDisplaysGettingTooHotNotification()
+        {
+
         }
         #endregion
     }

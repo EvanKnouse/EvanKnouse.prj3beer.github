@@ -43,7 +43,7 @@ namespace prj3beer.Services
         /// </summary>
         /// <param name="newTemp">The temperature to start counting from.  20 by default.</param>
         /// <param name="direction">Which direciton to incrememnt.  Down by default.</param>
-        public static void StartCounting(double newTemp=20.0, bool direction=true)
+        public static void StartCounting(double newTemp=20.0, bool direction=true, bool count=true)
         {
             Temp = newTemp;
             GoesDown = direction;
@@ -58,13 +58,16 @@ namespace prj3beer.Services
                 {
                     goesDown = true;
                 }
-                if(goesDown)
+                if (count)
                 {
-                   temp -= 1.0;
-                }
-                else
-                {
-                    temp += 1.0;
+                    if (goesDown)
+                    {
+                        temp -= 1.0;
+                    }
+                    else
+                    {
+                        temp += 1.0;
+                    }
                 }
                 return true;
             });

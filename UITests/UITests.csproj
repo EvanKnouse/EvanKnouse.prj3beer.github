@@ -36,7 +36,7 @@
     <Compile Include="AppInitializer.cs" />
     <Compile Include="BrandUITests.cs" />
     <Compile Include="CurrentTemperatureTests.cs" />
-    <Compile Include="StatusTests.cs" />
+    <Compile Include="StatusPageTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\prj3beer\prj3beer.Android\prj3beer.Android.csproj">
