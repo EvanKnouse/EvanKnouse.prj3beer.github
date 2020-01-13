@@ -20,7 +20,7 @@ namespace prj3beer.Models
         public int brandID { get; set; }    
 
         [Required(ErrorMessage ="Brand Name Required")] // Validation - Required. If not set, will return error
-        [MaxLength(60,ErrorMessage = "Brand Name Too Long, 60 Characters Maximum")] // Validation - Max Length of 60
+        [MaxLength(40,ErrorMessage = "Brand Name Too Long, 40 Characters Maximum")] // Validation - Max Length of 60
         [JsonProperty("name")] // JSON property
         public String brandName { get; set; }
     }

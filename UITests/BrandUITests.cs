@@ -11,9 +11,9 @@ namespace UITests
     //[TestFixture(Platform.iOS)]
     public class BrandUITests
     {
-        string apkPath = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
-
-        IApp app;
+        string apkFile = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
+                        //D:\virpc\prj3beer\prj3.beer\prj3beer\prj3beer.Android\bin\Debug
+    IApp app;
         Platform platform;
 
         #region Brand Initializers
@@ -37,7 +37,7 @@ namespace UITests
         public void BeforeEachTest()
         {
             //app = AppInitializer.StartApp(platform);
-            app = ConfigureApp.Android.ApkFile(apkPath).StartApp();
+            app = ConfigureApp.Android.ApkFile(apkFile).StartApp();
             app.TapCoordinates(150, 90);
             app.Tap("Brand Select");
         }

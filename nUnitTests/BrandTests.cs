@@ -15,7 +15,7 @@ namespace nUnitTests
         Brand CBCbrand = new Brand() { brandID = 5, brandName = "Churchhill Brewing Company" };
         Brand PSBbrand = new Brand() { brandID = 6, brandName = "Prarie Sun Brewery" };
         Brand TooLongbrand = new Brand() { brandID = 7, brandName = new string('a', 61) };
-        Brand MaxBoundaryNamebrand = new Brand() { brandID = 7, brandName = new string('a', 60) };
+        Brand MaxBoundaryNamebrand = new Brand() { brandID = 7, brandName = new string('a', 40) };
         Brand MinBoundaryNamebrand = new Brand() { brandID = 7, brandName = new string('a', 1) };
 
         //Create a container for validation results (error messages)
@@ -48,7 +48,7 @@ namespace nUnitTests
         {
             errors = ValidationHelper.Validate(TooLongbrand);
             Assert.IsTrue(errors.Count == 1);
-            Assert.IsTrue(errors[0].ErrorMessage == "Brand Name Too Long, 60 Characters Maximum");
+            Assert.IsTrue(errors[0].ErrorMessage == "Brand Name Too Long, 40 Characters Maximum");
         }
 
         [Test]

@@ -36,9 +36,6 @@ namespace prj3beer
 
         private async void LoadFixtures(BeerContext context)
         {   // Create a series of 3 new beverages with different values.
-            Beverage bev1 = new Beverage { BeverageID = 1, Temperature = 2 };
-            Beverage bev2 = new Beverage { BeverageID = 2, Temperature = 4 };
-            Beverage bev3 = new Beverage { BeverageID = 3, Temperature = -1 };
 
             List<Brand> brandList = new List<Brand>();
 
@@ -50,11 +47,18 @@ namespace prj3beer
 
             ValidateBrands(brandList, context);
 
+            Beverage bev1 = new Beverage { BeverageID = 1, Name = "Great Western Radler", Brand = brandList.ElementAt(0), Type = Type.Radler,  Temperature = 2 };
+            Beverage bev2 = new Beverage { BeverageID = 2, Name = "Churchill Blonde Lager", Brand = brandList.ElementAt(1), Type = Type.Lager, Temperature = 3 };
+            Beverage bev3 = new Beverage { BeverageID = 3, Name = "Batch 88", Brand = brandList.ElementAt(2), Type = Type.Stout, Temperature = 4 };
+
+
+
             Preference pref1 = new Preference { BeverageID = 1, Temperature = 10 };
 
             try
             {   // Try to Delete The Database
                 await context.Database.EnsureDeletedAsync();
+                //context.Database.EnsureDeleted();
                 // Try to Create the Database
                 await context.Database.EnsureCreatedAsync();
                 // Add Each beverage to the Database - ready to be written to the database.(watched)

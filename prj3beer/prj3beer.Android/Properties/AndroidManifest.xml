@@ -3,4 +3,5 @@
 	<uses-sdk android:minSdkVersion="26" android:targetSdkVersion="27" />
 	<application android:label="prj3beer.Android"></application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.INTERNET" />
 </manifest>
