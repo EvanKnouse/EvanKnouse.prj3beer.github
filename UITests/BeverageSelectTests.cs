@@ -1,5 +1,4 @@
-﻿
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using prj3beer.Models;
 using System;
 using System.Collections.Generic;
@@ -9,6 +8,7 @@ using System.Threading.Tasks;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
 using prj3beer.Views;
+using Xamarin.Forms;
 
 namespace UITests
 {
@@ -18,7 +18,7 @@ namespace UITests
         //Instead of querying on any (in case its empty) just make sure it contains the correct number of beverages
         string apkPath = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
 
-        Beverage CLBeverage = new Beverage() { };
+        Beverage CLBeverage = new Beverage() { BeverageID=1,Name="Coors Light",brand=new Brand { brandID = 1,brandName="Coors" }, type = prj3beer.Models.Type.ale, Temperature = 5 };
 
         IApp app;
         Platform platform;
@@ -38,30 +38,53 @@ namespace UITests
             app.Tap("SearchBeverage");
         }
 
+        #region List View Tests
         [Test]
-        public async Task TestThatValidSearchCharacterCorrectlyDisplaysMatchingBeveragesAsync()
+        public async Task TestThatBeverageListIsSortedAlphabetically()
         {
+            String userInput = "Coors";
 
+            app.EnterText("SearchBeverage", userInput.ToString().ToLower());
+            await Task.Delay(1500);
+            //This will query the listbox which is not implemented yet.
+            AppResult[] beverageList = app.Query("beverageListView");
+
+            var ascending = beverageList.OrderBy(a => a.Text);
+            Assert.IsFalse(beverageList.SequenceEqual(ascending));
+        }
+
+        [Test]
+        public void TestThatbeverageListViewIsOnSelectBeverageScreen()
+        {
+            AppResult[] beverageList = app.Query("searchBeverage");
+
+            Assert.IsTrue(beverageList.Any());
+        }
+        #endregion
+
+        #region Search Bar Tests
+        [Test]
+        public async Task TestThatValidSearchCharacterCorrectlyDisplaysMatchingBeverages()
+        {
             String userInput = "a";
 
             app.EnterText("SearchBeverage", userInput.ToString());
             await Task.Delay(1500);
             //This will query the listbox which is not implemented yet.
-            AppResult[] beverageList = app.Query(beverageListView);
+            AppResult[] beverageList = app.Query("beverageListView");
 
             Assert.IsTrue(beverageList.Any());
         }
 
         [Test]
-        public async Task TestThatValidSearchBrandNameDisplaysMatchingBeveragesAsync()
+        public async Task TestThatValidSearchBrandNameDisplaysMatchingBeverages()
         {
             String userInput = "Coors";
 
             app.EnterText("SearchBeverage", userInput.ToString());
             await Task.Delay(1500);
-            AppResult[] beverageList = app.Query(CLBeverage);
+            AppResult[] beverageList = app.Query(CLBeverage.Name);
             Assert.IsTrue(beverageList.Any());
-
 
             //This will be used for multiple beverages with the name coors in it
             //AppResult[] beverageList = app.Query(CLBeverage);
@@ -69,13 +92,12 @@ namespace UITests
 
             //AppResult[] beverageList = app.Query(CLBeverage);
             //Assert.IsTrue(beverageList.Any());
-
         }
 
         [Test]
-        public async Task TestThatInvalidSearchBrandNameDoesNotDisplayBeveragesAsync()
+        public async Task TestThatInvalidSearchBrandNameDoesNotDisplayBeverages()
         {
-            String userInput = "coorss";
+            String userInput = "Coorss";
 
             app.EnterText("SearchBeverage", userInput.ToString());
             await Task.Delay(1500);
@@ -86,32 +108,32 @@ namespace UITests
         }
 
         [Test]
-        public async Task TestThatValidSearchBeverageNameDisplaysMatchingBeveragesAsync()
+        public async Task TestThatValidSearchBeverageNameDisplaysMatchingBeverages()
         {
             String userInput = "Coors Light";
- 
+
             app.EnterText("SearchBeverage", userInput.ToString());
             await Task.Delay(1500);
             //This will query the listbox which is not implemented yet.
-            AppResult[] beverageList = app.Query(CLBeverage);
+            AppResult[] beverageList = app.Query(CLBeverage.Name);
             Assert.IsTrue(beverageList.Any());
         }
 
         [Test]
-        public async Task TestThatInvalidSearchBeverageNameDoesNotDisplayBeveragesAsync()
+        public async Task TestThatInvalidSearchBeverageNameDoesNotDisplayBeverages()
         {
             String userInput = "Maple Brew";
 
             app.EnterText("SearchBeverage", userInput.ToString());
             await Task.Delay(1500);
             //This will query the listbox which is not implemented yet.
-            AppResult[] beverageList = app.Query(beverageListView);
+            AppResult[] beverageList = app.Query("beverageListView");
 
             Assert.IsFalse(beverageList.Any());
         }
 
         [Test]
-        public async Task TestThatValidSearchTypeDisplaysMatchingBeveragesAsync()
+        public async Task TestThatValidSearchTypeDisplaysMatchingBeverages()
         {
             String userInput = "ale";
 
@@ -130,12 +152,10 @@ namespace UITests
 
             //    AppResult[] beverageList = app.Query(aleBeverage1);
             //    Assert.IsTrue(beverageList.Any());
-
         }
 
-
         [Test]
-        public async Task TestThatInvalidSearchTypeDoesNotDisplayBeveragesAsync()
+        public async Task TestThatInvalidSearchTypeDoesNotDisplayBeverages()
         {
             String userInput = "Unleaded";
             app.EnterText("SearchBeverage", userInput.ToString().ToLower());
@@ -147,103 +167,7 @@ namespace UITests
         }
 
         [Test]
-        public async Task TestThatBeverageListIsSortedAlphabeticallyAsync()
-        {
-            String userInput = "Coors";
-
-            app.EnterText("SearchBeverage", userInput.ToString().ToLower());
-            await Task.Delay(1500);
-            //This will query the listbox which is not implemented yet.
-            AppResult[] beverageList = app.Query("beverageListView");
-
-            var ascending = beverageList.OrderBy(a => a.Text);
-            Assert.IsFalse(beverageList.SequenceEqual(ascending));
-        }
-
-        [Test]
-        public void TestThatEmptySearchStringDoesNotDisplayBeverages()
-        {
-            AppResult[] beverageList = app.Query("beverageListView");
-            Assert.IsFalse(beverageList.Any());
-
-        }
-
-        [Test]
-        public async Task TestThatJustSpacesSearchDoesNotDisplayBeveragesAsync()
-        {
-            String userInput = "            ";
-            app.EnterText("SearchBeverage", userInput.ToString());
-            await Task.Delay(1500);
-            //This will query the listbox which is not implemented yet.
-            AppResult[] beverageList = app.Query("beverageListView");
-
-            Assert.IsFalse(beverageList.Any());
-        }
-
-
-        [Test]
-        public async Task TestThatLeadingSpacesAreTrimmedAndValidBeveragesAreStillDisplayedAsync()
-        {
-            String userInput = "            Coors Lite";
-            app.EnterText("SearchBeverage", userInput.ToString());
-            await Task.Delay(1500);
-            //This will query the listbox which is not implemented yet.
-            AppResult[] beverageList = app.Query("beverageListView");
-
-            Assert.IsTrue(beverageList.Any());
-        }
-
-
-        [Test]
-        public async Task TestThatTrailingSpacesAreTrimmedAndValidBeveragesAreStillDisplayedAsync()
-        {
-            String userInput = "Coors Lite                ";
-            app.EnterText("SearchBeverage", userInput.ToString());
-            await Task.Delay(1500);
-            //This will query the listbox which is not implemented yet.
-            AppResult[] beverageList = app.Query("beverageListView");
-
-            Assert.IsTrue(beverageList.Any());
-        }
-
-        [Test]
-        public async Task TestThatSpacesInTheMiddleOfTheSearchStringAreTrimmedAndValidBeveragesAreStillDisplayedAsync()
-        {
-            String userInput ="Coors           Lite";
-            app.EnterText("SearchBeverage", userInput.ToString());
-            await Task.Delay(1500);
-            //This will query the listbox which is not implemented yet.
-            AppResult[] beverageList = app.Query("beverageListView");
-
-            Assert.IsTrue(beverageList.Any());
-        }
-
-        [Test]
-        public async Task TestThatSpecialCharactersStringDoesNotDisplayBeveragesAsync()
-        {
-            String userInput = "$$@!:)";
-            app.EnterText("SearchBeverage", userInput.ToString());
-            await Task.Delay(1500);
-            //This will query the listbox which is not implemented yet.
-            AppResult[] beverageList = app.Query("beverageListView");
-
-            Assert.IsFalse(beverageList.Any());
-        }
-
-        [Test]
-        public async Task TestThatNumberStringDoesNotDisplayBeveragesAsync()
-        {
-            String userInput = "853971";
-            app.EnterText("SearchBeverage", userInput.ToString());
-            await Task.Delay(1500);
-            //This will query the listbox which is not implemented yet.
-            AppResult[] beverageList = app.Query("beverageListView");
-
-            Assert.IsFalse(beverageList.Any());
-        }
-
-        [Test]
-        public async Task TestThatTypingInCoorsLiteDisplaysTwoResultsAsync()
+        public async Task TestThatTypingInCoorsLiteDisplaysTwoResults()
         {
             String userInput = "Coors Lite";
             app.EnterText("SearchBeverage", userInput.ToString());
@@ -263,17 +187,9 @@ namespace UITests
         }
 
         [Test]
-        public void TestThatbeverageListViewIsOnSelectBeverageScreen()
+        public async Task TestThatSearchBoxCanBeTypedInto()
         {
-            AppResult[] beverageList = app.Query("searchBeverage");
-
-            Assert.IsTrue(beverageList.Any());
-        }
-
-        [Test]
-        public async Task TestThatSearchBoxCanBeTypedIntoAsync()
-        {
-            String userInput = "Coors Lite                ";
+            String userInput = "Coors";
             app.EnterText("searchBeverage", userInput.ToString());
             await Task.Delay(1500);
             //This will query the listbox which is not implemented yet.
@@ -283,7 +199,7 @@ namespace UITests
         }
 
         [Test]
-        public async Task TestThatBackSpacingACharacterBroadensResultSearchAsync()
+        public async Task TestThatBackSpacingACharacterBroadensResultSearch()
         {
             String userInput = "Coors L";
             app.EnterText("SearchBeverage", userInput.ToString());
@@ -293,14 +209,14 @@ namespace UITests
 
             Assert.IsTrue(beverageList.Count() == 1);
 
-             userInput = "Coors ";
+            userInput = "Coors ";
             app.EnterText("searchBeverage", userInput.ToString());
             Assert.IsTrue(beverageList.Count() == 4);
 
         }
 
         [Test]
-        public async Task TestThatBackSpacingAWordBroadensResultSearchAsync()
+        public async Task TestThatBackSpacingAWordBroadensResultSearch()
         {
             String userInput = "Coors Lite";
             app.EnterText("searchBeverage", userInput.ToString());
@@ -317,7 +233,7 @@ namespace UITests
         }
 
         [Test]
-        public async Task TestThatBackspacingEntireSearchStringDoesNotStartSearchProcessAsync()
+        public async Task TestThatBackspacingEntireSearchStringDoesNotStartSearchProcess()
         {
             String userInput = "Coors Lite";
             app.EnterText("searchBeverage", userInput.ToString());
@@ -334,78 +250,175 @@ namespace UITests
         }
 
         [Test]
-        public async Task TestThatErrorMessageIsDisplayedWhenNoResultsAreFoundAsync()
+        public async Task TestThatDeviceWaitsACertainAmountOfTimeBeforeQueryingLocalStorage()
         {
-            String userInput = "$";
+            String userInput = "Coors";
             app.EnterText("searchBeverage", userInput.ToString());
+            AppResult[] beverageList = app.Query("beverageListView");
+            Assert.IsFalse(beverageList.Count() >= 1);
             await Task.Delay(1500);
-            //This will query the listbox which is not implemented yet.
-            Assert.IsTrue(warningLabel.hidden == false);
+            beverageList = app.Query("beverageListView");
+            Assert.IsTrue(beverageList.Count() >= 1);
         }
 
+        #region Space Character Tests
         [Test]
-        public async Task TestThatErrorMessageIsNotDisplayedWhenResultsAreFoundAsync()
+        public async Task TestThatJustSpacesSearchDoesNotDisplayBeverages()
         {
-            String userInput = "Coors Lite";
+            String userInput = "       ";
             app.EnterText("SearchBeverage", userInput.ToString());
             await Task.Delay(1500);
             //This will query the listbox which is not implemented yet.
-            Assert.IsTrue(warningLabel.hidden == true);
+            AppResult[] beverageList = app.Query("beverageListView");
+
+            Assert.IsFalse(beverageList.Any());
+        }
+
+
+        [Test]
+        public async Task TestThatLeadingSpacesAreTrimmedAndValidBeveragesAreStillDisplayed()
+        {
+            String userInput = "   Coors Lite";
+            app.EnterText("SearchBeverage", userInput.ToString());
+            await Task.Delay(1500);
+            //This will query the listbox which is not implemented yet.
+            AppResult[] beverageList = app.Query("beverageListView");
+
+            Assert.IsTrue(beverageList.Any());
+        }
+
+
+        [Test]
+        public async Task TestThatTrailingSpacesAreTrimmedAndValidBeveragesAreStillDisplayed()
+        {
+            String userInput = "Coors Lite   ";
+            app.EnterText("SearchBeverage", userInput.ToString());
+            await Task.Delay(1500);
+            //This will query the listbox which is not implemented yet.
+            AppResult[] beverageList = app.Query("beverageListView");
+
+            Assert.IsTrue(beverageList.Any());
+        }
+
+        [Test]
+        public async Task TestThatSpacesInTheMiddleOfTheSearchStringAreTrimmedAndValidBeveragesAreStillDisplayed()
+        {
+            String userInput = "Coors     Lite";
+            app.EnterText("SearchBeverage", userInput.ToString());
+            await Task.Delay(1500);
+            //This will query the listbox which is not implemented yet.
+            AppResult[] beverageList = app.Query("beverageListView");
+
+            Assert.IsTrue(beverageList.Any());
+        }
+        #endregion
+
+        #region Invalid Character Tests
+        [Test]
+        public void TestThatEmptySearchStringDoesNotDisplayBeverages()
+        {
+            AppResult[] beverageList = app.Query("beverageListView");
+            Assert.IsFalse(beverageList.Any());
+        }
+
+        [Test]
+        public async Task TestThatSpecialCharactersStringDoesNotDisplayBeverages()
+        {
+            String userInput = "$$@!:)";
+            app.EnterText("SearchBeverage", userInput.ToString());
+            await Task.Delay(1500);
+            //This will query the listbox which is not implemented yet.
+            AppResult[] beverageList = app.Query("beverageListView");
+
+            Assert.IsFalse(beverageList.Any());
+        }
+
+        [Test]
+        public async Task TestThatNumberStringDoesNotDisplayBeverages()
+        {
+            String userInput = "853971";
+            app.EnterText("SearchBeverage", userInput.ToString());
+            await Task.Delay(1500);
+            //This will query the listbox which is not implemented yet.
+            AppResult[] beverageList = app.Query("beverageListView");
+
+            Assert.IsFalse(beverageList.Any());
+        }
+        #endregion
+        #endregion
+
+        #region Error Label Tests
+        [Test]
+        public async Task TestThatErrorMessageIsDisplayedWhenNoResultsAreFound()
+        {
+            String userInput = "Meepo";
+            app.EnterText("searchBeverage", userInput.ToString());
+            await Task.Delay(1500);
+
+            AppResult[] warningLabel = app.Query(c => c.All("hiddenLabel").Property("Hidden", false)); // app.WaitForElement
+            //This will query the listbox which is not implemented yet.
+            Assert.IsTrue(warningLabel.Any());
+        }
+
+        [Test]
+        public async Task TestThatErrorMessageIsNotDisplayedWhenResultsAreFound()
+        {
+            String userInput = "Coors";
+            app.EnterText("SearchBeverage", userInput.ToString());
+            await Task.Delay(1500);
+
+            AppResult[] warningLabel = app.Query(c => c.All("hiddenLabel").Property("Hidden", true)); // app.WaitForElement
+            //This will query the listbox which is not implemented yet.
+            Assert.IsTrue(warningLabel.Any());
         }
 
         [Test]
         public void TestThatErrorMessageIsNotDisplayedWhenFirstEnteringTheBeverageSelectScreen()
         {
-            Assert.IsTrue(warningLabel.hidden == true);
+            AppResult[] warningLabel = app.Query(c => c.All("hiddenLabel").Property("Hidden", true)); // app.WaitForElement
+            //This will query the listbox which is not implemented yet.
+            Assert.IsTrue(warningLabel.Any());
         }
+        #endregion
 
+        #region Placeholder Tests
         [Test]
-        public async Task TestThatPlaceholderTextInSearchBoxDisappearsWhenTextIsBeginEnteredAsync()
+        public async Task TestThatPlaceholderTextInSearchBoxDisappearsWhenTextIsBeingEntered()
         {
-            String userInput = "Coors Lite";
+            String userInput = "Coors";
             app.EnterText("SearchBeverage", userInput.ToString());
             await Task.Delay(1500);
-            Assert.AreNotEqual(searchBeverage.text, searchBeverage.placeHolder);
+            AppResult[] searchBar = app.Query("searchBeverage");
+            AppResult[] searchPlaceholder = app.Query(c => c.All("searchBeverage").Property("Placeholder", true));
+            Assert.AreNotEqual(searchBar[0].Text, searchPlaceholder[0].Text);
         }
 
         [Test]
-        public void TestThatPlaceHolderTextIsDisplayedWhenSearchIsNullOrEmpty()
-        {
+        public void TestThatPlaceHolderTextIsDisplayedWhenSearchIsNullOrEmpty() { }
+        #endregion
 
-        }
-
-        [Test]
-        public async Task TestThatDeviceWaitsACertainAmountOfTimeBeforeQueryingLocalStorageAsync()
-        {
-            String userInput = "Coors Lite";
-            app.EnterText("SearchBeverage", userInput.ToString());
-            AppResult[] beverageList = app.Query(SearchBeverage.text);
-            Assert.IsFalse(beverageList.Any());
-            await Task.Delay(1500);
-            beverageList = app.Query(SearchBeverage.text);
-            Assert.IsTrue(beverageList.Any());
-        }
-
+        #region Activity Indicator Tests
         [Test]
         public void TestThatSpinnerDisplaysWhenUserBeginsTypingInSearchBox()
         {
-            String userInput = "Coors Lite";
+            String userInput = "Coors";
             app.EnterText("SearchBeverage", userInput.ToString());
-            Assert.IsTrue(loadSpinner.hidden == false);
+            AppResult[] spinner = app.Query(c => c.All("loadingSpinner").Property("IsRunning", true));
+            Assert.IsTrue(spinner.Any());
         }
 
         [Test]
-        public async Task TestThatSpinnerDisappearsWhenSearchIsCompletedAsync()
+        public async Task TestThatSpinnerDisappearsWhenSearchIsCompleted()
         {
-            String userInput = "Coors Lite";
+            String userInput = "Coors";
             app.EnterText("SearchBeverage", userInput.ToString());
 
-            Assert.IsTrue(loadSpinner.hidden == false);
+            AppResult[] spinner = app.Query(c => c.All("loadingSpinner").Property("IsRunning", true));
+            Assert.IsTrue(spinner.Any());
             await Task.Delay(1500);
-            
-            Assert.IsTrue(loadSpinner.hidden == true);
+            spinner = app.Query(c => c.All("loadingSpinner").Property("IsRunning", false));
+            Assert.IsTrue(spinner.Any());
         }
-
-
+        #endregion
     }
 }

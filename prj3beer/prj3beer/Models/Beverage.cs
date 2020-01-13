@@ -9,11 +9,14 @@ namespace prj3beer.Models
         [Required (ErrorMessage = "Beverage ID is Required")]
         public int BeverageID { get; set; }
 
-        //[Required (ErrorMessage = "Beverage Name is Required")]
-        //public string Name { get; set; }
+        [Required (ErrorMessage = "Beverage Name is Required")]
+        public string Name { get; set; }
 
-        //[Required (ErrorMessage = "Brand is Required")]
-        //public string brand { get; set; };
+        [Required (ErrorMessage = "Brand is Required")]
+        public Brand brand { get; set; }
+
+        [Required(ErrorMessage = "Type is Required")]
+        public Type type { get; set; }
 
         [Required(ErrorMessage = "Ideal Temperature is Required")]
         [Range(-30, 30, ErrorMessage = "Target Temperature cannot be below -30C or above 30C")]

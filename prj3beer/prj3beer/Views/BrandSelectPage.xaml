@@ -8,17 +8,19 @@
              AutomationId="totalPage"
              >
     <StackLayout>
-
-    <ListView x:Name="brandListView" 
+        <ListView x:Name="brandListView" 
             ItemsSource="{Binding Items}"
             ItemTapped="Handle_ItemTapped"
             CachingStrategy="RecycleElement"
             AutomationId="brandList"/>
+        
+        <Label x:Name="hiddenLabel" />
 
-        <SearchBar x:Name="SearchBeverage" />
+        <ActivityIndicator x:Name="loadingSpinner" />
+
+        <SearchBar x:Name="searchBeverage" />
 
         <ListView x:Name="beverageListView" />
-
     <StackLayout/>
 
 
