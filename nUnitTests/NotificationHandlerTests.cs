@@ -1,6 +1,7 @@
 ﻿using prj3beer.Models;
 using prj3beer.Services;
 using NUnit.Framework;
+using System.Threading;
 
 namespace nUnitTests
 {
@@ -15,6 +16,7 @@ namespace nUnitTests
             {
                 Temperature = 0.0
             };
+
         }
 
         #region story16 Unit Tests
@@ -22,34 +24,114 @@ namespace nUnitTests
         public void TestThatAppDisplaysNotificationWhenReceivedTempMatchesDesiredTemp()
         {
             MockTempReadings.StartCounting(0.0, true, false);
-
-            Assert.IsTrue(nh.LastNotification == NotificationType.PERFECT);
+            Thread.Sleep(1000);
+            Assert.IsTrue(INotificationHandler.LastNotification == NotificationType.PERFECT);
             Assert.IsTrue(nh.NotificationSent);
         }
 
         [Test]
         public void TestThatAppDisplaysNotificationWhenReceivedTempIsTwoDegreesAboveDesiredTemp()
         {
-
+            MockTempReadings.StartCounting(2.0, true, false);
+            Thread.Sleep(1000);
+            Assert.IsTrue(nh.LastNotification == NotificationType.IN_RANGE_HOT);
+            Assert.IsTrue(nh.NotificationSent);
         }
 
         [Test]
         public void TestThatAppDisplaysNotificationWhenReceivedTempIsTwoDegreesBelowDesiredTemp()
         {
-
+            MockTempReadings.StartCounting(-2.0, true, false);
+            Thread.Sleep(1000);
+            Assert.IsTrue(nh.LastNotification == NotificationType.IN_RANGE_COLD);
+            Assert.IsTrue(nh.NotificationSent);
         }
 
         [Test]
         public void TestThatAppDisplaysGettingTooColdNotification()
         {
-
+            MockTempReadings.StartCounting(10.0, true, false);
+            Thread.Sleep(1000);
+            MockTempReadings.StartCounting(-5.0, true, false);
+            Thread.Sleep(1000);
+            Assert.IsTrue(nh.LastNotification == NotificationType.TOO_COLD);
+            Assert.IsTrue(nh.NotificationSent);
         }
 
         [Test]
         public void TestThatAppDisplaysGettingTooHotNotification()
         {
-
+            MockTempReadings.StartCounting(-10.0, true, false);
+            Thread.Sleep(1000);
+            MockTempReadings.StartCounting(5.0, true, false);
+            Thread.Sleep(1000);
+            Assert.IsTrue(nh.LastNotification == NotificationType.TOO_HOT);
+            Assert.IsTrue(nh.NotificationSent);
         }
+
+        [Test]
+        public void AppDoesNotSentTwoPerfectTemperatureNotificationsInARow(){
+            TestThatAppDisplaysNotificationWhenReceivedTempMatchesDesiredTemp();
+            Thread.Sleep(1000);
+            Assert.IsTrue(nh.LastNotification == NotificationType.PERFECT);
+            Assert.IsFalse(nh.NotificationSent);
+        }
+
+        [Test]
+        public void AppDoesNotSentTwoTemperatureGettingInWarmRangeNotifications(){
+            TestThatAppDisplaysNotificationWhenReceivedTempIsTwoDegreesAboveDesiredTemp();
+            Thread.Sleep(1000);
+            Assert.IsTrue(nh.LastNotification == NotificationType.IN_RANGE_HOT);
+            Assert.IsFalse(nh.NotificationSent);
+        }
+
+        [Test]
+        public void AppDoesNotSentTwoTemperatureGettingInColdRangeNotifications(){
+            TestThatAppDisplaysNotificationWhenReceivedTempIsTwoDegreesBelowDesiredTemp();
+            Thread.Sleep(1000);
+            Assert.IsTrue(nh.LastNotification == NotificationType.IN_RANGE_COLD);
+            Assert.IsFalse(nh.NotificationSent);
+        }
+
+        [Test]
+        public void AppDoesNotSentTwoTemeratureGettingTooHotNotificationsInARow(){
+            TestThatAppDisplaysGettingTooHotNotification();
+            Thread.Sleep(1000);
+            Assert.IsTrue(nh.LastNotification == NotificationType.TOO_HOT);
+            Assert.IsFalse(nh.NotificationSent);
+        }
+
+        [Test]
+        public void AppDoesNotSentTwoTemeratureGettingTooColdNotificationsInARow()
+        {
+            TestThatAppDisplaysGettingTooColdNotification();
+            Thread.Sleep(1000);
+            Assert.IsTrue(nh.LastNotification == NotificationType.TOO_COLD);
+            Assert.IsFalse(nh.NotificationSent);
+        }
+
+        [Test]
+        public void AppDoesNotSentGettingInRangeWarmNotificationIfLastNotificationSetWasPerfect()
+        {
+            TestThatAppDisplaysNotificationWhenReceivedTempMatchesDesiredTemp();
+            Thread.Sleep(1000);
+            MockTempReadings.StartCounting(1, true, false);
+            Thread.Sleep(1000);
+            Assert.IsTrue(nh.LastNotification == NotificationType.PERFECT);
+            Assert.IsFalse(nh.NotificationSent);
+        }
+
+        [Test]
+        public void AppDoesNotSentGettingInRangeColdNotificationIfLastNotificationSetWasPerfect()
+        {
+            TestThatAppDisplaysNotificationWhenReceivedTempMatchesDesiredTemp();
+            Thread.Sleep(1000);
+            MockTempReadings.StartCounting(-1, true, false);
+            Thread.Sleep(1000);
+            Assert.IsTrue(nh.LastNotification == NotificationType.PERFECT);
+            Assert.IsFalse(nh.NotificationSent);
+        }
+
         #endregion
     }
 }
