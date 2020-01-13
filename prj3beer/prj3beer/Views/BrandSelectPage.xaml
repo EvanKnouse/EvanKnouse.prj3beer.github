@@ -7,11 +7,22 @@
              x:Class="prj3beer.Views.BrandSelectPage"
              AutomationId="totalPage"
              >
-  <ListView x:Name="brandListView" 
+    <StackLayout>
+
+    <ListView x:Name="brandListView" 
             ItemsSource="{Binding Items}"
             ItemTapped="Handle_ItemTapped"
             CachingStrategy="RecycleElement"
-            AutomationId="brandList">
+            AutomationId="brandList"/>
+
+        <SearchBar x:Name="SearchBeverage" />
+
+        <ListView x:Name="beverageListView" />
+
+    <StackLayout/>
+
+
+
     <!--<d:ListView.ItemsSource>
         <x:Array Type="{x:Type x:String}">
             <x:String>Item 1</x:String>
@@ -27,10 +38,10 @@
             <TextCell Text="{Binding .}" d:Text="{Binding .}" />
         </DataTemplate>
     </ListView.ItemTemplate>-->
-    
+
     <!--Custom View Cells-->
- 
-      <!-- this was uncommented per Ernesto's instructions-->
+
+    <!-- this was uncommented per Ernesto's instructions-->
     <!--<ListView.ItemTemplate>
       <DataTemplate>
         <ViewCell>
@@ -46,5 +57,5 @@
       </DataTemplate>
     </ListView.ItemTemplate>-->
 
-  </ListView>
+
 </ContentPage>
