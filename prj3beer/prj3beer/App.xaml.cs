@@ -31,6 +31,8 @@ namespace prj3beer
             //}
             LoadFixtures(context);
 
+            DependencyService.Get<INotificationHandler>().Initialize();
+
             MainPage = new MainPage(context);
         }
 

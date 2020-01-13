@@ -229,36 +229,6 @@ namespace UITests
         }
         #endregion
 
-        #region story16 UI Tests
-        [Test]
-        public void TestThatAppDisplaysNotificationWhenReceivedTempMatchesDesiredTemp()
-        {
 
-        }
-
-        [Test]
-        public void TestThatAppDisplaysNotificationWhenReceivedTempIsTwoDegreesAboveDesiredTemp()
-        {
-
-        }
-
-        [Test]
-        public void TestThatAppDisplaysNotificationWhenReceivedTempIsTwoDegreesBelowDesiredTemp()
-        {
-
-        }
-
-        [Test]
-        public void TestThatAppDisplaysGettingTooColdNotification()
-        {
-
-        }
-
-        [Test]
-        public void TestThatAppDisplaysGettingTooHotNotification()
-        {
-
-        }
-        #endregion
     }
 }
