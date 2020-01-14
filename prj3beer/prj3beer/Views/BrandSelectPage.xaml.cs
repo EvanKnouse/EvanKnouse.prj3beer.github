@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using prj3beer.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using prj3beer.Services;
 
 namespace prj3beer.Views
 {
@@ -12,16 +13,19 @@ namespace prj3beer.Views
         /// <summary>
         /// Constructor for the Brand Select Page
         /// </summary>
-        public BrandSelectPage(List<Brand> brands)
+        public BrandSelectPage(List<Beverage> beverageList, BeerContext context)
         {
             InitializeComponent();
-            List<String> listViewBrand = new List<String>();
+
+
+
+            /*List<String> listViewBrand = new List<String>();
             foreach (Brand brand in brands)
             {
                 listViewBrand.Add(brand.brandName);             //Brands have already been validated by this point (app.xaml.cs)
             }
             listViewBrand.Sort();                               //Sort the list of brands alphabetically (default)
-            brandListView.ItemsSource = listViewBrand;             //Setting the item source of our list view to the brands list
+            brandListView.ItemsSource = listViewBrand;*/           //Setting the item source of our list view to the brands list
         }
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)

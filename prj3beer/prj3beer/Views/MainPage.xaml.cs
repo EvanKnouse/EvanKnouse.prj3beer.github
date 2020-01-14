@@ -41,7 +41,7 @@ namespace prj3beer.Views
                         MenuPages.Add(id, new NavigationPage(new StatusPage()));
                         break;
                     case (int)MenuItemType.Brand:
-                        MenuPages.Add(id, new NavigationPage(new BrandSelectPage(context.Brands.ToList())));
+                        MenuPages.Add(id, new NavigationPage(new BrandSelectPage(context.Beverage.ToList(), context)));
                         break;
                 }
             }
