@@ -7,7 +7,9 @@
              x:Class="prj3beer.Views.BrandSelectPage"
              AutomationId="totalPage"
              >
-    <StackLayout>
+
+  <ContentPage.Content>
+        <StackLayout>
         <ListView x:Name="brandListView" 
             ItemsSource="{Binding Items}"
             ItemTapped="Handle_ItemTapped"
@@ -21,8 +23,11 @@
         <SearchBar x:Name="searchBeverage" />
 
         <ListView x:Name="beverageListView" />
-    <StackLayout/>
+    </StackLayout>
+  </ContentPage.Content>
 
+
+  </ContentPage>
 
 
     <!--<d:ListView.ItemsSource>
@@ -60,4 +65,3 @@
     </ListView.ItemTemplate>-->
 
 
-</ContentPage>

@@ -35,11 +35,7 @@ namespace prj3beer
         }
 
         private async void LoadFixtures(BeerContext context)
-        {   // Create a series of 3 new beverages with different values.
-            Beverage bev1 = new Beverage { BeverageID = 1, Temperature = 2 };
-            Beverage bev2 = new Beverage { BeverageID = 2, Temperature = 4 };
-            Beverage bev3 = new Beverage { BeverageID = 3, Temperature = -1 };
-
+        {
             List<Brand> brandList = new List<Brand>();
 
             brandList.Add(new Brand() { brandID = 4, brandName = "Great Western Brewery" });
@@ -49,6 +45,15 @@ namespace prj3beer
             brandList.Add(new Brand() { brandID = 3, brandName = "" });
 
             ValidateBrands(brandList, context);
+
+            // Create a series of 3 new beverages with different values.
+            Beverage bev1 = new Beverage { BeverageID = 1, Name = "Great Western Radler", Brand = brandList.ElementAt(0), Type = Type.Radler, Temperature = 2 };
+            Beverage bev2 = new Beverage { BeverageID = 2, Name = "Churchill Blonde Lager", Brand = brandList.ElementAt(1), Type = Type.Lager, Temperature = 3 };
+            Beverage bev3 = new Beverage { BeverageID = 3, Name = "Batch 88", Brand = brandList.ElementAt(2), Type = Type.Stout, Temperature = 4 };
+
+
+      
+      
 
             Preference pref1 = new Preference { BeverageID = 1, Temperature = 10 };
 

@@ -6,14 +6,16 @@ namespace prj3beer.Models
 {
     public enum Type
     {
-        beer,
-        wine,
-        cider,
-        mead,
-        rum,
-        whiskey,
-        vodka,
-        liqueur,
-        ale
+        Brown,
+        Cream,
+        IPA,
+        Lager,
+        Light,
+        Pale,
+        Pilsner,
+        Radler,
+        Red,
+        Stout,
+        White
     }
 }
