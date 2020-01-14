@@ -15,7 +15,8 @@ namespace prj3beer.Models
 
         [Required (ErrorMessage = "Beverage Name is Required")]
         [JsonProperty("name")]
-        [MinLength (3,ErrorMessage ="Must be at least 3 characters long")]
+        [MaxLength(40,ErrorMessage ="Beverage Name Too Long, 40 Characters Maximum")]
+        [MinLength (3,ErrorMessage = "Beverage Name Too Short, 3 Characters Minimum")]
         public string Name { get; set; }
 
         [Required (ErrorMessage = "Brand is Required")]

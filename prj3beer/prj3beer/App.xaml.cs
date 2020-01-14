@@ -39,11 +39,11 @@ namespace prj3beer
 
             List<Brand> brandList = new List<Brand>();
 
-            brandList.Add(new Brand() { brandID = 4, brandName = "Great Western Brewery" });
-            brandList.Add(new Brand() { brandID = 5, brandName = "Churchhill Brewing Company" });
-            brandList.Add(new Brand() { brandID = 6, brandName = "Prarie Sun Brewery" });
-            brandList.Add(new Brand() { brandID = 7, brandName = new string('a', 61) });
-            brandList.Add(new Brand() { brandID = 3, brandName = "" });
+            brandList.Add(new Brand() { BrandID = 4, Name = "Great Western Brewery" });
+            brandList.Add(new Brand() { BrandID = 5, Name = "Churchhill Brewing Company" });
+            brandList.Add(new Brand() { BrandID = 6, Name = "Prarie Sun Brewery" });
+            brandList.Add(new Brand() { BrandID = 7, Name = new string('a', 61) });
+            brandList.Add(new Brand() { BrandID = 3, Name = "" });
 
             ValidateBrands(brandList, context);
 

@@ -17,15 +17,15 @@ namespace UITests
         Platform platform;
 
         #region Brand Initializers
-        Brand EmptyIDBrand = new Brand() { brandName = "Molson Coors Brewing Company" };
-        Brand NegativeIDBrand = new Brand() { brandID = -1, brandName = "Molson Coors Brewing Company" };
-        Brand Emptybrand = new Brand() { brandID = 3, brandName = "" };
-        Brand GWBbrand = new Brand() { brandID = 4, brandName = "Great Western Brewery" };
-        Brand CBCbrand = new Brand() { brandID = 5, brandName = "Churchhill Brewing Company" };
-        Brand PSBbrand = new Brand() { brandID = 6, brandName = "Prarie Sun Brewery" };
-        Brand TooLongbrand = new Brand() { brandID = 7, brandName = new string('a', 61) };
-        Brand MaxBoundaryNamebrand = new Brand() { brandID = 7, brandName = new string('a', 60) };
-        Brand MinBoundaryNamebrand = new Brand() { brandID = 7, brandName = new string('a', 1) };
+        Brand EmptyIDBrand = new Brand() { Name = "Molson Coors Brewing Company" };
+        Brand NegativeIDBrand = new Brand() { BrandID = -1, Name = "Molson Coors Brewing Company" };
+        Brand Emptybrand = new Brand() { BrandID = 3, Name = "" };
+        Brand GWBbrand = new Brand() { BrandID = 4, Name = "Great Western Brewery" };
+        Brand CBCbrand = new Brand() { BrandID = 5, Name = "Churchhill Brewing Company" };
+        Brand PSBbrand = new Brand() { BrandID = 6, Name = "Prarie Sun Brewery" };
+        Brand TooLongbrand = new Brand() { BrandID = 7, Name = new string('a', 61) };
+        Brand MaxBoundaryNamebrand = new Brand() { BrandID = 7, Name = new string('a', 60) };
+        Brand MinBoundaryNamebrand = new Brand() { BrandID = 7, Name = new string('a', 1) };
         #endregion
 
         public BrandUITests(Platform platform)
@@ -55,11 +55,11 @@ namespace UITests
         public void TestThatListContainsValidBrands()
         {
             app.WaitForElement("brandList");
-            AppResult[] brandList = app.Query(GWBbrand.brandName);
+            AppResult[] brandList = app.Query(GWBbrand.Name);
             Assert.IsTrue(brandList.Any());
-            brandList = app.Query(CBCbrand.brandName);
+            brandList = app.Query(CBCbrand.Name);
             Assert.IsTrue(brandList.Any());
-            brandList = app.Query(PSBbrand.brandName);
+            brandList = app.Query(PSBbrand.Name);
             Assert.IsTrue(brandList.Any());
         }
 
@@ -67,9 +67,9 @@ namespace UITests
         public void TestThatListDoesNotContainInvalidBrands()
         {
             app.WaitForElement("brandList");
-            AppResult[] brandList = app.Query(Emptybrand.brandName);
+            AppResult[] brandList = app.Query(Emptybrand.Name);
             Assert.IsFalse(brandList.Any());
-            brandList = app.Query(TooLongbrand.brandName);
+            brandList = app.Query(TooLongbrand.Name);
             Assert.IsFalse(brandList.Any());
         }
 
@@ -77,7 +77,7 @@ namespace UITests
         public void TestThatSpecificBrandIsAddedToList()
         {
             app.WaitForElement("brandList");
-            AppResult[] brandList = app.Query(GWBbrand.brandName);
+            AppResult[] brandList = app.Query(GWBbrand.Name);
             Assert.AreEqual("Great Western Brewery", brandList.ElementAt(0).Text);
         }
 

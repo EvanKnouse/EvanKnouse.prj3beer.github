@@ -39,7 +39,7 @@ namespace prj3beer.Services
             }
 
             // Sort them alphabetically before returning them. 
-            validBrands.Sort((a,b) => string.Compare(a.brandName,b.brandName));
+            validBrands.Sort((a,b) => string.Compare(a.Name,b.Name));
 
             // Return all valid brands
             return validBrands;

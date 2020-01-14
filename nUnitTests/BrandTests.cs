@@ -8,15 +8,15 @@ namespace nUnitTests
     class BrandTests 
     {
         #region Initializers
-        Brand EmptyIDBrand = new Brand() { brandName = "Molson Coors Brewing Company" };
-        Brand NegativeIDBrand = new Brand() { brandID = -1, brandName = "Molson Coors Brewing Company" };
-        Brand Emptybrand = new Brand() { brandID = 3, brandName = "" };
-        Brand GWBbrand = new Brand() { brandID = 4, brandName = "Great Western Brewery" };
-        Brand CBCbrand = new Brand() { brandID = 5, brandName = "Churchhill Brewing Company" };
-        Brand PSBbrand = new Brand() { brandID = 6, brandName = "Prarie Sun Brewery" };
-        Brand TooLongbrand = new Brand() { brandID = 7, brandName = new string('a', 61) };
-        Brand MaxBoundaryNamebrand = new Brand() { brandID = 7, brandName = new string('a', 40) };
-        Brand MinBoundaryNamebrand = new Brand() { brandID = 7, brandName = new string('a', 1) };
+        Brand EmptyIDBrand = new Brand() { Name = "Molson Coors Brewing Company" };
+        Brand NegativeIDBrand = new Brand() { BrandID = -1, Name = "Molson Coors Brewing Company" };
+        Brand Emptybrand = new Brand() { BrandID = 3, Name = "" };
+        Brand GWBbrand = new Brand() { BrandID = 4, Name = "Great Western Brewery" };
+        Brand CBCbrand = new Brand() { BrandID = 5, Name = "Churchhill Brewing Company" };
+        Brand PSBbrand = new Brand() { BrandID = 6, Name = "Prarie Sun Brewery" };
+        Brand TooLongbrand = new Brand() { BrandID = 7, Name = new string('a', 61) };
+        Brand MaxBoundaryNamebrand = new Brand() { BrandID = 7, Name = new string('a', 40) };
+        Brand MinBoundaryNamebrand = new Brand() { BrandID = 7, Name = new string('a', 1) };
 
         //Create a container for validation results (error messages)
         IList<ValidationResult> errors;

@@ -18,7 +18,7 @@ namespace prj3beer.Views
             List<String> listViewBrand = new List<String>();
             foreach (Brand brand in brands)
             {
-                listViewBrand.Add(brand.brandName);             //Brands have already been validated by this point (app.xaml.cs)
+                listViewBrand.Add(brand.Name);             //Brands have already been validated by this point (app.xaml.cs)
             }
             listViewBrand.Sort();                               //Sort the list of brands alphabetically (default)
             brandListView.ItemsSource = listViewBrand;             //Setting the item source of our list view to the brands list
