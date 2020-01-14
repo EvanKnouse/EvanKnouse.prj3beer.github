@@ -20,7 +20,7 @@
 
         <ActivityIndicator x:Name="loadingSpinner" />
 
-        <SearchBar x:Name="searchBeverage" />
+        <SearchBar x:Name="searchBeverage" TextChanged="SearchChanged"/>
 
         <ListView x:Name="beverageListView" />
     </StackLayout>
