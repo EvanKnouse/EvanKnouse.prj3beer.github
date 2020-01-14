@@ -26,11 +26,11 @@ namespace prj3beer.Models
 
         [Required(ErrorMessage = "Type is Required")]
         [JsonProperty("type")]
-        public Type Type { get; set; }
+        public Type? Type { get; set; }
 
         [Required(ErrorMessage = "Temperature is Required")]
         [Range(-30, 30, ErrorMessage = "Target Temperature cannot be below -30C or above 30C")]
         [JsonProperty("temperature")]
-        public double Temperature { get; set; }
+        public double? Temperature { get; set; }
     }
 }

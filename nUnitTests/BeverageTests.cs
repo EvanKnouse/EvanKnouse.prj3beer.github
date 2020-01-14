@@ -109,34 +109,46 @@ namespace nUnitTests
         [Test]
         public void TestThatBeverageTypeIsInvalid()
         {
-            Type? type = "Liquid";
-            GreatWestRadler.Type = (Type)type;
+
+            GreatWestRadler.Type = null;
             errors = ValidationHelper.Validate(GreatWestRadler);
             Assert.IsTrue(errors.Count == 1);
+            Assert.AreEqual(errors[0].ToString(), "Type is Required");
+
         }
 
         [Test]
         public void TestThatMinTemperatureIsValid()
         {
-            Assert.IsTrue(false);
+            GreatWestRadler.Temperature = -30;
+            errors = ValidationHelper.Validate(GreatWestRadler);
+            Assert.IsTrue(errors.Count == 0);
         }
 
         [Test]
         public void TestThatMaxTemperatureIsValid()
         {
-            Assert.IsTrue(false);
+            GreatWestRadler.Temperature = 30;
+            errors = ValidationHelper.Validate(GreatWestRadler);
+            Assert.IsTrue(errors.Count == 0);
         }
 
         [Test]
         public void TestThatBelowMinTemperatureIsInvalid()
         {
-            Assert.IsTrue(false);
+            GreatWestRadler.Temperature = -31;
+            errors = ValidationHelper.Validate(GreatWestRadler);
+            Assert.IsTrue(errors.Count == 1);
+            Assert.AreEqual(errors[0].ToString(), "Target Temperature cannot be below -30C or above 30C");
         }
 
         [Test]
         public void TestThatAboveMaxTemperatureIsInvalid()
         {
-            Assert.IsTrue(false);
+            GreatWestRadler.Temperature = 31;
+            errors = ValidationHelper.Validate(GreatWestRadler);
+            Assert.IsTrue(errors.Count == 1);
+            Assert.AreEqual(errors[0].ToString(), "Target Temperature cannot be below -30C or above 30C");
         }
     }
 }

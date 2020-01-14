@@ -23,6 +23,6 @@ namespace prj3beer.Models
         [MaxLength(40,ErrorMessage = "Brand Name Too Long, 40 Characters Maximum")] // Validation - Max Length of 60
         [MinLength(3,ErrorMessage = "Brand Name Too Short, 3 Characters Minimum")] // Validation - Min Length of 3
         [JsonProperty("name")] // JSON property
-        public String Name { get; set; }
+        public string Name { get; set; }
     }
 }
