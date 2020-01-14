@@ -10,6 +10,8 @@ namespace prj3beer.ViewModels
     {
         BeerContext context = new BeerContext();
 
+        INotificationHandler notificationHandler;
+
         public BeerContext Context { get { return this.context; } }
         
         // Nullable double value for our temperature

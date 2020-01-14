@@ -2,12 +2,15 @@
 using prj3beer.Services;
 using NUnit.Framework;
 using System.Threading;
+using Xamarin.Forms;
+using Microsoft.DotNet.PlatformAbstractions;
 
 namespace nUnitTests
 {
     class NotificationHandlerTests
     {
         Preference mockPref;
+        INotificationHandler nh;
 
         [SetUp]
         public void SetUp()
@@ -17,6 +20,9 @@ namespace nUnitTests
                 Temperature = 0.0
             };
 
+
+            nh = DependencyService.Get<INotificationHandler>();
+            
         }
 
         #region story16 Unit Tests
@@ -25,7 +31,8 @@ namespace nUnitTests
         {
             MockTempReadings.StartCounting(0.0, true, false);
             Thread.Sleep(1000);
-            Assert.IsTrue(INotificationHandler.LastNotification == NotificationType.PERFECT);
+            Assert.IsTrue(nh.LastNotification == NotificationType.PERFECT);
+            
             Assert.IsTrue(nh.NotificationSent);
         }
 
