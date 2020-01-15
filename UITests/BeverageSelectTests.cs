@@ -42,7 +42,7 @@ namespace UITests
             //app = AppInitializer.StartApp(platform);
             app = ConfigureApp.Android.ApkFile(apkPath).StartApp();
             app.TapCoordinates(150, 90);
-            app.Tap("Beverage Select");
+            app.Tap("Brand Select");
             app.Tap("SearchBeverage");
         }
 
