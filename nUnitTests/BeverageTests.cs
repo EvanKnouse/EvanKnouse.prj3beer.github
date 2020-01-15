@@ -11,7 +11,7 @@ namespace nUnitTests
         #region Initializers
         // Objects
         static Brand GWBbrand = new Brand() { BrandID = 1, Name = "Great Western Brewing Company" };
-        Beverage GreatWestRadler = new Beverage { BeverageID = 1, Brand = GWBbrand, Name = "Great Western Radler", Temperature = 3, Type = Type.Radler };
+        Beverage GreatWestRadler = new Beverage { BeverageID = 1, BrandID = 1, Name = "Great Western Radler", Temperature = 3, Type = Type.Radler };
 
         //Create a container for validation results (error messages)
         IList<ValidationResult> errors;
@@ -21,7 +21,7 @@ namespace nUnitTests
         [SetUp]
         public void Setup()
         {
-            GreatWestRadler = new Beverage { BeverageID = 1, Brand = GWBbrand, Name = "Great Western Radler", Temperature = 3, Type = Type.Radler };
+            GreatWestRadler = new Beverage { BeverageID = 1, BrandID = 1, Name = "Great Western Radler", Temperature = 3, Type = Type.Radler };
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace nUnitTests
         [Test]
         public void TestThatBeverageHasMissingBrand()
         {
-            GreatWestRadler.Brand = null;
+            GreatWestRadler.BrandID = null;
             errors = ValidationHelper.Validate(GreatWestRadler);
             Assert.IsTrue(errors.Count == 1);
         }

@@ -18,9 +18,6 @@ namespace prj3beer.Services
         //Reference to a HttpClient for sending and recieving HTTP data
         HttpClient client;
 
-        //Validation helper for validating received JSON objects
-        ValidationHelper validator = new ValidationHelper();
-
         // Use methods from MOCK API MANAGER HERE
         public Task<List<Brand>> GetBrands()
         {

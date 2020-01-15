@@ -19,7 +19,8 @@ namespace prj3beer.Views
             menuItems = new List<HomeMenuItem>
             {
                 new HomeMenuItem {Id = MenuItemType.Status, Title="Status" },
-                new HomeMenuItem {Id = MenuItemType.Brand, Title="Brand Select" }
+                new HomeMenuItem {Id = MenuItemType.Brand, Title="Brand Select" },
+                new HomeMenuItem {Id = MenuItemType.Beverage, Title="Beverage Select" }
             };
 
             ListViewMenu.ItemsSource = menuItems;

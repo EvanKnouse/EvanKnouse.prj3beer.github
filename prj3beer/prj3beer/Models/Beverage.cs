@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Xamarin.Forms;
 using Newtonsoft.Json;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace prj3beer.Models
 {
@@ -21,8 +21,8 @@ namespace prj3beer.Models
 
         [Required (ErrorMessage = "Brand is Required")]
         [JsonProperty("brand")]
-        //[MinLength(3, ErrorMessage = "Must be at least 3 characters long")]
-        public Brand Brand { get; set; }
+        [ForeignKey("Brand")]
+        public int? BrandID { get; set; }
 
         [Required(ErrorMessage = "Type is Required")]
         [JsonProperty("type")]
