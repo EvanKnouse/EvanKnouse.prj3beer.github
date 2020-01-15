@@ -5,24 +5,44 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V4.App;
 using Android.Views;
 using Android.Widget;
 
 using prj3beer.Services;
+using Xamarin.Forms;
+using AndroidApp = Android.App.Application;
 
+[assembly: Dependency(typeof(prj3beer.Droid.AndroidNotifications))]
 namespace prj3beer.Droid
 {
     class AndroidNotifications : INotificationHandler
     {
-        public NotificationType LastNotification { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public bool NotificationSent { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        const string channelId = "default";
+        const string channelName = "Default";
+        const string channelDescription = "The default channel for notifications.";
+
+        public const string TitleKey = "title";
+        public const string MessageKey = "body";
+
+        const int pendingIntentId = 0;
+        int messageId = -1;
+        NotificationManager manager;
+
+        bool channelInitialized = false;
+
+        public NotificationType LastNotification { get; set; }
+        public bool NotificationSent { get; set; }
 
         private bool firstReading = true;
 
-        public void CompareTemp(double receivedTemp, double idealTemp)
+        public bool CompareTemp(double receivedTemp, double idealTemp)
         {
+
+            NotificationSent = false;
 
             double dif = receivedTemp - idealTemp;
 
@@ -57,20 +77,63 @@ namespace prj3beer.Droid
                 else if (curType == NotificationType.PERFECT) SendLocalNotification("Drink Time!", "Your beverage has reached the perfect temperature");
                 else if (curType == NotificationType.IN_RANGE_HOT) SendLocalNotification("Temperature Alert", "Your beverage is just above the desired temperature");
                 else if (curType == NotificationType.TOO_HOT) SendLocalNotification("Heat Warning", "Your beverage is just below the desired temperature");
+
+                LastNotification = curType;
+                NotificationSent = true;
             }
 
-            LastNotification = curType;
-                
+            return NotificationSent;    
+
         }
 
         public void Initialize()
         {
-            throw new NotImplementedException();
+            CreateNotificationChannel();
         }
 
-        public bool SendLocalNotification(string title, string body)
+        void CreateNotificationChannel()
         {
-            throw new NotImplementedException();
+            manager = (NotificationManager)AndroidApp.Context.GetSystemService(AndroidApp.NotificationService);
+
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+            {
+                var channelNameJava = new Java.Lang.String(channelName);
+                var channel = new NotificationChannel(channelId, channelNameJava, NotificationImportance.Default)
+                {
+                    Description = channelDescription
+                };
+                manager.CreateNotificationChannel(channel);
+            }
+
+            channelInitialized = true;
+        }
+
+        public void SendLocalNotification(string title, string body)
+        {
+            if (!channelInitialized)
+            {
+                CreateNotificationChannel();
+            }
+
+            messageId++;
+
+            Intent intent = new Intent(AndroidApp.Context, typeof(MainActivity));
+            intent.PutExtra(TitleKey, title);
+            intent.PutExtra(MessageKey, body);
+
+            PendingIntent pendingIntent = PendingIntent.GetActivity(AndroidApp.Context, pendingIntentId, intent, PendingIntentFlags.OneShot);
+
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(AndroidApp.Context, channelId)
+                .SetContentIntent(pendingIntent)
+                .SetContentTitle(title)
+                .SetContentText(body)
+                .SetLargeIcon(BitmapFactory.DecodeResource(AndroidApp.Context.Resources, Resource.Drawable.xamarin_logo))
+                .SetSmallIcon(Resource.Drawable.xamarin_logo)
+                .SetDefaults((int)NotificationDefaults.Sound | (int)NotificationDefaults.Vibrate);
+
+            var notification = builder.Build();
+            manager.Notify(messageId, notification);
+
         }
     }
 }

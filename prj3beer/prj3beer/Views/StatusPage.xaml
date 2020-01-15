@@ -33,7 +33,7 @@
                        
                        >
                     <Label.BindingContext>
-                        <vm:CurrentTempViewModel 
+                        <vm:StatusViewModel 
                             PropertyChanged="updateViewModel"/>
                     </Label.BindingContext>
                 </Label>

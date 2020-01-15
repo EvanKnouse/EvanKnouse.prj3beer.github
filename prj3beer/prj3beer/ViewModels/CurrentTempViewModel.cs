@@ -25,7 +25,7 @@ namespace prj3beer.ViewModels
             Device.StartTimer(TimeSpan.FromSeconds(1), () =>
             {
                 this.CurrentTemp = MockTempReadings.Temp;
-                nh.CompareTemp(this.CurrentTemp);
+                //nh.CompareTemp(this.CurrentTemp, this._temperature);
                 return true;
             });
         }
