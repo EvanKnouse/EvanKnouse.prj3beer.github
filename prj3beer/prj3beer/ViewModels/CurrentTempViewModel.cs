@@ -14,6 +14,7 @@ namespace prj3beer.ViewModels
     public class CurrentTempViewModel : INotifyPropertyChanged
     {
         double currentTemp;
+        INotificationHandler nh;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -24,6 +25,7 @@ namespace prj3beer.ViewModels
             Device.StartTimer(TimeSpan.FromSeconds(1), () =>
             {
                 this.CurrentTemp = MockTempReadings.Temp;
+                nh.CompareTemp(this.CurrentTemp);
                 return true;
             });
         }
