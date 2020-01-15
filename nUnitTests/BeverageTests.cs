@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using NUnit.Framework;
 using prj3beer.Models;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace nUnitTests
         [Test]
         public void TestThatMinBoundaryBeverageIDIsValid()
         {
+            var json = JsonConvert.SerializeObject(GreatWestRadler);
             GreatWestRadler.BeverageID = 1;
             errors = ValidationHelper.Validate(GreatWestRadler);
             Assert.IsTrue(errors.Count == 0);

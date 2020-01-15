@@ -20,52 +20,48 @@ namespace prj3beer
             // Instantiate a new Context (Database)
             BeerContext context = new BeerContext();
 
+            //Instantiate a new API Manager
+            ApiManager apiManager = new ApiManager();
+            //TODO: Build actual URL
+            apiManager.BaseURL = "";
+
             // Ensure the Database is Created
             context.Database.EnsureCreated();
 
             //This bit of code will be used in production, such that we will only grab sample data for debugging purposes
             //For now, we will simply load the sample data on the creation of the app instance
-            //if (System.Diagnostics.Debugger.IsAttached)
-            //{   // Load Fixtures for Sample Data
-            //    LoadFixtures(context);
-            //}
-            LoadFixtures(context);
+            if (System.Diagnostics.Debugger.IsAttached)
+            {   
+                // Load Fixtures for Sample Data
+                LoadFixtures(context, apiManager);
+            }
+            else
+            {
+
+            }
+            //LoadFixtures(context);
 
             MainPage = new MainPage(context);
         }
 
-        private async void LoadFixtures(BeerContext context)
-        {   // Create a series of 3 new beverages with different values.
+        private async void LoadFixtures(BeerContext context, ApiManager apiManager)
+        {
+            apiManager.BaseURL = "";
 
-            List<Brand> brandList = new List<Brand>();
-
-            brandList.Add(new Brand() { BrandID = 4, Name = "Great Western Brewery" });
-            brandList.Add(new Brand() { BrandID = 5, Name = "Churchhill Brewing Company" });
-            brandList.Add(new Brand() { BrandID = 6, Name = "Prarie Sun Brewery" });
-            brandList.Add(new Brand() { BrandID = 7, Name = new string('a', 61) });
-            brandList.Add(new Brand() { BrandID = 3, Name = "" });
-
-            ValidateBrands(brandList, context);
-
-            Beverage bev1 = new Beverage { BeverageID = 1, Name = "Great Western Radler", Brand = brandList.ElementAt(0), Type = Type.Radler,  Temperature = 2 };
-            Beverage bev2 = new Beverage { BeverageID = 2, Name = "Churchill Blonde Lager", Brand = brandList.ElementAt(1), Type = Type.Lager, Temperature = 3 };
-            Beverage bev3 = new Beverage { BeverageID = 3, Name = "Batch 88", Brand = brandList.ElementAt(2), Type = Type.Stout, Temperature = 4 };
-
-
-
-            Preference pref1 = new Preference { BeverageID = 1, Temperature = 10 };
+            List<Beverage> beverages = await apiManager.GetBeveragesAsync();
 
             try
             {   // Try to Delete The Database
                 await context.Database.EnsureDeletedAsync();
-                //context.Database.EnsureDeleted();
+
                 // Try to Create the Database
                 await context.Database.EnsureCreatedAsync();
+
                 // Add Each beverage to the Database - ready to be written to the database.(watched)
-                context.Beverage.Add(bev1);
-                context.Beverage.Add(bev2);
-                context.Beverage.Add(bev3);
-                context.Preference.Add(pref1);
+                beverages.ForEach(e =>
+                {
+                    context.Add(e);
+                });
 
                 // Save Changes (updates/new) to the database
                 await context.SaveChangesAsync();
@@ -74,6 +70,45 @@ namespace prj3beer
             {
                 throw;
             }
+
+
+            //// Create a series of 3 new beverages with different values
+            //List<Brand> brandList = new List<Brand>();
+
+            //brandList.Add(new Brand() { BrandID = 4, Name = "Great Western Brewery" });
+            //brandList.Add(new Brand() { BrandID = 5, Name = "Churchhill Brewing Company" });
+            //brandList.Add(new Brand() { BrandID = 6, Name = "Prarie Sun Brewery" });
+            //brandList.Add(new Brand() { BrandID = 7, Name = new string('a', 61) });
+            //brandList.Add(new Brand() { BrandID = 3, Name = "" });
+
+            //ValidateBrands(brandList, context);
+
+            //Beverage bev1 = new Beverage { BeverageID = 1, Name = "Great Western Radler", Brand = brandList.ElementAt(0), Type = Type.Radler,  Temperature = 2 };
+            //Beverage bev2 = new Beverage { BeverageID = 2, Name = "Churchill Blonde Lager", Brand = brandList.ElementAt(1), Type = Type.Lager, Temperature = 3 };
+            //Beverage bev3 = new Beverage { BeverageID = 3, Name = "Batch 88", Brand = brandList.ElementAt(2), Type = Type.Stout, Temperature = 4 };
+
+
+
+            //Preference pref1 = new Preference { BeverageID = 1, Temperature = 10 };
+
+            //try
+            //{   // Try to Delete The Database
+            //    await context.Database.EnsureDeletedAsync();
+            //    // Try to Create the Database
+            //    await context.Database.EnsureCreatedAsync();
+            //    // Add Each beverage to the Database - ready to be written to the database.(watched)
+            //    context.Beverage.Add(bev1);
+            //    context.Beverage.Add(bev2);
+            //    context.Beverage.Add(bev3);
+            //    context.Preference.Add(pref1);
+
+            //    // Save Changes (updates/new) to the database
+            //    await context.SaveChangesAsync();
+            //}
+            //catch (SqliteException)
+            //{
+            //    throw;
+            //}
         }
 
 
