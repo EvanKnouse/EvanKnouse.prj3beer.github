@@ -7,27 +7,18 @@
              x:Class="prj3beer.Views.BrandSelectPage"
              AutomationId="totalPage"
              >
-
-  <ContentPage.Content>
+    <ContentPage.Content>
         <StackLayout>
-        <ListView x:Name="brandListView" 
-            ItemsSource="{Binding Items}"
-            ItemTapped="Handle_ItemTapped"
-            CachingStrategy="RecycleElement"
-            AutomationId="brandList"/>
-        
-        <Label x:Name="hiddenLabel" />
+            <SearchBar x:Name="searchBeverage" TextChanged="SearchChanged"/>
 
-        <ActivityIndicator x:Name="loadingSpinner" />
+            <Label x:Name="errorLabel" />
 
-        <SearchBar x:Name="searchBeverage" TextChanged="SearchChanged"/>
+            <ActivityIndicator x:Name="loadingSpinner" />
 
-        <ListView x:Name="beverageListView" />
-    </StackLayout>
-  </ContentPage.Content>
-
-
-  </ContentPage>
+            <ListView x:Name="beverageListView" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
 
 
     <!--<d:ListView.ItemsSource>

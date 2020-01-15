@@ -22,7 +22,7 @@ namespace prj3beer.Views
             context = beerContext;
 
 
-  
+
 
             /*List<String> listViewBrand = new List<String>();
             foreach (Brand brand in brands)
@@ -46,29 +46,43 @@ namespace prj3beer.Views
 
         private void SearchChanged(object sender, TextChangedEventArgs e)
         {
-            //Make spinner hidden = false
-            listViewBeverages = new List<string>(); 
-            String searchString = searchBeverage.Text;
-           var beverages = context.Beverage.Where(b => b.Brand.brandName.ToLower().Contains(searchString.ToLower()) || b.Name.ToLower().Contains(searchString.ToLower())).Distinct();
+            loadingSpinner.IsRunning = true;
 
-            if (searchString == "")
+            //Make spinner hidden = false
+            listViewBeverages = new List<string>();
+            String searchString = searchBeverage.Text;
+            var beverages = context.Beverage.Where(b => b.Brand.brandName.ToLower().Contains(searchString.ToLower()) || b.Name.ToLower().Contains(searchString.ToLower()) || b.Type.ToString().ToLower().Contains(searchString.ToLower())).Distinct();
+
+            if (!searchString.Equals(""))
             {
-                beverageListView.ItemsSource = null;
-            }
-            else
-            {
+                errorLabel.IsVisible = false;
+
                 foreach (var beverage in beverages)
                 {
                     listViewBeverages.Add(beverage.Name);
                 }
-                //Set spinner hidden to true
-                beverageListView.ItemsSource = listViewBeverages;
-            }
-            //if beverage list contains nothing display error else make it disappear
-       
 
-            
-       
+                if (listViewBeverages.Count() == 0)
+                {
+                    beverageListView.ItemsSource = null;
+                    // shows up instantly at the moment, may want to add some sort of debounce
+                    errorLabel.IsVisible = true;
+                    errorLabel.Text = "\"" + searchString + "\" could not be found/does not exist";
+                }
+                else
+                {
+                    //Set spinner hidden to true
+                    beverageListView.ItemsSource = listViewBeverages;
+                }
+            }
+            else
+            {
+                errorLabel.IsVisible = false;
+
+                beverageListView.ItemsSource = null;
+            }
+
+            loadingSpinner.IsRunning = false;
         }
     }
 }
