@@ -10,6 +10,8 @@ namespace prj3beer
 {
     public partial class App : Application
     {
+        static string beverageURL = @"http://my-json-server.typicode.com/prj3beer/prj3beer-api/beverages";
+        static string brandURL = @"http://my-json-server.typicode.com/prj3beer/prj3beer-api/brands";
 
         public App()
         {
@@ -22,10 +24,9 @@ namespace prj3beer
 
             //Instantiate a new API Manager
             ApiManager apiManager = new ApiManager();
-            //TODO: Build actual URL
-            apiManager.BaseURL = "";
 
             // Ensure the Database is Created
+            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
             //This bit of code will be used in production, such that we will only grab sample data for debugging purposes
@@ -36,40 +37,71 @@ namespace prj3beer
                 LoadFixtures(context, apiManager);
             }
             else
-            {
-
+            {   
+                // Load data from API
+                FetchData(context, apiManager);
             }
-            //LoadFixtures(context);
 
             MainPage = new MainPage(context);
         }
 
+        private async void FetchData(BeerContext context, ApiManager apiManager)
+        {
+            // Set URL of api Manager to point to the Brands API
+            apiManager.BaseURL = brandURL;
+            // Load the Brands that Validate into the Local Storage
+            context.Brands.AddRange(await apiManager.GetBrandsAsync());
+
+            // Set URL of api Manager to point to the Beverage API
+            apiManager.BaseURL = beverageURL;
+            // Load the Beverages that Validate into the Local Storage
+            context.Beverage.AddRange(await apiManager.GetBeveragesAsync());
+
+            // Save changes to the Local Storage
+            await context.SaveChangesAsync();
+
+        }
+
+        /// <summary>
+        /// This method is responsible for loading mock data into the app,
+        /// this is only ran when the app had a debugger running
+        /// </summary>
+        /// <param name="context">Local Storage Database</param>
+        /// <param name="apiManager">API Manager for handling API connection</param>
         private async void LoadFixtures(BeerContext context, ApiManager apiManager)
         {
+            // Set the baseURL to an empty string
             apiManager.BaseURL = "";
 
-            List<Beverage> beverages = await apiManager.GetBeveragesAsync();
+            // Store Brands in Local Storage
+            context.Brands.AddRange(await apiManager.GetBrandsAsync());
 
-            try
-            {   // Try to Delete The Database
-                await context.Database.EnsureDeletedAsync();
+            // Store Brands in Local Storage
+            context.Beverage.AddRange(await apiManager.GetBeveragesAsync());
 
-                // Try to Create the Database
-                await context.Database.EnsureCreatedAsync();
+            // Save the Changes
+            await context.SaveChangesAsync();
 
-                // Add Each beverage to the Database - ready to be written to the database.(watched)
-                beverages.ForEach(e =>
-                {
-                    context.Add(e);
-                });
+            //try
+            //{   // Try to Delete The Database
+            //    await context.Database.EnsureDeletedAsync();
 
-                // Save Changes (updates/new) to the database
-                await context.SaveChangesAsync();
-            }
-            catch (SqliteException)
-            {
-                throw;
-            }
+            //    // Try to Create the Database
+            //    await context.Database.EnsureCreatedAsync();
+
+            //    // Add Each beverage to the Database - ready to be written to the database.(watched)
+            //    beverages.ForEach(e =>
+            //    {
+            //        context.Add(e);
+            //    });
+
+            //    // Save Changes (updates/new) to the database
+            //    await context.SaveChangesAsync();
+            //}
+            //catch (SqliteException)
+            //{
+            //    throw;
+            //}
 
 
             //// Create a series of 3 new beverages with different values

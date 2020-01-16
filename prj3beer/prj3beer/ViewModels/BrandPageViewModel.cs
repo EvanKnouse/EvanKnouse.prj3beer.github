@@ -19,7 +19,7 @@ namespace prj3beer.ViewModels
         async Task GetBrands()
         {
             bool IsBusy = true;
-            var brands = await Api.GetBrands();
+            var brands = await Api.GetBrandsAsync();
             if (brands != null)
             {
                 Brands = new ObservableCollection<Brand>(brands);

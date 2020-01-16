@@ -31,6 +31,7 @@ namespace prj3beer.Views
             // Perform validation on the list, removing invalid beverages
             beverageList.ForEach(e => { if (ValidationHelper.Validate(e).Count == 0) { validBeverages.Add(e.Name); } });
 
+            validBeverages.Sort((a, b) => { return string.Compare(a, b); }) ;
             beverageListView.ItemsSource = validBeverages;
 
         }

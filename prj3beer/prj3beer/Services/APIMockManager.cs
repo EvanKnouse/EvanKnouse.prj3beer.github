@@ -8,7 +8,12 @@ namespace prj3beer.Services
 {
     public class APIMockManager : IAPIManager
     {
-        public async Task<List<Brand>> GetBrands()
+        public Task<List<Beverage>> GetBeveragesAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<List<Brand>> GetBrandsAsync()
         {
             // Add a delay to run the rest of the method
             await Task.Delay(1000);

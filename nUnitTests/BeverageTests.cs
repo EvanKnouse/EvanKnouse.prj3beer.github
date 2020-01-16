@@ -27,7 +27,19 @@ namespace nUnitTests
         [Test]
         public void TestThatMinBoundaryBeverageIDIsValid()
         {
-            var json = JsonConvert.SerializeObject(GreatWestRadler);
+            List<object> list = new List<object>();
+
+            List<Brand> brands = new List<Brand>();
+            brands.Add(new Brand() { BrandID = 1, Name = "Great Western Brewing Company" });
+
+            List<Beverage> beverages = new List<Beverage>();
+            beverages.Add(GreatWestRadler);
+
+            list.Add(beverages);
+            list.Add(brands);
+
+
+            var json = JsonConvert.SerializeObject(list);
             GreatWestRadler.BeverageID = 1;
             errors = ValidationHelper.Validate(GreatWestRadler);
             Assert.IsTrue(errors.Count == 0);
