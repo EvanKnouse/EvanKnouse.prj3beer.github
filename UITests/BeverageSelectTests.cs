@@ -17,7 +17,8 @@ namespace UITests
     public class BeverageSelectTests
     {
         //Instead of querying on any (in case its empty) just make sure it contains the correct number of beverages
-        string apkPath = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
+        string apkPath = "D:\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
+        // D:\prj3beer\prj3.beer\prj3beer\prj3beer.Android\bin\Debug
 
         IApp app;
         Platform platform;
@@ -42,8 +43,8 @@ namespace UITests
             //app = AppInitializer.StartApp(platform);
             app = ConfigureApp.Android.ApkFile(apkPath).StartApp();
             app.TapCoordinates(150, 90);
-            app.Tap("Brand Select");
-            app.Tap("SearchBeverage");
+            app.Tap("Beverage Select");
+            //app.Tap("SearchBeverage");
         }
 
         #region List View Tests
@@ -78,7 +79,11 @@ namespace UITests
         [Test]
         public void TestThatBeverageListViewIsOnSelectBeverageScreen()
         {
-            AppResult[] beverageList = app.Query("searchBeverage");
+            app.WaitForElement("beverageListView");
+
+            AppResult[] beverageList = app.Query("beverageListView");
+
+            beverageList.
 
             Assert.IsTrue(beverageList.Any());
         }
@@ -203,6 +208,8 @@ namespace UITests
         [Test]
         public void TestThatSearchBoxIsOnSelectBeverageScreen()
         {
+            app.WaitForElement("searchBeverage");
+
             AppResult[] beverageList = app.Query("searchBeverage");
 
             Assert.IsTrue(beverageList.Any());
