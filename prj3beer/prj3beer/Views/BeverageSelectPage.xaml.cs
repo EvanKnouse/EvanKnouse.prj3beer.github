@@ -38,8 +38,8 @@ namespace prj3beer.Views
 
             //Make spinner hidden = false
             listViewBeverages = new List<string>();
-            String searchString = searchBeverage.Text;
-            var beverages = context.Beverage.Where(b => b.Brand.brandName.ToLower().Contains(searchString.ToLower()) || b.Name.ToLower().Contains(searchString.ToLower()) || b.Type.ToString().ToLower().Contains(searchString.ToLower())).Distinct();
+            string searchString = searchBeverage.Text.ToString().ToLower().Trim();
+            var beverages = context.Beverage.Where(b => b.Brand.brandName.ToLower().Contains(searchString) || b.Name.ToLower().Contains(searchString) || b.Type.ToString().ToLower().Contains(searchString)).Distinct();
 
             if (!searchString.Equals(""))
             {

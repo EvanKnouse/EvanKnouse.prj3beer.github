@@ -7,7 +7,7 @@
              x:Class="prj3beer.Views.BeverageSelectPage">
     <ContentPage.Content>
         <StackLayout>
-            <SearchBar x:Name="searchBeverage" AutomationId="searchBeverage" TextChanged="SearchChanged"/>
+            <SearchBar x:Name="searchBeverage" AutomationId="searchBeverage" TextChanged="SearchChanged" Placeholder="Please enter a beverage, type, or brand!!"/>
 
             <Label x:Name="errorLabel" AutomationId="errorLabel" />
 
