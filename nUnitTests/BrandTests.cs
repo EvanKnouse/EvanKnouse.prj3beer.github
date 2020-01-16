@@ -16,7 +16,7 @@ namespace nUnitTests
         Brand PSBbrand = new Brand() { BrandID = 6, Name = "Prarie Sun Brewery" };
         Brand TooLongbrand = new Brand() { BrandID = 7, Name = new string('a', 61) };
         Brand MaxBoundaryNamebrand = new Brand() { BrandID = 7, Name = new string('a', 40) };
-        Brand MinBoundaryNamebrand = new Brand() { BrandID = 7, Name = new string('a', 1) };
+        Brand MinBoundaryNamebrand = new Brand() { BrandID = 7, Name = new string('a', 3) };
 
         //Create a container for validation results (error messages)
         IList<ValidationResult> errors;

@@ -73,10 +73,16 @@ namespace prj3beer
             // Set the baseURL to an empty string
             apiManager.BaseURL = "";
 
+            //TODO: remove this when appropriate (not testing)
+            apiManager.BaseURL = brandURL;
+
             // Store Brands in Local Storage
             context.Brands.AddRange(await apiManager.GetBrandsAsync());
 
-            // Store Brands in Local Storage
+            //TODO: same as above
+            apiManager.BaseURL = beverageURL;
+
+            // Store Beverages in Local Storage
             context.Beverage.AddRange(await apiManager.GetBeveragesAsync());
 
             // Save the Changes
