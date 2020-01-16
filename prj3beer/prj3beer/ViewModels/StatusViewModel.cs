@@ -94,7 +94,8 @@ namespace prj3beer.ViewModels
                     if (PropertyChanged != null)
                     {
                         //If the property has changed, fire an event.
-                        PropertyChanged(this, new PropertyChangedEventArgs("CurrentTemp"));
+                        //PropertyChanged(this, new PropertyChangedEventArgs("CurrentTemp"));
+                        OnPropertyChanged("CurrentTemp");
                     }
                 }
             }
@@ -116,7 +117,7 @@ namespace prj3beer.ViewModels
                 this.CurrentTemp = MockTempReadings.Temp;
                 if (this._temperature != null)
                 {
-                    nh.CompareTemp(this.CurrentTemp, (double)this._temperature);
+                    nh.CompareTemp(this.CurrentTemp, CelsiusFahrenheitConverter.ConvertBack(this._temperature, typeof(double), null, null));
                 }
                 return true;
             });
