@@ -40,24 +40,21 @@ namespace UITests
         {
             //app = AppInitializer.StartApp(platform);
             app = ConfigureApp.Android.ApkFile(apkPath).StartApp();
+            // tap on the hamburger menu
             app.TapCoordinates(150, 90);
+            // tap to navigate to the beverage select screen
             app.Tap("Beverage Select");
-            //app.Tap("searchBeverage");
         }
 
-        #region List View Tests
+        #region Element on Screen Tests
         [Test]
-        public void TestThatBeverageListViewContainsProperBeverages()
+        public void TestThatSearchBoxIsOnSelectBeverageScreen()
         {
-            String userInput = "Coors";
+            app.WaitForElement("searchBeverage");
 
-            app.EnterText("searchBeverage", userInput.ToString());
+            AppResult[] searchBar = app.Query("searchBeverage");
 
-            //This will query the listbox which is not implemented yet.
-            //AppResult[] beverageList = app.Query("beverageListView");
-
-            AppResult[] beverageList = app.Query(bevCoorsEdge.Name);
-            Assert.IsTrue(beverageList.Any());
+            Assert.IsTrue(searchBar.Any());
         }
 
         [Test]
@@ -69,73 +66,58 @@ namespace UITests
 
             Assert.IsTrue(beverageList.Any());
         }
-
-        [Test]
-        public void TestThatSpecificBeveragesAreOnBeverageSelectScreen()
-        {
-            String userInput = "Coors";
-            //app.Tap("searchBeverage");
-            app.EnterText("searchBeverage", userInput.ToString());
-
-            //This will query the listbox which is not implemented yet.
-            AppResult[] beverageList = app.Query(bevCoorsLight.Name);
-            Assert.IsTrue(beverageList.Any());
-            beverageList = app.Query(bevCoorsEdge.Name);
-            Assert.IsTrue(beverageList.Any());
-             beverageList = app.Query(bevCoorsBanquet.Name);
-            Assert.IsTrue(beverageList.Any());
-        }
         #endregion
-
-        #region Search Bar Tests
-        [Test]
-        public void TestThatValidSearchCharacterCorrectlyDisplaysMatchingBeverages()
-        {
-            String userInput = "a";
-
-            app.EnterText("searchBeverage", userInput.ToString());
-            
-            AppResult[] beverageList = app.Query(bevCoorsBanquet.Name);
-            Assert.IsTrue(beverageList.Any());
-
-            beverageList = app.Query(bevGreatWesternRadler.Name);
-            Assert.IsTrue(beverageList.Any());
-
-            beverageList = app.Query(bevChurchLager.Name);
-            Assert.IsTrue(beverageList.Any());
-
-            beverageList = app.Query(bevBatch88.Name);
-            Assert.IsTrue(beverageList.Any());
-
-            beverageList = app.Query(bevCoorsEdge.Name);
-            Assert.IsTrue(beverageList.Any());
-        }
-
+        
+        #region Search Result Tests
+        #region Beverage Parameter Valid Search, Displays Beverage(s) Tests
         [Test]
         public void TestThatValidSearchBrandNameDisplaysMatchingBeverages()
         {
-            String userInput = "Coors";
+            string userInput = "Coors";
+            app.EnterText("searchBeverage",userInput.ToString());
 
-            app.EnterText("searchBeverage", userInput.ToString());
-            
-            AppResult[] beverageList = app.Query(bevCoorsLight.Name);
-            Assert.IsTrue(beverageList.Any());
+            // the following three beverages should be found on the beverage select screen, in the list view
+            AppResult[] beverage = app.Query(bevCoorsLight.Name);
+            Assert.IsTrue(beverage.Any());
 
-            beverageList = app.Query(bevCoorsBanquet.Name);
-            Assert.IsTrue(beverageList.Any());
+            beverage = app.Query(bevCoorsBanquet.Name);
+            Assert.IsTrue(beverage.Any());
 
-            beverageList = app.Query(bevCoorsEdge.Name);
-            Assert.IsTrue(beverageList.Any());
+            beverage = app.Query(bevCoorsEdge.Name);
+            Assert.IsTrue(beverage.Any());
         }
 
         [Test]
+        public void TestThatValidSearchBeverageNameDisplaysMatchingBeverages()
+        {
+            string userInput = "Coors Light";
+            app.EnterText("searchBeverage",userInput.ToString());
+
+            // the following beverage should be found on the beverage select screen, in the list view
+            AppResult[] beverage = app.Query(bevCoorsLight.Name);
+            Assert.IsTrue(beverage.Any());
+        }
+
+        [Test]
+        public void TestThatValidSearchTypeDisplaysMatchingBeverages()
+        {
+            string userInput = "pale";
+            app.EnterText("searchBeverage",userInput.ToString());
+
+            // the following beverage should be found on the beverage select screen, in the list view
+            AppResult[] beverage = app.Query(bevCoorsBanquet.Name);
+            Assert.IsTrue(beverage.Any());
+        }
+        #endregion
+
+        #region Beverage Parameter Invalid Search, No Beverage(s) Tests
+        [Test]
         public void TestThatInvalidSearchBrandNameDoesNotDisplayBeverages()
         {
-            String userInput = "Coorss";
+            string userInput = "Coorss";
+            app.EnterText("searchBeverage",userInput.ToString());
 
-            app.EnterText("searchBeverage", userInput.ToString());
-            
-            //This will query the listbox which is not implemented yet.
+            // no beverages should be found on the beverage select screen
             AppResult[] beverage = app.Query(bevCoorsLight.Name);
             Assert.IsFalse(beverage.Any());
 
@@ -145,29 +127,18 @@ namespace UITests
             beverage = app.Query(bevCoorsEdge.Name);
             Assert.IsFalse(beverage.Any());
 
+            // test that the error message is properly displayed when no results are found
             string errorMessage = app.Query("errorLabel")[0].Text;
-            Assert.AreEqual(errorMessage, "\"Coorss\" could not be found/does not exist");
-        }
-
-        [Test]
-        public void TestThatValidSearchBeverageNameDisplaysMatchingBeverages()
-        {
-            String userInput = "Coors Light";
-
-            app.EnterText("searchBeverage", userInput.ToString());
-
-            AppResult[] beverageList = app.Query(bevCoorsLight.Name);
-            Assert.IsTrue(beverageList.Any());
+            Assert.AreEqual(errorMessage,"\"Coorss\" could not be found/does not exist");
         }
 
         [Test]
         public void TestThatInvalidSearchBeverageNameDoesNotDisplayBeverages()
         {
             String userInput = "Maple Brew";
+            app.EnterText("searchBeverage",userInput.ToString());
 
-            app.EnterText("searchBeverage", userInput.ToString());
-
-            //This will query the listbox which is not implemented yet.
+            // no beverages should be found on the beverage select screen
             AppResult[] beverage = app.Query(bevCoorsLight.Name);
             Assert.IsFalse(beverage.Any());
 
@@ -186,29 +157,18 @@ namespace UITests
             beverage = app.Query(bevGreatWesternRadler.Name);
             Assert.IsFalse(beverage.Any());
 
+            // test that the error message is properly displayed when no results are found
             string errorMessage = app.Query("errorLabel")[0].Text;
-            Assert.AreEqual(errorMessage, "\"Maple Brew\" could not be found/does not exist");
-        }
-
-        [Test]
-        public void TestThatValidSearchTypeDisplaysMatchingBeverages()
-        {
-            String userInput = "pale";
-
-            app.EnterText("searchBeverage", userInput.ToString());
-
-            AppResult[] beverageList = app.Query(bevCoorsBanquet.Name);
-            Assert.IsTrue(beverageList.Any());
+            Assert.AreEqual(errorMessage,"\"Maple Brew\" could not be found/does not exist");
         }
 
         [Test]
         public void TestThatInvalidSearchTypeDoesNotDisplayBeverages()
         {
-            String userInput = "Unleaded";
+            string userInput = "Unleaded";
+            app.EnterText("searchBeverage",userInput.ToString());
 
-            app.EnterText("searchBeverage", userInput.ToString());
-
-            //This will query the listbox which is not implemented yet.
+            // no beverages should be found on the beverage select screen
             AppResult[] beverage = app.Query(bevCoorsLight.Name);
             Assert.IsFalse(beverage.Any());
 
@@ -227,39 +187,52 @@ namespace UITests
             beverage = app.Query(bevGreatWesternRadler.Name);
             Assert.IsFalse(beverage.Any());
 
+            // test that the error message is properly displayed when no results are found
             string errorMessage = app.Query("errorLabel")[0].Text;
-            Assert.AreEqual(errorMessage, "\"Unleaded\" could not be found/does not exist");
+            Assert.AreEqual(errorMessage,"\"Unleaded\" could not be found/does not exist");
+        }
+        #endregion
+
+        [Test]
+        public void TestThatValidSearchCharacterCorrectlyDisplaysMatchingBeverages()
+        {
+            string userInput = "a";
+            app.EnterText("searchBeverage", userInput.ToString());
+            
+            AppResult[] beverage = app.Query(bevCoorsBanquet.Name);
+            Assert.IsTrue(beverage.Any());
+
+            beverage = app.Query(bevGreatWesternRadler.Name);
+            Assert.IsTrue(beverage.Any());
+
+            beverage = app.Query(bevChurchLager.Name);
+            Assert.IsTrue(beverage.Any());
+
+            beverage = app.Query(bevBatch88.Name);
+            Assert.IsTrue(beverage.Any());
+
+            beverage = app.Query(bevCoorsEdge.Name);
+            Assert.IsTrue(beverage.Any());
         }
 
+        // POSSIBLY REDUNDANT
         [Test]
         public void TestThatTypingInCoorsLightDisplaysTwoResults()
         {
-            String userInput = "Coors Light";
+            string userInput = "Coors Light";
             app.EnterText("searchBeverage", userInput.ToString());
             
-            //This will query the listbox which is not implemented yet.
             AppResult[] beverageList = app.Query("beverageListView");
 
             Assert.AreEqual(1, beverageList.Count());
         }
 
         [Test]
-        public void TestThatSearchBoxIsOnSelectBeverageScreen()
-        {
-            app.WaitForElement("searchBeverage");
-
-            AppResult[] beverageList = app.Query("searchBeverage");
-
-            Assert.IsTrue(beverageList.Any());
-        }
-
-        [Test]
         public void TestThatSearchBoxCanBeTypedInto()
         {
-            String userInput = "Coors";
+            string userInput = "Coors";
             app.EnterText("searchBeverage", userInput.ToString());
             
-            //This will query the listbox which is not implemented yet.
             AppResult[] beverageList = app.Query("searchBeverage");
 
             Assert.IsTrue(beverageList.Any());
@@ -268,42 +241,39 @@ namespace UITests
         [Test]
         public void TestThatBackSpacingACharacterBroadensResultSearch()
         {
-            String userInput = "Coors L";
+            string userInput = "Coors L";
             app.EnterText("searchBeverage", userInput.ToString());
             
-            //This will query the listbox which is not implemented yet.
             AppResult[] beverageList = app.Query(bevCoorsLight.Name);
-
             Assert.IsTrue(beverageList.Any());   
 
+            // empty text in search bar to simulate backspace
             app.ClearText("searchBeverage");
-
             userInput = "Coors ";
             app.EnterText("searchBeverage", userInput.ToString());
 
             beverageList = app.Query(bevCoorsLight.Name);
-
             Assert.IsTrue(beverageList.Any());
+
             beverageList = app.Query(bevCoorsEdge.Name);
             Assert.IsTrue(beverageList.Any());
+
             beverageList = app.Query(bevCoorsBanquet.Name);
             Assert.IsTrue(beverageList.Any());
-
         }
 
         [Test]
         public void TestThatBackSpacingAWordBroadensResultSearch()
         {
-            String userInput = "Coors Light";
+            string userInput = "Coors Light";
             app.EnterText("searchBeverage", userInput.ToString());
             
-            //This will query the listbox which is not implemented yet.
             AppResult[] beverageList = app.Query(bevCoorsLight.Name);
             Assert.IsTrue(beverageList.Any());
 
+            // empty text in search bar to simulate backspace
             app.ClearText("searchBeverage");
             userInput = "Coors ";
-
             app.EnterText("searchBeverage", userInput.ToString());
 
             beverageList = app.Query(bevCoorsLight.Name);
@@ -317,89 +287,135 @@ namespace UITests
 
             beverageList = app.Query(bevBatch88.Name);
             Assert.IsFalse(beverageList.Any());
-
         }
 
-
-        #region Space Character Tests
+        #region Space Character Search Tests
         [Test]
         public void TestThatJustSpacesSearchDoesNotDisplayBeverages()
         {
-            String userInput = "       ";
+            string userInput = "       ";
             app.EnterText("searchBeverage", userInput.ToString());
             
-            //This will query the listbox which is not implemented yet.
             AppResult[] beverageList = app.Query("beverageListView");
 
             Assert.IsFalse(beverageList.Any());
         }
 
-
         [Test]
         public void TestThatLeadingSpacesAreTrimmedAndValidBeveragesAreStillDisplayed()
         {
-            String userInput = "   Coors Light";
+            string userInput = "   Coors Light";
             app.EnterText("searchBeverage", userInput.ToString());
             
-            //This will query the listbox which is not implemented yet.
-            AppResult[] beverageList = app.Query(bevCoorsLight.Name);
-            Assert.IsTrue(beverageList.Any());
+            AppResult[] beverage = app.Query(bevCoorsLight.Name);
+            Assert.IsTrue(beverage.Any());
         }
         
         [Test]
         public void TestThatTrailingSpacesAreTrimmedAndValidBeveragesAreStillDisplayed()
         {
-            String userInput = "Coors Light   ";
+            string userInput = "Coors Light   ";
             app.EnterText("searchBeverage", userInput.ToString());
 
-            //This will query the listbox which is not implemented yet.
-            AppResult[] beverageList = app.Query(bevCoorsLight.Name);
-            Assert.IsTrue(beverageList.Any());
+            AppResult[] beverage = app.Query(bevCoorsLight.Name);
+            Assert.IsTrue(beverage.Any());
         }
 
+        // NOT YET IMPLEMENTED IN CODE
         [Test]
         public void TestThatSpacesInTheMiddleOfTheSearchStringAreTrimmedAndValidBeveragesAreStillDisplayed()
         {
-            String userInput = "Coors     Light";
+            string userInput = "Coors     Light";
             app.EnterText("searchBeverage", userInput.ToString());
             
-            //This will query the listbox which is not implemented yet.
-            AppResult[] beverageList = app.Query("beverageListView");
+            AppResult[] beverage = app.Query("beverageListView");
 
-            Assert.IsTrue(beverageList.Any());
+            Assert.IsTrue(beverage.Any());
         }
         #endregion
 
-        #region Invalid Character Tests
+        #region Invalid Search Character Tests
         [Test]
         public void TestThatEmptySearchStringDoesNotDisplayBeverages()
         {
-            AppResult[] beverageList = app.Query("beverageListView");
-            Assert.IsFalse(beverageList.Any());
+            // no beverages should be found on the beverage select screen
+            AppResult[] beverage = app.Query(bevCoorsLight.Name);
+            Assert.IsFalse(beverage.Any());
+
+            beverage = app.Query(bevCoorsBanquet.Name);
+            Assert.IsFalse(beverage.Any());
+
+            beverage = app.Query(bevCoorsEdge.Name);
+            Assert.IsFalse(beverage.Any());
+
+            beverage = app.Query(bevBatch88.Name);
+            Assert.IsFalse(beverage.Any());
+
+            beverage = app.Query(bevChurchLager.Name);
+            Assert.IsFalse(beverage.Any());
+
+            beverage = app.Query(bevGreatWesternRadler.Name);
+            Assert.IsFalse(beverage.Any());
         }
 
         [Test]
         public void TestThatSpecialCharactersStringDoesNotDisplayBeverages()
         {
-            String userInput = "$$@!:)";
+            string userInput = "$$@!:)";
             app.EnterText("searchBeverage", userInput.ToString());
-            
-            //This will query the listbox which is not implemented yet.
-            AppResult[] beverageList = app.Query("beverageListView");
 
-            Assert.IsFalse(beverageList.Any());
+            // no beverages should be found on the beverage select screen
+            AppResult[] beverage = app.Query(bevCoorsLight.Name);
+            Assert.IsFalse(beverage.Any());
+
+            beverage = app.Query(bevCoorsBanquet.Name);
+            Assert.IsFalse(beverage.Any());
+
+            beverage = app.Query(bevCoorsEdge.Name);
+            Assert.IsFalse(beverage.Any());
+
+            beverage = app.Query(bevBatch88.Name);
+            Assert.IsFalse(beverage.Any());
+
+            beverage = app.Query(bevChurchLager.Name);
+            Assert.IsFalse(beverage.Any());
+
+            beverage = app.Query(bevGreatWesternRadler.Name);
+            Assert.IsFalse(beverage.Any());
+
+            // test that the error message is properly displayed when no results are found
+            string errorMessage = app.Query("errorLabel")[0].Text;
+            Assert.AreEqual(errorMessage,"\"$$@!:)\" could not be found/does not exist");
         }
 
         [Test]
         public void TestThatNumberStringDoesNotDisplayBeverages()
         {
-            String userInput = "853971";
+            string userInput = "853971";
             app.EnterText("searchBeverage", userInput.ToString());
             
-            //This will query the listbox which is not implemented yet.
-            AppResult[] beverageList = app.Query("beverageListView");
+            // no beverages should be found on the beverage select screen
+            AppResult[] beverage = app.Query(bevCoorsLight.Name);
+            Assert.IsFalse(beverage.Any());
 
-            Assert.IsFalse(beverageList.Any());
+            beverage = app.Query(bevCoorsBanquet.Name);
+            Assert.IsFalse(beverage.Any());
+
+            beverage = app.Query(bevCoorsEdge.Name);
+            Assert.IsFalse(beverage.Any());
+
+            beverage = app.Query(bevBatch88.Name);
+            Assert.IsFalse(beverage.Any());
+
+            beverage = app.Query(bevChurchLager.Name);
+            Assert.IsFalse(beverage.Any());
+
+            beverage = app.Query(bevGreatWesternRadler.Name);
+            Assert.IsFalse(beverage.Any());
+
+            // test that the error message is properly displayed when no results are found
+            string errorMessage = app.Query("errorLabel")[0].Text;
+            Assert.AreEqual(errorMessage,"\"853971\" could not be found/does not exist");
         }
         #endregion
         #endregion
@@ -408,24 +424,26 @@ namespace UITests
         [Test]
         public void TestThatErrorMessageIsDisplayedWhenNoResultsAreFound()
         {
-            String userInput = "Meepo";
+            string userInput = "Meepo";
             app.EnterText("searchBeverage", userInput.ToString());
+
             AppResult[] warningLabel = app.Query("errorLabel");
 
-           // var stuff = warningLabel[0].Enabled;
-
-            //This will query the listbox which is not implemented yet.
+            // test that the error label is displayed on the screen
             Assert.IsTrue(warningLabel[0].Enabled);
+            // test that the error label contains the proper error message
+            string errorMessage = app.Query("errorLabel")[0].Text;
+            Assert.AreEqual(errorMessage,"\"Meepo\" could not be found/does not exist");
         }
 
         [Test]
         public void TestThatErrorMessageIsNotDisplayedWhenResultsAreFound()
         {
-            String userInput = "Coors";
+            string userInput = "Coors";
             app.EnterText("searchBeverage", userInput.ToString());
 
             AppResult[] warningLabel = app.Query("errorLabel");
-            //This will query the listbox which is not implemented yet.
+
             Assert.IsFalse(warningLabel.Any());
         }
 
@@ -433,7 +451,7 @@ namespace UITests
         public void TestThatErrorMessageIsNotDisplayedWhenFirstEnteringTheBeverageSelectScreen()
         {
             AppResult[] warningLabel = app.Query("errorLabel");
-            //This will query the listbox which is not implemented yet.
+
             Assert.IsFalse(warningLabel.Any());
         }
         #endregion
@@ -442,7 +460,7 @@ namespace UITests
         [Test]
         public void TestThatPlaceholderTextInSearchBoxDisappearsWhenTextIsBeingEntered()
         {
-            String userInput = "Coors";
+            string userInput = "Coors";
             app.EnterText("searchBeverage", userInput.ToString());
             
             AppResult[] searchBar = app.Query("searchBeverage");
@@ -463,7 +481,7 @@ namespace UITests
         [Test]
         public void TestThatSpinnerDisappearsWhenSearchIsCompleted()
         {
-            String userInput = "Coors";
+            string userInput = "Coors";
             app.EnterText("searchBeverage", userInput.ToString());
 
             AppResult[] spinner = app.Query("loadingSpinner");
