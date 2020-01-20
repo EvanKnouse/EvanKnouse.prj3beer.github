@@ -91,11 +91,11 @@ namespace UITests
             //Wait for the Beverages List to appear on screen
             app.WaitForElement("beverageList");
 
-            //Look for the beveragesn on the select screen
-            AppResult[] result = app.Query(("Beverages"));
+            //Look for the expected error message on screen
+            AppResult[] result = app.Query(("Connection issue, please try again later"));
 
-            //Will be greater than 0 if it exists, returns AppResult[]
-            Assert.AreEqual(result[0].Text, "Connection issue, please try again later");
+            //Will return true if the app result contains the error message
+            Assert.IsTrue(result.Any());
         }
 
         [Test] // No Valid Beverages
@@ -107,11 +107,11 @@ namespace UITests
             //Wait for the Beverages List to appear on screen
             app.WaitForElement("beverageList");
 
-            //Look for the beveragesn on the select screen
-            AppResult[] result = app.Query(("Beverages"));
+            //Look for the expected error message on screen
+            AppResult[] result = app.Query(("Connection issue, please try again later"));
 
-            //Will be greater than 0 if it exists, returns AppResult[]
-            Assert.AreEqual(result[0].Text,"Connection issue, please try again later");
+            //Will return true if the app result contains the error message
+            Assert.IsTrue(result.Any());
         }
 
         [Test]
@@ -123,7 +123,7 @@ namespace UITests
             //Wait for the Beverages List to appear on screen
             app.WaitForElement("beverageList");
 
-            AppResult[] results = app.Query("Beverages");
+            AppResult[] results = app.Query("beverageList");
             //List<string> listOfBrands = new List<string>();
 
             // Get all the beverages into a sorted list

@@ -31,7 +31,11 @@ namespace prj3beer.Services
                 client = new HttpClient();
 
                 //Create a response container to store the JSON string as a response
-                response = await client.GetStringAsync(BaseURL);
+                try
+                {
+                    response = await client.GetStringAsync(BaseURL);
+                }
+                catch (Exception) { response = ""; }
             }
             // [Use Fixture Data]
             else
@@ -42,8 +46,16 @@ namespace prj3beer.Services
                            "]";
             }
 
-            //Create a list to contain the Brand objects that are deserialized from the JSON response
-            List<Brand> responseBrands = JsonConvert.DeserializeObject<List<Brand>>(response);
+            //Instantiate response brands list
+            List<Brand> responseBrands = new List<Brand>();
+
+            try
+            {
+                //Create a list to contain the Brand objects that are deserialized from the JSON response
+                responseBrands = JsonConvert.DeserializeObject<List<Brand>>(response);
+            }
+            catch (Exception) { }
+            
 
             //Create a list to contain the valid Brands
             List<Brand> validBrands = new List<Brand>();
@@ -77,8 +89,13 @@ namespace prj3beer.Services
                 //Instantiate the HTTP client
                 client = new HttpClient();
 
-                //Create a response container to store the JSON string as a response
-                response = await client.GetStringAsync(BaseURL);
+                try
+                {
+                    //Create a response container to store the JSON string as a response
+                    response = await client.GetStringAsync(BaseURL);
+                }
+                catch (Exception) { }
+                
             }
             else
             {
@@ -88,8 +105,17 @@ namespace prj3beer.Services
                            "{\"id\": 2,\"name\": \"Great Western Pilsner\",\"brand\": 1,\"type\": 4,\"temperature\": 13}," +
                            "{\"id\": 3, \"name\": \"Original 16 Copper Ale\", \"brand\": 1,\"type\": 5,\"temperature\": 2}]";
             }
+
+            //Initialize response beverages list
+            List<Beverage> responseBeverages = new List<Beverage>();
+
+            //
+            try
+            {
                 //Create a list to contain the Beverage objects that are deserialized from the JSON response
-                List<Beverage> responseBeverages = JsonConvert.DeserializeObject<List<Beverage>>(response);
+                responseBeverages = JsonConvert.DeserializeObject<List<Beverage>>(response);
+            }
+            catch (Exception) { }
 
                 //Create a list to contain the valid beverages
                 List<Beverage> validBeverages = new List<Beverage>();

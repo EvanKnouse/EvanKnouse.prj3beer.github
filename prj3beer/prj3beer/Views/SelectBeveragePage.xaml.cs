@@ -41,8 +41,10 @@ namespace prj3beer.Views
             }
             // If there are no valid beverages,
             else
-            {   // Display an error on the screen instead of a beverage,
-                beverageListView.ItemsSource = "Connection issue, please try again later";
+            {
+                validBeverages.Add("Connection issue, please try again later");
+                // Display an error on the screen instead of a beverage,
+                beverageListView.ItemsSource = validBeverages;
                 // Make sure the item is not clickable
                 beverageListView.IsEnabled = false;
             }

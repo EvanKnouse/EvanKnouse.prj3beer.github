@@ -11,6 +11,7 @@ namespace prj3beer
     public partial class App : Application
     {
         public static string beverageURL = @"http://my-json-server.typicode.com/prj3beer/prj3beer-api/beverages";
+        public static string mockURL = @"http://my-json-server.typicode.com/prj3beer/prj3beer-api/bevs";
         public static string brandURL = @"http://my-json-server.typicode.com/prj3beer/prj3beer-api/brands";
 
         public App()
@@ -80,7 +81,7 @@ namespace prj3beer
             context.Brands.AddRange(await apiManager.GetBrandsAsync());
 
             //TODO: same as above
-            apiManager.BaseURL = beverageURL;
+            apiManager.BaseURL = mockURL;
 
             // Store Beverages in Local Storage
             context.Beverage.AddRange(await apiManager.GetBeveragesAsync());
