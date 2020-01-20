@@ -12,7 +12,6 @@ namespace prj3beer.ViewModels
 
         double currentTemp;
 
-        INotificationHandler nh;
 
         public BeerContext Context { get { return this.context; } }
         
@@ -109,7 +108,6 @@ namespace prj3beer.ViewModels
 
         public StatusViewModel()
         {
-            nh = DependencyService.Get<INotificationHandler>();
             //Checks for update temps every second.  Will eventually poll an object associated with a
             //bluetooth reading.  Currently communicates with a class bouncing between -35 and 35 degrees celsius.
             Device.StartTimer(TimeSpan.FromSeconds(1), () =>
@@ -117,7 +115,6 @@ namespace prj3beer.ViewModels
                 this.CurrentTemp = MockTempReadings.Temp;
                 if (this._temperature != null)
                 {
-                    nh.CompareTemp(this.CurrentTemp, CelsiusFahrenheitConverter.ConvertBack(this._temperature, typeof(double), null, null));
                 }
                 return true;
             });

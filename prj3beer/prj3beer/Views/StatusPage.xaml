@@ -16,7 +16,7 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <ResourceDictionary>
-            <src:CelsiusToFahrenheitConverter x:Key="tempConverter" />
+            <src:CelsiusFahrenheitConverter x:Key="tempConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -34,7 +34,7 @@
                        >
                     <Label.BindingContext>
                         <vm:StatusViewModel 
-                            PropertyChanged="updateViewModel"/>
+                            PropertyChanged="UpdateViewModel"/>
                     </Label.BindingContext>
                 </Label>
                 <!--<Label x:Name="labelCFCurrentTemperature"

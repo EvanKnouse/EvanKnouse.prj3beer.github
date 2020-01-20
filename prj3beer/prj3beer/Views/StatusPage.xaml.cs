@@ -3,6 +3,7 @@ using prj3beer.Models;
 using prj3beer.Services;
 using prj3beer.ViewModels;
 using System;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,8 @@ namespace prj3beer.Views
         static StatusViewModel svm;
         static Beverage currentBeverage;
         static Preference preferredBeverage;
+
+        INotificationHandler nh;
         
         //Placeholder for target temperature element, implemented in another story.
         //int targetTempValue = 2;
@@ -49,9 +52,20 @@ namespace prj3beer.Views
                 EnablePageElements(true);
             }
             #endregion
+            #region Story 16 code
+            nh = DependencyService.Get<INotificationHandler>();
+
+            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            {
+                nh.CompareTemp(svm.CurrentTemp, preferredBeverage.Temperature);
+
+                return true;
+            });
+
+            #endregion
         }
 
-        public void updateViewModel(object sender, EventArgs args)
+        public void UpdateViewModel(object sender, EventArgs args)
         {
             svm.IsCelsius = Settings.TemperatureSettings;
         }
