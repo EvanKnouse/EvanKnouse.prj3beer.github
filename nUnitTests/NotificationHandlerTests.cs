@@ -12,6 +12,12 @@ namespace nUnitTests
         Preference mockPref;
         INotificationHandler nh;
 
+        public NotificationHandlerTests()
+        {
+            
+        }
+
+
         [SetUp]
         public void SetUp()
         {
@@ -20,9 +26,10 @@ namespace nUnitTests
                 Temperature = 0.0
             };
 
-
+            
             nh = DependencyService.Get<INotificationHandler>();
             
+
         }
 
         #region story16 Unit Tests
@@ -77,7 +84,7 @@ namespace nUnitTests
         }
 
         [Test]
-        public void AppDoesNotSentTwoPerfectTemperatureNotificationsInARow(){
+        public void AppDoesNotSendTwoPerfectTemperatureNotificationsInARow(){
             TestThatAppDisplaysNotificationWhenReceivedTempMatchesDesiredTemp();
             Thread.Sleep(1000);
             Assert.IsTrue(nh.LastNotification == NotificationType.PERFECT);
@@ -85,7 +92,7 @@ namespace nUnitTests
         }
 
         [Test]
-        public void AppDoesNotSentTwoTemperatureGettingInWarmRangeNotifications(){
+        public void AppDoesNotSendTwoTemperatureGettingInWarmRangeNotifications(){
             TestThatAppDisplaysNotificationWhenReceivedTempIsTwoDegreesAboveDesiredTemp();
             Thread.Sleep(1000);
             Assert.IsTrue(nh.LastNotification == NotificationType.IN_RANGE_HOT);
@@ -93,7 +100,7 @@ namespace nUnitTests
         }
 
         [Test]
-        public void AppDoesNotSentTwoTemperatureGettingInColdRangeNotifications(){
+        public void AppDoesNotSendTwoTemperatureGettingInColdRangeNotifications(){
             TestThatAppDisplaysNotificationWhenReceivedTempIsTwoDegreesBelowDesiredTemp();
             Thread.Sleep(1000);
             Assert.IsTrue(nh.LastNotification == NotificationType.IN_RANGE_COLD);
@@ -101,7 +108,7 @@ namespace nUnitTests
         }
 
         [Test]
-        public void AppDoesNotSentTwoTemeratureGettingTooHotNotificationsInARow(){
+        public void AppDoesNotSendTwoTemeratureGettingTooHotNotificationsInARow(){
             TestThatAppDisplaysGettingTooHotNotification();
             Thread.Sleep(1000);
             Assert.IsTrue(nh.LastNotification == NotificationType.TOO_HOT);
@@ -109,7 +116,7 @@ namespace nUnitTests
         }
 
         [Test]
-        public void AppDoesNotSentTwoTemeratureGettingTooColdNotificationsInARow()
+        public void AppDoesNotSendTwoTemeratureGettingTooColdNotificationsInARow()
         {
             TestThatAppDisplaysGettingTooColdNotification();
             Thread.Sleep(1000);
@@ -118,7 +125,7 @@ namespace nUnitTests
         }
 
         [Test]
-        public void AppDoesNotSentGettingInRangeWarmNotificationIfLastNotificationSetWasPerfect()
+        public void AppDoesNotSendGettingInRangeWarmNotificationIfLastNotificationSetWasPerfect()
         {
             TestThatAppDisplaysNotificationWhenReceivedTempMatchesDesiredTemp();
             Thread.Sleep(1000);
@@ -129,7 +136,7 @@ namespace nUnitTests
         }
 
         [Test]
-        public void AppDoesNotSentGettingInRangeColdNotificationIfLastNotificationSetWasPerfect()
+        public void AppDoesNotSendGettingInRangeColdNotificationIfLastNotificationSetWasPerfect()
         {
             TestThatAppDisplaysNotificationWhenReceivedTempMatchesDesiredTemp();
             Thread.Sleep(1000);

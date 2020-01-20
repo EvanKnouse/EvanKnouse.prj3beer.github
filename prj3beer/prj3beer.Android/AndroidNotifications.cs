@@ -39,6 +39,7 @@ namespace prj3beer.Droid
 
         private bool firstReading = true;
 
+        //Maybe move this
         public bool CompareTemp(double receivedTemp, double idealTemp)
         {
 

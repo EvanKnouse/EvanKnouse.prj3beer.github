@@ -52,9 +52,10 @@ namespace prj3beer.Views
                 EnablePageElements(true);
             }
             #endregion
+
             #region Story 16 code
             nh = DependencyService.Get<INotificationHandler>();
-
+            //TODO: Call the compare when a new temperature is gotten from our device API, not on a timer
             Device.StartTimer(TimeSpan.FromSeconds(1), () =>
             {
                 nh.CompareTemp(svm.CurrentTemp, preferredBeverage.Temperature);
