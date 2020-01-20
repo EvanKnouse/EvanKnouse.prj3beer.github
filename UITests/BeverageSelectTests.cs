@@ -295,10 +295,24 @@ namespace UITests
         {
             string userInput = "       ";
             app.EnterText("searchBeverage", userInput.ToString());
-            
-            AppResult[] beverageList = app.Query("beverageListView");
 
-            Assert.IsFalse(beverageList.Any());
+            AppResult[] beverage = app.Query(bevCoorsLight.Name);
+            Assert.IsFalse(beverage.Any());
+
+            beverage = app.Query(bevCoorsBanquet.Name);
+            Assert.IsFalse(beverage.Any());
+
+            beverage = app.Query(bevCoorsEdge.Name);
+            Assert.IsFalse(beverage.Any());
+
+            beverage = app.Query(bevBatch88.Name);
+            Assert.IsFalse(beverage.Any());
+
+            beverage = app.Query(bevChurchLager.Name);
+            Assert.IsFalse(beverage.Any());
+
+            beverage = app.Query(bevGreatWesternRadler.Name);
+            Assert.IsFalse(beverage.Any());
         }
 
         [Test]
@@ -328,7 +342,7 @@ namespace UITests
             string userInput = "Coors     Light";
             app.EnterText("searchBeverage", userInput.ToString());
             
-            AppResult[] beverage = app.Query("beverageListView");
+            AppResult[] beverage = app.Query(bevCoorsLight.Name);
 
             Assert.IsTrue(beverage.Any());
         }
@@ -460,21 +474,15 @@ namespace UITests
         [Test]
         public void TestThatPlaceholderTextInSearchBoxDisappearsWhenTextIsBeingEntered()
         {
-            string userInput = "Coors";
-            app.EnterText("searchBeverage", userInput.ToString());
-            
-            AppResult[] searchBar = app.Query("searchBeverage");
-            AppResult[] searchPlaceholder = app.Query(c => c.All("searchBeverage").Property("Placeholder", true));
-            Assert.AreNotEqual(searchBar[0].Text, searchPlaceholder[0].Text);
+            //string userInput = "Coors";
+            //app.EnterText("searchBeverage", userInput.ToString());
+            app.WaitForElement("Please enter a beverage, type, or brand!!");
+            AppResult[] placeholder = app.Query("Please enter a beverage, type, or brand!!");
+            //Assert.AreNotEqual(searchBar[0].Text, searchPlaceholder[0].Text);
+            Assert.IsTrue(placeholder.Any());
         }
 
-        [Test]
-        public void TestThatPlaceHolderTextIsDisplayedWhenSearchIsNullOrEmpty()
-        {
-            string placeholderText = app.Query(x => x.Marked("searchBar")?.Invoke("Placeholder"))?.FirstOrDefault()?.ToString();
-
-            Assert.AreEqual("Please enter a beverage, type, or brand!!", placeholderText);
-        }
+ 
         #endregion
 
         #region Activity Indicator Tests
