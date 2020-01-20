@@ -16,8 +16,6 @@ namespace UITests
 
         // TODO: Populate Two Lists Here, Both the Valid And Invalid Beverages
         List<string> validBeverageList = new List<string>();
-        List<Beverage> invalidBeverageList = new List<Beverage>();
-
 
         string apkPath = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
 
@@ -30,8 +28,8 @@ namespace UITests
         public void BeforeEachTest()
         {
             //Initialize the app, arrive at home page (default for now)
-            app = app = ConfigureApp.Android.ApkFile(apkPath).StartApp();
-
+            app = ConfigureApp.Android.ApkFile(apkPath).StartApp();
+           
             validBeverageList.Clear();
             validBeverageList.Add("Churchill Blonde Lager");
             validBeverageList.Add("Great Western Pilsner");
@@ -46,6 +44,23 @@ namespace UITests
         }
 
         [Test]
+        public void TestThatListViewExistsOnPage()
+        {
+            // Pick Select screen from the screen selection menu
+            app.Tap("Beverage Select");
+
+            // Wait for the Beverages List to appear on screen
+            app.WaitForElement("beverageList");
+
+            // Query the app for the beverageList
+            AppResult[] brandList = app.Query("beverageList");
+
+            // If there is any result, the list exists
+            Assert.IsTrue(brandList.Any());
+        }
+
+
+        [Test]
         public void TestThatAllValidBeveragesInLocalStorageAreDisplayed()
         {
             //Pick Select screen from the screen selection menu
@@ -54,11 +69,17 @@ namespace UITests
             //Wait for the Beverages List to appear on screen
             app.WaitForElement("beverageList");
 
-            //Look for the beveragesn on the select screen
-            AppResult[] result = app.Query("beverageList");
+            //Initialize App Result
+            AppResult[] result = null;
 
-            //Will be greater than 0 if it exists, returns AppResult[]
-            Assert.IsTrue(result.Equals(validBeverageList));
+            // Loop through all beverages in the valid beverage list,
+            foreach (string beverageName in validBeverageList)
+            {
+                // Query the app for the current beverage list
+                result = app.Query(beverageName);
+                // Check to see if the beverage exists on the page.
+                Assert.IsTrue(result.Any());
+            }
         }
 
         [Test]
@@ -75,7 +96,6 @@ namespace UITests
 
             //Will be greater than 0 if it exists, returns AppResult[]
             Assert.AreEqual(result[0].Text, "Connection issue, please try again later");
-
         }
 
         [Test] // No Valid Beverages

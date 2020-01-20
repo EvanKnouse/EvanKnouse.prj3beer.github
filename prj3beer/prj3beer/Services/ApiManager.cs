@@ -11,7 +11,7 @@ namespace prj3beer.Services
     /// <summary>
     /// This class is responsible for connecting to an external API and getting the beverages from it
     /// </summary>
-    public class ApiManager : IAPIManager
+    public class APIManager : IAPIManager
     {
         // This string will store the URL for the API
         public String BaseURL { get; set; }

@@ -15,10 +15,10 @@ namespace prj3beer.ViewModels
 
         public BasePageViewModel()
         {
-            Api = new APIMockManager();
+            //Api = new APIMockManager();
 
             //Uncomment to use real API!
-            //Api = new ApiManager();
+            Api = new APIManager();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

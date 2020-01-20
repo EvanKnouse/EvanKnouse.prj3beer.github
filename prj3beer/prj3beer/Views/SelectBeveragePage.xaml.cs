@@ -18,7 +18,7 @@ namespace prj3beer.Views
         {
             InitializeComponent();
 
-            // Initialize a list to store the beverages from
+            // Initialize lists to store the beverages
             List<Beverage> beverageList = new List<Beverage>();
             List<string> validBeverages = new List<string>();
 
@@ -31,9 +31,21 @@ namespace prj3beer.Views
             // Perform validation on the list, removing invalid beverages
             beverageList.ForEach(e => { if (ValidationHelper.Validate(e).Count == 0) { validBeverages.Add(e.Name); } });
 
+            // Sort the list alphabetically
             validBeverages.Sort((a, b) => { return string.Compare(a, b); }) ;
-            beverageListView.ItemsSource = validBeverages;
 
+            // If there are any valid beverages,
+            if(validBeverages.Count != 0)
+            {   // Set the source of the List View to the valid beverages.
+                beverageListView.ItemsSource = validBeverages;
+            }
+            // If there are no valid beverages,
+            else
+            {   // Display an error on the screen instead of a beverage,
+                beverageListView.ItemsSource = "Connection issue, please try again later";
+                // Make sure the item is not clickable
+                beverageListView.IsEnabled = false;
+            }
         }
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)

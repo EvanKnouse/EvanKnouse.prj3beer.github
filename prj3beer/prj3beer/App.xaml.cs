@@ -10,8 +10,8 @@ namespace prj3beer
 {
     public partial class App : Application
     {
-        static string beverageURL = @"http://my-json-server.typicode.com/prj3beer/prj3beer-api/beverages";
-        static string brandURL = @"http://my-json-server.typicode.com/prj3beer/prj3beer-api/brands";
+        public static string beverageURL = @"http://my-json-server.typicode.com/prj3beer/prj3beer-api/beverages";
+        public static string brandURL = @"http://my-json-server.typicode.com/prj3beer/prj3beer-api/brands";
 
         public App()
         {
@@ -23,7 +23,7 @@ namespace prj3beer
             BeerContext context = new BeerContext();
 
             //Instantiate a new API Manager
-            ApiManager apiManager = new ApiManager();
+            APIManager apiManager = new APIManager();
 
             // Ensure the Database is Created
             context.Database.EnsureDeleted();
@@ -45,7 +45,7 @@ namespace prj3beer
             MainPage = new MainPage(context);
         }
 
-        private async void FetchData(BeerContext context, ApiManager apiManager)
+        private async void FetchData(BeerContext context, APIManager apiManager)
         {
             // Set URL of api Manager to point to the Brands API
             apiManager.BaseURL = brandURL;
@@ -68,7 +68,7 @@ namespace prj3beer
         /// </summary>
         /// <param name="context">Local Storage Database</param>
         /// <param name="apiManager">API Manager for handling API connection</param>
-        private async void LoadFixtures(BeerContext context, ApiManager apiManager)
+        private async void LoadFixtures(BeerContext context, APIManager apiManager)
         {
             // Set the baseURL to an empty string
             apiManager.BaseURL = "";
@@ -87,66 +87,6 @@ namespace prj3beer
 
             // Save the Changes
             await context.SaveChangesAsync();
-
-            //try
-            //{   // Try to Delete The Database
-            //    await context.Database.EnsureDeletedAsync();
-
-            //    // Try to Create the Database
-            //    await context.Database.EnsureCreatedAsync();
-
-            //    // Add Each beverage to the Database - ready to be written to the database.(watched)
-            //    beverages.ForEach(e =>
-            //    {
-            //        context.Add(e);
-            //    });
-
-            //    // Save Changes (updates/new) to the database
-            //    await context.SaveChangesAsync();
-            //}
-            //catch (SqliteException)
-            //{
-            //    throw;
-            //}
-
-
-            //// Create a series of 3 new beverages with different values
-            //List<Brand> brandList = new List<Brand>();
-
-            //brandList.Add(new Brand() { BrandID = 4, Name = "Great Western Brewery" });
-            //brandList.Add(new Brand() { BrandID = 5, Name = "Churchhill Brewing Company" });
-            //brandList.Add(new Brand() { BrandID = 6, Name = "Prarie Sun Brewery" });
-            //brandList.Add(new Brand() { BrandID = 7, Name = new string('a', 61) });
-            //brandList.Add(new Brand() { BrandID = 3, Name = "" });
-
-            //ValidateBrands(brandList, context);
-
-            //Beverage bev1 = new Beverage { BeverageID = 1, Name = "Great Western Radler", Brand = brandList.ElementAt(0), Type = Type.Radler,  Temperature = 2 };
-            //Beverage bev2 = new Beverage { BeverageID = 2, Name = "Churchill Blonde Lager", Brand = brandList.ElementAt(1), Type = Type.Lager, Temperature = 3 };
-            //Beverage bev3 = new Beverage { BeverageID = 3, Name = "Batch 88", Brand = brandList.ElementAt(2), Type = Type.Stout, Temperature = 4 };
-
-
-
-            //Preference pref1 = new Preference { BeverageID = 1, Temperature = 10 };
-
-            //try
-            //{   // Try to Delete The Database
-            //    await context.Database.EnsureDeletedAsync();
-            //    // Try to Create the Database
-            //    await context.Database.EnsureCreatedAsync();
-            //    // Add Each beverage to the Database - ready to be written to the database.(watched)
-            //    context.Beverage.Add(bev1);
-            //    context.Beverage.Add(bev2);
-            //    context.Beverage.Add(bev3);
-            //    context.Preference.Add(pref1);
-
-            //    // Save Changes (updates/new) to the database
-            //    await context.SaveChangesAsync();
-            //}
-            //catch (SqliteException)
-            //{
-            //    throw;
-            //}
         }
 
 
