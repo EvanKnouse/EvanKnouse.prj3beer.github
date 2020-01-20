@@ -474,15 +474,18 @@ namespace UITests
         [Test]
         public void TestThatPlaceholderTextInSearchBoxDisappearsWhenTextIsBeingEntered()
         {
-            //string userInput = "Coors";
-            //app.EnterText("searchBeverage", userInput.ToString());
             app.WaitForElement("Please enter a beverage, type, or brand!!");
-            AppResult[] placeholder = app.Query("Please enter a beverage, type, or brand!!");
-            //Assert.AreNotEqual(searchBar[0].Text, searchPlaceholder[0].Text);
-            Assert.IsTrue(placeholder.Any());
-        }
 
- 
+            AppResult[] placeholder = app.Query("Please enter a beverage, type, or brand!!");
+            Assert.IsTrue(placeholder.Any());
+
+            string userInput = "Coors";
+            app.EnterText("searchBeverage", userInput.ToString());
+
+            placeholder = app.Query("Please enter a beverage, type, or brand!!");
+            //Assert.AreNotEqual(placeholder[0].Text, "Please enter a beverage, type, or brand!!"); // if the placeholder text was overwritten
+            Assert.AreNotEqual(placeholder[0].Text, "Please enter a beverage, type, or brand!!Coors"); // if the placeholder text was appended to
+        }
         #endregion
 
         #region Activity Indicator Tests

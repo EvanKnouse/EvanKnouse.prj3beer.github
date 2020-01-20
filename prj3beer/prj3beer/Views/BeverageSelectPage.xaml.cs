@@ -32,21 +32,6 @@ namespace prj3beer.Views
             context = beerContext;
         }
 
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            if (e.Item == null)
-                return;
-
-            await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
-
-            //Deselect Item
-            ((ListView)sender).SelectedItem = null;
-        }
-
-
-
         /// <summary>
         /// This method will take an a search input change event and attempt to
         /// find any beverages that list the criteria
@@ -60,9 +45,16 @@ namespace prj3beer.Views
 
             //Make a new listview of beverages - essentially resetting it
             listViewBeverages = new List<string>();
+
+
             //Grab the text of the search string, trim it, and make it all lower case
-            string searchString = searchBeverage.Text.ToString().ToLower().Trim();
+            string searchString = searchBeverage.Text.ToString().Trim();
             searchString = Regex.Replace(searchString, @"\s+", " ");
+            // grab the text of the search string without modifying it, for use in the error message label
+            string potentialInvalidSearch = searchString;
+            searchString = searchString.ToLower();
+
+
             //Uses the entity framework to find beverages which might the criteria
             //Checkes on 3 different fields (brandName, Name of beverage, and the type) and stores it
             var beverages = context.Beverage.Where(b => b.Brand.brandName.ToLower().Contains(searchString) || b.Name.ToLower().Contains(searchString) || b.Type.ToString().ToLower().Contains(searchString)).Distinct();
@@ -87,7 +79,7 @@ namespace prj3beer.Views
                     // display the error label
                     errorLabel.IsVisible = true;
                     //append the current search into the error message
-                    errorLabel.Text = "\"" + searchString + "\" could not be found/does not exist";
+                    errorLabel.Text = "\"" + potentialInvalidSearch + "\" could not be found/does not exist";
                 }
                 else //there are beverages
                 {

@@ -7,21 +7,12 @@
              x:Class="prj3beer.Views.BrandSelectPage"
              AutomationId="totalPage"
              >
-    <ContentPage.Content>
-        <StackLayout>
-            <SearchBar x:Name="searchBeverage" TextChanged="SearchChanged"/>
-
-            <Label x:Name="errorLabel" />
-
-            <ActivityIndicator x:Name="loadingSpinner" />
-
-            <ListView x:Name="beverageListView" />
-        </StackLayout>
-    </ContentPage.Content>
-</ContentPage>
-
-
-    <!--<d:ListView.ItemsSource>
+    <ListView x:Name="brandListView" 
+            ItemsSource="{Binding Items}"
+            ItemTapped="Handle_ItemTapped"
+            CachingStrategy="RecycleElement"
+            AutomationId="brandList">
+        <!--<d:ListView.ItemsSource>
         <x:Array Type="{x:Type x:String}">
             <x:String>Item 1</x:String>
             <x:String>Item 2</x:String>
@@ -30,17 +21,17 @@
             <x:String>Item 5</x:String>
         </x:Array>
     </d:ListView.ItemsSource>-->
-    <!--Built in Cells-->
-    <!--<ListView.ItemTemplate>
+        <!--Built in Cells-->
+        <!--<ListView.ItemTemplate>
         <DataTemplate>
             <TextCell Text="{Binding .}" d:Text="{Binding .}" />
         </DataTemplate>
     </ListView.ItemTemplate>-->
 
-    <!--Custom View Cells-->
+        <!--Custom View Cells-->
 
-    <!-- this was uncommented per Ernesto's instructions-->
-    <!--<ListView.ItemTemplate>
+        <!-- this was uncommented per Ernesto's instructions-->
+        <!--<ListView.ItemTemplate>
       <DataTemplate>
         <ViewCell>
           <StackLayout>
@@ -55,4 +46,5 @@
       </DataTemplate>
     </ListView.ItemTemplate>-->
 
-
+    </ListView>
+</ContentPage>
