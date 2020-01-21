@@ -13,6 +13,6 @@ namespace prj3beer.Services
 
         void SendLocalNotification(string title, string body);
 
-        bool CompareTemp(double receivedTemp, double idealTemp);
+        //bool CompareTemp(double receivedTemp, double idealTemp);
     }
 }

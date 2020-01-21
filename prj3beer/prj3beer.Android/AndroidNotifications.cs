@@ -21,6 +21,7 @@ namespace prj3beer.Droid
 {
     class AndroidNotifications : INotificationHandler
     {
+
         const string channelId = "default";
         const string channelName = "Default";
         const string channelDescription = "The default channel for notifications.";
@@ -34,59 +35,6 @@ namespace prj3beer.Droid
 
         bool channelInitialized = false;
 
-        public NotificationType LastNotification { get; set; }
-        public bool NotificationSent { get; set; }
-
-        private bool firstReading = true;
-
-        //Maybe move this
-        public bool CompareTemp(double receivedTemp, double idealTemp)
-        {
-
-            NotificationSent = false;
-
-            double dif = receivedTemp - idealTemp;
-
-            NotificationType curType = default;
-            if (firstReading)
-            {
-                if (dif > 0) curType = NotificationType.TOO_HOT;
-                else curType = NotificationType.TOO_COLD;
-                LastNotification = curType;
-                firstReading = false;
-            }
-            
-
-            if (dif == 0)
-                curType = NotificationType.PERFECT;
-
-            else if ((dif == 1 || dif == 2) && !(LastNotification > NotificationType.TOO_HOT && LastNotification < NotificationType.TOO_COLD))
-                curType = NotificationType.IN_RANGE_HOT;
-
-            else if ((dif == -1 || dif == -2) && !(LastNotification > NotificationType.TOO_HOT && LastNotification < NotificationType.TOO_COLD))
-                curType = NotificationType.IN_RANGE_COLD;
-
-            else if (dif >= 4)
-                curType = NotificationType.TOO_HOT;
-
-            else if (dif <= -4)
-                curType = NotificationType.TOO_COLD;
-
-            if(curType != NotificationType.NO_MESSAGE && curType != LastNotification)
-            {
-                if (curType == NotificationType.TOO_COLD) SendLocalNotification("Cold Warning", "Your beverage is getting too cold.");
-                else if (curType == NotificationType.IN_RANGE_COLD) SendLocalNotification("Temperature Alert", "Your beverage is just below the desired temperature.");
-                else if (curType == NotificationType.PERFECT) SendLocalNotification("Drink Time!", "Your beverage has reached the perfect temperature.");
-                else if (curType == NotificationType.IN_RANGE_HOT) SendLocalNotification("Temperature Alert", "Your beverage is just above the desired temperature.");
-                else if (curType == NotificationType.TOO_HOT) SendLocalNotification("Heat Warning", "Your beverage is getting too hot.");
-
-                LastNotification = curType;
-                NotificationSent = true;
-            }
-
-            return NotificationSent;    
-
-        }
 
         public void Initialize()
         {

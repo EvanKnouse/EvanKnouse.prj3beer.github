@@ -12,11 +12,6 @@ namespace nUnitTests
         Preference mockPref;
         INotificationHandler nh;
 
-        public NotificationHandlerTests()
-        {
-            
-        }
-
 
         [SetUp]
         public void SetUp()
