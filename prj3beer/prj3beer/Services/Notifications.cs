@@ -6,21 +6,33 @@ namespace prj3beer.Services
 {
     class Notifications
     {
-        public NotificationType LastNotification { get; set; }
-        public bool NotificationSent { get; set; }
+        //public NotificationType LastNotification { get; set; }
+        //public bool NotificationSent { get; set; }
 
-        private bool firstReading = true;
+        //private bool firstReading = true;
 
-        string[] Title = { "Title Error", "Heat Warning", "Temperature Alert", "Drink Time!", "Temperature Alert", "Cold Warning" };
-        string[] Body = { "Body Title", "Your beverage is getting too hot.", "Your beverage is just above the desired temperature.", "Your beverage has reached the perfect temperature.", "Your beverage is just below the desired temperature.", "Your beverage is getting too cold." };
+        public static string[] Title = { "Title Error", "Heat Warning", "Temperature Alert", "Drink Time!", "Temperature Alert", "Cold Warning" };
+        public static string[] Body = { "Body Title", "Your beverage is getting too hot.", "Your beverage is just above the desired temperature.", "Your beverage has reached the perfect temperature.", "Your beverage is just below the desired temperature.", "Your beverage is getting too cold." };
 
 
 
-        public int TryNotification(double receivedTemp, double idealTemp, NotificationType lastNotification)
+        static public int TryNotification(double receivedTemp, double idealTemp, NotificationType lastNotification)
         {
             NotificationType newNotification = CompareTemp(receivedTemp, idealTemp);
 
-            if (CheckLastNotification(newNotification))
+            if (lastNotification == NotificationType.NO_MESSAGE)
+            {
+                if (receivedTemp > idealTemp)
+                {
+                    lastNotification = NotificationType.TOO_HOT;
+                }
+                else
+                {
+                    lastNotification = NotificationType.TOO_COLD;
+                }
+            }
+
+            if (CheckLastNotification(newNotification, lastNotification))
             {
                 return (int)newNotification;
             }
@@ -29,12 +41,12 @@ namespace prj3beer.Services
 
         
 
-        private NotificationType CompareTemp(double receivedTemp, double idealTemp)
+        static private NotificationType CompareTemp(double receivedTemp, double idealTemp)
         {
             double dif = receivedTemp - idealTemp;
 
             NotificationType curType = default;
-            
+
 
             if (dif == 0)
                 curType = NotificationType.PERFECT;
@@ -42,7 +54,7 @@ namespace prj3beer.Services
             else if (dif == 1 || dif == 2 )
                 curType = NotificationType.IN_RANGE_HOT;
 
-            else if ((dif == -1 || dif == -2) && !(LastNotification > NotificationType.TOO_HOT && LastNotification < NotificationType.TOO_COLD))
+            else if (dif == -1 || dif == -2)
                 curType = NotificationType.IN_RANGE_COLD;
 
             else if (dif >= 4)
@@ -56,19 +68,28 @@ namespace prj3beer.Services
         }
 
 
-        public bool CheckLastNotification(NotificationType current, NotificationType last)
+        static private bool CheckLastNotification(NotificationType current, NotificationType last)
         {
+            bool sendable = true;
 
-            if(current != last)
+            if(current == last)
             {
-                if (current == NotificationType.PERFECT && (last == NotificationType.IN_RANGE_HOT || last == NotificationType.IN_RANGE_COLD))
-                    return false;
-                else if ((current != NotificationType.TOO_COLD || current != NotificationType.TOO_HOT) && LastNotification != NotificationType.PERFECT)
-                    return false;
-                else;
-                    return true;
+                sendable = false;
             }
-            return false;
+            else if ((current != NotificationType.TOO_COLD && current != NotificationType.TOO_HOT) && last == NotificationType.PERFECT)
+            {
+                sendable = false;
+            }
+            //if(current != last)
+            //{
+            //    if (current == NotificationType.PERFECT && (last != NotificationType.IN_RANGE_HOT && last != NotificationType.IN_RANGE_COLD))
+            //        sendable = true;
+            //    else if ((current != NotificationType.TOO_COLD && current != NotificationType.TOO_HOT) && last != NotificationType.PERFECT)
+            //        return false;
+            //    else
+            //        return true;
+            //}
+            return sendable;
             /*
             if (current == NotificationType.PERFECT && (last != NotificationType.PERFECT || last != NotificationType.IN_RANGE_HOT || last != NotificationType.IN_RANGE_COLD))
                 return true;

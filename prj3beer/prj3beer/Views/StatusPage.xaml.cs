@@ -24,6 +24,7 @@ namespace prj3beer.Views
         static Preference preferredBeverage;
 
         INotificationHandler nh;
+        NotificationType lastNotification = NotificationType.NO_MESSAGE;
         
         //Placeholder for target temperature element, implemented in another story.
         //int targetTempValue = 2;
@@ -58,7 +59,7 @@ namespace prj3beer.Views
             //TODO: Call the compare when a new temperature is gotten from our device API, not on a timer
             Device.StartTimer(TimeSpan.FromSeconds(1), () =>
             {
-                nh.CompareTemp(svm.CurrentTemp, preferredBeverage.Temperature);
+                CheckNotification();
 
                 return true;
             });
@@ -209,5 +210,18 @@ namespace prj3beer.Views
             //  Update the binding context to equal the new StatusViewModel
             BindingContext = svm;
         }
+
+        #region Story 16 Methods
+        private void CheckNotification()
+        {
+            int messageType = Notifications.TryNotification(svm.CurrentTemp, preferredBeverage.Temperature, lastNotification);
+
+            if (messageType > 0)
+            {
+                lastNotification = (NotificationType)messageType;
+                nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
+            }
+        }
+        #endregion
     }
 }
