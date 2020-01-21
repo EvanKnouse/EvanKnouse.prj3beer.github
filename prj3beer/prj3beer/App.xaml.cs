@@ -5,18 +5,18 @@ using prj3beer.Models;
 using Microsoft.Data.Sqlite;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace prj3beer
 {
     public partial class App : Application
     {
-        public static string beverageURL = @"http://my-json-server.typicode.com/prj3beer/prj3beer-api/beverages";
-        public static string mockURL = @"http://my-json-server.typicode.com/prj3beer/prj3beer-api/bevs";
-        public static string brandURL = @"http://my-json-server.typicode.com/prj3beer/prj3beer-api/brands";
-
         public App()
         {
             InitializeComponent();
+
+            Settings.URLSetting = default;
 
             MockTempReadings.StartCounting();
 
@@ -26,70 +26,31 @@ namespace prj3beer
             //Instantiate a new API Manager
             APIManager apiManager = new APIManager();
 
-            // Ensure the Database is Created
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
-
-            //This bit of code will be used in production, such that we will only grab sample data for debugging purposes
-            //For now, we will simply load the sample data on the creation of the app instance
-            if (System.Diagnostics.Debugger.IsAttached)
-            {   
-                // Load Fixtures for Sample Data
-                LoadFixtures(context, apiManager);
-            }
-            else
-            {   
-                // Load data from API
-                FetchData(context, apiManager);
-            }
-
+            // Connect to the API and store Beverages/Brands in the Database
+            FetchData(context, apiManager);
+          
             MainPage = new MainPage(context);
         }
 
-        private async void FetchData(BeerContext context, APIManager apiManager)
+        public static async void FetchData(BeerContext context, APIManager apiManager)
         {
+            // REMOVE FOR PERSIST Data
+            context.Database.EnsureDeleted();
+            // Ensure the Database is Created
+            context.Database.EnsureCreated();
+
             // Set URL of api Manager to point to the Brands API
-            apiManager.BaseURL = brandURL;
             // Load the Brands that Validate into the Local Storage
             context.Brands.AddRange(await apiManager.GetBrandsAsync());
 
             // Set URL of api Manager to point to the Beverage API
-            apiManager.BaseURL = beverageURL;
             // Load the Beverages that Validate into the Local Storage
             context.Beverage.AddRange(await apiManager.GetBeveragesAsync());
 
             // Save changes to the Local Storage
-            await context.SaveChangesAsync();
-
+            Task databaseWrite = context.SaveChangesAsync();
+            databaseWrite.Wait();
         }
-
-        /// <summary>
-        /// This method is responsible for loading mock data into the app,
-        /// this is only ran when the app had a debugger running
-        /// </summary>
-        /// <param name="context">Local Storage Database</param>
-        /// <param name="apiManager">API Manager for handling API connection</param>
-        private async void LoadFixtures(BeerContext context, APIManager apiManager)
-        {
-            // Set the baseURL to an empty string
-            apiManager.BaseURL = "";
-
-            //TODO: remove this when appropriate (not testing)
-            apiManager.BaseURL = brandURL;
-
-            // Store Brands in Local Storage
-            context.Brands.AddRange(await apiManager.GetBrandsAsync());
-
-            //TODO: same as above
-            apiManager.BaseURL = mockURL;
-
-            // Store Beverages in Local Storage
-            context.Beverage.AddRange(await apiManager.GetBeveragesAsync());
-
-            // Save the Changes
-            await context.SaveChangesAsync();
-        }
-
 
         /// <summary>
         /// This helper function will validate all of the brands in the brands list 

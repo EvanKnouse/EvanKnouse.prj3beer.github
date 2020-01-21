@@ -7,10 +7,13 @@
              x:Class="prj3beer.Views.SelectBeveragePage"
              AutomationId="beverageSelectPage"
              >
+    <StackLayout>
     <ListView x:Name="beverageListView" 
             ItemsSource="{Binding Items}"
             ItemTapped="Handle_ItemTapped"
             CachingStrategy="RecycleElement"
             AutomationId="beverageList">
     </ListView>
+        <Button x:Name="refresh" Text="Refresh"/>
+    </StackLayout>
 </ContentPage>

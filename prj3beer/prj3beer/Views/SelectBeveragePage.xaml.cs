@@ -14,28 +14,59 @@ namespace prj3beer.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SelectBeveragePage : ContentPage
     {
+        private List<Beverage> beverageList;
+        private List<string> validBeverages;
+        private APIManager apiManager;
+        private BeerContext context;
+
         public SelectBeveragePage()
         {
             InitializeComponent();
 
+            apiManager = new APIManager();
+            context = new BeerContext();
+
+            PopulateList();
+
+            refresh.Clicked += (sender, e) =>
+            {
+                Settings.URLSetting = "http://www.google.ca";
+
+                beverageListView.ItemsSource = "";
+                beverageList = null;
+                validBeverages = null;
+
+                context.Dispose();
+                context = new BeerContext();
+
+                App.FetchData(context, apiManager);
+
+                PopulateList();
+            };
+        }
+
+        private void PopulateList()
+        {
             // Initialize lists to store the beverages
-            List<Beverage> beverageList = new List<Beverage>();
-            List<string> validBeverages = new List<string>();
+            beverageList = new List<Beverage>();
+            validBeverages = new List<string>();
 
             // Setup the context to access our stored beverages
-            BeerContext context = new BeerContext();
+            //context = new BeerContext();
 
             // Store the local beverages in the list
             beverageList = context.Beverage.ToList();
+
+            context.SaveChanges();
 
             // Perform validation on the list, removing invalid beverages
             beverageList.ForEach(e => { if (ValidationHelper.Validate(e).Count == 0) { validBeverages.Add(e.Name); } });
 
             // Sort the list alphabetically
-            validBeverages.Sort((a, b) => { return string.Compare(a, b); }) ;
+            validBeverages.Sort((a, b) => { return string.Compare(a, b); });
 
             // If there are any valid beverages,
-            if(validBeverages.Count != 0)
+            if (validBeverages.Count != 0)
             {   // Set the source of the List View to the valid beverages.
                 beverageListView.ItemsSource = validBeverages;
             }

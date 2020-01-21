@@ -27,9 +27,14 @@ namespace UITests
         [SetUp]
         public void BeforeEachTest()
         {
+            Settings.URLSetting = "";
+
             //Initialize the app, arrive at home page (default for now)
             app = ConfigureApp.Android.ApkFile(apkPath).StartApp();
-           
+
+            Settings.URLSetting = "";
+
+
             validBeverageList.Clear();
             validBeverageList.Add("Churchill Blonde Lager");
             validBeverageList.Add("Great Western Pilsner");
@@ -83,7 +88,7 @@ namespace UITests
         }
 
         [Test]
-        public void TestThatErrorMessageIsShownIfNoBeverageExists()
+        public void TestThatErrorMessageIsShownIfUnableToConnectToAPI()
         {
             //Pick Select screen from the screen selection menu
             app.Tap("Beverage Select");
@@ -91,21 +96,8 @@ namespace UITests
             //Wait for the Beverages List to appear on screen
             app.WaitForElement("beverageList");
 
-            //Look for the expected error message on screen
-            AppResult[] result = app.Query(("Connection issue, please try again later"));
-
-            //Will return true if the app result contains the error message
-            Assert.IsTrue(result.Any());
-        }
-
-        [Test] // No Valid Beverages
-        public void TestThatErrorMessageIsShownIfNoBeveragesValidate()
-        {
-            //Pick Select screen from the screen selection menu
-            app.Tap("Beverage Select");
-
-            //Wait for the Beverages List to appear on screen
-            app.WaitForElement("beverageList");
+            // Tap the Refresh Button
+            app.Tap("Refresh");
 
             //Look for the expected error message on screen
             AppResult[] result = app.Query(("Connection issue, please try again later"));
