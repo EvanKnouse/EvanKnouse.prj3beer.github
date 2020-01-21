@@ -59,7 +59,7 @@ namespace prj3beer.Views
             //TODO: Call the compare when a new temperature is gotten from our device API, not on a timer
             Device.StartTimer(TimeSpan.FromSeconds(1), () =>
             {
-                CheckNotification();
+                NotificationCheck();
 
                 return true;
             });
@@ -211,12 +211,15 @@ namespace prj3beer.Views
             BindingContext = svm;
         }
 
-        #region Story 16 Methods
-        private void CheckNotification()
+        #region Story 16 Method
+        /// <summary>
+        /// Performs a check based on the updated current temperature and the desired drink temperature.  Will send the appropriate notification if necessitated by current conditions.
+        /// </summary>
+        private void NotificationCheck()
         {
             int messageType = Notifications.TryNotification(svm.CurrentTemp, preferredBeverage.Temperature, lastNotification);
 
-            if (messageType > 0)
+            if (messageType > 0) //0 corresponds to type of NO_MESSAGE, thus no notification should be sent
             {
                 lastNotification = (NotificationType)messageType;
                 nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);

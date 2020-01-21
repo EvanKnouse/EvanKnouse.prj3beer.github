@@ -52,7 +52,7 @@ namespace prj3beer.Services
         /// <returns>The notification type that is relevent to the received temperature based on their difference</returns>
         static private NotificationType CompareTemp(double receivedTemp, double idealTemp)
         {
-            double dif = receivedTemp - idealTemp;
+            int dif = (int)( receivedTemp - idealTemp );
 
             NotificationType curType = default;
 

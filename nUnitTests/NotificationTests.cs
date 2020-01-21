@@ -1,13 +1,9 @@
-﻿using prj3beer.Models;
-using prj3beer.Services;
+﻿using prj3beer.Services;
 using NUnit.Framework;
-using System.Threading;
-using Xamarin.Forms;
-using Microsoft.DotNet.PlatformAbstractions;
 
 namespace nUnitTests
 {
-    class NotificationHandlerTests
+    class NotificationTests
     {
 
         #region story16 Unit Tests

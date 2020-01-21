@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.OS;
-using Android.Runtime;
 using Android.Support.V4.App;
-using Android.Views;
-using Android.Widget;
 
 using prj3beer.Services;
 using Xamarin.Forms;
@@ -22,27 +14,29 @@ namespace prj3beer.Droid
     class AndroidNotifications : INotificationHandler
     {
 
-        const string channelId = "default";
-        const string channelName = "Default";
-        const string channelDescription = "The default channel for notifications.";
+        const string channelId = "temperature";
+        const string channelName = "TemperatureNotifications";
+        const string channelDescription = "The channel for notifications specific to drink temperature.";
 
-        public const string TitleKey = "title";
-        public const string MessageKey = "body";
-
-        const int pendingIntentId = 0;
-        int messageId = -1;
+        int messageId = -1; //incrementing notification id to distinguish unique notifications
         NotificationManager manager;
 
         bool channelInitialized = false;
 
-
+        /// <summary>
+        /// Part of the INotificationHandler Interface, calls Android-specific notification-setup methods.
+        /// </summary>
         public void Initialize()
         {
             CreateNotificationChannel();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         void CreateNotificationChannel()
         {
+            //Create a notification manager
             manager = (NotificationManager)AndroidApp.Context.GetSystemService(AndroidApp.NotificationService);
 
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
@@ -58,6 +52,11 @@ namespace prj3beer.Droid
             channelInitialized = true;
         }
 
+        /// <summary>
+        /// Part of the INoficationHandler Interface.  Sends a notification with Android-specific code.
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="body"></param>
         public void SendLocalNotification(string title, string body)
         {
             if (!channelInitialized)
@@ -65,16 +64,9 @@ namespace prj3beer.Droid
                 CreateNotificationChannel();
             }
 
-            messageId++;
-
-            Intent intent = new Intent(AndroidApp.Context, typeof(MainActivity));
-            intent.PutExtra(TitleKey, title);
-            intent.PutExtra(MessageKey, body);
-
-            PendingIntent pendingIntent = PendingIntent.GetActivity(AndroidApp.Context, pendingIntentId, intent, PendingIntentFlags.OneShot);
+            messageId++; //increment notificationID to guarantee unique ID
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(AndroidApp.Context, channelId)
-                .SetContentIntent(pendingIntent)
                 .SetContentTitle(title)
                 .SetContentText(body)
                 .SetLargeIcon(BitmapFactory.DecodeResource(AndroidApp.Context.Resources, Resource.Drawable.xamarin_logo))
