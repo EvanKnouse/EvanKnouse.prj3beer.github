@@ -113,9 +113,6 @@ namespace prj3beer.ViewModels
             Device.StartTimer(TimeSpan.FromSeconds(1), () =>
             {
                 this.CurrentTemp = MockTempReadings.Temp;
-                if (this._temperature != null)
-                {
-                }
                 return true;
             });
         }
