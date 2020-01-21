@@ -193,6 +193,7 @@ namespace UITests
         }
         #endregion
 
+        #region SearchDisplay
         [Test]
         public void TestThatValidSearchCharacterCorrectlyDisplaysMatchingBeverages()
         {
@@ -237,7 +238,9 @@ namespace UITests
 
             Assert.IsTrue(beverageList.Any());
         }
+        #endregion
 
+        #region backSpacing
         [Test]
         public void TestThatBackSpacingACharacterBroadensResultSearch()
         {
@@ -288,6 +291,7 @@ namespace UITests
             beverageList = app.Query(bevBatch88.Name);
             Assert.IsFalse(beverageList.Any());
         }
+        #endregion
 
         #region Space Character Search Tests
         [Test]
