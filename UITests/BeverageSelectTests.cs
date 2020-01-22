@@ -16,7 +16,7 @@ namespace UITests
     public class BeverageSelectTests
     {
         //Instead of querying on any (in case its empty) just make sure it contains the correct number of beverages
-        string apkPath = "D:\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
+        string apkPath = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
 
         IApp app;
         Platform platform;
