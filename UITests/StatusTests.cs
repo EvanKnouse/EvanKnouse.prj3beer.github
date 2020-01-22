@@ -13,7 +13,7 @@ namespace UITests
         IApp app;
         Platform platform;
 
-        string apkFile = "D:\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
+        string apkFile = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
 
         public StatusTests(Platform platform)
         {
@@ -85,6 +85,9 @@ namespace UITests
 
             //Wait for the Current Temperature Label to appear on screen
             app.WaitForElement("currentTemperature");
+
+            // Wait for the temp to read 45F
+            app.WaitForElement("45\u00B0F");
 
             //Check that the label for the current temperature is set to "\u00B0F"
             tempLabel = app.Query("currentTemperature")[0].Text;

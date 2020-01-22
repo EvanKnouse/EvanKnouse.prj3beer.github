@@ -17,6 +17,7 @@ namespace prj3beer.Views
     {
         //Context used to grab all beverages from local storage
         BeerContext context;
+
         //A list that will contain all valid beverages that meet the search criteria
         List<String> listViewBeverages = new List<String>();
 
@@ -57,10 +58,24 @@ namespace prj3beer.Views
 
             //Uses the entity framework to find beverages which might the criteria
             //Checkes on 3 different fields (brandName, Name of beverage, and the type) and stores it
+
+            // Check to see if the search string finds any brands with a matching name
             var brands = context.Brands.Where(b => b.Name.ToLower().Contains(searchString)).Distinct();
 
-            int brand = brands.First().BrandID;
+            // Initialize a nullable integer to store the brand ID
+            int ?brand = null;
 
+            try
+            {   // Try to save the result from the previous search
+                brand = brands.First().BrandID;
+            }
+            catch (Exception)
+            {
+                // If there is an exception, reset the brand ID to null
+                brand = null;
+            }
+
+            // Search the Beverages Database for search string and brand ID that matches
             var beverages = context.Beverage.Where(b => b.BrandID.Value.Equals(brand) || b.Name.ToLower().Contains(searchString) || b.Type.ToString().ToLower().Contains(searchString)).Distinct();
             
 
@@ -75,6 +90,8 @@ namespace prj3beer.Views
                 {
                     listViewBeverages.Add(beverage.Name);
                 }
+
+                listViewBeverages.Sort();
 
                 //If there are no beverages
                 if (listViewBeverages.Count() == 0)
