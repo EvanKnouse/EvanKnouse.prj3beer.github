@@ -14,64 +14,75 @@ namespace prj3beer.Services
     public class APIManager : IAPIManager
     {
         // This string will access the URL Setting
-        public String BaseURL = Settings.URLSetting;
+        public string BaseURL = Settings.URLSetting;
 
         //Reference to a HttpClient for sending and recieving HTTP data
         HttpClient client;
 
+        /// <summary>
+        /// This method will get the Brand objects from the API in JSON form, deserialize them into objects,
+        /// validate them, then return the list of valid brands
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<Brand>> GetBrandsAsync()
         {
             // Initialize variable to store response data
             string response = "";
 
+            //Initialize http client
             client = new HttpClient();
 
             try
-            {   // Instantiate the HTTP client
+            {   // Set the response to the result of the client connecting to the API
                 response = await client.GetStringAsync(BaseURL + "/brands");
             }
             catch (HttpRequestException)
             {
-                response = "[{\"id\": 1,\"name\": \"Great Western Brewing Company\"}," +
-                            "{\"id\": 2,\"name\": \"Churchill Brewing Company\"}]";
+                response = "";
+                //If the client is unable to connect, 
+                /*response = "[{\"id\": 1,\"name\": \"Great Western Brewing Company\"}," +
+                            "{\"id\": 2,\"name\": \"Churchill Brewing Company\"}]";*/
             }
  
             //Instantiate response brands list
             List<Brand> responseBrands = new List<Brand>();
 
+            //Create a list to contain the valid Brands
+            List<Brand> validBrands = new List<Brand>();
+
             try
             {
                 //Create a list to contain the Brand objects that are deserialized from the JSON response
                 responseBrands = JsonConvert.DeserializeObject<List<Brand>>(response);
+
+                //For each beverage in the list, do validation
+                foreach (Brand brand in responseBrands)
+                {
+                    //If there are no validation errors,
+                    if (ValidationHelper.Validate(brand).Count == 0)
+                    {
+                        // Add the valid beverages the valid list
+                        validBrands.Add(brand);
+                    }
+                }
+
+                //Sort the valid beverages alphabetically
+                validBrands.Sort((a, b) => string.Compare(a.Name, b.Name));
             }
             catch (Exception)
             {
-                
-            }
-
-
-                //Create a list to contain the valid Brands
-                List < Brand> validBrands = new List<Brand>();
-
-            //For each beverage in the list, do validation
-            foreach (Brand brand in responseBrands)
-            {
-                //If there are no validation errors,
-                if (ValidationHelper.Validate(brand).Count == 0)
-                {
-                    // Add the valid beverages the valid list
-                    validBrands.Add(brand);
-                }
-            }
-
-            //Sort the valid beverages alphabetically
-            validBrands.Sort((a, b) => string.Compare(a.Name, b.Name));
+                //If the conversion from JSON to Brand list fails,
+            } 
 
             //return the valid beverages
             return validBrands;
         }
 
-        //public async Task<List<Beverage>> GetBeveragesAsync()
+        /// <summary>
+        /// This method will get the Beverage objects from the API in JSON form, deserialize them into objects,
+        /// validate them, then return the list of valid beverages
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<Beverage>> GetBeveragesAsync()
         {
             // Initialize variable to store response data
@@ -95,14 +106,12 @@ namespace prj3beer.Services
                 */        
             }
 
-          
             //Initialize response beverages list
             List<Beverage> responseBeverages = new List<Beverage>();
 
             //Create a list to contain the valid beverages
             List<Beverage> validBeverages = new List<Beverage>();
 
-            //
             try
             {
                 //Create a list to contain the Beverage objects that are deserialized from the JSON response
@@ -122,7 +131,10 @@ namespace prj3beer.Services
                 //Sort the valid beverages alphabetically
                 validBeverages.Sort((a, b) => string.Compare(a.Name, b.Name));
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //If the beverage deserialization fails,
+            }
 
             //return the valid beverages
             return validBeverages;

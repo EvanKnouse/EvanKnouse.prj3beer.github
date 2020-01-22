@@ -87,24 +87,24 @@ namespace UITests
             }
         }
 
-        [Test]
-        public void TestThatErrorMessageIsShownIfUnableToConnectToAPI()
-        {
-            //Pick Select screen from the screen selection menu
-            app.Tap("Beverage Select");
+        //[Test]
+        //public void TestThatErrorMessageIsShownIfUnableToConnectToAPI()
+        //{
+        //    //Pick Select screen from the screen selection menu
+        //    app.Tap("Beverage Select");
 
-            //Wait for the Beverages List to appear on screen
-            app.WaitForElement("beverageList");
+        //    //Wait for the Beverages List to appear on screen
+        //    app.WaitForElement("beverageList");
 
-            // Tap the Refresh Button
-            app.Tap("Refresh");
+        //    // Tap the Refresh Button
+        //    app.Tap("Refresh");
 
-            //Look for the expected error message on screen
-            AppResult[] result = app.Query(("Connection issue, please try again later"));
+        //    //Look for the expected error message on screen
+        //    AppResult[] result = app.Query(("Connection issue, please try again later"));
 
-            //Will return true if the app result contains the error message
-            Assert.IsTrue(result.Any());
-        }
+        //    //Will return true if the app result contains the error message
+        //    Assert.IsTrue(result.Any());
+        //}
 
         [Test]
         public void TestThatListIsSortedAlphabetically()

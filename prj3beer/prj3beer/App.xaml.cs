@@ -34,8 +34,9 @@ namespace prj3beer
 
         public static async void FetchData(BeerContext context, APIManager apiManager)
         {
-            // REMOVE FOR PERSIST Data
+            // REMOVE FOR PERSISTENT Data
             context.Database.EnsureDeleted();
+
             // Ensure the Database is Created
             context.Database.EnsureCreated();
 
@@ -50,23 +51,6 @@ namespace prj3beer
             // Save changes to the Local Storage
             Task databaseWrite = context.SaveChangesAsync();
             databaseWrite.Wait();
-        }
-
-        /// <summary>
-        /// This helper function will validate all of the brands in the brands list 
-        /// that is being loaded into the app from the database fixture before saving into the database
-        /// </summary>
-        /// <param name="brandList"></param>
-        /// <param name="bc"></param>
-        private void ValidateBrands(List<Brand> brandList, BeerContext bc)
-        {
-            foreach (Brand brand in brandList)
-            {
-                if (ValidationHelper.Validate(brand).Count() == 0)               //If the validation returns 0 for count, brand is valid
-                {
-                    bc.Brands.Add(brand);
-                }
-            }
         }
 
         protected override void OnStart()
