@@ -38,7 +38,7 @@ namespace prj3beer.Views
             svm = new StatusViewModel();
 
             // Setup the current Beverage (find it from the Context) -- This will be passed in from a viewmodel/bundle/etc in the future.
-            currentBeverage = new Beverage { BeverageID = 2, Temperature = 5 };
+            currentBeverage = new Beverage { BeverageID = 1, Name = "Great Western Radler", Brand = svm.Context.Brands.Find(2), Type = Models.Type.Radler, Temperature = 2 };
             //svm.Context.Beverage.Find(2);
 
             // Setup the preference object using the passed in beverage

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="prj3beer.Views.BeverageSelectPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <SearchBar x:Name="searchBeverage" AutomationId="searchBeverage" TextChanged="SearchChanged" Placeholder="Please enter a beverage, type, or brand!!"/>
+
+            <Label x:Name="errorLabel" AutomationId="errorLabel" />
+
+            <ActivityIndicator x:Name="loadingSpinner" AutomationId="loadingSpinner" />
+
+            <ListView x:Name="beverageListView" AutomationId="beverageListView" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -7,12 +7,12 @@
              x:Class="prj3beer.Views.BrandSelectPage"
              AutomationId="totalPage"
              >
-  <ListView x:Name="brandListView" 
+    <ListView x:Name="brandListView" 
             ItemsSource="{Binding Items}"
             ItemTapped="Handle_ItemTapped"
             CachingStrategy="RecycleElement"
             AutomationId="brandList">
-    <!--<d:ListView.ItemsSource>
+        <!--<d:ListView.ItemsSource>
         <x:Array Type="{x:Type x:String}">
             <x:String>Item 1</x:String>
             <x:String>Item 2</x:String>
@@ -21,17 +21,17 @@
             <x:String>Item 5</x:String>
         </x:Array>
     </d:ListView.ItemsSource>-->
-    <!--Built in Cells-->
-    <!--<ListView.ItemTemplate>
+        <!--Built in Cells-->
+        <!--<ListView.ItemTemplate>
         <DataTemplate>
             <TextCell Text="{Binding .}" d:Text="{Binding .}" />
         </DataTemplate>
     </ListView.ItemTemplate>-->
-    
-    <!--Custom View Cells-->
- 
-      <!-- this was uncommented per Ernesto's instructions-->
-    <!--<ListView.ItemTemplate>
+
+        <!--Custom View Cells-->
+
+        <!-- this was uncommented per Ernesto's instructions-->
+        <!--<ListView.ItemTemplate>
       <DataTemplate>
         <ViewCell>
           <StackLayout>
@@ -46,5 +46,5 @@
       </DataTemplate>
     </ListView.ItemTemplate>-->
 
-  </ListView>
+    </ListView>
 </ContentPage>

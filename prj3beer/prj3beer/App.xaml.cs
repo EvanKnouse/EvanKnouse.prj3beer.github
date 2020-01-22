@@ -10,7 +10,6 @@ namespace prj3beer
 {
     public partial class App : Application
     {
-
         public App()
         {
             InitializeComponent();
@@ -37,11 +36,7 @@ namespace prj3beer
         }
 
         private async void LoadFixtures(BeerContext context)
-        {   // Create a series of 3 new beverages with different values.
-            Beverage bev1 = new Beverage { BeverageID = 1, Temperature = 2 };
-            Beverage bev2 = new Beverage { BeverageID = 2, Temperature = 4 };
-            Beverage bev3 = new Beverage { BeverageID = 3, Temperature = -1 };
-
+        {
             List<Brand> brandList = new List<Brand>();
 
             brandList.Add(new Brand() { brandID = 4, brandName = "Great Western Brewery" });
@@ -49,8 +44,20 @@ namespace prj3beer
             brandList.Add(new Brand() { brandID = 6, brandName = "Prarie Sun Brewery" });
             brandList.Add(new Brand() { brandID = 7, brandName = new string('a', 61) });
             brandList.Add(new Brand() { brandID = 3, brandName = "" });
+            // Story 24 Brand, for testing
+            brandList.Add(new Brand() { brandID = 25, brandName = "Coors" });
 
             ValidateBrands(brandList, context);
+
+            // Create a series of 3 new beverages with different values.
+            Beverage bev1 = new Beverage { BeverageID = 1, Name = "Great Western Radler", Brand = brandList.ElementAt(0), Type = Type.Radler, Temperature = 2 };
+            Beverage bev2 = new Beverage { BeverageID = 2, Name = "Churchill Blonde Lager", Brand = brandList.ElementAt(0), Type = Type.Lager, Temperature = 3 };
+            Beverage bev3 = new Beverage { BeverageID = 3, Name = "Batch 88", Brand = brandList.ElementAt(2), Type = Type.Stout, Temperature = 4 };
+
+            // Story 24 Beverages, for testing
+            Beverage bev4 = new Beverage { BeverageID = 4, Name = "Coors Light", Brand = brandList.ElementAt(5), Type = Type.Light, Temperature = 3 };
+            Beverage bev5 = new Beverage { BeverageID = 5, Name = "Coors Banquet", Brand = brandList.ElementAt(5), Type = Type.Pale, Temperature = 2 };
+            Beverage bev6 = new Beverage { BeverageID = 6, Name = "Coors Edge", Brand = brandList.ElementAt(5), Type = Type.Radler, Temperature = 5 };
 
             Preference pref1 = new Preference { BeverageID = 1, Temperature = 10 };
 
@@ -63,6 +70,10 @@ namespace prj3beer
                 context.Beverage.Add(bev1);
                 context.Beverage.Add(bev2);
                 context.Beverage.Add(bev3);
+                // Story 24 Beverages, for testing
+                context.Beverage.Add(bev4);
+                context.Beverage.Add(bev5);
+                context.Beverage.Add(bev6);
                 context.Preference.Add(pref1);
 
                 // Save Changes (updates/new) to the database
