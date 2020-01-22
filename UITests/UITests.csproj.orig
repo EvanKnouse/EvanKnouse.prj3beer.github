@@ -34,7 +34,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppInitializer.cs" />
+<<<<<<< HEAD
+=======
     <Compile Include="BeverageSelectTests.cs" />
+    <Compile Include="BrandUITests.cs" />
+>>>>>>> master
     <Compile Include="CurrentTemperatureTests.cs" />
     <Compile Include="SelectTests.cs" />
     <Compile Include="StatusTests.cs" />
