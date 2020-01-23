@@ -10,6 +10,9 @@ namespace prj3beer.ViewModels
     {
         BeerContext context = new BeerContext();
 
+        double currentTemp;
+
+
         public BeerContext Context { get { return this.context; } }
         
         // Nullable double value for our temperature
@@ -79,7 +82,40 @@ namespace prj3beer.ViewModels
             }
         }
 
+        public double CurrentTemp
+        {
+            set
+            {
+                if (currentTemp != value)
+                {
+                    currentTemp = value;
+
+                    if (PropertyChanged != null)
+                    {
+                        //If the property has changed, fire an event.
+                        //PropertyChanged(this, new PropertyChangedEventArgs("CurrentTemp"));
+                        OnPropertyChanged("CurrentTemp");
+                    }
+                }
+            }
+            get
+            {
+                return currentTemp;
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public StatusViewModel()
+        {
+            //Checks for update temps every second.  Will eventually poll an object associated with a
+            //bluetooth reading.  Currently communicates with a class bouncing between -35 and 35 degrees celsius.
+            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            {
+                this.CurrentTemp = MockTempReadings.Temp;
+                return true;
+            });
+        }
 
         protected virtual void OnPropertyChanged(string propertyName)
         {

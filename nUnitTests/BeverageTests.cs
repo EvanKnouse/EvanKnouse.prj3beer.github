@@ -91,15 +91,6 @@ namespace nUnitTests
         }
 
         [Test]
-        public void TestThatBelowMinBeverageIDIsInvalid()
-        {
-            GreatWestRadler.BeverageID = -1;
-            errors = ValidationHelper.Validate(GreatWestRadler);
-            Assert.IsTrue(errors.Count == 1);
-            Assert.AreEqual(errors[0].ToString(), "ID Range must be between 1 and 999");
-        }
-
-        [Test]
         public void TestThatBeverageTypeIsValid()
         {
             GreatWestRadler.Type = Type.Radler;

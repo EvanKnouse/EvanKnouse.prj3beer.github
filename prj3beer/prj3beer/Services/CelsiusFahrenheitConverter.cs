@@ -11,7 +11,7 @@ namespace prj3beer.Services
     /// Checks values before being displayed on the status screen.  Attaches the units, checks if the temperature
     /// is in range, and also converts to fahrenheit if necessary.
     /// </summary>
-    class CelsiusToFahrenheitConverter : IValueConverter
+    public class CelsiusFahrenheitConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -29,7 +29,9 @@ namespace prj3beer.Services
         //Not yet used.  May have some application for temperature inputs/setting preferred temperature.
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            double temp = (double)value;
+
+            return Models.Settings.TemperatureSettings ? temp : Temperature.FahrenheitToCelsius(temp);
         }
     }
 }

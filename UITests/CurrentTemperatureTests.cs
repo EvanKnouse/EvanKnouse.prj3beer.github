@@ -17,7 +17,7 @@ namespace UITests
 
         IApp app;
         Platform platform;
-        string apkFile = "D:\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
+        string apkFile = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
 
         public CurrentTemperatureTests(Platform platform)
         {
@@ -59,7 +59,6 @@ namespace UITests
         [Test]
         public void TestTemperatureAboveRangeError()
         {
-
             //Tap on the status text to navigate the status screen
             app.Tap("Status");
 

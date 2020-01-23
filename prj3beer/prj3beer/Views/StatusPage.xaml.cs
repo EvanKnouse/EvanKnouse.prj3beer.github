@@ -3,6 +3,7 @@ using prj3beer.Models;
 using prj3beer.Services;
 using prj3beer.ViewModels;
 using System;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,9 @@ namespace prj3beer.Views
         static StatusViewModel svm;
         static Beverage currentBeverage;
         static Preference preferredBeverage;
+
+        INotificationHandler nh;
+        NotificationType lastNotification = NotificationType.NO_MESSAGE;
         
         //Placeholder for target temperature element, implemented in another story.
         //int targetTempValue = 2;
@@ -50,9 +54,21 @@ namespace prj3beer.Views
                 EnablePageElements(true);
             }
             #endregion
+
+            #region Story 16 code
+            nh = DependencyService.Get<INotificationHandler>();
+            //TODO: Call the compare when a new temperature is gotten from our device API, not on a timer
+            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            {
+                NotificationCheck();
+
+                return true;
+            });
+
+            #endregion
         }
 
-        public void updateViewModel(object sender, EventArgs args)
+        public void UpdateViewModel(object sender, EventArgs args)
         {
             svm.IsCelsius = Settings.TemperatureSettings;
         }
@@ -195,5 +211,21 @@ namespace prj3beer.Views
             //  Update the binding context to equal the new StatusViewModel
             BindingContext = svm;
         }
+
+        #region Story 16 Method
+        /// <summary>
+        /// Performs a check based on the updated current temperature and the desired drink temperature.  Will send the appropriate notification if necessitated by current conditions.
+        /// </summary>
+        private void NotificationCheck()
+        {
+            int messageType = Notifications.TryNotification(svm.CurrentTemp, preferredBeverage.Temperature, lastNotification);
+
+            if (messageType > 0) //0 corresponds to type of NO_MESSAGE, thus no notification should be sent
+            {
+                lastNotification = (NotificationType)messageType;
+                nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
+            }
+        }
+        #endregion
     }
 }

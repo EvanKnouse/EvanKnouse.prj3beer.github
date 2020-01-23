@@ -13,7 +13,7 @@ namespace UITests
         IApp app;
         Platform platform;
 
-        string apkFile = "D:\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
+        string apkFile = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
 
         public StatusTests(Platform platform)
         {
@@ -59,6 +59,8 @@ namespace UITests
         [Test]
         public void TestSettingsAreAppliedOnSettingsChange()
         {
+            Settings.TemperatureSettings = true;
+
             //Pick Status screen from the screen selection menu
             app.Tap("Status");
 
@@ -228,5 +230,7 @@ namespace UITests
             Assert.AreEqual((startTemp - 1).ToString(), targetTemperature);
         }
         #endregion
+
+
     }
 }

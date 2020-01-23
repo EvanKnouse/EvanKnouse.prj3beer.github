@@ -16,7 +16,7 @@ namespace UITests
     public class BeverageSelectTests
     {
         //Instead of querying on any (in case its empty) just make sure it contains the correct number of beverages
-        string apkPath = "D:\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
+        string apkPath = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
 
         IApp app;
         Platform platform;
@@ -103,11 +103,11 @@ namespace UITests
         [Test]
         public void TestThatValidSearchTypeDisplaysMatchingBeverages()
         {
-            string userInput = "pale";
+            string userInput = "radler";
             app.EnterText("searchBeverage",userInput.ToString());
 
             // the following beverage should be found on the beverage select screen, in the list view
-            AppResult[] beverage = app.Query(bevCoorsBanquet.Name);
+            AppResult[] beverage = app.Query(beverages[2]);
             Assert.IsTrue(beverage.Any());
         }
         #endregion
@@ -116,22 +116,22 @@ namespace UITests
         [Test]
         public void TestThatInvalidSearchBrandNameDoesNotDisplayBeverages()
         {
-            string userInput = "Coorss";
+            string userInput = "GWB";
             app.EnterText("searchBeverage",userInput.ToString());
 
             // no beverages should be found on the beverage select screen
-            AppResult[] beverage = app.Query(bevCoorsLight.Name);
+            AppResult[] beverage = app.Query(beverages[1]);
             Assert.IsFalse(beverage.Any());
 
-            beverage = app.Query(bevCoorsBanquet.Name);
+            beverage = app.Query(beverages[2]);
             Assert.IsFalse(beverage.Any());
 
-            beverage = app.Query(bevCoorsEdge.Name);
+            beverage = app.Query(beverages[3]);
             Assert.IsFalse(beverage.Any());
 
             // test that the error message is properly displayed when no results are found
             string errorMessage = app.Query("errorLabel")[0].Text;
-            Assert.AreEqual(errorMessage,"\"Coorss\" could not be found/does not exist");
+            Assert.AreEqual(errorMessage,"\"GWB\" could not be found/does not exist");
         }
 
         [Test]
@@ -141,22 +141,16 @@ namespace UITests
             app.EnterText("searchBeverage",userInput.ToString());
 
             // no beverages should be found on the beverage select screen
-            AppResult[] beverage = app.Query(bevCoorsLight.Name);
+            AppResult[] beverage = app.Query(beverages[0]);
             Assert.IsFalse(beverage.Any());
 
-            beverage = app.Query(bevCoorsBanquet.Name);
+            beverage = app.Query(beverages[1]);
             Assert.IsFalse(beverage.Any());
 
-            beverage = app.Query(bevCoorsEdge.Name);
+            beverage = app.Query(beverages[2]);
             Assert.IsFalse(beverage.Any());
 
-            beverage = app.Query(bevBatch88.Name);
-            Assert.IsFalse(beverage.Any());
-
-            beverage = app.Query(bevChurchLager.Name);
-            Assert.IsFalse(beverage.Any());
-
-            beverage = app.Query(bevGreatWesternRadler.Name);
+            beverage = app.Query(beverages[3]);
             Assert.IsFalse(beverage.Any());
 
             // test that the error message is properly displayed when no results are found
@@ -171,22 +165,16 @@ namespace UITests
             app.EnterText("searchBeverage",userInput.ToString());
 
             // no beverages should be found on the beverage select screen
-            AppResult[] beverage = app.Query(bevCoorsLight.Name);
+            AppResult[] beverage = app.Query(beverages[0]);
             Assert.IsFalse(beverage.Any());
 
-            beverage = app.Query(bevCoorsBanquet.Name);
+            beverage = app.Query(beverages[1]);
             Assert.IsFalse(beverage.Any());
 
-            beverage = app.Query(bevCoorsEdge.Name);
+            beverage = app.Query(beverages[2]);
             Assert.IsFalse(beverage.Any());
 
-            beverage = app.Query(bevBatch88.Name);
-            Assert.IsFalse(beverage.Any());
-
-            beverage = app.Query(bevChurchLager.Name);
-            Assert.IsFalse(beverage.Any());
-
-            beverage = app.Query(bevGreatWesternRadler.Name);
+            beverage = app.Query(beverages[3]);
             Assert.IsFalse(beverage.Any());
 
             // test that the error message is properly displayed when no results are found
@@ -202,32 +190,17 @@ namespace UITests
             string userInput = "a";
             app.EnterText("searchBeverage", userInput.ToString());
             
-            AppResult[] beverage = app.Query(bevCoorsBanquet.Name);
+            AppResult[] beverage = app.Query(beverages[0]);
             Assert.IsTrue(beverage.Any());
 
-            beverage = app.Query(bevGreatWesternRadler.Name);
+            beverage = app.Query(beverages[1]);
             Assert.IsTrue(beverage.Any());
 
-            beverage = app.Query(bevChurchLager.Name);
+            beverage = app.Query(beverages[2]);
             Assert.IsTrue(beverage.Any());
 
-            beverage = app.Query(bevBatch88.Name);
+            beverage = app.Query(beverages[3]);
             Assert.IsTrue(beverage.Any());
-
-            beverage = app.Query(bevCoorsEdge.Name);
-            Assert.IsTrue(beverage.Any());
-        }
-
-        // POSSIBLY REDUNDANT
-        [Test]
-        public void TestThatTypingInCoorsLightDisplaysTwoResults()
-        {
-            string userInput = "Coors Light";
-            app.EnterText("searchBeverage", userInput.ToString());
-            
-            AppResult[] beverageList = app.Query("beverageListView");
-
-            Assert.AreEqual(1, beverageList.Count());
         }
 
         [Test]
@@ -246,52 +219,49 @@ namespace UITests
         [Test]
         public void TestThatBackSpacingACharacterBroadensResultSearch()
         {
-            string userInput = "Coors L";
+            string userInput = "Great Western R";
             app.EnterText("searchBeverage", userInput.ToString());
             
-            AppResult[] beverageList = app.Query(bevCoorsLight.Name);
+            AppResult[] beverageList = app.Query(beverages[2]);
             Assert.IsTrue(beverageList.Any());   
 
             // empty text in search bar to simulate backspace
             app.ClearText("searchBeverage");
-            userInput = "Coors ";
+            userInput = "Great Western ";
             app.EnterText("searchBeverage", userInput.ToString());
 
-            beverageList = app.Query(bevCoorsLight.Name);
+            beverageList = app.Query(beverages[1]);
             Assert.IsTrue(beverageList.Any());
 
-            beverageList = app.Query(bevCoorsEdge.Name);
+            beverageList = app.Query(beverages[2]);
             Assert.IsTrue(beverageList.Any());
 
-            beverageList = app.Query(bevCoorsBanquet.Name);
+            beverageList = app.Query(beverages[3]);
             Assert.IsTrue(beverageList.Any());
         }
 
         [Test]
         public void TestThatBackSpacingAWordBroadensResultSearch()
         {
-            string userInput = "Coors Light";
+            string userInput = "Great Western Radler";
             app.EnterText("searchBeverage", userInput.ToString());
             
-            AppResult[] beverageList = app.Query(bevCoorsLight.Name);
+            AppResult[] beverageList = app.Query(beverages[2]);
             Assert.IsTrue(beverageList.Any());
 
             // empty text in search bar to simulate backspace
             app.ClearText("searchBeverage");
-            userInput = "Coors ";
+            userInput = "Great Western ";
             app.EnterText("searchBeverage", userInput.ToString());
 
-            beverageList = app.Query(bevCoorsLight.Name);
+            beverageList = app.Query(beverages[1]);
             Assert.IsTrue(beverageList.Any());
 
-            beverageList = app.Query(bevCoorsBanquet.Name);
+            beverageList = app.Query(beverages[2]);
             Assert.IsTrue(beverageList.Any());
 
-            beverageList = app.Query(bevCoorsEdge.Name);
+            beverageList = app.Query(beverages[3]);
             Assert.IsTrue(beverageList.Any());
-
-            beverageList = app.Query(bevBatch88.Name);
-            Assert.IsFalse(beverageList.Any());
         }
         #endregion
 
@@ -302,53 +272,46 @@ namespace UITests
             string userInput = "       ";
             app.EnterText("searchBeverage", userInput.ToString());
 
-            AppResult[] beverage = app.Query(bevCoorsLight.Name);
+            AppResult[] beverage = app.Query(beverages[0]);
             Assert.IsFalse(beverage.Any());
 
-            beverage = app.Query(bevCoorsBanquet.Name);
+            beverage = app.Query(beverages[1]);
             Assert.IsFalse(beverage.Any());
 
-            beverage = app.Query(bevCoorsEdge.Name);
+            beverage = app.Query(beverages[2]);
             Assert.IsFalse(beverage.Any());
 
-            beverage = app.Query(bevBatch88.Name);
-            Assert.IsFalse(beverage.Any());
-
-            beverage = app.Query(bevChurchLager.Name);
-            Assert.IsFalse(beverage.Any());
-
-            beverage = app.Query(bevGreatWesternRadler.Name);
+            beverage = app.Query(beverages[3]);
             Assert.IsFalse(beverage.Any());
         }
 
         [Test]
         public void TestThatLeadingSpacesAreTrimmedAndValidBeveragesAreStillDisplayed()
         {
-            string userInput = "   Coors Light";
+            string userInput = "   Great Western Radler";
             app.EnterText("searchBeverage", userInput.ToString());
             
-            AppResult[] beverage = app.Query(bevCoorsLight.Name);
+            AppResult[] beverage = app.Query(beverages[2]);
             Assert.IsTrue(beverage.Any());
         }
         
         [Test]
         public void TestThatTrailingSpacesAreTrimmedAndValidBeveragesAreStillDisplayed()
         {
-            string userInput = "Coors Light   ";
+            string userInput = "Great Western Radler   ";
             app.EnterText("searchBeverage", userInput.ToString());
 
-            AppResult[] beverage = app.Query(bevCoorsLight.Name);
+            AppResult[] beverage = app.Query(beverages[2]);
             Assert.IsTrue(beverage.Any());
         }
 
-        // NOT YET IMPLEMENTED IN CODE
         [Test]
         public void TestThatSpacesInTheMiddleOfTheSearchStringAreTrimmedAndValidBeveragesAreStillDisplayed()
         {
-            string userInput = "Coors     Light";
+            string userInput = "Great Western     Radler";
             app.EnterText("searchBeverage", userInput.ToString());
             
-            AppResult[] beverage = app.Query(bevCoorsLight.Name);
+            AppResult[] beverage = app.Query(beverages[2]);
 
             Assert.IsTrue(beverage.Any());
         }
@@ -359,22 +322,16 @@ namespace UITests
         public void TestThatEmptySearchStringDoesNotDisplayBeverages()
         {
             // no beverages should be found on the beverage select screen
-            AppResult[] beverage = app.Query(bevCoorsLight.Name);
+            AppResult[] beverage = app.Query(beverages[0]);
             Assert.IsFalse(beverage.Any());
 
-            beverage = app.Query(bevCoorsBanquet.Name);
+            beverage = app.Query(beverages[1]);
             Assert.IsFalse(beverage.Any());
 
-            beverage = app.Query(bevCoorsEdge.Name);
+            beverage = app.Query(beverages[2]);
             Assert.IsFalse(beverage.Any());
 
-            beverage = app.Query(bevBatch88.Name);
-            Assert.IsFalse(beverage.Any());
-
-            beverage = app.Query(bevChurchLager.Name);
-            Assert.IsFalse(beverage.Any());
-
-            beverage = app.Query(bevGreatWesternRadler.Name);
+            beverage = app.Query(beverages[3]);
             Assert.IsFalse(beverage.Any());
         }
 
@@ -385,22 +342,16 @@ namespace UITests
             app.EnterText("searchBeverage", userInput.ToString());
 
             // no beverages should be found on the beverage select screen
-            AppResult[] beverage = app.Query(bevCoorsLight.Name);
+            AppResult[] beverage = app.Query(beverages[0]);
             Assert.IsFalse(beverage.Any());
 
-            beverage = app.Query(bevCoorsBanquet.Name);
+            beverage = app.Query(beverages[1]);
             Assert.IsFalse(beverage.Any());
 
-            beverage = app.Query(bevCoorsEdge.Name);
+            beverage = app.Query(beverages[2]);
             Assert.IsFalse(beverage.Any());
 
-            beverage = app.Query(bevBatch88.Name);
-            Assert.IsFalse(beverage.Any());
-
-            beverage = app.Query(bevChurchLager.Name);
-            Assert.IsFalse(beverage.Any());
-
-            beverage = app.Query(bevGreatWesternRadler.Name);
+            beverage = app.Query(beverages[3]);
             Assert.IsFalse(beverage.Any());
 
             // test that the error message is properly displayed when no results are found
@@ -413,24 +364,18 @@ namespace UITests
         {
             string userInput = "853971";
             app.EnterText("searchBeverage", userInput.ToString());
-            
+
             // no beverages should be found on the beverage select screen
-            AppResult[] beverage = app.Query(bevCoorsLight.Name);
+            AppResult[] beverage = app.Query(beverages[0]);
             Assert.IsFalse(beverage.Any());
 
-            beverage = app.Query(bevCoorsBanquet.Name);
+            beverage = app.Query(beverages[1]);
             Assert.IsFalse(beverage.Any());
 
-            beverage = app.Query(bevCoorsEdge.Name);
+            beverage = app.Query(beverages[2]);
             Assert.IsFalse(beverage.Any());
 
-            beverage = app.Query(bevBatch88.Name);
-            Assert.IsFalse(beverage.Any());
-
-            beverage = app.Query(bevChurchLager.Name);
-            Assert.IsFalse(beverage.Any());
-
-            beverage = app.Query(bevGreatWesternRadler.Name);
+            beverage = app.Query(beverages[3]);
             Assert.IsFalse(beverage.Any());
 
             // test that the error message is properly displayed when no results are found
@@ -459,7 +404,7 @@ namespace UITests
         [Test]
         public void TestThatErrorMessageIsNotDisplayedWhenResultsAreFound()
         {
-            string userInput = "Coors";
+            string userInput = "Great";
             app.EnterText("searchBeverage", userInput.ToString());
 
             AppResult[] warningLabel = app.Query("errorLabel");
@@ -485,7 +430,7 @@ namespace UITests
             AppResult[] placeholder = app.Query("Please enter a beverage, type, or brand!!");
             Assert.IsTrue(placeholder.Any());
 
-            string userInput = "Coors";
+            string userInput = "Great";
             app.EnterText("searchBeverage", userInput.ToString());
 
             placeholder = app.Query("Please enter a beverage, type, or brand!!");
@@ -498,12 +443,78 @@ namespace UITests
         [Test]
         public void TestThatSpinnerDisappearsWhenSearchIsCompleted()
         {
-            string userInput = "Coors";
+            string userInput = "Great";
             app.EnterText("searchBeverage", userInput.ToString());
 
             AppResult[] spinner = app.Query("loadingSpinner");
             Assert.IsFalse(spinner.Any());
         }
         #endregion
+
+        #region Story26
+        [Test]
+        public void TestThatListIsSortedAlphabetically()
+        {
+            //Wait for the Beverages List to appear on screen
+            //app.WaitForElement("beverageList");
+                       
+            
+            //List<string> listOfBrands = new List<string>();
+
+            string userInput = "a";
+            app.EnterText("searchBeverage", userInput.ToString());
+
+            AppResult[] results = app.Query("beverageListView");
+
+            // Get all the beverages into a sorted list
+            var ascending = results.OrderBy(a => a.Text);
+
+            // Check to see if the results equals ascending
+            Assert.IsTrue(results.SequenceEqual(ascending));
+        }
+
+        [Test]
+        public void TestThatAllValidBeveragesInLocalStorageAreDisplayed()
+        {
+            //Wait for the Beverages List to appear on screen
+            //app.WaitForElement("beverageList");
+
+            string userInput = "a";
+            app.EnterText("searchBeverage", userInput.ToString());
+
+            //Initialize App Result
+            AppResult[] result = null;
+
+            // Loop through all beverages in the valid beverage list,
+            foreach (string beverageName in beverages)
+            {
+                // Query the app for the current beverage list
+                result = app.Query(beverageName);
+                // Check to see if the beverage exists on the page.
+                Assert.IsTrue(result.Any());
+            }
+        }
+
+        //[Test]
+        //public void TestThatErrorMessageIsShownIfUnableToConnectToAPI()
+        //{
+        //    //Pick Select screen from the screen selection menu
+        //    app.Tap("Beverage Select");
+
+        //    //Wait for the Beverages List to appear on screen
+        //    app.WaitForElement("beverageList");
+
+        //    // Tap the Refresh Button
+        //    app.Tap("Refresh");
+
+        //    //Look for the expected error message on screen
+        //    AppResult[] result = app.Query(("Connection issue, please try again later"));
+
+        //    //Will return true if the app result contains the error message
+        //    Assert.IsTrue(result.Any());
+        //}
+
+        #endregion
+
     }
 }
