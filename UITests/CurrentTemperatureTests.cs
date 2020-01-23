@@ -17,11 +17,8 @@ namespace UITests
 
         IApp app;
         Platform platform;
-<<<<<<< HEAD
-        string apkFile = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
-=======
+
         string apkPath = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
->>>>>>> 090fb9cf62e6db7512893844901b0c7de885c6b4
 
         public CurrentTemperatureTests(Platform platform)
         {
@@ -37,8 +34,6 @@ namespace UITests
             app.TapCoordinates(150, 90);
             ////Tap into the screen navigation menu (default for now)
             //app.Tap(c => c.Marked("ScreenSelectButton"));
-            
-
         }
 
         [Test]
