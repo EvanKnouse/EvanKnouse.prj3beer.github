@@ -88,6 +88,9 @@ namespace UITests
             //Wait for the Current Temperature Label to appear on screen
             app.WaitForElement("currentTemperature");
 
+            // Wait for the temp to read 45F
+            app.WaitForElement("45\u00B0F");
+
             //Check that the label for the current temperature is set to "\u00B0F"
             tempLabel = app.Query("currentTemperature")[0].Text;
 

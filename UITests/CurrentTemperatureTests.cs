@@ -17,7 +17,11 @@ namespace UITests
 
         IApp app;
         Platform platform;
+<<<<<<< HEAD
         string apkFile = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
+=======
+        string apkPath = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
+>>>>>>> 090fb9cf62e6db7512893844901b0c7de885c6b4
 
         public CurrentTemperatureTests(Platform platform)
         {
@@ -28,7 +32,7 @@ namespace UITests
         public void BeforeEachTest()
         {
             //Initialize the app, arrive at home page (default for now)
-            app = app = ConfigureApp.Android.ApkFile(apkFile).StartApp();
+            app = app = ConfigureApp.Android.ApkFile(apkPath).StartApp();
             //Tap into the screen navigation menu
             app.TapCoordinates(150, 90);
             ////Tap into the screen navigation menu (default for now)
