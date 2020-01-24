@@ -35,6 +35,7 @@
   <ItemGroup>
     <Compile Include="AppInitializer.cs" />
     <Compile Include="BeverageSelectTests.cs" />
+    <Compile Include="BeverageToStatusScreenTests.cs" />
     <Compile Include="BrandUITests.cs" />
     <Compile Include="CurrentTemperatureTests.cs" />
     <Compile Include="StatusPageTests.cs" />
