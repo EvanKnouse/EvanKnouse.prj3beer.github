@@ -16,16 +16,15 @@ namespace nUnitTests
        public static string tooLong = new String('a', 200);
         public static string longBoundary = new String('a', 138);
         IList<ValidationResult> errors;
-        IApp app;
-        Platform platform;
+       
         #region Initializers
 
-        Beverage LargeCoorsLiteImage = new Beverage { BeverageID = 1, Name = "Coors Light", Brand = new Brand() { brandID = 1,brandName = "Coors"}, Type = Type.Light, Temperature = 3, ImageURL= "https://www.lcbo.com/content/dam/lcbo/products/906628.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg"};
+        Beverage LargeCoorsLiteImage = new Beverage { BeverageID = 1, Name = "Coors Light", BrandID = 1, Type = Type.Light, Temperature = 3, ImageURL= "https://www.lcbo.com/content/dam/lcbo/products/906628.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg"};
         Beverage SmallCoorsLiteImage = new Beverage
         {
             BeverageID = 2,
             Name = "Coors Light",
-            Brand = new Brand() { brandID = 1, brandName = "Coors" },
+            BrandID = 1,
             Type = Type.Light,
             Temperature = 3,
             ImageURL = "https://pngimage.net/wp-content/uploads/2018/05/coors-light-bottle-png-3.png"
@@ -35,7 +34,7 @@ namespace nUnitTests
         {
             BeverageID = 2,
             Name = "Coors Light",
-            Brand = new Brand() { brandID = 1, brandName = "Coors" },
+            BrandID = 1,
             Type = Type.Light,
             Temperature = 3,
             ImageURL = "https://" + tooLong + ".png"
@@ -44,7 +43,7 @@ namespace nUnitTests
         {
             BeverageID = 2,
             Name = "Coors Light",
-            Brand = new Brand() { brandID = 1, brandName = "Coors" },
+            BrandID = 1,
             Type = Type.Light,
             Temperature = 3,
             ImageURL = "https://" + longBoundary + ".png"
@@ -54,7 +53,7 @@ namespace nUnitTests
         {
             BeverageID = 2,
             Name = "Coors Light",
-            Brand = new Brand() { brandID = 1, brandName = "Coors" },
+            BrandID = 1,
             Type = Type.Light,
             Temperature = 3,
             ImageURL = "HelloWorldTheEarthSaysHello"
@@ -64,7 +63,7 @@ namespace nUnitTests
         {
             BeverageID = 2,
             Name = "Coors Light",
-            Brand = new Brand() { brandID = 1, brandName = "Coors" },
+            BrandID = 1,
             Type = Type.Light,
             Temperature = 3,
             ImageURL = ""
@@ -73,21 +72,10 @@ namespace nUnitTests
 
         #endregion
 
-        [SetUp]
-        public void BeforeEachTest()
-        {
-            //app = AppInitializer.StartApp(platform);
-            App = ConfigureApp.Android.ApkFile(apkPath).StartApp();
-            // tap on the hamburger menu
-            app.TapCoordinates(150, 90);
-            // tap to navigate to the beverage select screen
-            app.Tap("Beverage Select");
-        }
-
         [Test]
         public void TestThatMaxBoundaryURLImageSizeIsValid()
         {
-            errors = ValidationHelper.Validate(LargeCoorsLiteImage);
+            errors = ValidationHelper.Validate(URLLargeBoundary);
             Assert.IsTrue(errors.Count == 0);
         }
 
@@ -96,6 +84,7 @@ namespace nUnitTests
         {
             errors = ValidationHelper.Validate(URLTooLarge);
             Assert.IsTrue(errors.Count > 0);
+            Assert.AreEqual(errors[0].ToString(), "Image URL is too large");
         }
 
 
@@ -109,15 +98,16 @@ namespace nUnitTests
         [Test]
         public void TestThatImageURLIsValid()
         {
-            errors = ValidationHelper.Validate(LargeCoorsLiteImage);
+            errors = ValidationHelper.Validate(SmallCoorsLiteImage);
             Assert.IsTrue(errors.Count == 0);
         }
 
         [Test]
-        public void TestThatInvalidURLIsNotSavedToAPI()
+        public void TestThatInvalidURLIsCaught()
         {
             errors = ValidationHelper.Validate(InvalidURLBeverage);
             Assert.IsTrue(errors.Count > 0);
+            Assert.AreEqual(errors[0].ToString(), "Image URL is not actually an image URL");
         }
 
 

@@ -34,8 +34,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppInitializer.cs" />
-    <Compile Include="BeverageSelectTests.cs" />    
-    <Compile Include="BrandUITests.cs" />
+    <Compile Include="BeverageSelectTests.cs" />
+    <Compile Include="BeverageToStausScreenTests.cs" />
     <Compile Include="CurrentTemperatureTests.cs" />
     <Compile Include="StatusTests.cs" />
   </ItemGroup>
