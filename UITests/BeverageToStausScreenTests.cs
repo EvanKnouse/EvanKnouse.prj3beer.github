@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.UITest;
+using Xamarin.UITest.Queries;
 using Type = prj3beer.Models.Type;
 
 namespace UITests
@@ -26,7 +27,7 @@ namespace UITests
         Beverage SmallCoorsLiteImage = new Beverage
         {
             BeverageID = 2,
-            Name = "Coors Light",
+            Name = "Great Western Brewery",
             BrandID = 1,
             Type = Type.Light,
             Temperature = 3,
@@ -67,6 +68,10 @@ namespace UITests
         double mainDisplayInfoWidth = DeviceDisplay.MainDisplayInfo.Width;
         double mainDisplayInfoHeight = DeviceDisplay.MainDisplayInfo.Height;
 
+
+        //Brand --> x:automationID = brandLabel
+        //BeverageName --> x:automationID = beverageLabel
+        //BeverageImage --> x:automationID = beverageImage
         [SetUp]
         public void BeforeEachTest()
         {
@@ -74,8 +79,27 @@ namespace UITests
             app = ConfigureApp.Android.ApkFile(apkPath).StartApp();
             // tap on the hamburger menu
             app.TapCoordinates(150, 90);
+
+        }
+
+        public void selectABeverage(String searchBeverage)
+        {
             // tap to navigate to the beverage select screen
             app.Tap("Beverage Select");
+            app.EnterText("searchBeverage", searchBeverage.ToString());
+            app.Tap(searchBeverage);
+        }
+
+        public void notSelectingBeverage()
+        {
+            app.Tap("Status Screen");
+        }
+
+        public void goToBeverageSelectScreen(String searchBeverage)
+        {
+            // tap to navigate to the beverage select screen
+            app.Tap("Beverage Select");
+            app.EnterText("searchBeverage", searchBeverage.ToString());
         }
 
         /// <summary>
@@ -83,7 +107,24 @@ namespace UITests
         /// </summary>
         public void addCoorsLightToStatusPage()
         {
-            
+            selectABeverage("Coors Light");
+
+            app.WaitForElement("beverageLabel");
+
+            AppResult[] beverageDisplay = app.Query("beverageLabel");
+
+            Assert.AreEqual(beverageDisplay[0].Text, "Coors Light");
+
+            beverageDisplay = app.Query("brandLabel");
+
+            Assert.AreEqual(beverageDisplay[0].Text, "Coors");
+
+            beverageDisplay = app.Query("beverageImage");
+
+            Assert.AreEqual(beverageDisplay[0].Rect.Width, mainDisplayInfoWidth * 0.7);
+            Assert.AreEqual(beverageDisplay[0].Rect.Height, mainDisplayInfoHeight * 0.7);
+
+
         }
 
         [Test]
@@ -109,104 +150,158 @@ namespace UITests
         [Test]
         public void TestThatTappingABeverageMovesToStatusScreen()
         {
+            selectABeverage("Coors Light");
+
+            AppResult[] beverageDisplay = app.Query("StatusPage");
+
+            Assert.IsTrue(beverageDisplay.Any());
 
         }
 
         [Test]
         public void TestThatMovingToStatusScreenWithNoPreviousBeverageDoesNotDisplayAnyBeverageInformation()
         {
+            notSelectingBeverage();
+
+            AppResult[] beverageDisplay = app.Query("beverageLabel");
+
+            Assert.AreEqual(beverageDisplay[0].Text, "");
+
+            beverageDisplay = app.Query("brandLabel");
+
+            Assert.AreEqual(beverageDisplay[0].Text, "");
+
+            beverageDisplay = app.Query("beverageImage");
+
+            Assert.AreEqual(beverageDisplay[0].Rect.Width, 0);
+            Assert.AreEqual(beverageDisplay[0].Rect.Height, 0);
 
         }
 
         [Test]
         public void TestThatTappingNewBeverageOverwritesOtherBeverageOnStatusScreen()
         {
+            selectABeverage("Coors Light");
+            selectABeverage("Great Western Pilsner");
 
+            AppResult[] beverageDisplay = app.Query("beverageLabel");
+
+            Assert.AreEqual(beverageDisplay[0].Text, "Great Western Pilsner");
+
+            beverageDisplay = app.Query("brandLabel");
+
+            Assert.AreEqual(beverageDisplay[0].Text, "Great Western brewing Company");
+
+            beverageDisplay = app.Query("beverageImage");
+
+            Assert.AreEqual(beverageDisplay[0].Rect.Width, mainDisplayInfoWidth * 0.7);
+            Assert.AreEqual(beverageDisplay[0].Rect.Height, mainDisplayInfoHeight * 0.7);
         }
 
         [Test]
         public void TestThatBeverageTemperatureIsDisplayedOnStatusScreen()
         {
-
+            selectABeverage("Coors Light");
+            AppResult[] beverageDisplay = app.Query("currentTarget");
+            Assert.AreEqual(2, beverageDisplay[0].Text);
         }
 
         [Test]
         public void TestThatSelectedBeverageNameIsDisplayed()
         {
-
+            selectABeverage("Coors Light");
+            AppResult[] beverageDisplay = app.Query("currentTarget");
+            Assert.AreEqual(2, beverageDisplay[0].Text);
         }
 
         [Test]
         public void TestThatSelectedBrandNameIsDisplayed()
         {
+            selectABeverage("Coors Light");
+            app.WaitForElement("brandLabel");
 
+            AppResult[] beverageDisplay = app.Query("brandLabel");
+
+            Assert.AreEqual(beverageDisplay[0].Text, "Coors");
         }
 
-        [Test]
-        public void TestThatSelectedTypeNameIsDisplayed()
-        {
-
-        }
 
         [Test]
         public void TestThatBrandEntryLableIsOnStatusScreen()
         {
+            selectABeverage("Coors Light");
+            app.WaitForElement("brandLabel");
 
+            AppResult[] beverageDisplay = app.Query("brandLabel");
+
+            Assert.IsTrue(beverageDisplay.Any());
         }
 
-        [Test]
-        public void TestThatTypeLabelIsOnStatusScreen()
-        {
-
-        }
 
         [Test]
         public void TestThatBeveragelabelIsOnStatusScreen()
         {
+            selectABeverage("Coors Light");
+            app.WaitForElement("beverageLabel");
 
+            AppResult[] beverageDisplay = app.Query("beverageLabel");
+
+            Assert.IsTrue(beverageDisplay.Any());
         }
 
         [Test]
-        public void TestThatTestThatABeverageCanBeTapped()
+        public void TestThatBeverageImageIsShownOnScreen()
         {
+            selectABeverage("Coors Light");
+            app.WaitForElement("beverageImage");
 
+            AppResult[] beverageDisplay = app.Query("beverageImage");
+
+            Assert.IsTrue(beverageDisplay.Any());
         }
+        //[Test]
+        //public void TestThatABeverageCanBeTapped()
+        //{
+        //    goToBeverageSelectScreen("Coors Light");
+        //    app.WaitForElement("Coors Light");
 
-        [Test]
-        public void TestThatSelectingABeverageDisplaysAllCorrectData()
-        {
+        //    AppResult[] beverageDisplay = app.Query("Coors Light");
 
-        }
+        //    Assert.IsTrue(beverageDisplay[0].ta)
+
+
+        //}
+
 
         [Test]
         public void TestThatBeverageLabelCanNotBeEdited()
         {
+            selectABeverage("Coors Light");
 
+            AppResult[] appResult = app.Query("beverageLabel");
+            Assert.IsFalse(appResult[0].Enabled);
         }
 
         [Test]
         public void TestThatBrandLabelCanNotBeEdited()
         {
+            selectABeverage("Coors Light");
 
+            AppResult[] appResult = app.Query("brandLabel");
+            Assert.IsFalse(appResult[0].Enabled);
         }
 
-        [Test]
-        public void TestThatTypeLabelCanNotBeEdited()
-        {
-
-        }
 
         [Test]
         public void TestThatImageBoxCannotBeEdited()
         {
+            selectABeverage("Coors Light");
 
+            AppResult[] appResult = app.Query("beverageImage");
+            Assert.IsFalse(appResult[0].Enabled);
         }
 
-        [Test]
-        public void TestThatBeverageImageIsShownOnScren()
-        {
-
-        }
+    
 
     }
     
