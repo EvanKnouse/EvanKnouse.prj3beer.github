@@ -16,7 +16,8 @@ namespace prj3beer.Views
     public partial class BeverageSelectPage : ContentPage
     {
         //Context used to grab all beverages from local storage
-        BeerContext context = new BeerContext();
+        BeerContext context;
+
         //A list that will contain all valid beverages that meet the search criteria
         List<String> listViewBeverages = new List<String>();
 
@@ -25,11 +26,11 @@ namespace prj3beer.Views
         /// and places in a context
         /// </summary>
         /// <param name="beerContext"></param>
-        public BeverageSelectPage(BeerContext beerContext)
+        public BeverageSelectPage()
         {
             InitializeComponent();
 
-            context = beerContext;
+            context = new BeerContext();
         }
 
         /// <summary>
@@ -46,19 +47,37 @@ namespace prj3beer.Views
             //Make a new listview of beverages - essentially resetting it
             listViewBeverages = new List<string>();
 
-
             //Grab the text of the search string, trim it, and make it all lower case
             string searchString = searchBeverage.Text.ToString().Trim();
+
             searchString = Regex.Replace(searchString, @"\s+", " ");
             // grab the text of the search string without modifying it, for use in the error message label
             string potentialInvalidSearch = searchString;
             searchString = searchString.ToLower();
 
-
             //Uses the entity framework to find beverages which might the criteria
-            //Checkes on 3 different fields (brandName, Name of beverage, and the type) and stores it
-            var beverages = context.Beverage.Where(b => b.Brand.brandName.ToLower().Contains(searchString) || b.Name.ToLower().Contains(searchString) || b.Type.ToString().ToLower().Contains(searchString)).Distinct();
+            //Checks on 3 different fields (brandName, Name of beverage, and the type) and stores it
 
+            //Check to see if the search string finds any brands with a mtaching name
+            var brands = context.Brands.Where(b => b.Name.ToLower().Contains(searchString)).Distinct();
+
+            //Initialize a nullable integer to store the brand ID
+            int? brand = null;
+
+            try
+            {
+                //Try to save the result from the previous search
+                brand = brands.First().BrandID;
+            }
+            catch(Exception)
+            {
+                //If there is an exception, reset the brand ID to null
+                brand = null;
+            }
+
+            // Search the Beverages Database for search string and brand ID that matches
+            var beverages = context.Beverage.Where(b => b.BrandID.Value.Equals(brand) || b.Name.ToLower().Contains(searchString) || b.Type.ToString().ToLower().Contains(searchString)).Distinct();
+            
             //If the search string is not empty
             if (!searchString.Equals(""))
             {
@@ -70,6 +89,9 @@ namespace prj3beer.Views
                 {
                     listViewBeverages.Add(beverage.Name);
                 }
+
+                //Sort beverage list alphabetically for display
+                listViewBeverages.Sort();
 
                 //If there are no beverages
                 if (listViewBeverages.Count() == 0)

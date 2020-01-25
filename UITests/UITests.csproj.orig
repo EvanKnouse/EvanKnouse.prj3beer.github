@@ -34,10 +34,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppInitializer.cs" />
-    <Compile Include="BeverageSelectTests.cs" />    
-    <Compile Include="BrandUITests.cs" />
+    <Compile Include="BeverageSelectTests.cs" />
     <Compile Include="CurrentTemperatureTests.cs" />
+<<<<<<< HEAD
+    <Compile Include="SelectTests.cs" />
     <Compile Include="StatusTests.cs" />
+=======
+    <Compile Include="StatusPageTests.cs" />
+>>>>>>> master
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\prj3beer\prj3beer.Android\prj3beer.Android.csproj">

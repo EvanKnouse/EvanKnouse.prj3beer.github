@@ -10,6 +10,7 @@
              
     <StackLayout VerticalOptions="FillAndExpand">
         <ListView x:Name="ListViewMenu"
+                  AutomationId="hamburglar"
                     HasUnevenRows="True">
             <d:ListView.ItemsSource>
                 <x:Array Type="{x:Type x:String}">

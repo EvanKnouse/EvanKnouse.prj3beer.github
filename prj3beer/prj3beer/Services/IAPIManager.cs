@@ -11,7 +11,10 @@ namespace prj3beer.Services
     /// </summary>
     public interface IAPIManager
     {
-        // Enforce classes that implement this interface to use "GetBrands"
-        Task<List<Brand>> GetBrands();
+        // Enforce classes that implement this interface to use "GetBrandsAsync"
+        Task<List<Brand>> GetBrandsAsync();
+
+        // Enforce classes that implement this interface to use "GetBeveragesAsync"
+        Task<List<Beverage>> GetBeveragesAsync();
     }
 }

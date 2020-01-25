@@ -25,6 +25,9 @@ namespace prj3beer.Models
         private const string TemperatureKey = "temperature_key";
         private static readonly bool TemperatureDefault = true;
 
+        private const string BaseURL = "base_url";
+        private static readonly string BaseURLDefault = @"http://my-json-server.typicode.com/prj3beer/prj3beer-api";
+
         #endregion
 
         /// <summary>
@@ -41,6 +44,18 @@ namespace prj3beer.Models
             {
                 //Sets the TemperatureSettings KeyValue pair and sets its value to the passed in value
                 AppSettings.AddOrUpdateValue(TemperatureKey, value);
+            }
+        }
+
+        public static string URLSetting
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault(BaseURL, BaseURLDefault);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue(BaseURL, value);
             }
         }
     }

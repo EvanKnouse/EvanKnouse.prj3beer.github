@@ -26,9 +26,14 @@ namespace prj3beer
             //Instantiate a new API Manager
             APIManager apiManager = new APIManager();
 
+<<<<<<< HEAD
             // Connect to the API and store Beverages/Brands in the Database
             FetchData(context, apiManager);
           
+=======
+            DependencyService.Get<INotificationHandler>().Initialize();
+
+>>>>>>> master
             MainPage = new MainPage(context);
         }
 

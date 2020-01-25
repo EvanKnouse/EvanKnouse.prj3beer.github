@@ -20,7 +20,7 @@ namespace prj3beer.Services
         /// <param name="idealTemp">The set ideal temperature of the user's currently selected beverage</param>
         /// <param name="lastNotification">The last notification that was sent so this method can compare them and not spam the user</param>
         /// <returns>The notification type based on the temperature. Returns 0 if no notification should be sent</returns>
-        static public int TryNotification(double receivedTemp, double idealTemp, NotificationType lastNotification)
+        static public int TryNotification(double receivedTemp, double? idealTemp, NotificationType lastNotification)
         {
             NotificationType newNotification = CompareTemp(receivedTemp, idealTemp);//Sets the current notification type that would be sent
 
@@ -50,7 +50,7 @@ namespace prj3beer.Services
         /// <param name="receivedTemp">The temperature last gotten from the bluetooth device</param>
         /// <param name="idealTemp">The set ideal temperature of the user's currently selected beverage</param>
         /// <returns>The notification type that is relevent to the received temperature based on their difference</returns>
-        static private NotificationType CompareTemp(double receivedTemp, double idealTemp)
+        static private NotificationType CompareTemp(double receivedTemp, double? idealTemp)
         {
             int dif = (int)( receivedTemp - idealTemp );
 
