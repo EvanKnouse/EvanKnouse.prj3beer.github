@@ -5,7 +5,7 @@ using System.Text;
 namespace prj3beer.Services
 {
     /// <summary>
-    /// A simplified way to represent all the possible notifiaction types
+    /// A simplified way to represent all the possible notification types
     /// </summary>
     public enum NotificationType
     {
