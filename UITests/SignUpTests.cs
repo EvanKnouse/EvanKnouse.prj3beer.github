@@ -1,0 +1,196 @@
+﻿using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Xamarin.UITest;
+using Xamarin.UITest.Queries;
+using prj3beer.Views;
+using Xamarin.Forms;
+using prj3beer.Models;
+
+namespace UITests
+{
+    [TestFixture(Platform.Android)]
+    public class SignUpTests
+    {
+        //Instead of querying on any (in case its empty) just make sure it contains the correct number of beverages
+        string apkPath = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
+
+        IApp app;
+        Platform platform;
+
+        public SignUpTests(Platform platform)
+        {
+            this.platform = platform;
+        }
+
+        [SetUp]
+        public void BeforeEachTest()
+        {
+            //app = AppInitializer.StartApp(platform);
+            app = ConfigureApp.Android.ApkFile(apkPath).StartApp();
+            // tap on the hamburger menu
+            //app.TapCoordinates(150, 90);
+            // should not have to leave the sign in/up page
+            //app.Tap("Page");
+        }
+
+        #region Sign In/Up Tests
+        [Test]
+        public void TestThatSignInSignUpButtonsAreOnScreen()
+        {
+            app.WaitForElement("btnSignUp");
+
+            // test that the sign up button is on the screen
+            AppResult[] button = app.Query("btnSignUp");
+            Assert.IsTrue(button.Any());
+
+            // test that the sign in button is on the screen
+            button = app.Query("btnSignIn");
+            Assert.IsTrue(button.Any());
+        }
+
+        [Test]
+        public void TestThatSignUpScreenElementsExistOnPage()
+        {
+            // navigate to the sign up page
+            app.Tap("btnSignUp");
+
+            app.WaitForElement("btnGoogleSignIn");
+
+            // test that the Google sign in button is on the screen
+            AppResult[] button = app.Query("btnGoogleSignIn");
+            Assert.IsTrue(button.Any());
+
+            // test that the label is on the screen
+            AppResult[] label = app.Query("lblSignInOrUp");
+            Assert.IsTrue(label.Any());
+
+            // test that the label contains the proper text
+            Assert.AreEqual(label[0].Text, "Sign up:");
+        }
+
+        [Test]
+        public void TestThatSignInScreenElementsExistOnPage()
+        {
+            // navigate to the sign in page
+            app.Tap("btnSignIn");
+
+            app.WaitForElement("btnGoogleSignIn");
+
+            // test that the Google sign in button is on the screen
+            AppResult[] button = app.Query("btnGoogleSignIn");
+            Assert.IsTrue(button.Any());
+
+            // test that the label is on the screen
+            AppResult[] label = app.Query("lblSignInOrUp");
+            Assert.IsTrue(label.Any());
+
+            // test that the label contains the proper text
+            Assert.AreEqual(label[0].Text, "Sign in:");
+        }
+
+        [Test]
+        public void TestThatUserIsTakenToLandingPageAfterSuccessfulSignUp()
+        {
+            // navigate to the sign up page
+            app.Tap("btnSignUp");
+
+            // navigate to enter external credentials
+            app.Tap("btnGoogleSignIn");
+
+            // select account or enter credentials
+
+            // allow permissions
+
+            app.WaitForElement("searchBeverage");
+
+            // test that the modal is visible
+            AppResult[] modal = app.Query("modal");
+            Assert.IsTrue(modal.Any());
+        }
+
+        [Test]
+        public void TestThatUserIsTakenOutsideOfAppToSelectExternalAccount()
+        {
+            // navigate to the sign up page
+            app.Tap("btnSignUp");
+
+            // navigate to enter external credentials
+            app.Tap("btnGoogleSignIn");
+
+            // test that we're on the page, somehow
+
+            // select account or enter credentials?
+            //app.TapCoordinates(x, y);
+            // allow permissions?
+            //app.Tap("Allow");
+        }
+
+        [Test]
+        public void TestUserCanAllowAppToAccessProfileInformation()
+        {
+            // navigate to the sign up page
+            app.Tap("btnSignUp");
+
+            // navigate to enter external credentials
+            app.Tap("btnGoogleSignIn");
+
+            // select account or enter credentials
+            //app.TapCoordinates(x, y);
+
+            // test that the allow button is on the permissions screen
+            AppResult[] allow = app.Query("Allow");
+            Assert.IsTrue(allow.Any());
+        }
+
+        [Test]
+        public void TestThatUsersNameIsDisplayedAfterSigningInOrUp()
+        {
+            // navigate to the sign up page
+            app.Tap("btnSignUp");
+
+            // navigate to enter external credentials
+            app.Tap("btnGoogleSignIn");
+
+            // select account or enter credentials
+            //app.TapCoordinates(x, y);
+
+            // allow permissions
+            app.Tap("Allow");
+
+            // test that the welcoming label is there
+            AppResult[] welcome = app.Query("lblWelcome");
+            Assert.IsTrue(welcome.Any());
+
+            // test that the welcoming label contains welcoming text
+            Assert.AreEqual(welcome[0].Text, "Welcome to Jurassic Park");
+        }
+
+        [Test]
+        public void TestThatUserIsTakenBackToSignUpPageAfterCancellingSignUp()
+        {
+            // navigate to the sign up page
+            app.Tap("btnSignUp");
+
+            // navigate to enter external credentials
+            app.Tap("btnGoogleSignIn");
+
+            // select account or enter credentials
+            //app.TapCoordinates(x, y);
+
+            // hit the cancel button
+            //app.TapCoordinates(x, y);
+
+            // wait for the main page to be displayed
+            app.WaitForElement("MainPage");
+
+            // test that the sign up button is on the screen, as the user is sent back to the original screen
+            AppResult[] button = app.Query("btnSignUp");
+            Assert.IsTrue(button.Any());
+        }
+        #endregion
+    }
+}
