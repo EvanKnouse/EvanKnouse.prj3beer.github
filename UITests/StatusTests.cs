@@ -233,7 +233,5 @@ namespace UITests
             Assert.AreEqual((startTemp - 1).ToString(), targetTemperature);
         }
         #endregion
-
-
     }
 }

@@ -136,5 +136,17 @@ namespace nUnitTests
         }
 
         #endregion
+
+        #region story15 Unit Tests
+        public void TestThatNoNotificationsAreSentIfAllNotificationsAreOff()
+        {
+
+        }
+
+        public void TestThatAllNotificationsAreSentWhenAllNotificationsAreOn()
+        {
+
+        }
+        #endregion
     }
 }
