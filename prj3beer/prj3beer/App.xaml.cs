@@ -74,6 +74,7 @@ namespace prj3beer
 
         private async void LoadFixtures(BeerContext context)
         {
+            /*
             List<Brand> brandList = new List<Brand>();
 
             brandList.Add(new Brand() { BrandID = 4, Name = "Great Western Brewery" });
@@ -85,16 +86,20 @@ namespace prj3beer
             brandList.Add(new Brand() { BrandID = 25, Name = "Coors" });
 
             //ValidateBrands(brandList, context);
+            */
 
             // Create a series of 3 new beverages with different values.
-            Beverage bev1 = new Beverage { BeverageID = 1, Name = "Great Western Radler", BrandID = brandList.ElementAt(0).BrandID, Type = Type.Radler, Temperature = 2 };
-            Beverage bev2 = new Beverage { BeverageID = 2, Name = "Churchill Blonde Lager", BrandID = brandList.ElementAt(0).BrandID, Type = Type.Lager, Temperature = 3 };
-            Beverage bev3 = new Beverage { BeverageID = 3, Name = "Batch 88", BrandID = brandList.ElementAt(2).BrandID, Type = Type.Stout, Temperature = 4 };
-
-            // Story 24 Beverages, for testing
-            Beverage bev4 = new Beverage { BeverageID = 4, Name = "Coors Light", BrandID = brandList.ElementAt(5).BrandID, Type = Type.Light, Temperature = 3 };
-            Beverage bev5 = new Beverage { BeverageID = 5, Name = "Coors Banquet", BrandID = brandList.ElementAt(5).BrandID, Type = Type.Pale, Temperature = 2 };
-            Beverage bev6 = new Beverage { BeverageID = 6, Name = "Coors Edge", BrandID = brandList.ElementAt(5).BrandID, Type = Type.Radler, Temperature = 5 };
+            Beverage bev1 = new Beverage { BeverageID = 1, Name = "Great Western Radler", BrandID = 1, Type = Type.Radler, Temperature = 3 };
+            Beverage bev2 = new Beverage { BeverageID = 2, Name = "Great Western Pilsner", BrandID = 1, Type = (Type)4, Temperature = 13 };
+            Beverage bev3 = new Beverage { BeverageID = 3, Name = "Original 16 Copper Ale", BrandID = 1, Type = (Type)5, Temperature = 2 };
+            Beverage bev4 = new Beverage { BeverageID = 4, Name = "Original 16 Pale Ale", BrandID = 201, Type = (Type)5, Temperature = 2 };
+            Beverage bev5 = new Beverage { BeverageID = 5, Name = "Churchill Blonde Lager", BrandID = 2, Type = (Type)4, Temperature = 3 };
+            Beverage bev6 = new Beverage { BeverageID = 6, Name = "Rebellion Zilla IPA", BrandID = 3, Type = (Type)3, Temperature = 4 };
+            Beverage bev7 = new Beverage { BeverageID = 7, Name = "Rebellion Amber Ale", BrandID = 3, Type = (Type)1, Temperature = 53 };
+            Beverage bev8 = new Beverage { BeverageID = 0, Name = "Rebellion Lentil Beer", BrandID = 3, Type = (Type)10, Temperature = 3 };
+            Beverage bev9 = new Beverage { BeverageID = 99, Name = "Rebellion Pear Beer", BrandID = 3, Type = (Type)3, Temperature = 3 };
+            Beverage bev10 = new Beverage { BeverageID = 8, Name = "ThisNameIsWayTooLongAndIKnowBecauseIJustStartedTypingRandomStuffButIMadeSureToTypeItInPascalCaseXOXOLOLOLOL", BrandID = 2, Type = (Type)8, Temperature = -40 };
+            Beverage bev11 = new Beverage { BeverageID = 9, Name = " ", BrandID = 0, Type = (Type)6, Temperature = 3 };
 
             Preference pref1 = new Preference { BeverageID = 1, Temperature = 10 };
 

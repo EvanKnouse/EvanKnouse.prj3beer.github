@@ -38,5 +38,8 @@ namespace prj3beer.Models
         [RegularExpression("(http(s?):)([/|.|\\w|\\s|-])*\\.(?:jpg|gif|png|jpeg)", ErrorMessage = "Image URL is not actually an image URL")]
         [JsonProperty("image")]
         public string ImageURL { get; set; }
+
+
+        public string ImagePath { get; set; }
     }
 }
