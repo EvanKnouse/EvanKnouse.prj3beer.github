@@ -28,6 +28,15 @@ namespace prj3beer.Models
         private const string BaseURL = "base_url";
         private static readonly string BaseURLDefault = @"http://my-json-server.typicode.com/prj3beer/prj3beer-api";
 
+        private const string NotificationKey = "notification_key";
+        private static readonly bool NotificationDefault = true;
+
+        private const string InRangeKey = "inrange_key";
+        private static readonly bool InRangeDefault = true;
+
+        private const string TooHotColdKey = "toohotcold_key";
+        private static readonly bool TooHotColdDefault = true;
+
         #endregion
 
         /// <summary>
@@ -56,6 +65,42 @@ namespace prj3beer.Models
             set
             {
                 AppSettings.AddOrUpdateValue(BaseURL, value);
+            }
+        }
+
+        public static bool NotificationSettings
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+
+            }
+        }
+
+        public static bool InRangeSettings
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+
+            }
+        }
+
+        public static bool TooHotColdSettings
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+
             }
         }
     }

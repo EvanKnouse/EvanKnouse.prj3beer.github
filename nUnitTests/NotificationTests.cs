@@ -138,12 +138,32 @@ namespace nUnitTests
         #endregion
 
         #region story15 Unit Tests
-        public void TestThatNoNotificationsAreSentIfAllNotificationsAreOff()
+        [Test]
+        public void TestThatNoNotificationsAreSentIfNotificationsSetToOff()
         {
 
         }
 
+        [Test]
         public void TestThatAllNotificationsAreSentWhenAllNotificationsAreOn()
+        {
+
+        }
+
+        [Test]
+        public void TestThatOnlyPerfectAndTooHotColdNotificationsAreSent()
+        {
+
+        }
+
+        [Test]
+        public void TestThatOnlyPerfectAndInRangeNotificationsAreSent()
+        {
+
+        }
+
+        [Test]
+        public void TestThatOnlyPerfectNotificationsAreSent()
         {
 
         }

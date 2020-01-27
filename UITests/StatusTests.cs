@@ -31,7 +31,7 @@ namespace UITests
             //app.Tap(c => c.Marked("ScreenSelectButton"));
 
             //Sets the Temperature settings to celcius everytest
-            Settings.TemperatureSettings = true; 
+            Settings.TemperatureSettings = true;
         }
 
         [Test]
@@ -208,7 +208,7 @@ namespace UITests
 
             int startTemp = int.Parse(app.Query("currentTarget")[0].Text);
 
-            app.TapCoordinates(860,1650);
+            app.TapCoordinates(860, 1650);
 
             string targetTemperature = app.Query("currentTarget")[0].Text;
 
@@ -231,6 +231,20 @@ namespace UITests
             string targetTemperature = app.Query("currentTarget")[0].Text;
 
             Assert.AreEqual((startTemp - 1).ToString(), targetTemperature);
+        }
+        #endregion
+
+        #region Story 15 UI Tests
+        [Test]
+        public void TestThatTurningOffNotificationsDisablesNotificationsSubSettings()
+        {
+
+        }
+
+        [Test]
+        public void TestThatTurningOnNotificationsEnablesNotificationsSubSettings()
+        {
+
         }
         #endregion
     }
