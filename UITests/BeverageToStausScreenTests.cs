@@ -259,18 +259,6 @@ namespace UITests
 
             Assert.IsTrue(beverageDisplay.Any());
         }
-        //[Test]
-        //public void TestThatABeverageCanBeTapped()
-        //{
-        //    goToBeverageSelectScreen("Coors Light");
-        //    app.WaitForElement("Coors Light");
-
-        //    AppResult[] beverageDisplay = app.Query("Coors Light");
-
-        //    Assert.IsTrue(beverageDisplay[0].ta)
-
-
-        //}
 
 
         [Test]

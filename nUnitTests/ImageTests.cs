@@ -8,6 +8,8 @@ using System.ComponentModel.DataAnnotations;
 using Type = prj3beer.Models.Type;
 using Xamarin.Forms;
 using prj3beer;
+using System.IO;
+using System.Linq;
 
 namespace nUnitTests
 {
@@ -110,6 +112,33 @@ namespace nUnitTests
             Assert.AreEqual(errors[0].ToString(), "Image URL is not actually an image URL");
         }
 
+        [Test]
+        public void TestThatImageURLIsSavedAsTheAppropriateImageFileType()
+        {
+            bool found = false;
+            errors = ValidationHelper.Validate(SmallCoorsLiteImage);
+            Assert.IsTrue(errors.Count == 0);
+            string filePath = System.Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+
+            var files = new DirectoryInfo(filePath)
+                .GetFiles();
+
+            foreach (var file in files)
+            {
+                if (file.Name.Equals(SmallCoorsLiteImage.Name + ".png")
+                    || file.Name.Equals(SmallCoorsLiteImage.Name + ".jpg")
+                    || file.Name.Equals(SmallCoorsLiteImage.Name + ".jpeg")
+                    || file.Name.Equals(SmallCoorsLiteImage.Name + ".gif"))
+                {
+                    found = true;
+                }
+              
+            }
+            Assert.IsTrue(found);
+
+        }
+
+        //TestThatImagedoesNotGetRecalledWhenAccessingItAgain
 
     }
 }
