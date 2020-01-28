@@ -22,6 +22,10 @@ namespace prj3beer.Models
         //[ForeignKey("bevId")]
         //[Required(ErrorMessage = "Beverage object is required")]
         //Beverage prefBev;
+        
+        [DefaultValue("../Images/placeholder_can.png")]
+        public string ImagePath { get; set; }
+
         #endregion
 
 
@@ -36,8 +40,12 @@ namespace prj3beer.Models
         //    this.prefBev = prefBev;
         //    this.faveTemp = faveTemp;
         //}
-        
-      
-        
+
+        public bool ImageSaved()
+        {
+            throw new NotImplementedException();
+            // if Image path == ../Images/placeholder_can.png
+        }
+
     }
 }

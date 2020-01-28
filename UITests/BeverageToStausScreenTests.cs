@@ -289,7 +289,21 @@ namespace UITests
             Assert.IsFalse(appResult[0].Enabled);
         }
 
-    
+
+        [Test]
+        public void TestThatImageURLIsSavedAsTheAppropriateImageFileType()
+        {
+            
+            //On tap, set select, if saved image is false, new method to save image gotten from beverage url, Imaged save should become true
+
+            Preference selected = new Preference { BeverageID = SmallCoorsLiteImage.BeverageID, Temperature = SmallCoorsLiteImage.Temperature };
+            string filePath = selected.ImagePath;
+
+           
+
+            Assert.IsTrue(selected.ImageSaved());
+
+        }
 
     }
     

@@ -112,33 +112,14 @@ namespace nUnitTests
             Assert.AreEqual(errors[0].ToString(), "Image URL is not actually an image URL");
         }
 
+
         [Test]
-        public void TestThatImageURLIsSavedAsTheAppropriateImageFileType()
+        public void TestThatDefaultImageIsUsedWhenNoCustomImageIsSavedAndURLIsInvalid()
         {
-            bool found = false;
-            errors = ValidationHelper.Validate(SmallCoorsLiteImage);
-            Assert.IsTrue(errors.Count == 0);
-            string filePath = System.Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-
-            var files = new DirectoryInfo(filePath)
-                .GetFiles();
-
-            foreach (var file in files)
-            {
-                if (file.Name.Equals(SmallCoorsLiteImage.Name + ".png")
-                    || file.Name.Equals(SmallCoorsLiteImage.Name + ".jpg")
-                    || file.Name.Equals(SmallCoorsLiteImage.Name + ".jpeg")
-                    || file.Name.Equals(SmallCoorsLiteImage.Name + ".gif"))
-                {
-                    found = true;
-                }
-              
-            }
-            Assert.IsTrue(found);
-
+            Preference selected = new Preference { BeverageID = noImagebeverage.BeverageID, Temperature = noImagebeverage.Temperature };
+            Assert.IsFalse(selected.ImageSaved());
+            Assert.AreEqual(noImagebeverage.ImageURL, "");
+            Assert.AreEqual(selected.ImagePath, "../Images/placeholder_can.png");
         }
-
-        //TestThatImagedoesNotGetRecalledWhenAccessingItAgain
-
     }
 }

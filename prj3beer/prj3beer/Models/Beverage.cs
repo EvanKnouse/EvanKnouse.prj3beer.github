@@ -39,7 +39,5 @@ namespace prj3beer.Models
         [JsonProperty("image")]
         public string ImageURL { get; set; }
 
-
-        public string ImagePath { get; set; }
     }
 }
