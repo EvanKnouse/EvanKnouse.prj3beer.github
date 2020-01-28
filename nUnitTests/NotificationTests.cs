@@ -1,4 +1,5 @@
 ﻿using prj3beer.Services;
+using prj3beer.Models;
 using NUnit.Framework;
 
 namespace nUnitTests
@@ -141,31 +142,69 @@ namespace nUnitTests
         [Test]
         public void TestThatNoNotificationsAreSentIfNotificationsSetToOff()
         {
+            Settings.NotificationSettings = false;
 
+            Assert.AreEqual(0, Notifications.TryNotification(6, 5, NotificationType.NO_MESSAGE));
+
+            Assert.AreEqual(0, Notifications.TryNotification(5, 5, NotificationType.NO_MESSAGE));
+
+            Assert.AreEqual(0, Notifications.TryNotification(0, 5, NotificationType.NO_MESSAGE));
         }
 
         [Test]
         public void TestThatAllNotificationsAreSentWhenAllNotificationsAreOn()
         {
+            Settings.NotificationSettings = true;
+            Settings.InRangeSettings = true;
+            Settings.TooHotColdSettings = true;
 
+            Assert.AreEqual(Notifications.TryNotification(6, 5, NotificationType.NO_MESSAGE), 2);
+
+            Assert.AreEqual(Notifications.TryNotification(5, 5, NotificationType.IN_RANGE_HOT), 3);
+
+            Assert.AreEqual(Notifications.TryNotification(0, 5, NotificationType.PERFECT), 5);
         }
 
         [Test]
         public void TestThatOnlyPerfectAndTooHotColdNotificationsAreSent()
         {
+            Settings.NotificationSettings = true;
+            Settings.InRangeSettings = false;
+            Settings.TooHotColdSettings = true;
 
+            Assert.AreEqual(Notifications.TryNotification(6, 5, NotificationType.NO_MESSAGE), 0);
+
+            Assert.AreEqual(Notifications.TryNotification(5, 5, NotificationType.NO_MESSAGE), 3);
+
+            Assert.AreEqual(Notifications.TryNotification(0, 5, NotificationType.PERFECT), 5);
         }
 
         [Test]
         public void TestThatOnlyPerfectAndInRangeNotificationsAreSent()
         {
+            Settings.NotificationSettings = true;
+            Settings.InRangeSettings = true;
+            Settings.TooHotColdSettings = false;
 
+            Assert.AreEqual(Notifications.TryNotification(6, 5, NotificationType.NO_MESSAGE), 2);
+
+            Assert.AreEqual(Notifications.TryNotification(5, 5, NotificationType.IN_RANGE_HOT), 3);
+
+            Assert.AreEqual(Notifications.TryNotification(0, 5, NotificationType.PERFECT), 0);
         }
 
         [Test]
         public void TestThatOnlyPerfectNotificationsAreSent()
         {
+            Settings.NotificationSettings = true;
+            Settings.InRangeSettings = false;
+            Settings.TooHotColdSettings = false;
 
+            Assert.AreEqual(Notifications.TryNotification(6, 5, NotificationType.NO_MESSAGE), 0);
+
+            Assert.AreEqual(Notifications.TryNotification(5, 5, NotificationType.NO_MESSAGE), 3);
+
+            Assert.AreEqual(Notifications.TryNotification(0, 5, NotificationType.PERFECT), 0);
         }
         #endregion
     }

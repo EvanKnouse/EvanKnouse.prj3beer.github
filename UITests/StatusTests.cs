@@ -3,6 +3,7 @@ using System.Linq;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
 using prj3beer.Models;
+using Xamarin.Forms;
 
 namespace UITests
 {
@@ -59,7 +60,7 @@ namespace UITests
         [Test]
         public void TestSettingsAreAppliedOnSettingsChange()
         {
-            Settings.TemperatureSettings = true;
+            //Settings.TemperatureSettings = true;
 
             //Pick Status screen from the screen selection menu
             app.Tap("Status");
@@ -238,7 +239,20 @@ namespace UITests
         [Test]
         public void TestThatTurningOffNotificationsDisablesNotificationsSubSettings()
         {
+            //Pick status screen from the screen selection menu
+            app.Tap("Status");
 
+            //Wait for the Settings button to appear on screen
+            app.WaitForElement("Settings");
+
+            //Press Settings menu button
+            app.Tap("Settings");
+
+            app.WaitForElement("switchNotifications");
+
+            app.Tap("switchNotifications");
+
+            bool canSee = ((Element)(app.Query("switchInRange")[0])).IsVisible;
         }
 
         [Test]
