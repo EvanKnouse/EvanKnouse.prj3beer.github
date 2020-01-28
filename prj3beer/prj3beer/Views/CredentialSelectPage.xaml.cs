@@ -12,9 +12,11 @@ namespace prj3beer.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CredentialSelectPage : ContentPage
     {
-        public CredentialSelectPage()
+        public CredentialSelectPage(string message)
         {
             InitializeComponent();
+
+            this.message.Text = message;
         }
     }
 }

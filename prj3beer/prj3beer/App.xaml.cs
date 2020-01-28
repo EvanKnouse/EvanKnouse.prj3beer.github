@@ -29,7 +29,7 @@ namespace prj3beer
             // Connect to the API and store Beverages/Brands in the Database
             FetchData(context, apiManager);
           
-            MainPage = new MainPage(context);
+            MainPage = new MainPage();
         }
 
         public static async void FetchData(BeerContext context, APIManager apiManager)

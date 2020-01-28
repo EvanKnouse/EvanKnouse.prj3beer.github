@@ -32,7 +32,7 @@ namespace prj3beer.ViewModels
             UserEmail = await SecureStorage.GetAsync("Email");
             string socialProvider = await SecureStorage.GetAsync("Provider");
 
-            OAuth2ProviderType provider = (OAuth2ProviderType)Enum.Parse(typeof(OAuth2ProviderType), socialProvider);
+            OAuth2ProviderType provider = OAuth2ProviderType.GOOGLE; //(OAuth2ProviderType)Enum.Parse(typeof(OAuth2ProviderType), socialProvider);
 
             var token = string.Empty;
 

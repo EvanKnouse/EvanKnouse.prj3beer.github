@@ -6,10 +6,9 @@
              mc:Ignorable="d"
              x:Class="prj3beer.Views.HomePage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="prj3 beer app"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout VerticalOptions="CenterAndExpand"  HorizontalOptions="CenterAndExpand" >
+            <Button Text="Sign Up" x:Name="signUp" Clicked="Button_Clicked" />
+            <Button Text="Sign In" x:Name="signIn" Clicked="Button_Clicked" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
