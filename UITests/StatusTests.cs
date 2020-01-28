@@ -31,8 +31,17 @@ namespace UITests
             ////Tap into the screen navigation menu (default for now)
             //app.Tap(c => c.Marked("ScreenSelectButton"));
 
-            //Sets the Temperature settings to celcius everytest
+            //Sets the Temperature settings to celsius everytest
             Settings.TemperatureSettings = true;
+
+            //Sets the master Notification setting to on
+            Settings.NotificationSettings = true;
+
+            //Sets the In Range Notification setting to on
+            Settings.InRangeSettings = true;
+
+            //Sets the Too Hot/Cold Notification setting to on
+            Settings.NotificationSettings = true;
         }
 
         [Test]
@@ -250,15 +259,57 @@ namespace UITests
 
             app.WaitForElement("switchNotifications");
 
+            //Tap on the master notification switch, turning notifications off
             app.Tap("switchNotifications");
 
-            bool canSee = ((Element)(app.Query("switchInRange")[0])).IsVisible;
+            app.WaitForElement("notificationSubSettings");
+
+            //Get the result of querying for the notification sub-setting switch
+            AppResult[] results = app.Query("switchInRange");
+
+            //Results should not contain the notification in range switch
+            Assert.IsFalse(results.Any());
+
+            //Get the result of querying for the notification sub-setting switch
+            results = app.Query("switchTooHotCold");
+
+            //Results should not contain the notification too hot/cold switch
+            Assert.IsFalse(results.Any());
         }
 
         [Test]
         public void TestThatTurningOnNotificationsEnablesNotificationsSubSettings()
         {
+            //Pick status screen from the screen selection menu
+            app.Tap("Status");
 
+            //Wait for the Settings button to appear on screen
+            app.WaitForElement("Settings");
+
+            //Press Settings menu button
+            app.Tap("Settings");
+
+            app.WaitForElement("switchNotifications");
+
+            //Get the result of querying for the notification master switch
+            AppResult[] results = app.Query("switchNotifications");
+
+            //Results should contain the notification master switch
+            Assert.IsTrue(results.Any());
+
+            app.WaitForElement("notificationSubSettings");
+
+            //Get the result of querying for the notification sub-setting switch
+            results = app.Query("switchInRange");
+
+            //Results should contain the notification in range switch
+            Assert.IsTrue(results.Any());
+            
+            //Get the result of querying for the notification sub-setting switch
+            results = app.Query("switchTooHotCold");
+
+            //Results should contain the notification too hot/cold switch
+            Assert.IsTrue(results.Any());
         }
         #endregion
     }

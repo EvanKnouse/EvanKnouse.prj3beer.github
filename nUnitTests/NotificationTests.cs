@@ -4,6 +4,9 @@ using NUnit.Framework;
 
 namespace nUnitTests
 {
+    /// <summary>
+    /// These tests are responsible for testing the app's notification functionality
+    /// </summary>
     class NotificationTests
     {
 
@@ -142,8 +145,10 @@ namespace nUnitTests
         [Test]
         public void TestThatNoNotificationsAreSentIfNotificationsSetToOff()
         {
+            //Set master notifications setting to off
             Settings.NotificationSettings = false;
 
+            
             Assert.AreEqual(0, Notifications.TryNotification(6, 5, NotificationType.NO_MESSAGE));
 
             Assert.AreEqual(0, Notifications.TryNotification(5, 5, NotificationType.NO_MESSAGE));
@@ -154,8 +159,13 @@ namespace nUnitTests
         [Test]
         public void TestThatAllNotificationsAreSentWhenAllNotificationsAreOn()
         {
+            //Set master notifications setting to on
             Settings.NotificationSettings = true;
+
+            //Set in range notifications setting to on
             Settings.InRangeSettings = true;
+
+            //Set too hot/cold notifications setting to on
             Settings.TooHotColdSettings = true;
 
             Assert.AreEqual(Notifications.TryNotification(6, 5, NotificationType.NO_MESSAGE), 2);
@@ -168,8 +178,13 @@ namespace nUnitTests
         [Test]
         public void TestThatOnlyPerfectAndTooHotColdNotificationsAreSent()
         {
+            //Set master notifications setting is on
             Settings.NotificationSettings = true;
+
+            //Set in range notifications setting to off
             Settings.InRangeSettings = false;
+
+            //Set too hot/cold notifications setting to on
             Settings.TooHotColdSettings = true;
 
             Assert.AreEqual(Notifications.TryNotification(6, 5, NotificationType.NO_MESSAGE), 0);
@@ -182,8 +197,13 @@ namespace nUnitTests
         [Test]
         public void TestThatOnlyPerfectAndInRangeNotificationsAreSent()
         {
+            //Set master notifications setting is on
             Settings.NotificationSettings = true;
+
+            //Set in range notifications setting to on
             Settings.InRangeSettings = true;
+
+            //Set too hot/cold notifications setting to off
             Settings.TooHotColdSettings = false;
 
             Assert.AreEqual(Notifications.TryNotification(6, 5, NotificationType.NO_MESSAGE), 2);
@@ -196,8 +216,13 @@ namespace nUnitTests
         [Test]
         public void TestThatOnlyPerfectNotificationsAreSent()
         {
+            //Set master notifications setting is on
             Settings.NotificationSettings = true;
+
+            //Set in range notifications setting to off
             Settings.InRangeSettings = false;
+
+            //Set too hot/cold notifications setting to off
             Settings.TooHotColdSettings = false;
 
             Assert.AreEqual(Notifications.TryNotification(6, 5, NotificationType.NO_MESSAGE), 0);

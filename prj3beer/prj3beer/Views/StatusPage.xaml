@@ -21,6 +21,7 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
+        <!-- Main stacklayout-->
         <StackLayout VerticalOptions="Center" >
             <StackLayout Orientation="Horizontal"
                          HorizontalOptions="CenterAndExpand">
@@ -83,7 +84,7 @@
                     Minimum="{Binding Minimum}" 
                     Increment="1" 
                     HorizontalOptions="Center"
-		ValueChanged="TemperatureStepperChanged"/>
+		            ValueChanged="TemperatureStepperChanged"/>
             </StackLayout>
             <!--StackLayout>
                 <Label>Preferred Beverage Temp:</Label>

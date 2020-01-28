@@ -13,7 +13,8 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout Orientation="Horizontal" Padding="20" VerticalOptions="Start">
+        <StackLayout>
+            <StackLayout Orientation="Horizontal" Padding="20" VerticalOptions="Start">
                 <Label Text="Celsius"
                 FontSize="35"
                 VerticalOptions="Center"
@@ -21,9 +22,34 @@
                 x:Name="lblTemp"
                 AutomationId="lblTemp"/>
 
+                <!-- Temperature switch-->
                 <Switch IsToggled="true" VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="EndAndExpand" Toggled="Switch_Toggled"
                     x:Name="switchTemp" AutomationId="switchTemp"/>
+            </StackLayout>
+            <StackLayout >
+                <Label Text="Master">
+
+                </Label>
+                <Switch>
+
+                </Switch>
+                <StackLayout IsEnabled="False">
+                    <Label Text="In Range">
+                        
+                    </Label>
+                    <Switch>
+                        
+                    </Switch>
+                    <Label Text="Too Hot/Too Cold">
+                        
+                    </Label>
+                    <Switch>
+                        
+                    </Switch>
+                </StackLayout>
+            </StackLayout>
         </StackLayout>
+        
     </ContentPage.Content>
 </ContentPage>
