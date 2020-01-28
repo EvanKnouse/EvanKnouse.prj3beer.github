@@ -121,5 +121,7 @@ namespace nUnitTests
             Assert.AreEqual(noImagebeverage.ImageURL, "");
             Assert.AreEqual(selected.ImagePath, "../Images/placeholder_can.png");
         }
+
+
     }
 }

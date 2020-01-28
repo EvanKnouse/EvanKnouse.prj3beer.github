@@ -41,6 +41,10 @@ namespace prj3beer.Models
         //    this.faveTemp = faveTemp;
         //}
 
+        /// <summary>
+        /// This method will set a bool value to true when the image gets saved locally
+        /// </summary>
+        /// <returns></returns>
         public bool ImageSaved()
         {
             throw new NotImplementedException();

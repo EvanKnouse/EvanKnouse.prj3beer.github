@@ -124,38 +124,6 @@ namespace UITests
             Assert.AreEqual(beverageDisplay[0].Rect.Width, mainDisplayInfoWidth * 0.7);
             Assert.AreEqual(beverageDisplay[0].Rect.Height, mainDisplayInfoHeight * 0.7);
 
-
-        }
-
-        [Test]
-        public void TestThatBelowMinBoundaryImageSizeIsScaledUp()
-        {
-            var webImage = new Image
-            {
-                Source = ImageSource.FromUri(new Uri(SmallCoorsLiteImage.ImageURL.ToString()))
-            };
-            Assert.AreEqual(webImage.Width, mainDisplayInfoWidth* .7);
-        }
-
-        [Test]
-        public void TestThatAboveMaxBoundaryImageSizeIsResizedDown()
-        {
-            var webImage = new Image
-            {
-            Source = ImageSource.FromUri(new Uri(LargeCoorsLiteImage.ImageURL.ToString()))
-            };
-            Assert.AreEqual(webImage.Width, mainDisplayInfoWidth* .7);
-        }
-
-        [Test]
-        public void TestThatTappingABeverageMovesToStatusScreen()
-        {
-            selectABeverage("Coors Light");
-
-            AppResult[] beverageDisplay = app.Query("StatusPage");
-
-            Assert.IsTrue(beverageDisplay.Any());
-
         }
 
         [Test]
@@ -204,6 +172,38 @@ namespace UITests
             selectABeverage("Coors Light");
             AppResult[] beverageDisplay = app.Query("currentTarget");
             Assert.AreEqual(2, beverageDisplay[0].Text);
+        }
+
+
+        [Test]
+        public void TestThatBelowMinBoundaryImageSizeIsScaledUp()
+        {
+            var webImage = new Image
+            {
+                Source = ImageSource.FromUri(new Uri(SmallCoorsLiteImage.ImageURL.ToString()))
+            };
+            Assert.AreEqual(webImage.Width, mainDisplayInfoWidth * .7);
+        }
+
+        [Test]
+        public void TestThatAboveMaxBoundaryImageSizeIsResizedDown()
+        {
+            var webImage = new Image
+            {
+                Source = ImageSource.FromUri(new Uri(LargeCoorsLiteImage.ImageURL.ToString()))
+            };
+            Assert.AreEqual(webImage.Width, mainDisplayInfoWidth * .7);
+        }
+
+        [Test]
+        public void TestThatTappingABeverageMovesToStatusScreen()
+        {
+            selectABeverage("Coors Light");
+
+            AppResult[] beverageDisplay = app.Query("StatusPage");
+
+            Assert.IsTrue(beverageDisplay.Any());
+
         }
 
         [Test]
@@ -305,6 +305,28 @@ namespace UITests
 
         }
 
+        [Test]
+        public void TestThatTheAppWillUsedTheImagePathForTheSelectedBeverageIfImagePathIsNotNull()
+        {
+            notSelectingBeverage();
+            AppResult[] imageDisplay = app.Query("Image");
+
+            app.TapCoordinates(150, 90);
+            selectABeverage("Coors Light");
+
+            AppResult[] imageDisplay2 = app.Query("Image");
+
+            Assert.AreNotEqual(imageDisplay, imageDisplay2);
+        }
+
+        [Test]
+        public void TestThatDefaultImageIsDisplayedWhenNoImageIsSelected()
+        {
+            notSelectingBeverage();
+            AppResult[] imageDisplay = app.Query("Image");
+
+            Assert.IsTrue(imageDisplay[0].Text.Equals("default"));
+        }
     }
     
 
