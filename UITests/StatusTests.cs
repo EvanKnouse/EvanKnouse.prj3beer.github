@@ -25,7 +25,7 @@ namespace UITests
         public void BeforeEachTest()
         {
             //Initialize the app, arrive at home page (default for now)
-            app = app = ConfigureApp.Android.ApkFile(apkFile).StartApp();
+            app = ConfigureApp.Android.ApkFile(apkFile).StartApp();
             //Tap into the screen navigation menu
             app.TapCoordinates(150, 90);
             ////Tap into the screen navigation menu (default for now)
@@ -246,7 +246,7 @@ namespace UITests
 
         #region Story 15 UI Tests
         [Test]
-        public void TestThatTurningOffNotificationsDisablesNotificationsSubSettings()
+        public void TestThatTurningOffMasterNotificationSwitchHidesNotificationsSubSettings()
         {
             //Pick status screen from the screen selection menu
             app.Tap("Status");
@@ -278,7 +278,7 @@ namespace UITests
         }
 
         [Test]
-        public void TestThatTurningOnNotificationsEnablesNotificationsSubSettings()
+        public void TestThatTurningOnMastNotificationSwithShowsNotificationsSubSettings()
         {
             //Pick status screen from the screen selection menu
             app.Tap("Status");
@@ -310,6 +310,40 @@ namespace UITests
 
             //Results should contain the notification too hot/cold switch
             Assert.IsTrue(results.Any());
+        }
+
+        [Test]
+        public void TestThatNotificationSettingsPersistOnAppReload()
+        {
+            //Pick Status screen from the screen selection menu
+            app.Tap("Status");
+
+            app.WaitForElement("Settings");
+
+            //Press Settings menu button
+            app.Tap("Settings");
+
+            app.WaitForElement("switchNotifications");
+
+            app.Tap("switchNotifications");
+
+            app = ConfigureApp.Android.ApkFile(apkFile).StartApp();
+
+            app.TapCoordinates(150, 90);
+
+            //Pick Status screen from the screen selection menu
+            app.Tap("Status");
+
+            app.WaitForElement("Settings");
+
+            //Press Settings menu button
+            app.Tap("Settings");
+
+            app.WaitForElement("switchNotifications");
+
+            AppResult[] result = app.Query("switchNotifications");
+
+            Assert.AreEqual(false, result.Any());
         }
         #endregion
     }
