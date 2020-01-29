@@ -1,8 +1,10 @@
-﻿using System;
+﻿using prj3beer.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text;
 using System.Windows;
 
@@ -10,6 +12,9 @@ namespace prj3beer.Models
 {
     public class Preference
     {
+        BeerContext context;
+
+
         #region Attributes
         [Key]
         [Required(ErrorMessage = "ID is required")]
@@ -29,10 +34,19 @@ namespace prj3beer.Models
         #endregion
 
 
-        //public Preference()
-        //{
+        public Preference()
+        {
 
-        //}
+        }
+
+        public Preference(int beverageID)
+        {
+            this.BeverageID = beverageID;
+
+            Beverage SelectedBeverage = (Beverage)context.Beverage.Where(b => b.BeverageID.Equals(this.BeverageID));
+
+            SaveImage(SelectedBeverage.ImageURL);
+        }
 
         //public Preference(int prefId, Beverage prefBev, double faveTemp)
         //{
@@ -40,6 +54,7 @@ namespace prj3beer.Models
         //    this.prefBev = prefBev;
         //    this.faveTemp = faveTemp;
         //}
+
 
         /// <summary>
         /// This method will set a bool value to true when the image gets saved locally
@@ -51,5 +66,9 @@ namespace prj3beer.Models
             // if Image path == ../Images/placeholder_can.png
         }
 
+        private void SaveImage(String imageURL)
+        {
+            //imageURL
+        }
     }
 }

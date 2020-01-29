@@ -119,5 +119,19 @@ namespace prj3beer.Views
             //hide the load spinner
             loadingSpinner.IsRunning = false;
         }
+
+        private void BeverageTapped(object sender, ItemTappedEventArgs e)
+        {
+
+           var tappedbeverage = context.Beverage.Where(b => b.Name.Contains(e.Item.ToString()));
+
+            Preference tappedBeveragePref = new Preference { BeverageID = tappedbeverage.Count()};
+
+            if (context.Preference.Find(tappedBeveragePref) == null)
+            {
+                context.Preference.Add(tappedBeveragePref);
+            }
+         
+        }
     }
 }

@@ -28,7 +28,8 @@ namespace prj3beer
 
             // Connect to the API and store Beverages/Brands in the Database
 #if DEBUG
-            LoadFixtures(context);
+            //LoadFixtures(context);
+            FetchData(context, apiManager);
 #elif RELEASE
             //Release mode breaks, but can swap these for API usage
             FetchData(context, apiManager);
