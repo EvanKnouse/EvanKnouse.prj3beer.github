@@ -12,13 +12,13 @@ namespace prj3beer.Views
         {
             InitializeComponent();
             //Check the Settings class to see if set to celsius or fahrenheit
-            switchTemp.IsToggled = Models.Settings.TemperatureSettings;
+            switchTemp.On = Models.Settings.TemperatureSettings;
         }
 
         //changes temperature display settings in response to the switch 
         private void Switch_Toggled(object sender, ToggledEventArgs e)
         {
-            lblTemp.Text = e.Value ? "Celsius" : "Fahrenheit";
+            switchTemp.Text = e.Value ? "Celsius" : "Fahrenheit";
 
             Models.Settings.TemperatureSettings = e.Value;
         }
