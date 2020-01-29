@@ -56,51 +56,74 @@ namespace prj3beer.Models
             }
         }
 
+        /// <summary>
+        /// This attribute gets or sets the url to use for API interactions
+        /// </summary>
         public static string URLSetting
         {
             get
             {
+                //Gets the url provided if possible, otherwise use the default url
                 return AppSettings.GetValueOrDefault(BaseURL, BaseURLDefault);
             }
             set
             {
+                //Sets the APIManager url to use for API interactions
                 AppSettings.AddOrUpdateValue(BaseURL, value);
             }
         }
 
+        /// <summary>
+        /// This attribute gets or sets the master notification settings
+        /// </summary>
         public static bool NotificationSettings
         {
             get
             {
-                throw new NotImplementedException();
+                //Returns true or false (essentially IsToggled property) value for master notification switch
+                //Otherwise returns default, which is true (IsToggled = true)
+                return AppSettings.GetValueOrDefault(NotificationKey, NotificationDefault);
             }
             set
             {
-
+                //Set the NotificationSettings key-value pair sets its value to the passed in value
+                AppSettings.AddOrUpdateValue(NotificationKey, true);
             }
         }
 
+        /// <summary>
+        /// This attribute gets or sets the in-range notification subsettings
+        /// </summary>
         public static bool InRangeSettings
         {
             get
             {
-                throw new NotImplementedException();
+                //Returns true or false (essentially IsToggled property) value for in-range notification switch
+                //Otherwise returns default, which is true (IsToggled = true)
+                return AppSettings.GetValueOrDefault(InRangeKey, InRangeDefault);
             }
             set
             {
-
+                //Set the InRangeSettings key-value pair sets its value to the passed in value
+                AppSettings.AddOrUpdateValue(InRangeKey, true);
             }
         }
 
+        /// <summary>
+        /// This attribute gets or sets the too hot/cold notification subsettings
+        /// </summary>
         public static bool TooHotColdSettings
         {
             get
             {
-                throw new NotImplementedException();
+                //Returns true or false (essentially IsToggled property) value for too hot/cold notification switch
+                //Otherwise returns default, which is true (IsToggled = true)
+                return AppSettings.GetValueOrDefault(TooHotColdKey, TooHotColdDefault);
             }
             set
             {
-
+                //Set the TooHotColdSettings key-value pair sets its value to the passed in value
+                AppSettings.AddOrUpdateValue(TooHotColdKey, true);
             }
         }
     }
