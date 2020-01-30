@@ -14,7 +14,7 @@ namespace prj3beer.OAuth
 
         public static readonly string AuthorizeUrl = "https://accounts.google.com/o/oauth2/auth";
 
-        public static readonly string RedirectUrl = "<your redirect url>";
+        public static readonly string RedirectUrl = "com.companyname.prj3beer://";
 
         public static readonly string AcessTokenUrl = "https://www.googleapis.com/oauth2/v4/token";
 

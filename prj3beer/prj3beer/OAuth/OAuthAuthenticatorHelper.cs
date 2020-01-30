@@ -21,6 +21,7 @@ namespace prj3beer.OAuth
                         scope: GoogleConfiguration.Scope,
                         authorizeUrl: new Uri(GoogleConfiguration.AuthorizeUrl),
                         redirectUrl: new Uri(GoogleConfiguration.RedirectUrl),
+                        //redirectUrl: new Uri("com.companyname.prj3beer://"),
                         getUsernameAsync: null,
                         isUsingNativeUI: GoogleConfiguration.IsUsingNativeUI,
                         accessTokenUrl: new Uri(GoogleConfiguration.AcessTokenUrl))
