@@ -6,11 +6,11 @@ namespace prj3beer.OAuth
 {
     class GoogleConfiguration
     {
-        public static readonly string ClientId = "<your client id>";
+        public static readonly string ClientId = "921981992033-84pr5h9a07dikuklcthe90ng7uvur6ak.apps.googleusercontent.com";
 
         public static readonly string Scope = "email";
 
-        public static readonly string ClientSecret = "";
+        public static readonly string ClientSecret = "LArhm6K2LIEHpesgzx34kWMBUAVIjQ37DjxuAj2Vvk8=";
 
         public static readonly string AuthorizeUrl = "https://accounts.google.com/o/oauth2/auth";
 
