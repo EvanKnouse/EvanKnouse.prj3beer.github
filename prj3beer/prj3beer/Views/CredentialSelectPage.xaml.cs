@@ -1,4 +1,5 @@
-﻿using System;
+﻿using prj3beer.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,9 @@ namespace prj3beer.Views
         {
             InitializeComponent();
 
-            this.message.Text = message;
+            BindingContext = new CredentialSelectViewModel();
+
+            MessageLabel.Text = message;
         }
     }
 }

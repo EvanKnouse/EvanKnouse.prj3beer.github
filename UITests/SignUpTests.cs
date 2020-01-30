@@ -41,14 +41,15 @@ namespace UITests
         [Test]
         public void TestThatSignInSignUpButtonsAreOnScreen()
         {
-            app.WaitForElement("btnSignUp");
+            // Wait for the sign up button to appear on screen
+            app.WaitForElement("SignUpButton");
 
             // test that the sign up button is on the screen
-            AppResult[] button = app.Query("btnSignUp");
+            AppResult[] button = app.Query("SignUpButton");
             Assert.IsTrue(button.Any());
 
             // test that the sign in button is on the screen
-            button = app.Query("btnSignIn");
+            button = app.Query("SignInButton");
             Assert.IsTrue(button.Any());
         }
 
@@ -56,40 +57,42 @@ namespace UITests
         public void TestThatSignUpScreenElementsExistOnPage()
         {
             // navigate to the sign up page
-            app.Tap("btnSignUp");
+            app.Tap("SignUpButton");
 
-            app.WaitForElement("btnGoogleSignIn");
+            // Wait for the Google button to appear on screen
+            app.WaitForElement("GoogleButton");
 
             // test that the Google sign in button is on the screen
-            AppResult[] button = app.Query("btnGoogleSignIn");
+            AppResult[] button = app.Query("GoogleButton");
             Assert.IsTrue(button.Any());
 
             // test that the label is on the screen
-            AppResult[] label = app.Query("lblSignInOrUp");
+            AppResult[] label = app.Query("MessageLabel");
             Assert.IsTrue(label.Any());
 
             // test that the label contains the proper text
-            Assert.AreEqual(label[0].Text, "Sign up:");
+            Assert.AreEqual(label[0].Text, "Sign Up With");
         }
 
         [Test]
         public void TestThatSignInScreenElementsExistOnPage()
         {
             // navigate to the sign in page
-            app.Tap("btnSignIn");
+            app.Tap("SignInButton");
 
-            app.WaitForElement("btnGoogleSignIn");
+            // Wait for the Google Button to appear on screen
+            app.WaitForElement("GoogleButton");
 
             // test that the Google sign in button is on the screen
-            AppResult[] button = app.Query("btnGoogleSignIn");
+            AppResult[] button = app.Query("GoogleButton");
             Assert.IsTrue(button.Any());
 
             // test that the label is on the screen
-            AppResult[] label = app.Query("lblSignInOrUp");
+            AppResult[] label = app.Query("MessageLabel");
             Assert.IsTrue(label.Any());
 
             // test that the label contains the proper text
-            Assert.AreEqual(label[0].Text, "Sign in:");
+            Assert.AreEqual(label[0].Text, "Sign In With");
         }
 
         [Test]
@@ -105,6 +108,7 @@ namespace UITests
 
             // allow permissions
 
+            // Wait for the search field to be on the screen
             app.WaitForElement("searchBeverage");
 
             // test that the modal is visible

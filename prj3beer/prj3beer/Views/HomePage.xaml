@@ -7,8 +7,9 @@
              x:Class="prj3beer.Views.HomePage">
     <ContentPage.Content>
         <StackLayout VerticalOptions="CenterAndExpand"  HorizontalOptions="CenterAndExpand" >
-            <Button Text="Sign Up" x:Name="signUp" Clicked="Button_Clicked" />
-            <Button Text="Sign In" x:Name="signIn" Clicked="Button_Clicked" />
+            
+            <Button Text="Sign Up" x:Name="SignUpButton" AutomationId="SignUpButton" Clicked="Button_Clicked" />
+            <Button Text="Sign In" x:Name="SignInButton" AutomationId="SignInButton" Clicked="Button_Clicked" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

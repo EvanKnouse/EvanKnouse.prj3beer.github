@@ -143,4 +143,7 @@
       <Name>prj3beer</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\logo_placeholder.png" />
+  </ItemGroup>
 </Project>

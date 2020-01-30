@@ -16,8 +16,18 @@ namespace prj3beer
         {
             InitializeComponent();
 
+            // Set Up App Default Presets
+            SetUpPreset();
+
+            MainPage = new MainPage();
+        }
+
+        private void SetUpPreset()
+        {
+            // Set the default URL of API to default
             Settings.URLSetting = default;
 
+            // TODO: Replace With Functioning BlueTooth Device
             MockTempReadings.StartCounting();
 
             // Instantiate a new Context (Database)
@@ -28,8 +38,6 @@ namespace prj3beer
 
             // Connect to the API and store Beverages/Brands in the Database
             FetchData(context, apiManager);
-          
-            MainPage = new MainPage();
         }
 
         public static async void FetchData(BeerContext context, APIManager apiManager)

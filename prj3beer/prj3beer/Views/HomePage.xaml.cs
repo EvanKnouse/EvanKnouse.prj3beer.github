@@ -19,6 +19,10 @@ namespace prj3beer.Views
         {
             InitializeComponent();
 
+            //LogoImage.Source = Device.RuntimePlatform == Device.Android ?
+            //    ImageSource.FromFile("logo_placeholder.png") :
+            //    ImageSource.FromFile("Images/logo_placeholder.png");
+
             //mainPageViewModel = new MainPageViewModel();
             //BindingContext = mainPageViewModel;
         }
