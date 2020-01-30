@@ -17,15 +17,21 @@
         <StackLayout>
             <TableView Intent="Settings">
                 <TableRoot>
-                    <TableSection Title="Temperature">
-                        <SwitchCell Text="Celsius" x:Name="switchTemp" AutomationId="switchTemp" OnChanged="Switch_Toggled"/>
+                    <TableSection x:Name="tempSettingsSection">
+                        <SwitchCell x:Name="switchTemp"
+                                    AutomationId="switchTemp"
+                                    Text="Celsius"
+                                    OnChanged="Switch_Toggled"/>
                     </TableSection>
-                    <TableSection>
-                        <SwitchCell Text="Notifications" x:Name="switchNotifications" />
+                    <TableSection x:Name="notificationMasterSection">
+                        <SwitchCell x:Name="switchNotifications"
+                                    Text="Notifications"  />
                     </TableSection>
-                    <TableSection>
-                        <SwitchCell Text="InRange" x:Name="inRangeNotifications" />
-                        <SwitchCell Text="Too Hot/Too Cold" x:Name="tooHotColdNotifications" />
+                    <TableSection x:Name="notificationSubSection">
+                        <SwitchCell x:Name="inRangeNotifications" 
+                                    Text="In Range"/>
+                        <SwitchCell x:Name="tooHotColdNotifications" 
+                                    Text="Too Hot/Too Cold" />
                     </TableSection>
                 </TableRoot>
             </TableView>

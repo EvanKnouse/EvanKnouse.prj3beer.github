@@ -11,8 +11,14 @@ namespace prj3beer.Views
         public SettingsMenu()
         {
             InitializeComponent();
+            
             //Check the Settings class to see if set to celsius or fahrenheit
             switchTemp.On = Models.Settings.TemperatureSettings;
+
+            //Set the notification master switch to on by default
+            switchNotifications.On = Models.Settings.NotificationSettings;
+
+            
         }
 
         //changes temperature display settings in response to the switch 
