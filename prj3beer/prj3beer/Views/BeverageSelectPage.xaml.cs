@@ -123,14 +123,16 @@ namespace prj3beer.Views
         private void BeverageTapped(object sender, ItemTappedEventArgs e)
         {
 
-           var tappedbeverage = context.Beverage.Where(b => b.Name.Contains(e.Item.ToString()));
+           Beverage tappedBeverage = (context.Beverage.Where(b => b.Name.Contains(e.Item.ToString()))).First();
 
-            Preference tappedBeveragePref = new Preference { BeverageID = tappedbeverage.Count()};
+            Preference tappedBeveragePref = new Preference { BeverageID = tappedBeverage.BeverageID};
 
-            if (context.Preference.Find(tappedBeveragePref) == null)
-            {
-                context.Preference.Add(tappedBeveragePref);
-            }
+            //if (context.Preference.Where(b => b.BeverageID.Equals(tappedBeveragePref.BeverageID)) != tappedBeveragePref)
+            //{
+            //    context.Preference.Add(tappedBeveragePref);
+            //}
+
+            Application.Current.MainPage = new StatusPage(tappedBeveragePref.BeverageID);
          
         }
     }

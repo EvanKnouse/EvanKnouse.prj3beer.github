@@ -68,6 +68,45 @@ namespace prj3beer.Views
             #endregion
         }
 
+        public StatusPage(int selectedBeverageID)
+        {
+            InitializeComponent();
+
+            #region Story 04/07 Code
+            // Instantiate new StatusViewModel
+            svm = new StatusViewModel();
+
+            // Setup the current Beverage (find it from the Context) -- This will be passed in from a viewmodel/bundle/etc in the future.
+            //currentBeverage = new Beverage { BeverageID = 1, Name = "Great Western Radler", Brand = svm.Context.Brands.Find(2), Type = Models.Type.Radler, Temperature = 2 };
+            currentBeverage = svm.Context.Beverage.Find(selectedBeverageID);
+            //svm.Context.Beverage.Find(2);
+
+            // Setup the preference object using the passed in beverage
+            SetupPreference(selectedBeverageID);
+
+            // When you first start up the Status Screen, Disable The Inputs (on first launch of application)
+            EnablePageElements(false);
+
+            // If the current Beverage is set, (will run if a beverage has been selected)
+            if (preferredBeverage != null)
+            {   // enable all the elements on the page
+                EnablePageElements(true);
+            }
+            #endregion
+
+            #region Story 16 code
+            nh = DependencyService.Get<INotificationHandler>();
+            //TODO: Call the compare when a new temperature is gotten from our device API, not on a timer
+            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            {
+                NotificationCheck();
+
+                return true;
+            });
+
+            #endregion
+        }
+
         public void UpdateViewModel(object sender, EventArgs args)
         {
             svm.IsCelsius = Settings.TemperatureSettings;
@@ -98,7 +137,27 @@ namespace prj3beer.Views
             }
           
         }
-        
+
+        private void SetupPreference(int bevID)
+        {   // Set the page's preferred beverage equal to -> Finding the Beverage in the Database.
+            // If the object is found in the database, it will return itself immediately,
+            // and attach itself to the context (Database).
+
+            // TODO: Handle Pre-existing Preference Object.
+            preferredBeverage = svm.Context.Preference.Find(bevID);
+            //preferredBeverage = null; // This is what the previous line SHOULD be doing.
+
+            // If that Preferred beverage did not exist, it will be set to null,
+            // So if it is null...
+            if (preferredBeverage == null)
+            {   // Create a new Preferred Beverage, with copied values from the Passed In Beverage.
+                preferredBeverage = new Preference() { BeverageID = currentBeverage.BeverageID, Temperature = currentBeverage.Temperature };
+                // Add the beverage to the Context (Database)
+                svm.Context.Preference.Add(preferredBeverage);
+            }
+
+        }
+
         /// <summary>
         /// This method will write changes to the Database for any changes that have happened.
         /// </summary>
