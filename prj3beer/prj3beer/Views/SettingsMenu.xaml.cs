@@ -1,13 +1,14 @@
-﻿
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
+using prj3beer.ViewModels;
+using System;
 
 namespace prj3beer.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SettingsMenu : ContentPage
     {
+        
         public SettingsMenu()
         {
             InitializeComponent();
@@ -19,6 +20,11 @@ namespace prj3beer.Views
             switchNotifications.On = Models.Settings.NotificationSettings;
 
             
+        }
+
+        public void UpdateViewModel(object sender, EventArgs args)
+        {
+
         }
 
         //changes temperature display settings in response to the switch 

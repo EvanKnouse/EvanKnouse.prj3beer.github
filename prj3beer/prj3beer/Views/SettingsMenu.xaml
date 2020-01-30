@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:prj3beer.ViewModels"
              mc:Ignorable="d"
              x:Class="prj3beer.Views.SettingsMenu"
              Title="Settings"
@@ -16,7 +17,7 @@
         <!-- Setting Menu Main Stack-->
         <StackLayout>
             <TableView Intent="Settings">
-                <TableRoot>
+                <TableRoot BindingContext="vm:SettingsViewModel">
                     <TableSection x:Name="tempSettingsSection">
                         <SwitchCell x:Name="switchTemp"
                                     AutomationId="switchTemp"
@@ -25,7 +26,10 @@
                     </TableSection>
                     <TableSection x:Name="notificationMasterSection">
                         <SwitchCell x:Name="switchNotifications"
-                                    Text="Notifications"  />
+                                    Text="Notifications"
+                                    On="{Binding MasterNotifications}"
+                                    >
+                        </SwitchCell>
                     </TableSection>
                     <TableSection x:Name="notificationSubSection">
                         <SwitchCell x:Name="inRangeNotifications" 
