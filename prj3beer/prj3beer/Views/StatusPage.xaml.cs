@@ -21,6 +21,7 @@ namespace prj3beer.Views
     {
         static StatusViewModel svm;
         static Beverage currentBeverage;
+        static Brand currentBrand;
         static Preference preferredBeverage;
 
         INotificationHandler nh;
@@ -79,6 +80,7 @@ namespace prj3beer.Views
             // Setup the current Beverage (find it from the Context) -- This will be passed in from a viewmodel/bundle/etc in the future.
             //currentBeverage = new Beverage { BeverageID = 1, Name = "Great Western Radler", Brand = svm.Context.Brands.Find(2), Type = Models.Type.Radler, Temperature = 2 };
             currentBeverage = svm.Context.Beverage.Find(selectedBeverageID);
+            currentBrand = svm.Context.Brands.Find(currentBeverage.BrandID);
             //svm.Context.Beverage.Find(2);
 
             // Setup the preference object using the passed in beverage
@@ -92,6 +94,8 @@ namespace prj3beer.Views
             {   // enable all the elements on the page
                 EnablePageElements(true);
             }
+
+            PopulateStatusScreen();
             #endregion
 
             #region Story 16 code
@@ -105,6 +109,15 @@ namespace prj3beer.Views
             });
 
             #endregion
+
+        }
+
+        private void PopulateStatusScreen()
+        {
+
+            beverageName.Text = currentBeverage.Name.ToString();
+            brandName.Text = currentBrand.Name.ToString();
+            beverageImage.Source = ImageSource.FromFile(preferredBeverage.ImagePath.ToString());
         }
 
         public void UpdateViewModel(object sender, EventArgs args)
@@ -151,7 +164,7 @@ namespace prj3beer.Views
             // So if it is null...
             if (preferredBeverage == null)
             {   // Create a new Preferred Beverage, with copied values from the Passed In Beverage.
-                preferredBeverage = new Preference() { BeverageID = currentBeverage.BeverageID, Temperature = currentBeverage.Temperature };
+                preferredBeverage = new Preference(bevID) { BeverageID =bevID, Temperature = currentBeverage.Temperature };
                 // Add the beverage to the Context (Database)
                 svm.Context.Preference.Add(preferredBeverage);
             }

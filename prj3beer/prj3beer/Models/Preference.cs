@@ -34,16 +34,22 @@ namespace prj3beer.Models
         #endregion
 
 
+    
+
         public Preference()
         {
+            this.BeverageID = BeverageID;
+            context = new BeerContext();
+            Beverage SelectedBeverage = (context.Beverage.Find(BeverageID));
 
+            SaveImage(SelectedBeverage.ImageURL);
         }
 
-        public Preference(int beverageID)
+        public Preference(int bevID)
         {
-            this.BeverageID = beverageID;
-
-            Beverage SelectedBeverage = (Beverage)context.Beverage.Where(b => b.BeverageID.Equals(this.BeverageID));
+            this.BeverageID = bevID;
+            context = new BeerContext();
+            Beverage SelectedBeverage = (context.Beverage.Find(BeverageID));
 
             SaveImage(SelectedBeverage.ImageURL);
         }
@@ -68,7 +74,19 @@ namespace prj3beer.Models
 
         private void SaveImage(String imageURL)
         {
-            //imageURL
+            
+            if (imageURL.Length > 0)
+            {
+                Uri image = new Uri(imageURL);
+
+
+                ImagePath = image.AbsoluteUri;
+            }
+            else
+            {
+                //ImagePath = 
+            }
+
         }
     }
 }

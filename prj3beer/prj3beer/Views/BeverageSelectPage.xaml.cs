@@ -125,14 +125,14 @@ namespace prj3beer.Views
 
            Beverage tappedBeverage = (context.Beverage.Where(b => b.Name.Contains(e.Item.ToString()))).First();
 
-            Preference tappedBeveragePref = new Preference { BeverageID = tappedBeverage.BeverageID};
+           // Preference tappedBeveragePref = new Preference { BeverageID = tappedBeverage.BeverageID};
 
             //if (context.Preference.Where(b => b.BeverageID.Equals(tappedBeveragePref.BeverageID)) != tappedBeveragePref)
             //{
             //    context.Preference.Add(tappedBeveragePref);
             //}
 
-            Application.Current.MainPage = new StatusPage(tappedBeveragePref.BeverageID);
+            Application.Current.MainPage = new StatusPage(tappedBeverage.BeverageID);
          
         }
     }
