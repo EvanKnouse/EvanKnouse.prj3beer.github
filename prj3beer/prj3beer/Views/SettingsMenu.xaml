@@ -22,20 +22,25 @@
                         <SwitchCell x:Name="switchTemp"
                                     AutomationId="switchTemp"
                                     Text="Celsius"
-                                    OnChanged="Switch_Toggled"/>
+                                    OnChanged="Temp_Switch_Toggled"/>
                     </TableSection>
                     <TableSection x:Name="notificationMasterSection">
                         <SwitchCell x:Name="switchNotifications"
                                     Text="Notifications"
-                                    On="{Binding MasterNotifications}"
+                                    OnChanged="Notifications_Switch_Toggled"
                                     >
                         </SwitchCell>
                     </TableSection>
                     <TableSection x:Name="notificationSubSection">
                         <SwitchCell x:Name="inRangeNotifications" 
-                                    Text="In Range"/>
+                                    Text="In Range"
+                                    OnChanged="InRange_Switch_Toggled"
+                                    
+                                    />
                         <SwitchCell x:Name="tooHotColdNotifications" 
-                                    Text="Too Hot/Too Cold" />
+                                    Text="Too Hot/Too Cold"
+                                    OnChanged="TooHotCold_Switch_Toggled"
+                                    />
                     </TableSection>
                 </TableRoot>
             </TableView>

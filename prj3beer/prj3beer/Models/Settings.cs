@@ -88,7 +88,7 @@ namespace prj3beer.Models
             set
             {
                 //Set the NotificationSettings key-value pair sets its value to the passed in value
-                AppSettings.AddOrUpdateValue(NotificationKey, true);
+                AppSettings.AddOrUpdateValue(NotificationKey, value);
             }
         }
 
@@ -106,7 +106,7 @@ namespace prj3beer.Models
             set
             {
                 //Set the InRangeSettings key-value pair sets its value to the passed in value
-                AppSettings.AddOrUpdateValue(InRangeKey, true);
+                AppSettings.AddOrUpdateValue(InRangeKey, value);
             }
         }
 
@@ -124,7 +124,7 @@ namespace prj3beer.Models
             set
             {
                 //Set the TooHotColdSettings key-value pair sets its value to the passed in value
-                AppSettings.AddOrUpdateValue(TooHotColdKey, true);
+                AppSettings.AddOrUpdateValue(TooHotColdKey, value);
             }
         }
     }

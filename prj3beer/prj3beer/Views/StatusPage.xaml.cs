@@ -220,7 +220,7 @@ namespace prj3beer.Views
         {
             int messageType = Notifications.TryNotification(svm.CurrentTemp, preferredBeverage.Temperature, lastNotification);
 
-            if (messageType > 0) //0 corresponds to type of NO_MESSAGE, thus no notification should be sent
+            if (messageType > 0 && Settings.NotificationSettings == true) //0 corresponds to type of NO_MESSAGE, thus no notification should be sent
             {
                 lastNotification = (NotificationType)messageType;
                 nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
