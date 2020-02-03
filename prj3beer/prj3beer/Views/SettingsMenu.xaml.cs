@@ -45,18 +45,15 @@ namespace prj3beer.Views
             //Set the notification master switch to on by default
             switchNotifications.On = Models.Settings.NotificationSettings;
 
-            //If the master notification switch is set to true,
-            //if (Models.Settings.NotificationSettings)
-            //{
-            //    //Add the notification sub section to the settings table
-            //    ShowSubSettings();
-            //}
-
             //Sets the Label on the switch to match the current temperature setting.
             switchTemp.Text = Models.Settings.TemperatureSettings ? "Celsius" : "Fahrenheit";
 
             //Check the Settings class to see if set to celsius or fahrenheit
             switchTemp.On = Models.Settings.TemperatureSettings;
+
+            inRangeNotifications.On = Models.Settings.InRangeSettings;
+
+            tooHotColdNotifications.On = Models.Settings.TooHotColdSettings;
         }
 
 

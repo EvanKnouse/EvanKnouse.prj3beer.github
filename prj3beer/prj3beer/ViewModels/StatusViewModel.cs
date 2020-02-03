@@ -3,6 +3,7 @@ using System.ComponentModel;
 using Xamarin.Forms;
 using prj3beer.Views;
 using prj3beer.Services;
+using prj3beer.Models;
 
 namespace prj3beer.ViewModels
 {
@@ -10,8 +11,12 @@ namespace prj3beer.ViewModels
     {
         BeerContext context = new BeerContext();
 
-        double currentTemp;
+        INotificationHandler nh;
+        NotificationType lastNotification = NotificationType.NO_MESSAGE;
 
+        double currentTemp;
+        public Beverage currentBeverage;
+        public Preference preferredBeverage;
 
         public BeerContext Context { get { return this.context; } }
         
@@ -94,6 +99,7 @@ namespace prj3beer.ViewModels
                     {
                         //If the property has changed, fire an event.
                         //PropertyChanged(this, new PropertyChangedEventArgs("CurrentTemp"));
+                        NotificationCheck();
                         OnPropertyChanged("CurrentTemp");
                     }
                 }
@@ -108,6 +114,22 @@ namespace prj3beer.ViewModels
 
         public StatusViewModel()
         {
+            nh = DependencyService.Get<INotificationHandler>();
+
+            currentBeverage = Context.Beverage.Find(1);
+
+            preferredBeverage = Context.Preference.Find(1);
+            //preferredBeverage = null; // This is what the previous line SHOULD be doing.
+
+            // If that Preferred beverage did not exist, it will be set to null,
+            // So if it is null...
+            if (preferredBeverage == null)
+            {   // Create a new Preferred Beverage, with copied values from the Passed In Beverage.
+                preferredBeverage = new Preference() { BeverageID = currentBeverage.BeverageID, Temperature = currentBeverage.Temperature };
+                // Add the beverage to the Context (Database)
+                Context.Preference.Add(preferredBeverage);
+            }
+
             //Checks for update temps every second.  Will eventually poll an object associated with a
             //bluetooth reading.  Currently communicates with a class bouncing between -35 and 35 degrees celsius.
             Device.StartTimer(TimeSpan.FromSeconds(1), () =>
@@ -115,6 +137,18 @@ namespace prj3beer.ViewModels
                 this.CurrentTemp = MockTempReadings.Temp;
                 return true;
             });
+
+        }
+
+        private void NotificationCheck()
+        {
+            int messageType = Notifications.TryNotification(CurrentTemp, preferredBeverage.Temperature, lastNotification);
+
+            if (messageType > 0 && Settings.NotificationSettings == true) //0 corresponds to type of NO_MESSAGE, thus no notification should be sent
+            {
+                lastNotification = (NotificationType)messageType;
+                nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
+            }
         }
 
         protected virtual void OnPropertyChanged(string propertyName)
