@@ -13,7 +13,7 @@ namespace prj3beer.ViewModels
 {
     public class CredentialSelectViewModel : INotifyPropertyChanged
     {
-        public UserProfile User { get; set; } = App.CurrentUser; //new UserProfile();
+        public UserProfile User { get; set; } = new UserProfile();
 
         public string Name { get => User.Name; set => User.Name = value; }
                      
@@ -87,8 +87,10 @@ namespace prj3beer.ViewModels
                 GoogleUser googleUser = loginEventArgs.Data;
 
                 User.Name = googleUser.Name;
+                Settings.CurrentUserName = googleUser.Name;
 
                 User.Email = googleUser.Email;
+                Settings.CurrentUserEmail = googleUser.Email;
 
                 User.Picture = googleUser.Picture;
 

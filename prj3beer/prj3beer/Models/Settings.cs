@@ -28,6 +28,18 @@ namespace prj3beer.Models
         private const string BaseURL = "base_url";
         private static readonly string BaseURLDefault = @"http://my-json-server.typicode.com/prj3beer/prj3beer-api";
 
+        // Stores The Current User Name
+        private const string UserKey = "user_key";
+        private static readonly string DefaultUser = null;
+
+        // Stores The User Email
+        private const string EmailKey = "email_key";
+        private static readonly string DefaultEmail = null;
+
+        // Stores a boolean for showing the welcome modal
+        private const string WelcomePromptKey = "welcome_key";
+        private static readonly bool WelcomePrompt = true;
+
         #endregion
 
         /// <summary>
@@ -47,6 +59,36 @@ namespace prj3beer.Models
             }
         }
 
+        /// <summary>
+        /// This Method is responsible for setting/updating the values for the Currently Logged in User Name
+        /// </summary>
+        public static string CurrentUserName
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault(UserKey, DefaultUser);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue(UserKey, value);
+            }
+        }
+
+        /// <summary>
+        /// This Method is responsible for setting/updating the values for the Currently Logged in User Email
+        /// </summary>
+        public static string CurrentUserEmail
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault(EmailKey, DefaultEmail);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue(EmailKey, value);
+            }
+        }
+
         public static string URLSetting
         {
             get
@@ -56,6 +98,21 @@ namespace prj3beer.Models
             set
             {
                 AppSettings.AddOrUpdateValue(BaseURL, value);
+            }
+        }
+
+        /// <summary>
+        /// This Method is responsible for setting/updating the promp key for a user returning to the Application.
+        /// </summary>
+        public static bool WelcomePromptSetting
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault(WelcomePromptKey, WelcomePrompt);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue(WelcomePromptKey, value);
             }
         }
     }

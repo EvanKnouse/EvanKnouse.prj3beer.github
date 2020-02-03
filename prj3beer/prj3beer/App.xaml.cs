@@ -12,23 +12,29 @@ namespace prj3beer
 {
     public partial class App : Application
     {
-        public static UserProfile CurrentUser;
+        //public static UserProfile CurrentUser;
         public static bool WelcomeMessage;
 
         public App()
         {
             InitializeComponent();
 
-            if(CurrentUser == null)
-            {
-                CurrentUser = new UserProfile();
-            }
             WelcomeMessage = true;
+
+            ResetUser();
+
 
             // Set Up App Default Presets
             SetUpPreset();
 
             MainPage = new MainPage();
+        }
+
+        public void ResetUser()
+        {
+            Settings.WelcomePromptSetting = true;
+            Settings.CurrentUserEmail = null;
+            Settings.CurrentUserName = null;
         }
 
         private void SetUpPreset()

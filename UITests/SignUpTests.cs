@@ -63,15 +63,15 @@ namespace UITests
             app.WaitForElement("GoogleButton");
 
             // test that the Google sign in button is on the screen
-            AppResult[] button = app.Query("GoogleButton");
-            Assert.IsTrue(button.Any());
+            AppResult[] result = app.Query("GoogleButton");
+            Assert.IsTrue(result.Any());
 
             // test that the label is on the screen
-            AppResult[] label = app.Query("MessageLabel");
-            Assert.IsTrue(label.Any());
+            result = app.Query("MessageLabel");
+            Assert.IsTrue(result.Any());
 
             // test that the label contains the proper text
-            Assert.AreEqual(label[0].Text, "Sign Up With");
+            Assert.AreEqual(result[0].Text, "Sign Up With");
         }
 
         [Test]
@@ -84,25 +84,25 @@ namespace UITests
             app.WaitForElement("GoogleButton");
 
             // test that the Google sign in button is on the screen
-            AppResult[] button = app.Query("GoogleButton");
-            Assert.IsTrue(button.Any());
+            AppResult[] result = app.Query("GoogleButton");
+            Assert.IsTrue(result.Any());
 
             // test that the label is on the screen
-            AppResult[] label = app.Query("MessageLabel");
-            Assert.IsTrue(label.Any());
+            result = app.Query("MessageLabel");
+            Assert.IsTrue(result.Any());
 
             // test that the label contains the proper text
-            Assert.AreEqual(label[0].Text, "Sign In With");
+            Assert.AreEqual(result[0].Text, "Sign In With");
         }
 
         [Test]
         public void TestThatUserIsTakenToLandingPageAfterSuccessfulSignUp()
         {
             // navigate to the sign up page
-            app.Tap("btnSignUp");
+            app.Tap("SignUpButton");
 
             // navigate to enter external credentials
-            app.Tap("btnGoogleSignIn");
+            app.Tap("GoogleButton");
 
             // select account or enter credentials
 
@@ -120,10 +120,10 @@ namespace UITests
         public void TestThatUserIsTakenOutsideOfAppToSelectExternalAccount()
         {
             // navigate to the sign up page
-            app.Tap("btnSignUp");
+            app.Tap("SignUpButton");
 
             // navigate to enter external credentials
-            app.Tap("btnGoogleSignIn");
+            app.Tap("GoogleButton");
 
             // test that we're on the page, somehow
 
@@ -137,10 +137,10 @@ namespace UITests
         public void TestUserCanAllowAppToAccessProfileInformation()
         {
             // navigate to the sign up page
-            app.Tap("btnSignUp");
+            app.Tap("SignUpButton");
 
             // navigate to enter external credentials
-            app.Tap("btnGoogleSignIn");
+            app.Tap("GoogleButton");
 
             // select account or enter credentials
             //app.TapCoordinates(x, y);
@@ -151,36 +151,56 @@ namespace UITests
         }
 
         [Test]
-        public void TestThatUsersNameIsDisplayedAfterSigningInOrUp()
+        public void TestThatUsersNameIsDisplayedAfterSigningIn()
         {
             // navigate to the sign up page
-            app.Tap("btnSignUp");
+            app.Tap("SignInButton");
 
             // navigate to enter external credentials
-            app.Tap("btnGoogleSignIn");
+            app.Tap("GoogleButton");
+
+            //app.WaitForElement("Joel Sipes");
 
             // select account or enter credentials
-            //app.TapCoordinates(x, y);
+            app.TapCoordinates(690, 1300);
 
-            // allow permissions
-            app.Tap("Allow");
+            app.WaitForElement("Welcome");
 
             // test that the welcoming label is there
-            AppResult[] welcome = app.Query("lblWelcome");
-            Assert.IsTrue(welcome.Any());
+            AppResult[] results = app.Query("welcomeLabel");
+            Assert.IsTrue(results.Any());
 
             // test that the welcoming label contains welcoming text
-            Assert.AreEqual(welcome[0].Text, "Welcome to Jurassic Park");
+            Assert.AreEqual(results[0].Text, "Welcome back Joel Sipes");
+        }
+        [Test]
+        public void TestThatUsersNameIsDisplayedAfterSigningUp()
+        {
+            // navigate to the sign up page
+            app.Tap("SignUpButton");
+
+            // navigate to enter external credentials
+            app.Tap("GoogleButton");
+
+            // select account or enter credentials
+            app.TapCoordinates(690, 1300);
+
+            // test that the welcoming label is there
+            AppResult[] results = app.Query("WelcomeLabel");
+            Assert.IsTrue(results.Any());
+
+            // test that the welcoming label contains welcoming text
+            Assert.AreEqual(results[0].Text, "Welcome Joel Sipes");
         }
 
         [Test]
         public void TestThatUserIsTakenBackToSignUpPageAfterCancellingSignUp()
         {
             // navigate to the sign up page
-            app.Tap("btnSignUp");
+            app.Tap("SignUpButton");
 
             // navigate to enter external credentials
-            app.Tap("btnGoogleSignIn");
+            app.Tap("SignInButton");
 
             // select account or enter credentials
             //app.TapCoordinates(x, y);

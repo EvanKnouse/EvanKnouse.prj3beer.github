@@ -10,14 +10,18 @@ using Xamarin.Forms.Xaml;
 
 namespace prj3beer.Views
 {
+    /// <summary>
+    /// This View displays a welcome message to the current user depending on if they are a new user or existing user.
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class WelcomeModal : ContentPage
     {
-        public WelcomeModal(bool newUser, string name)
+        public WelcomeModal()
         {
             InitializeComponent();
 
-            welcomeLabel.Text = (newUser ? "Welcome, " : "Welcome back, ") + name + ", to the app...";
+            // Set the welcome message to "Welcome" or "Welcome Back" + <User Name>
+            welcomeLabel.Text = (CredentialSelectPage.newUser ? "Welcome " : "Welcome back ") + Settings.CurrentUserName;
         }
 
         private void ContinueButton_Clicked(object sender, EventArgs e)

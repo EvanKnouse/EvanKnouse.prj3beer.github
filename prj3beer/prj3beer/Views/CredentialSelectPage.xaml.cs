@@ -24,7 +24,7 @@ namespace prj3beer.Views
 
             BindingContext = csvm = new CredentialSelectViewModel();
 
-            MessageLabel.Text = newUser ? "Sign Up With:" : "Sign In With:";
+            MessageLabel.Text = newUser ? "Sign Up With" : "Sign In With";
         }
 
         protected override void OnAppearing()

@@ -6,10 +6,12 @@
              mc:Ignorable="d"
              x:Class="prj3beer.Views.WelcomeModal">
     <ContentPage.Content>
-        <StackLayout>
-            <Label x:Name="welcomeLabel" />
+        <StackLayout VerticalOptions="Center">
+            <Label x:Name="welcomeLabel" FontSize="Large" VerticalOptions="Center" 
+                   HorizontalOptions="Center"/>
 
-            <Button x:Name="continueButton" Text="Continue" Clicked="ContinueButton_Clicked" />
+            <Button x:Name="ContinueButton" AutomationId="ContinueButton" Text="Continue" Clicked="ContinueButton_Clicked" 
+                    FontSize="Medium" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

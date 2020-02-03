@@ -13,5 +13,11 @@ namespace prj3beer.Models
         public Uri Picture { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public UserProfile()
+        {
+            Name = Settings.CurrentUserName;
+            Email = Settings.CurrentUserEmail;
+        }
     }
 }

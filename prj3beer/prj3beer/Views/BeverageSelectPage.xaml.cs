@@ -30,9 +30,12 @@ namespace prj3beer.Views
         {
             InitializeComponent();
 
-            if (App.WelcomeMessage)
-            {
-                Navigation.PushModalAsync(new WelcomeModal(CredentialSelectPage.newUser, App.CurrentUser.Name));
+            // Check to see if the welcome prompt has fired since the user has logged in
+            if (Settings.WelcomePromptSetting)
+            {   // If it fires, disable it from firing again
+                Settings.WelcomePromptSetting = false;
+                // If it hasn't been shown yet, then push a new modalscreen to the user.
+                Navigation.PushModalAsync(new WelcomeModal());
             }
 
             context = new BeerContext();

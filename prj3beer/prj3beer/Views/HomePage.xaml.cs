@@ -1,4 +1,5 @@
-﻿using prj3beer.ViewModels;
+﻿using prj3beer.Models;
+using prj3beer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,29 +14,15 @@ namespace prj3beer.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HomePage : ContentPage
     {
-        //MainPageViewModel mainPageViewModel;
-
         public HomePage()
         {
             InitializeComponent();
 
-            if (App.CurrentUser.Email != null && App.CurrentUser.Name != null)
+            if (Settings.CurrentUserName != null && Settings.CurrentUserEmail != null)
             {
                 Navigation.PushAsync(new BeverageSelectPage());
             }
 
-            //LogoImage.Source = Device.RuntimePlatform == Device.Android ?
-            //    ImageSource.FromFile("logo_placeholder.png") :
-            //    ImageSource.FromFile("Images/logo_placeholder.png");
-
-            //mainPageViewModel = new MainPageViewModel();
-            //BindingContext = mainPageViewModel;
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            //mainPageViewModel.OnPageAppearingCommand.Execute(null);
         }
 
         private void Button_Clicked(object sender, EventArgs e)
