@@ -13,13 +13,28 @@ namespace prj3beer.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CredentialSelectPage : ContentPage
     {
-        public CredentialSelectPage(string message)
+        CredentialSelectViewModel csvm;
+        public static bool newUser;
+
+        public CredentialSelectPage(bool isNew)
         {
             InitializeComponent();
 
-            BindingContext = new CredentialSelectViewModel();
+            newUser = isNew;
 
-            MessageLabel.Text = message;
+            BindingContext = csvm = new CredentialSelectViewModel();
+
+            MessageLabel.Text = newUser ? "Sign Up With:" : "Sign In With:";
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            if(csvm.Email != null && csvm.Name != null)
+            {
+                Navigation.PushAsync(new BeverageSelectPage());
+            }
         }
     }
 }

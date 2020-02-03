@@ -13,7 +13,7 @@ namespace prj3beer.ViewModels
 {
     public class CredentialSelectViewModel : INotifyPropertyChanged
     {
-        public UserProfile User { get; set; } = new UserProfile();
+        public UserProfile User { get; set; } = App.CurrentUser; //new UserProfile();
 
         public string Name { get => User.Name; set => User.Name = value; }
                      

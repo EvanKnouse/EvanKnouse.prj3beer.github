@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "605957098217-cugn1jpo6pc9ouca5ko4579llp6ignv6.apps.googleusercontent.com",
+          "client_id": "605957098217-tdebescg7aht809allro4cb82i1j2mll.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.companyname.prj3beer",
-            "certificate_hash": "a5fb830dced9195e43aeb10744dd5f24ce76d9ae"
+            "certificate_hash": "ef585aa9215339a7489fe924c66ffada07785f88"
           }
         },
         {
@@ -38,6 +38,13 @@
             {
               "client_id": "605957098217-0idleq1hssavekbfbkqnt95hevnp7ic1.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "605957098217-3m737uktiikg9oekns94tl3hsglg737b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.companyname.prj3beer"
+              }
             }
           ]
         }

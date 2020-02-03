@@ -22,10 +22,6 @@ namespace prj3beer.Droid
 
             base.OnCreate(savedInstanceState);
 
-            //GoogleClientManager.Initialize(this, null, "505504259657-mm99o1b838kmbrnkabshqpf5fd00sbsf.apps.googleusercontent.com");
-
-            //GoogleClientManager.Initialize(this, null, "605957098217-cugn1jpo6pc9ouca5ko4579llp6ignv6.apps.googleusercontent.com");
-
             GoogleClientManager.Initialize(this);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);

@@ -30,6 +30,11 @@ namespace prj3beer.Views
         {
             InitializeComponent();
 
+            if (App.WelcomeMessage)
+            {
+                Navigation.PushModalAsync(new WelcomeModal(CredentialSelectPage.newUser, App.CurrentUser.Name));
+            }
+
             context = new BeerContext();
         }
 
@@ -118,6 +123,11 @@ namespace prj3beer.Views
             }
             //hide the load spinner
             loadingSpinner.IsRunning = false;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
         }
     }
 }
