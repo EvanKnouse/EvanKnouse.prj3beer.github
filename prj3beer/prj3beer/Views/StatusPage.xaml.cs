@@ -34,6 +34,9 @@ namespace prj3beer.Views
         { 
             InitializeComponent();
 
+            #region old Default
+            /*
+            
             #region Story 04 Code
             // Instantiate new StatusViewModel
             svm = new StatusViewModel();
@@ -65,6 +68,20 @@ namespace prj3beer.Views
 
                 return true;
             });
+
+            #endregion
+
+            */
+            #endregion
+
+            #region Story 07 Code
+
+            beverageName.Text = "No Beverage";
+            brandName.Text = "No Brand";
+            //beverageImage.Source = ImageSource.FromFile("../Images/placeholder_can.png");
+            //beverageImage = new Image { Source = "../Images/placeholder_can.png" };
+            //beverageImage = new Image { Source = "D:/virpc/prj3beer/prj3.beer/prj3beer/prj3beer/Images/placeholder_can.png"};
+            //EnablePageElements(false);
 
             #endregion
         }
@@ -117,7 +134,15 @@ namespace prj3beer.Views
 
             beverageName.Text = currentBeverage.Name.ToString();
             brandName.Text = currentBrand.Name.ToString();
-            beverageImage.Source = ImageSource.FromFile(preferredBeverage.ImagePath.ToString());
+            if (preferredBeverage.ImageSaved())
+            {
+                //beverageImage.Source = ImageSource.FromFile(preferredBeverage.ImagePath.ToString());
+            }
+            else
+            {
+                //beverageImage.Source = ImageSource.FromFile("../Images/placeholder_can.png");
+            }
+            
         }
 
         public void UpdateViewModel(object sender, EventArgs args)
@@ -259,30 +284,37 @@ namespace prj3beer.Views
         {   // Instantiate a new StatusViewModel
             svm = new StatusViewModel();
 
-            // Set it's Monitored Celsius value to the value from the Settings 
-            svm.IsCelsius = Settings.TemperatureSettings;
 
-            // Set the Temperature Stepper to the Max/Minimum possible
-            TemperatureStepper.Maximum = 86;
-            TemperatureStepper.Minimum = -30;
+            if (currentBeverage != null)// So default opening no longer uses a drink that does not exist
+            {
+                // Set it's Monitored Celsius value to the value from the Settings 
+                svm.IsCelsius = Settings.TemperatureSettings;
 
-            // Set the temperature of the StatusViewModel to the current preferred beverage temperature
-            svm.Temperature = preferredBeverage.Temperature;
-
-            // is we are currently set to Celsius,
-            if (svm.IsCelsius)
-            {   // Set the Steppers to Min/Max for Celsius,
+                // Set the Temperature Stepper to the Max/Minimum possible
+                TemperatureStepper.Maximum = 86;
                 TemperatureStepper.Minimum = -30;
-                TemperatureStepper.Maximum = 30;
+
+                // Set the temperature of the StatusViewModel to the current preferred beverage temperature
+                svm.Temperature = preferredBeverage.Temperature;
+
+                // is we are currently set to Celsius,
+                if (svm.IsCelsius)
+                {   // Set the Steppers to Min/Max for Celsius,
+                    TemperatureStepper.Minimum = -30;
+                    TemperatureStepper.Maximum = 30;
+                }
+                else
+                {   // Otherwise set the Min/Max to Fahrenheit
+                    TemperatureStepper.Minimum = -22;
+                    TemperatureStepper.Maximum = 86;
+                }
+                //  Update the binding context to equal the new StatusViewModel
+                BindingContext = svm;
             }
-            else
-            {   // Otherwise set the Min/Max to Fahrenheit
-                TemperatureStepper.Minimum = -22;
-                TemperatureStepper.Maximum =  86;
-            }
-            //  Update the binding context to equal the new StatusViewModel
-            BindingContext = svm;
+
+            
         }
+
 
         #region Story 16 Method
         /// <summary>

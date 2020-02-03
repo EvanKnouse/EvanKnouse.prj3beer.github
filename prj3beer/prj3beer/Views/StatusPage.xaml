@@ -38,10 +38,11 @@
                     </Label.BindingContext>
                 </Label>
 
-                <Image Source="beverageImage" x:Name="beverageImage" AutomationId="beverageImage"></Image>
+                <!--<Image Source="beverageImage" x:Name="beverageImage" AutomationId="beverageImage"></Image>-->
+                <Image Source="../Images/placeholder_can.png"/>
                 <Label x:Name="beverageName" AutomationId="beverageName"></Label>
                 <Label x:Name="brandName" AutomationId="brandName"></Label>
-                
+
                 <!--<Label x:Name="labelCFCurrentTemperature"
                        AutomationId="labelCFCurrentTemperature"
                        Text=""

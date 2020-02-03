@@ -68,25 +68,44 @@ namespace prj3beer.Models
         /// <returns></returns>
         public bool ImageSaved()
         {
-            throw new NotImplementedException();
-            // if Image path == ../Images/placeholder_can.png
+            //throw new NotImplementedException();
+            if (ImagePath == "../Images/placeholder_can.png")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         private void SaveImage(String imageURL)
         {
+            if(ImageSaved() == false)
+            {
+                if (imageURL.Length > 0)
+                {
+                    Uri image = new Uri(imageURL);
+
+
+                    ImagePath = image.AbsoluteUri;
+                }
+                else
+                {
+                    //ImagePath = 
+                }
+            }
             
-            if (imageURL.Length > 0)
-            {
-                Uri image = new Uri(imageURL);
-
-
-                ImagePath = image.AbsoluteUri;
-            }
-            else
-            {
-                //ImagePath = 
-            }
-
         }
+        //Things seen on the internet:
+        /*  
+         *  var webImage = new Image { 
+            Source = ImageSource.FromUri(
+            new Uri("https://xamarin.com/content/images/pages/forms/example-app.png")
+            ) };
+        *//*
+            webImage.Source = "https://xamarin.com/content/images/pages/forms/example-app.png";
+         */
     }
 }
+ 
