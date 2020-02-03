@@ -28,7 +28,7 @@ namespace prj3beer.Models
         //[Required(ErrorMessage = "Beverage object is required")]
         //Beverage prefBev;
         
-        [DefaultValue("../Images/placeholder_can.png")]
+        //[DefaultValue("placeholder_can")]
         public string ImagePath { get; set; }
 
         #endregion
@@ -69,7 +69,7 @@ namespace prj3beer.Models
         public bool ImageSaved()
         {
             //throw new NotImplementedException();
-            if (ImagePath == "../Images/placeholder_can.png")
+            if (ImagePath == null)
             {
                 return false;
             }

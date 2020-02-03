@@ -34,6 +34,8 @@ namespace prj3beer.Views
         { 
             InitializeComponent();
 
+            bool checkIfExists = System.IO.File.Exists("placeholder_can.png");
+
             #region old Default
             /*
             
@@ -78,9 +80,7 @@ namespace prj3beer.Views
 
             beverageName.Text = "No Beverage";
             brandName.Text = "No Brand";
-            //beverageImage.Source = ImageSource.FromFile("../Images/placeholder_can.png");
-            //beverageImage = new Image { Source = "../Images/placeholder_can.png" };
-            //beverageImage = new Image { Source = "D:/virpc/prj3beer/prj3.beer/prj3beer/prj3beer/Images/placeholder_can.png"};
+            beverageImage.Source = ImageSource.FromFile("placeholder_can");
             //EnablePageElements(false);
 
             #endregion
@@ -136,11 +136,11 @@ namespace prj3beer.Views
             brandName.Text = currentBrand.Name.ToString();
             if (preferredBeverage.ImageSaved())
             {
-                //beverageImage.Source = ImageSource.FromFile(preferredBeverage.ImagePath.ToString());
+               beverageImage.Source = ImageSource.FromFile(preferredBeverage.ImagePath.ToString());
             }
             else
             {
-                //beverageImage.Source = ImageSource.FromFile("../Images/placeholder_can.png");
+                beverageImage.Source = ImageSource.FromFile("placeholder_can");
             }
             
         }
