@@ -16,7 +16,7 @@
     <ContentPage.Content>
         <!-- Setting Menu Main Stack-->
         <StackLayout>
-            <TableView Intent="Settings">
+            <TableView x:Name="SettingsTable" Intent="Settings">
                 <TableRoot BindingContext="vm:SettingsViewModel">
                     <TableSection x:Name="tempSettingsSection">
                         <SwitchCell x:Name="switchTemp"
@@ -30,17 +30,6 @@
                                     OnChanged="Notifications_Switch_Toggled"
                                     >
                         </SwitchCell>
-                    </TableSection>
-                    <TableSection x:Name="notificationSubSection">
-                        <SwitchCell x:Name="inRangeNotifications" 
-                                    Text="In Range"
-                                    OnChanged="InRange_Switch_Toggled"
-                                    
-                                    />
-                        <SwitchCell x:Name="tooHotColdNotifications" 
-                                    Text="Too Hot/Too Cold"
-                                    OnChanged="TooHotCold_Switch_Toggled"
-                                    />
                     </TableSection>
                 </TableRoot>
             </TableView>
