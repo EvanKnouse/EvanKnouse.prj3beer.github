@@ -136,12 +136,15 @@ namespace prj3beer.Views
             brandName.Text = currentBrand.Name.ToString();
             if (preferredBeverage.ImageSaved())
             {
-               beverageImage.Source = ImageSource.FromFile(preferredBeverage.ImagePath.ToString());
+                //beverageImage.Source = ImageSource.FromFile(preferredBeverage.ImagePath.ToString());
+                beverageImage = preferredBeverage.savedImage;
             }
             else
             {
                 beverageImage.Source = ImageSource.FromFile("placeholder_can");
             }
+            //beverageImage.WidthRequest = Application.Current.MainPage.Width*0.8;
+            //beverageImage.HeightRequest = Application.Current.MainPage.Height * 0.6;
             
         }
 

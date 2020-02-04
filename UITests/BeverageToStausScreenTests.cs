@@ -297,8 +297,8 @@ namespace UITests
             //On tap, set select, if saved image is false, new method to save image gotten from beverage url, Imaged save should become true
 
             Preference selected = new Preference { BeverageID = SmallCoorsLiteImage.BeverageID, Temperature = SmallCoorsLiteImage.Temperature };
-            string filePath = selected.ImagePath;
-
+            //string filePath = selected.ImagePath;
+            Image img = selected.savedImage;
            
 
             Assert.IsTrue(selected.ImageSaved());

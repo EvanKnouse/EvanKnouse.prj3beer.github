@@ -7,6 +7,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using Xamarin.Forms;
+using System.Drawing;
 
 namespace prj3beer.Models
 {
@@ -27,9 +29,11 @@ namespace prj3beer.Models
         //[ForeignKey("bevId")]
         //[Required(ErrorMessage = "Beverage object is required")]
         //Beverage prefBev;
-        
+
         //[DefaultValue("placeholder_can")]
-        public string ImagePath { get; set; }
+        //public string ImagePath { get; set; }
+
+        public Image savedImage { get; set; }
 
         #endregion
 
@@ -69,7 +73,8 @@ namespace prj3beer.Models
         public bool ImageSaved()
         {
             //throw new NotImplementedException();
-            if (ImagePath == null)
+            //if (ImagePath == null)
+            if (savedImage == null)
             {
                 return false;
             }
@@ -85,14 +90,32 @@ namespace prj3beer.Models
             {
                 if (imageURL.Length > 0)
                 {
-                    Uri image = new Uri(imageURL);
 
+                    
+                    Uri uriImage = new Uri(imageURL);
 
-                    ImagePath = image.AbsoluteUri;
+                    //Image img = new Image();
+
+                    /*
+                    img.Source = ImageSource.FromUri(uriImage);
+
+                    byte[] imageBytes;
+                    imageBytes = Convert.FromBase64String(img);
+
+                    ImagePath = uriImage.AbsoluteUri;
+                    */
+
+                    //Image img = new Image();
+                    savedImage.Source = new UriImageSource
+                    {
+                        Uri = uriImage,
+                        CachingEnabled = true,
+                        CacheValidity = new TimeSpan(7, 0, 0, 0)
+                    };
                 }
                 else
                 {
-                    //ImagePath = 
+                    //
                 }
             }
             

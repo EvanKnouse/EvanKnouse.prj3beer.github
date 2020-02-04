@@ -22,7 +22,7 @@
 
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center" >
-            <StackLayout Orientation="Horizontal"
+            <StackLayout Orientation="Vertical"
                          HorizontalOptions="CenterAndExpand">
                 <Label x:Name="currentTemperature"
                        AutomationId="currentTemperature"
@@ -30,16 +30,16 @@
                        VerticalOptions="Center" 
                        MinimumWidthRequest="3"
                        FontSize="38"
-                       
+                       HorizontalOptions="Center"
                        >
                     <Label.BindingContext>
                         <vm:StatusViewModel 
                             PropertyChanged="UpdateViewModel"/>
                     </Label.BindingContext>
                 </Label>
-                <Image Source="beverageImage" x:Name="beverageImage" AutomationId="beverageImage"></Image>
+                <Image Source="beverageImage" x:Name="beverageImage" AutomationId="beverageImage" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Image>
                 <!--<Image Source="placeholder_can"/>-->
-                <Label x:Name="beverageName" AutomationId="beverageName"></Label>
+                <Label x:Name="beverageName" AutomationId="beverageName" HorizontalOptions="FillAndExpand"></Label>
                 <Label x:Name="brandName" AutomationId="brandName"></Label>
 
                 <!--<Label x:Name="labelCFCurrentTemperature"
