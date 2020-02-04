@@ -21,7 +21,7 @@ namespace prj3beer.Views
             InitializeComponent();
 
             // Set the welcome message to "Welcome" or "Welcome Back" + <User Name>
-            welcomeLabel.Text = (CredentialSelectPage.newUser ? "Welcome " : "Welcome back ") + Settings.CurrentUserName;
+            WelcomeLabel.Text = (CredentialSelectPage.newUser ? "Welcome " : "Welcome back ") + Settings.CurrentUserName;
         }
 
         private void ContinueButton_Clicked(object sender, EventArgs e)

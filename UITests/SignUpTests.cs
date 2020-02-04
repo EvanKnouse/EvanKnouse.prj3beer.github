@@ -9,6 +9,7 @@ using Xamarin.UITest.Queries;
 using prj3beer.Views;
 using Xamarin.Forms;
 using prj3beer.Models;
+using System.Threading;
 
 namespace UITests
 {
@@ -160,18 +161,19 @@ namespace UITests
             app.Tap("GoogleButton");
 
             //app.WaitForElement("Joel Sipes");
+            //Thread.Sleep(5000);
 
             // select account or enter credentials
-            app.TapCoordinates(690, 1300);
+            //app.TapCoordinates(690, 1300);
 
-            app.WaitForElement("Welcome");
+            app.WaitForElement("WelcomeLabel");
 
             // test that the welcoming label is there
-            AppResult[] results = app.Query("welcomeLabel");
+            AppResult[] results = app.Query("WelcomeLabel");
             Assert.IsTrue(results.Any());
 
             // test that the welcoming label contains welcoming text
-            Assert.AreEqual(results[0].Text, "Welcome back Joel Sipes");
+            Assert.AreEqual(results[0].Text, "Welcome back Levis Media");
         }
         [Test]
         public void TestThatUsersNameIsDisplayedAfterSigningUp()
@@ -190,7 +192,7 @@ namespace UITests
             Assert.IsTrue(results.Any());
 
             // test that the welcoming label contains welcoming text
-            Assert.AreEqual(results[0].Text, "Welcome Joel Sipes");
+            Assert.AreEqual(results[0].Text, "Welcome Levis Media");
         }
 
         [Test]
