@@ -298,7 +298,7 @@ namespace UITests
 
             Preference selected = new Preference { BeverageID = SmallCoorsLiteImage.BeverageID, Temperature = SmallCoorsLiteImage.Temperature };
             //string filePath = selected.ImagePath;
-            Image img = selected.savedImage;
+           // Image img = selected.savedImage;
            
 
             Assert.IsTrue(selected.ImageSaved());

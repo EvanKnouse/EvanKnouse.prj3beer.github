@@ -30,10 +30,10 @@ namespace prj3beer.Models
         //[Required(ErrorMessage = "Beverage object is required")]
         //Beverage prefBev;
 
-        //[DefaultValue("placeholder_can")]
-        //public string ImagePath { get; set; }
+        [DefaultValue("placeholder_can")]
+        public string ImagePath { get; set; }
 
-        public Image savedImage { get; set; }
+        //public Image savedImage { get; set; }
 
         #endregion
 
@@ -74,7 +74,7 @@ namespace prj3beer.Models
         {
             //throw new NotImplementedException();
             //if (ImagePath == null)
-            if (savedImage == null)
+            if (ImagePath.Count() > 0 )
             {
                 return false;
             }
@@ -84,9 +84,10 @@ namespace prj3beer.Models
             }
         }
 
-        private void SaveImage(String imageURL)
+        public Image SaveImage(String imageURL)
         {
-            if(ImageSaved() == false)
+            Image image = new Image();
+            if (ImageSaved() == false)
             {
                 if (imageURL.Length > 0)
                 {
@@ -105,20 +106,21 @@ namespace prj3beer.Models
                     ImagePath = uriImage.AbsoluteUri;
                     */
 
-                    //Image img = new Image();
-                    savedImage.Source = new UriImageSource
+
+
+
+                    image.Source = new UriImageSource
                     {
                         Uri = uriImage,
                         CachingEnabled = true,
                         CacheValidity = new TimeSpan(7, 0, 0, 0)
                     };
+                    return image;
                 }
-                else
-                {
-                    //
-                }
+
             }
-            
+            return null;
+
         }
         //Things seen on the internet:
         /*  

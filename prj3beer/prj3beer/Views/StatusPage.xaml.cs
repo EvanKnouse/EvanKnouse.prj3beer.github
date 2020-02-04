@@ -137,7 +137,8 @@ namespace prj3beer.Views
             if (preferredBeverage.ImageSaved())
             {
                 //beverageImage.Source = ImageSource.FromFile(preferredBeverage.ImagePath.ToString());
-                beverageImage = preferredBeverage.savedImage;
+                //beverageImage = preferredBeverage.savedImage;
+                beverageImage = preferredBeverage.SaveImage(currentBeverage.ImageURL);
             }
             else
             {
