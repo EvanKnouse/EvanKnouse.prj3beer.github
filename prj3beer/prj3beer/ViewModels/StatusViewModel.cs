@@ -12,11 +12,15 @@ namespace prj3beer.ViewModels
         BeerContext context = new BeerContext();
 
         INotificationHandler nh;
-        NotificationType lastNotification = NotificationType.NO_MESSAGE;
+        
 
         double currentTemp;
         public Beverage currentBeverage;
         public Preference preferredBeverage;
+
+        //This boolean will control whether or not the timer
+        //responsible for the current temperature mock is on or off
+        private static bool timerOn = false;
 
         public BeerContext Context { get { return this.context; } }
         
@@ -134,22 +138,32 @@ namespace prj3beer.ViewModels
 
             //Checks for update temps every second.  Will eventually poll an object associated with a
             //bluetooth reading.  Currently communicates with a class bouncing between -35 and 35 degrees celsius.
-            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            if(!timerOn)
             {
-                this.CurrentTemp = MockTempReadings.Temp;
-                return true;
-            });
-
+                timerOn = true;
+                Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+                {
+                    this.CurrentTemp = MockTempReadings.Temp;
+                    return true;
+                });
+            }
         }
 
+        /// <summary>
+        /// This method will check if a notification needs to be sent,
+        /// as well as which notification is allowed to be sent based on 
+        /// the switch settings in the settings menu
+        /// </summary>
         private void NotificationCheck()
         {
-            int messageType = Notifications.TryNotification(CurrentTemp, preferredBeverage.Temperature, lastNotification);
-
-            lastNotification = (NotificationType)messageType;
+            //This corresponds to one of the messages from the NotificationType Enum
+            int messageType = Notifications.TryNotification(CurrentTemp, preferredBeverage.Temperature, Notifications.lastNotification);
 
             if (messageType > 0 && Settings.NotificationSettings) //0 corresponds to type of NO_MESSAGE, thus no notification should be sent
             {
+                //Saves the notification that is going to be sent for comparison later
+                Notifications.lastNotification = (NotificationType)messageType;
+
                 //In Range notifications are on
                 if (Settings.InRangeSettings)
                 {
@@ -188,6 +202,7 @@ namespace prj3beer.ViewModels
                         }
                     }
                 }
+
             }
         }
 

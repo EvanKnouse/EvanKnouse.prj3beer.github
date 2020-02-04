@@ -2,6 +2,7 @@
 using Xamarin.Forms.Xaml;
 using prj3beer.ViewModels;
 using System;
+using prj3beer.Services;
 
 namespace prj3beer.Views
 {
@@ -78,6 +79,9 @@ namespace prj3beer.Views
         {
             //Set the master notification setting to the switch's status (on or off)(true or false)
             Models.Settings.NotificationSettings = e.Value;
+
+            //Reset the last notification sent to NO_MESSAGE
+            Notifications.lastNotification = NotificationType.NO_MESSAGE;
 
             //If the switch is set to on (true)
             if (e.Value)

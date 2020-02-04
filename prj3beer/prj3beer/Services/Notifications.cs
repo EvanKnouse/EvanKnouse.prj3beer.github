@@ -11,6 +11,9 @@ namespace prj3beer.Services
         public static string[] Title = { "Message Error", "Heat Warning", "Temperature Alert", "Drink Time!", "Temperature Alert", "Cold Warning" };
         public static string[] Body = { "This should not be seen", "Your beverage is getting too hot.", "Your beverage is just above the desired temperature.", "Your beverage has reached the perfect temperature.", "Your beverage is just below the desired temperature.", "Your beverage is getting too cold." };
 
+        //This variable will contain the last notification that has been sent in order to compare
+        //to control notification functionality
+        public static NotificationType lastNotification = NotificationType.NO_MESSAGE;
 
         /// <summary>
         /// Calling this method will give a number based on the NotificationType Enumeration
