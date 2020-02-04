@@ -146,7 +146,7 @@ namespace nUnitTests
         public void TestThatNoNotificationsAreSentIfNotificationsSetToOff()
         {
             //Set master notifications setting to off
-            Settings.NotificationSettings = false;
+            prj3beer.Models.Settings.NotificationSettings = false;
 
             
             Assert.AreEqual(0, Notifications.TryNotification(6, 5, NotificationType.NO_MESSAGE));

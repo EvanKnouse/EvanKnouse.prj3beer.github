@@ -91,15 +91,17 @@ namespace prj3beer.ViewModels
         {
             set
             {
+                NotificationCheck();
+
                 if (currentTemp != value)
                 {
+
                     currentTemp = value;
 
                     if (PropertyChanged != null)
                     {
                         //If the property has changed, fire an event.
                         //PropertyChanged(this, new PropertyChangedEventArgs("CurrentTemp"));
-                        NotificationCheck();
                         OnPropertyChanged("CurrentTemp");
                     }
                 }
