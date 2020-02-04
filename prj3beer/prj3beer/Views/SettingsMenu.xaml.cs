@@ -11,10 +11,10 @@ namespace prj3beer.Views
         //Initialize a container for the notifications sub section
         TableSection subSection;
 
-        //
+        //Create a reference to an in range switch cell
         SwitchCell inRangeNotifications;
 
-        //
+        //Create a reference to a too hot/too cold switch cell
         SwitchCell tooHotColdNotifications;
 
         public SettingsMenu()
@@ -56,8 +56,6 @@ namespace prj3beer.Views
             tooHotColdNotifications.On = Models.Settings.TooHotColdSettings;
         }
 
-
-
         /// <summary>
         /// This method will handle the temperature switch functionality
         /// Allows the app to be changed between displaying in Celsius or Fahrenheit
@@ -78,19 +76,25 @@ namespace prj3beer.Views
         /// <param name="e"></param>
         private void Notifications_Switch_Toggled(object sender, ToggledEventArgs e)
         {
-            //Set the master notification setting to the switch's value (true or false)
+            //Set the master notification setting to the switch's status (on or off)(true or false)
             Models.Settings.NotificationSettings = e.Value;
 
+            //If the switch is set to on (true)
             if (e.Value)
             {
+                //Show the sub section
                 ShowSubSettings();
             }
             else
             {
+                //Hide the sub section
                 HideSubSettings();
             }
         }
 
+        /// <summary>
+        /// This method will hide the notifcations sub section
+        /// </summary>
         private void HideSubSettings()
         {
             //Disable the in range notifications
@@ -103,6 +107,9 @@ namespace prj3beer.Views
             SettingsTable.Root.Remove(subSection);
         }
 
+        /// <summary>
+        /// This method will show the notifications sub section
+        /// </summary>
         private void ShowSubSettings()
         {
             //Add the notification subsection 

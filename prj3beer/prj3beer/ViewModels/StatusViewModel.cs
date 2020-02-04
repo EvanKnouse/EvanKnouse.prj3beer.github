@@ -144,10 +144,48 @@ namespace prj3beer.ViewModels
         {
             int messageType = Notifications.TryNotification(CurrentTemp, preferredBeverage.Temperature, lastNotification);
 
-            if (messageType > 0 && Settings.NotificationSettings == true) //0 corresponds to type of NO_MESSAGE, thus no notification should be sent
+            lastNotification = (NotificationType)messageType;
+
+            if (messageType > 0 && Settings.NotificationSettings) //0 corresponds to type of NO_MESSAGE, thus no notification should be sent
             {
-                lastNotification = (NotificationType)messageType;
-                nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
+                //In Range notifications are on
+                if (Settings.InRangeSettings)
+                {
+                    //TooHotCold notifications are on
+                    if (Settings.TooHotColdSettings)
+                    {
+                        //All settings are on
+                        nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
+                    }
+                    else
+                    {
+                        //TooHotCold are off, don't send those (message type 1 and 5)
+                        if(messageType != 1 && messageType != 5)
+                        {
+                            nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
+                        }
+                    }
+                }
+                else //In Range notifications are off
+                {
+                    //TooHotCold notifications are on
+                    if(Settings.TooHotColdSettings)
+                    {
+                        //In range settings are off, don't send those (message type 2 and 4)
+                        if(messageType != 2 && messageType != 4)
+                        {
+                            nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
+                        }
+                    }
+                    else //TooHotCold notifications are off
+                    {
+                        //Only Master is on, only send message type 3
+                        if(messageType != 1 && messageType != 2 && messageType != 4 && messageType != 5)
+                        {
+                            nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
+                        }
+                    }
+                }
             }
         }
 

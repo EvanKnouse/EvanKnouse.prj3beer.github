@@ -73,7 +73,6 @@ namespace prj3beer.Services
                 curType = NotificationType.TOO_COLD;
 
             return curType;
-
         }
 
         /// <summary>
