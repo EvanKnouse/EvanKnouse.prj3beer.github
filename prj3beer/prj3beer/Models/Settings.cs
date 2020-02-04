@@ -30,14 +30,17 @@ namespace prj3beer.Models
 
         // Stores The Current User Name
         private const string UserKey = "user_key";
+        // Default value for Name should be null
         private static readonly string DefaultUser = null;
 
         // Stores The User Email
         private const string EmailKey = "email_key";
+        // Default value for Email should be null
         private static readonly string DefaultEmail = null;
 
         // Stores a boolean for showing the welcome modal
         private const string WelcomePromptKey = "welcome_key";
+        // Default value for the Welcome Prompt (show)
         private static readonly bool WelcomePrompt = true;
 
         #endregion
@@ -65,11 +68,11 @@ namespace prj3beer.Models
         public static string CurrentUserName
         {
             get
-            {
+            {   // Gets the value stored in the UserKey, or the default user if it is not set.
                 return AppSettings.GetValueOrDefault(UserKey, DefaultUser);
             }
             set
-            {
+            {   // Update the UserKey with the passed in value
                 AppSettings.AddOrUpdateValue(UserKey, value);
             }
         }
@@ -80,11 +83,11 @@ namespace prj3beer.Models
         public static string CurrentUserEmail
         {
             get
-            {
+            {   // Gets the value stored in the EmailKey, or the default user if it is not set.
                 return AppSettings.GetValueOrDefault(EmailKey, DefaultEmail);
             }
             set
-            {
+            {   // Update the EmailKey with the passed in value
                 AppSettings.AddOrUpdateValue(EmailKey, value);
             }
         }
@@ -107,11 +110,11 @@ namespace prj3beer.Models
         public static bool WelcomePromptSetting
         {
             get
-            {
+            {   // Gets the value stored in the WelcomePromptKey, or the default user if it is not set.
                 return AppSettings.GetValueOrDefault(WelcomePromptKey, WelcomePrompt);
             }
             set
-            {
+            {   // Update the WelcomePromptKey with the passed in value
                 AppSettings.AddOrUpdateValue(WelcomePromptKey, value);
             }
         }

@@ -1,0 +1,12 @@
+ 	public void Logout()
+        {
+            _googleClientManager.OnLogout += OnLogoutCompleted;
+            _googleClientManager.Logout();
+        }
+
+        private void OnLogoutCompleted(object sender, EventArgs loginEventArgs)
+        {
+            IsLoggedIn = false;
+            User.Email = "Offline";
+            _googleClientManager.OnLogout -= OnLogoutCompleted;
+        }

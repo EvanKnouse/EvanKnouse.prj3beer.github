@@ -10,7 +10,7 @@
             <Label x:Name="WelcomeLabel" AutomationId="WelcomeLabel" FontSize="Large" VerticalOptions="Center" 
                    HorizontalOptions="Center"/>
 
-            <Button x:Name="ContinueButton" AutomationId="ContinueButton" Text="Continue" Clicked="ContinueButton_Clicked" 
+            <Button x:Name="ContinueButton" AutomationId="ContinueButton" Text="Continue" Clicked="ContinueClicked" 
                     FontSize="Medium" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" />
         </StackLayout>
     </ContentPage.Content>

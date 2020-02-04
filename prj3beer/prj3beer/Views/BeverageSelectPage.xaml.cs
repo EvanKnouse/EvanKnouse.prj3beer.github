@@ -127,10 +127,5 @@ namespace prj3beer.Views
             //hide the load spinner
             loadingSpinner.IsRunning = false;
         }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-        }
     }
 }

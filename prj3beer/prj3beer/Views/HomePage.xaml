@@ -8,8 +8,8 @@
     <ContentPage.Content>
         <StackLayout VerticalOptions="CenterAndExpand"  HorizontalOptions="CenterAndExpand" >
             
-            <Button Text="Sign Up" x:Name="SignUpButton" AutomationId="SignUpButton" Clicked="Button_Clicked" />
-            <Button Text="Sign In" x:Name="SignInButton" AutomationId="SignInButton" Clicked="Button_Clicked" />
+            <Button Text="Sign Up" x:Name="SignUpButton" AutomationId="SignUpButton" Clicked="ButtonClicked" />
+            <Button Text="Sign In" x:Name="SignInButton" AutomationId="SignInButton" Clicked="ButtonClicked" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

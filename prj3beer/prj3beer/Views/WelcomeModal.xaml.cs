@@ -24,8 +24,14 @@ namespace prj3beer.Views
             WelcomeLabel.Text = (CredentialSelectPage.newUser ? "Welcome " : "Welcome back ") + Settings.CurrentUserName;
         }
 
-        private void ContinueButton_Clicked(object sender, EventArgs e)
+        /// <summary>
+        /// This event fires when the modal's Continue Button is clicked
+        /// </summary>
+        /// <param name="sender">Button</param>
+        /// <param name="e">Event</param>
+        private void ContinueClicked(object sender, EventArgs e)
         {
+            // Get rid of this modal
             Navigation.PopModalAsync();
         }
     }

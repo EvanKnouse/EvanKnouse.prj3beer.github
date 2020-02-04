@@ -12,17 +12,12 @@ namespace prj3beer
 {
     public partial class App : Application
     {
-        //public static UserProfile CurrentUser;
-        public static bool WelcomeMessage;
-
         public App()
         {
             InitializeComponent();
 
-            WelcomeMessage = true;
-
+            // Reset the local user object in settings
             ResetUser();
-
 
             // Set Up App Default Presets
             SetUpPreset();
@@ -30,11 +25,15 @@ namespace prj3beer
             MainPage = new MainPage();
         }
 
+        /// <summary>
+        /// This method is used to remove the currently saved user that is stored in settings
+        /// May be used by the rest when the actual Log Out process HAS to happen.
+        /// </summary>
         public void ResetUser()
         {
-            Settings.WelcomePromptSetting = true;
-            Settings.CurrentUserEmail = null;
-            Settings.CurrentUserName = null;
+            Settings.WelcomePromptSetting = false;
+            //Settings.CurrentUserEmail = null;
+            //Settings.CurrentUserName = null;
         }
 
         private void SetUpPreset()
