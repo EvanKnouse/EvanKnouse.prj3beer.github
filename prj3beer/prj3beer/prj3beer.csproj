@@ -11,14 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="logo_placeholder.PNG" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="logo_placeholder.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.6" />
     <PackageReference Include="Plugin.GoogleClient" Version="1.1.1" />
@@ -47,9 +39,5 @@
     <EmbeddedResource Update="Views\WelcomeModal.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Resources\Images\" />
   </ItemGroup>
 </Project>

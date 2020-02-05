@@ -7,7 +7,12 @@
              x:Class="prj3beer.Views.HomePage">
     <ContentPage.Content>
         <StackLayout VerticalOptions="CenterAndExpand"  HorizontalOptions="CenterAndExpand" >
-            
+            <Image HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand"
+                   WidthRequest="200"
+                   HeightRequest="200"
+                   Margin="10"
+                   Source="logo_placeholder.png"/>
             <Button Text="Sign Up" x:Name="SignUpButton" AutomationId="SignUpButton" Clicked="ButtonClicked" />
             <Button Text="Sign In" x:Name="SignInButton" AutomationId="SignInButton" Clicked="ButtonClicked" />
         </StackLayout>
