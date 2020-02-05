@@ -4,6 +4,8 @@ using Xamarin.UITest;
 using Xamarin.UITest.Queries;
 using prj3beer.Models;
 using Xamarin.Forms;
+using Xamarin.UITest.Configuration;
+using prj3beer.Services;
 
 namespace UITests
 {
@@ -31,17 +33,17 @@ namespace UITests
             ////Tap into the screen navigation menu (default for now)
             //app.Tap(c => c.Marked("ScreenSelectButton"));
 
-            //Sets the Temperature settings to celsius everytest
-            Settings.TemperatureSettings = true;
+            ////Sets the Temperature settings to celsius for every test
+            //Settings.TemperatureSettings = true;
 
-            //Sets the master Notification setting to on
-            Settings.NotificationSettings = true;
+            ////Sets the master Notification setting to on
+            //Settings.NotificationSettings = true;
 
-            //Sets the In Range Notification setting to on
-            Settings.InRangeSettings = true;
+            ////Sets the In Range Notification setting to on
+            //Settings.InRangeSettings = true;
 
-            //Sets the Too Hot/Cold Notification setting to on
-            Settings.NotificationSettings = true;
+            ////Sets the Too Hot/Cold Notification setting to on
+            //Settings.NotificationSettings = true;
         }
 
         [Test]
@@ -57,10 +59,10 @@ namespace UITests
             app.Tap("Settings");
 
             //Wait for the Temperature switch to appear on screen
-            app.WaitForElement("switchTemp");
+            app.WaitForElement("SettingsTable");
 
             //Look for the toggle button on the Settings Menu
-            AppResult[] button = app.Query(("switchTemp"));
+            AppResult[] button = app.Query(("SettingsTable"));
 
             //Will be greater than 0 if it exists, returns AppResult[]
             Assert.IsTrue(button.Any());
@@ -69,7 +71,7 @@ namespace UITests
         [Test]
         public void TestSettingsAreAppliedOnSettingsChange()
         {
-            //Settings.TemperatureSettings = true;
+            Settings.TemperatureSettings = true;
 
             //Pick Status screen from the screen selection menu
             app.Tap("Status");
@@ -77,20 +79,21 @@ namespace UITests
             //Wait for the Settings button to appear on screen
             app.WaitForElement("Settings");
 
-            //Press Settings menu button
-            app.Tap("Settings");
-
-            //Wait for the Temperature switch to appear on screen
-            app.WaitForElement("switchTemp");
-
             //Check that the label for the current temperature is set to "\u00B0C"
             string tempLabel = app.Query("currentTemperature")[0].Text;
 
             //If equal, the temperature label has been set to Celsius
-            Assert.AreEqual(tempLabel.Contains("\u00B0C"), true);
+            bool isCelsius = tempLabel.Contains("\u00B0C");
+
+            //Press Settings menu button
+            app.Tap("Settings");
+
+            //Wait for the Temperature switch to appear on screen
+            app.WaitForElement("SettingsTable");
 
             //Tap on the toggle button to change the temperature setting to fahrenheit
-            app.Tap("switchTemp");
+            //app.Tap("switchTemp");
+            app.Tap(e => e.Class("SwitchCellView").Class("Switch").Index(0));
 
             //Go back to the Status screen
             app.Back();
@@ -98,14 +101,15 @@ namespace UITests
             //Wait for the Current Temperature Label to appear on screen
             app.WaitForElement("currentTemperature");
 
-            // Wait for the temp to read 45F
-            app.WaitForElement("45\u00B0F");
-
             //Check that the label for the current temperature is set to "\u00B0F"
             tempLabel = app.Query("currentTemperature")[0].Text;
 
+            bool isFahrenheit = tempLabel.Contains("\u00b0F");
+
+            //If equal, the temperature was initially set to celsius
+            Assert.AreEqual(true, isCelsius);
             //If equal, the temperature label has been set to fahrenheit and the settings have been applied
-            Assert.AreEqual(tempLabel.Contains("\u00B0F"), true);
+            Assert.AreEqual(true, isFahrenheit);
         }
 
         [Test]
@@ -121,22 +125,22 @@ namespace UITests
             app.Tap("Settings");
 
             //Wait for the Temperature switch to appear on screen
-            app.WaitForElement("switchTemp");
+            app.WaitForElement("SettingsTable");
 
-            //Grab the temperature label text to prove it was Celsius before it switched
-            string toggled = app.Query("lblTemp")[0].Text;
+            //Grab the switch value to prove it was Celsius before it switched
+            bool switchValue = app.Query(e => e.Class("SwitchCellView").Class("Switch").Index(0).Invoke("isChecked").Value<bool>()).First();
 
             //If it was originally Celsius it would pass
-            Assert.AreEqual(toggled, "Celsius");
+            Assert.AreEqual(true, switchValue);
 
             //Tap on the toggle button to change the temperature setting to fahrenheit
-            app.Tap("switchTemp");
+            app.Tap(e => e.Class("SwitchCellView").Class("Switch").Index(0));
 
             //Grab the temperature label text to prove it switched
-            toggled = app.Query("lblTemp")[0].Text;
+            switchValue = app.Query(e => e.Class("SwitchCellView").Class("Switch").Index(0).Invoke("isChecked").Value<bool>()).First();
 
             //Check if the enabled value is true
-            Assert.AreEqual(toggled, "Fahrenheit");
+            Assert.AreEqual(false, switchValue);
         }
 
         #region Story 04 UI Tests
@@ -257,28 +261,27 @@ namespace UITests
             //Press Settings menu button
             app.Tap("Settings");
 
-            app.WaitForElement("switchNotifications");
+            app.WaitForElement("SettingsTable");
+
+            //Look for InRange switch
+            AppResult[] results = app.Query(e => e.Class("SwitchCellView").Class("Switch").Index(2));
+     
+            //Does the InRange switch exist before turning off master notifications
+            Assert.IsTrue(results.Any());
 
             //Tap on the master notification switch, turning notifications off
-            app.Tap("switchNotifications");
-
-            app.WaitForElement("notificationSubSettings");
+            app.Tap(e => e.Class("SwitchCellView").Class("Switch").Index(1));
 
             //Get the result of querying for the notification sub-setting switch
-            AppResult[] results = app.Query("switchInRange");
+            results = app.Query(e => e.Class("SwitchCellView").Class("Switch").Index(2));
 
             //Results should not contain the notification in range switch
             Assert.IsFalse(results.Any());
 
-            //Get the result of querying for the notification sub-setting switch
-            results = app.Query("switchTooHotCold");
-
-            //Results should not contain the notification too hot/cold switch
-            Assert.IsFalse(results.Any());
         }
 
         [Test]
-        public void TestThatTurningOnMastNotificationSwithShowsNotificationsSubSettings()
+        public void TestThatTurningOnMasterNotificationSwitchShowsNotificationsSubSettings()
         {
             //Pick status screen from the screen selection menu
             app.Tap("Status");
@@ -289,26 +292,26 @@ namespace UITests
             //Press Settings menu button
             app.Tap("Settings");
 
-            app.WaitForElement("switchNotifications");
+            app.WaitForElement("SettingsTable");
 
-            //Get the result of querying for the notification master switch
-            AppResult[] results = app.Query("switchNotifications");
+            //Turn off master notifications
+            app.Tap(e => e.Class("SwitchCellView").Class("Switch").Index(1));
 
-            //Results should contain the notification master switch
-            Assert.IsTrue(results.Any());
+            //Get the result of querying for the inRange notification switch
+            AppResult[] results = app.Query(e => e.Class("SwitchCellView").Class("Switch").Index(2));
 
-            app.WaitForElement("notificationSubSettings");
+            //Results should not contain the inRange switch
+            Assert.IsFalse(results.Any());
 
-            //Get the result of querying for the notification sub-setting switch
-            results = app.Query("switchInRange");
+            //app.WaitForElement("notificationSubSettings");
+
+            //Turn on notifications by tapping master notification switch
+            app.Tap(e => e.Class("SwitchCellView").Class("Switch").Index(1));
+
+            //Get the result of querying for the inRange notification switch
+            results = app.Query(e => e.Class("SwitchCellView").Class("Switch").Index(2));
 
             //Results should contain the notification in range switch
-            Assert.IsTrue(results.Any());
-            
-            //Get the result of querying for the notification sub-setting switch
-            results = app.Query("switchTooHotCold");
-
-            //Results should contain the notification too hot/cold switch
             Assert.IsTrue(results.Any());
         }
 
@@ -323,11 +326,14 @@ namespace UITests
             //Press Settings menu button
             app.Tap("Settings");
 
-            app.WaitForElement("switchNotifications");
+            app.WaitForElement("SettingsTable");
 
-            app.Tap("switchNotifications");
+            //Tap the master notifications switch
+            app.Tap(e => e.Class("SwitchCellView").Class("Switch").Index(1));
 
-            app = ConfigureApp.Android.ApkFile(apkFile).StartApp();
+            bool firstSwitchValue = app.Query(e => e.Class("SwitchCellView").Class("Switch").Index(1).Invoke("isChecked").Value<bool>()).First();
+
+            app = ConfigureApp.Android.ApkFile(apkFile).StartApp(AppDataMode.DoNotClear);
 
             app.TapCoordinates(150, 90);
 
@@ -339,11 +345,46 @@ namespace UITests
             //Press Settings menu button
             app.Tap("Settings");
 
-            app.WaitForElement("switchNotifications");
+            app.WaitForElement("SettingsTable");
 
-            AppResult[] result = app.Query("switchNotifications");
+            bool secondSwitchValue = app.Query(e => e.Class("SwitchCellView").Class("Switch").Index(1).Invoke("isChecked").Value<bool>()).First();
 
-            Assert.AreEqual(false, result.Any());
+            Assert.AreEqual(true, firstSwitchValue == secondSwitchValue);
+        }
+
+        [Test]
+        public void TestThatOnlyPerfectNotificationsAreSent()
+        {
+            //Set master notifications setting is on
+            Settings.NotificationSettings = true;
+
+            //Set in range notifications setting to off
+            Settings.InRangeSettings = false;
+
+            //Set too hot/cold notifications setting to off
+            Settings.TooHotColdSettings = false;
+
+            //Pick Status screen from the screen selection menu
+            //app.Tap("Status");
+
+            //app.WaitForElement("Settings");
+
+            ////Press Settings menu button
+            //app.Tap("Settings");
+
+            //app.WaitForElement("SettingsTable");
+
+            //app.Tap(e => e.Class("SwitchCellView").Class("Switch").Index(2));
+
+            //app.Tap(e => e.Class("SwitchCellView").Class("Switch").Index(3));
+
+            //app.Back();
+
+            Assert.AreEqual(0, Notifications.TryNotification(6, 5, NotificationType.NO_MESSAGE));
+
+            Assert.AreEqual(3, Notifications.TryNotification(5, 5, NotificationType.NO_MESSAGE));
+
+            Assert.AreEqual(0, Notifications.TryNotification(0, 5, NotificationType.PERFECT));
         }
         #endregion
     }

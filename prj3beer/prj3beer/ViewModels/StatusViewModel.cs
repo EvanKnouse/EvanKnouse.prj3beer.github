@@ -11,8 +11,7 @@ namespace prj3beer.ViewModels
     {
         BeerContext context = new BeerContext();
 
-        INotificationHandler nh;
-        
+        Notifications notifications;
 
         double currentTemp;
         public Beverage currentBeverage;
@@ -20,7 +19,7 @@ namespace prj3beer.ViewModels
 
         //This boolean will control whether or not the timer
         //responsible for the current temperature mock is on or off
-        private static bool timerOn = false;
+        public static bool timerOn = false;
 
         public BeerContext Context { get { return this.context; } }
         
@@ -56,7 +55,8 @@ namespace prj3beer.ViewModels
                     _minimum = IsCelsius ? -30 : -22;
                     _maximum = IsCelsius ? 30 : 86;
 
-                    _temperature = IsCelsius ? value : ((value * 1.8) + 32);
+                    //_temperature = IsCelsius ? value : ((value * 1.8) + 32);
+                    _temperature = value;
                     
                 }
                 finally
@@ -78,7 +78,8 @@ namespace prj3beer.ViewModels
             {
                 try
                 {   // store the temperature from the entry, parsed as a double. 
-                    _temperature = double.Parse(value);
+                    //_temperature = double.Parse(value);
+                    _temperature = IsCelsius ? double.Parse(value) : (double.Parse(value) * 1.8) +32;
                 }
                 catch
                 {   // If the field is empty, set temperature to null
@@ -95,12 +96,11 @@ namespace prj3beer.ViewModels
         {
             set
             {
-                NotificationCheck();
-
                 if (currentTemp != value)
                 {
-
                     currentTemp = value;
+
+                    notifications.NotificationCheck(currentTemp, _temperature);
 
                     if (PropertyChanged != null)
                     {
@@ -120,7 +120,7 @@ namespace prj3beer.ViewModels
 
         public StatusViewModel()
         {
-            nh = DependencyService.Get<INotificationHandler>();
+            notifications = new Notifications();
 
             currentBeverage = Context.Beverage.Find(1);
 
@@ -154,57 +154,57 @@ namespace prj3beer.ViewModels
         /// as well as which notification is allowed to be sent based on 
         /// the switch settings in the settings menu
         /// </summary>
-        private void NotificationCheck()
-        {
-            //This corresponds to one of the messages from the NotificationType Enum
-            int messageType = Notifications.TryNotification(CurrentTemp, preferredBeverage.Temperature, Notifications.lastNotification);
+        //private void NotificationCheck()
+        //{
+        //    //This corresponds to one of the messages from the NotificationType Enum
+        //    int messageType = Notifications.TryNotification(CurrentTemp, preferredBeverage.Temperature, Notifications.lastNotification);
 
-            if (messageType > 0 && Settings.NotificationSettings) //0 corresponds to type of NO_MESSAGE, thus no notification should be sent
-            {
-                //Saves the notification that is going to be sent for comparison later
-                Notifications.lastNotification = (NotificationType)messageType;
+        //    if (messageType > 0 && Settings.NotificationSettings) //0 corresponds to type of NO_MESSAGE, thus no notification should be sent
+        //    {
+        //        //Saves the notification that is going to be sent for comparison later
+        //        Notifications.lastNotification = (NotificationType)messageType;
 
-                //In Range notifications are on
-                if (Settings.InRangeSettings)
-                {
-                    //TooHotCold notifications are on
-                    if (Settings.TooHotColdSettings)
-                    {
-                        //All settings are on
-                        nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
-                    }
-                    else
-                    {
-                        //TooHotCold are off, don't send those (message type 1 and 5)
-                        if(messageType != 1 && messageType != 5)
-                        {
-                            nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
-                        }
-                    }
-                }
-                else //In Range notifications are off
-                {
-                    //TooHotCold notifications are on
-                    if(Settings.TooHotColdSettings)
-                    {
-                        //In range settings are off, don't send those (message type 2 and 4)
-                        if(messageType != 2 && messageType != 4)
-                        {
-                            nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
-                        }
-                    }
-                    else //TooHotCold notifications are off
-                    {
-                        //Only Master is on, only send message type 3
-                        if(messageType != 1 && messageType != 2 && messageType != 4 && messageType != 5)
-                        {
-                            nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
-                        }
-                    }
-                }
+        //        //In Range notifications are on
+        //        if (Settings.InRangeSettings)
+        //        {
+        //            //TooHotCold notifications are on
+        //            if (Settings.TooHotColdSettings)
+        //            {
+        //                //All settings are on
+        //                nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
+        //            }
+        //            else
+        //            {
+        //                //TooHotCold are off, don't send those (message type 1 and 5)
+        //                if(messageType != 1 && messageType != 5)
+        //                {
+        //                    nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
+        //                }
+        //            }
+        //        }
+        //        else //In Range notifications are off
+        //        {
+        //            //TooHotCold notifications are on
+        //            if(Settings.TooHotColdSettings)
+        //            {
+        //                //In range settings are off, don't send those (message type 2 and 4)
+        //                if(messageType != 2 && messageType != 4)
+        //                {
+        //                    nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
+        //                }
+        //            }
+        //            else //TooHotCold notifications are off
+        //            {
+        //                //Only Master is on, only send message type 3
+        //                if(messageType != 1 && messageType != 2 && messageType != 4 && messageType != 5)
+        //                {
+        //                    nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
+        //                }
+        //            }
+        //        }
 
-            }
-        }
+        //    }
+        //}
 
         protected virtual void OnPropertyChanged(string propertyName)
         {

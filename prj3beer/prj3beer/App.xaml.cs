@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using prj3beer.ViewModels;
 
 namespace prj3beer
 {
@@ -17,6 +18,8 @@ namespace prj3beer
             InitializeComponent();
 
             Settings.URLSetting = default;
+
+            StatusViewModel.timerOn = false;
 
             MockTempReadings.StartCounting();
 

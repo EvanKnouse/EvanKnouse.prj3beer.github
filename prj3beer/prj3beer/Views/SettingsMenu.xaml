@@ -17,14 +17,14 @@
         <!-- Setting Menu Main Stack-->
         <StackLayout>
             <!-- Setting Menu TableView-->
-            <TableView x:Name="SettingsTable" Intent="Settings">
+            <TableView x:Name="SettingsTable" AutomationId="SettingsTable" Intent="Settings">
                 <TableRoot BindingContext="vm:SettingsViewModel">
                     <!-- Temperature Setting section-->
                     <TableSection x:Name="tempSettingsSection">
                         <SwitchCell x:Name="switchTemp"
                                     AutomationId="switchTemp"
                                     Text="Celsius"
-                                    OnChanged="Temp_Switch_Toggled"/>
+                                    OnChanged="Temp_Switch_Toggled"></SwitchCell>
                     </TableSection>
                     <!-- Master Notification Setting section-->
                     <TableSection x:Name="notificationMasterSection">
