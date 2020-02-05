@@ -132,8 +132,9 @@ namespace prj3beer.Views
             //    context.Preference.Add(tappedBeveragePref);
             //}
 
-            Application.Current.MainPage = new StatusPage(tappedBeverage.BeverageID);
-         
+              Application.Current.MainPage = new NavigationPage(new StatusPage(tappedBeverage.BeverageID));
+
+
         }
     }
 }

@@ -10,7 +10,6 @@
              Title="Status Page"
              xmlns:src="clr-namespace:prj3beer.Services"
              >
-
     <ContentPage.ToolbarItems>
         <ToolbarItem StyleId="btnSettings" x:Name="btnSettings"  Text="Settings" Clicked="ToolbarItem_Clicked" />
     </ContentPage.ToolbarItems>
@@ -19,8 +18,11 @@
             <src:CelsiusFahrenheitConverter x:Key="tempConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-
     <ContentPage.Content>
+        
+        
+        
+        
         <StackLayout VerticalOptions="Center" >
             <StackLayout Orientation="Vertical"
                          HorizontalOptions="CenterAndExpand">

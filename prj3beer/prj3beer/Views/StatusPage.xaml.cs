@@ -89,6 +89,7 @@ namespace prj3beer.Views
         public StatusPage(int selectedBeverageID)
         {
             InitializeComponent();
+            MenuPage page = new MenuPage();
 
             #region Story 04/07 Code
             // Instantiate new StatusViewModel
