@@ -98,21 +98,6 @@ namespace prj3beer.Models
                     //Uri uriImage = new Uri(imageURL);
                     Uri uriImage = new Uri("https://uc8f123a0359d0bd1edfb681c74a.previews.dropboxusercontent.com/p/thumb/AAvlTVy8L0Fx5hKDKYFZLSu0nPVVO8AQTOa2d5RC7ZE-lnaTkeEbQIyuQmuE0Ax88CTtxaYx2_3SHQhuOe69WjC0UB5sgwoPeR2c04-YIHDN044qdZhkaAsBO1R0dLoNBda7Ey2FzC5bXCRMt4zW7x23cpyczcVjYim4-d923-JxkL8DxriJ5aGYkEJPVOzjwUOw_ktjRVtBfmnEqD8Zo0J0jZsh-se6QlirWl3JNnbp6dgje236hJd-DUItDNgCT4C3l7xOLwPOn9lHIYNnD25Pq5dQiMaxigKcnjteSAILFjRoRbV0Il23U0o9xXgD3QYSHqzqUXyHDOPTlI-V7jy6z6aiFX78h3ZZnmg-WsXOBUJ99SHvKojll3KXNiVXpZj3XrPBX3HN3tI6nPzd_BnV/p.png?fv_content=true&size_mode=5");
 
-
-                    //Image img = new Image();
-
-                    /*
-                    img.Source = ImageSource.FromUri(uriImage);
-
-                    byte[] imageBytes;
-                    imageBytes = Convert.FromBase64String(img);
-
-                    ImagePath = uriImage.AbsoluteUri;
-                    */
-
-
-
-
                     image.Source = new UriImageSource
                     {
                         Uri = uriImage,
@@ -125,15 +110,6 @@ namespace prj3beer.Models
             return image;
 
         }
-        //Things seen on the internet:
-        /*  
-         *  var webImage = new Image { 
-            Source = ImageSource.FromUri(
-            new Uri("https://xamarin.com/content/images/pages/forms/example-app.png")
-            ) };
-        *//*
-            webImage.Source = "https://xamarin.com/content/images/pages/forms/example-app.png";
-         */
     }
 }
  
