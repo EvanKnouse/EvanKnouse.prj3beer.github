@@ -31,6 +31,7 @@ namespace prj3beer.Models
         //Beverage prefBev;
 
         [DefaultValue("placeholder_can")]
+        //[DefaultValue("")]
         public string ImagePath { get; set; }
 
         //public Image savedImage { get; set; }
@@ -74,7 +75,7 @@ namespace prj3beer.Models
         {
             //throw new NotImplementedException();
             //if (ImagePath == null)
-            if (ImagePath.Count() > 0 )
+            if (ImagePath == "" || ImagePath == "placeholder_can" || ImagePath==null)
             {
                 return false;
             }
@@ -87,13 +88,16 @@ namespace prj3beer.Models
         public Image SaveImage(String imageURL)
         {
             Image image = new Image();
+            image.Source = "placeholder_can";
             if (ImageSaved() == false)
             {
                 if (imageURL.Length > 0)
                 {
 
-                    
-                    Uri uriImage = new Uri(imageURL);
+
+                    //Uri uriImage = new Uri(imageURL);
+                    Uri uriImage = new Uri("https://uc8f123a0359d0bd1edfb681c74a.previews.dropboxusercontent.com/p/thumb/AAvlTVy8L0Fx5hKDKYFZLSu0nPVVO8AQTOa2d5RC7ZE-lnaTkeEbQIyuQmuE0Ax88CTtxaYx2_3SHQhuOe69WjC0UB5sgwoPeR2c04-YIHDN044qdZhkaAsBO1R0dLoNBda7Ey2FzC5bXCRMt4zW7x23cpyczcVjYim4-d923-JxkL8DxriJ5aGYkEJPVOzjwUOw_ktjRVtBfmnEqD8Zo0J0jZsh-se6QlirWl3JNnbp6dgje236hJd-DUItDNgCT4C3l7xOLwPOn9lHIYNnD25Pq5dQiMaxigKcnjteSAILFjRoRbV0Il23U0o9xXgD3QYSHqzqUXyHDOPTlI-V7jy6z6aiFX78h3ZZnmg-WsXOBUJ99SHvKojll3KXNiVXpZj3XrPBX3HN3tI6nPzd_BnV/p.png?fv_content=true&size_mode=5");
+
 
                     //Image img = new Image();
 
@@ -115,11 +119,10 @@ namespace prj3beer.Models
                         CachingEnabled = true,
                         CacheValidity = new TimeSpan(7, 0, 0, 0)
                     };
-                    return image;
                 }
 
             }
-            return null;
+            return image;
 
         }
         //Things seen on the internet:
