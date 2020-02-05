@@ -11,6 +11,11 @@ using Xamarin.Forms;
 using prj3beer.Models;
 using System.Threading;
 
+/*  IMPORTANT!!! MUST SIGN IN ON APP BEFORE RUNNING ALL UI TESTS!
+    ACCOUNT: prj3beer
+    PASSWORD: Prj3beer##
+*/
+
 namespace UITests
 {
     [TestFixture(Platform.Android)]
