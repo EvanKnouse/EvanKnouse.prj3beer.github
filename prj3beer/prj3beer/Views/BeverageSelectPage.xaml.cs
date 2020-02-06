@@ -15,6 +15,9 @@ namespace prj3beer.Views
     //No beverages displayed if search bar is left blank
     public partial class BeverageSelectPage : ContentPage
     {
+
+        MainPage RootPage { get => Application.Current.MainPage as MainPage; }
+
         //Context used to grab all beverages from local storage
         BeerContext context;
 
@@ -120,12 +123,17 @@ namespace prj3beer.Views
             loadingSpinner.IsRunning = false;
         }
 
-        private void BeverageTapped(object sender, ItemTappedEventArgs e)
+        private async void BeverageTapped(object sender, ItemTappedEventArgs e)
         {
 
             Beverage tappedBeverage = (context.Beverage.Where(b => b.Name.Contains(e.Item.ToString()))).First();
             Settings.BeverageSettings = tappedBeverage.BeverageID;
-            Application.Current.MainPage = new NavigationPage(new StatusPage());
+            //Application.Current.MainPage = new NavigationPage(new StatusPage());
+            // await Navigation.PushModalAsync(new NavigationPage(new StatusPage()));
+            var id = (int)MenuItemType.Status;
+            
+            await RootPage.NavigateFromMenu(id);
+
         }
     }
 }

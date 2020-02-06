@@ -19,6 +19,7 @@ namespace prj3beer.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class StatusPage : ContentPage
     {
+
         static StatusViewModel svm;
         static Beverage currentBeverage;
         static Brand currentBrand;
@@ -33,6 +34,7 @@ namespace prj3beer.Views
 
         public StatusPage()
         {
+
             InitializeComponent();
             MenuPage page = new MenuPage();
             int savedID = Settings.BeverageSettings;

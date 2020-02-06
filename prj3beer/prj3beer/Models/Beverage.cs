@@ -35,7 +35,7 @@ namespace prj3beer.Models
         public double? Temperature { get; set; }
 
         //[MaxLength(150, ErrorMessage = "Image URL is too large")]
-        [RegularExpression("(http(s?):)([/|.|\\w|\\s|-])*\\.(?:jpg|gif|png|jpeg)", ErrorMessage = "Image URL is not actually an image URL")]
+       [RegularExpression("(http(s?):)([/|.|\\w|\\s|-])*\\.(?:jpg|gif|png|jpeg)", ErrorMessage = "Image URL is not actually an image URL")]
         [JsonProperty("image")]
         public string ImageURL { get; set; }
 

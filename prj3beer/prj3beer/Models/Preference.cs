@@ -95,8 +95,8 @@ namespace prj3beer.Models
                 {
 
 
-                    //Uri uriImage = new Uri(imageURL);
-                    Uri uriImage = new Uri("https://uc8f123a0359d0bd1edfb681c74a.previews.dropboxusercontent.com/p/thumb/AAvlTVy8L0Fx5hKDKYFZLSu0nPVVO8AQTOa2d5RC7ZE-lnaTkeEbQIyuQmuE0Ax88CTtxaYx2_3SHQhuOe69WjC0UB5sgwoPeR2c04-YIHDN044qdZhkaAsBO1R0dLoNBda7Ey2FzC5bXCRMt4zW7x23cpyczcVjYim4-d923-JxkL8DxriJ5aGYkEJPVOzjwUOw_ktjRVtBfmnEqD8Zo0J0jZsh-se6QlirWl3JNnbp6dgje236hJd-DUItDNgCT4C3l7xOLwPOn9lHIYNnD25Pq5dQiMaxigKcnjteSAILFjRoRbV0Il23U0o9xXgD3QYSHqzqUXyHDOPTlI-V7jy6z6aiFX78h3ZZnmg-WsXOBUJ99SHvKojll3KXNiVXpZj3XrPBX3HN3tI6nPzd_BnV/p.png?fv_content=true&size_mode=5");
+                    Uri uriImage = new Uri(imageURL);
+                    //Uri uriImage = new Uri("https://uca5cfff121c99373e472113118c.previews.dropboxusercontent.com/p/thumb/AAtr0X92A9m_ux4gfWXZ1prCfeYReWu9b5x36LsTq57AXO0vO-f9yz4tSWC2vSFLep7JB7a0HzZBG6iFPtgcB7Lw1V2hmwx4vpdWCXNAibIpHKHLYnL1gT6VN1MydjACBB0lpCY9HjpNgNXm2X9QWj6PzNfhv8oKd4MYeDqqd8YR8ReWsc-y5WZVIegS3MX3CYKRs9jsFRKEojX3EEF54kWUa6WrYJSUKBjEU6pEGLMqnUDEC6tOR22O3c8PoeOz5pC5PPZxaWaxU2X6IqJgqzfB8Io1pTV8ujh5A71PQg8bOqanZiNWhcjqg7vBFsbvfVj8w4g_bmP8N47fwy7FlEMhTaIrCpI9r_q44NrVUB8oo4rxfZMBtFysQ6b7e3jchAxVuK9uvY1pKUqR1slm3iET/p.png?fv_content=true&size_mode=5");
 
                     image.Source = new UriImageSource
                     {
