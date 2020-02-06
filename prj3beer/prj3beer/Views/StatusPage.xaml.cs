@@ -20,17 +20,11 @@ namespace prj3beer.Views
     public partial class StatusPage : ContentPage
     {
         static StatusViewModel svm;
-        //static Beverage currentBeverage;
-        //static Preference preferredBeverage;
-
-        //INotificationHandler nh;
-        //NotificationType lastNotification = NotificationType.NO_MESSAGE;
-        
-        //Placeholder for target temperature element, implemented in another story.
-        //int targetTempValue = 2;
+        static Beverage currentBeverage;
+        public static Preference preferredBeverage;
 
         public StatusPage()
-        { 
+        {
             InitializeComponent();
 
             #region Story 04 Code
@@ -39,33 +33,23 @@ namespace prj3beer.Views
 
             // Setup the current Beverage (find it from the Context) -- This will be passed in from a viewmodel/bundle/etc in the future.
             //currentBeverage = new Beverage { BeverageID = 1, Name = "Great Western Radler", Brand = svm.Context.Brands.Find(2), Type = Models.Type.Radler, Temperature = 2 };
-            ////////svm.currentBeverage = svm.Context.Beverage.Find(1);
+            currentBeverage = svm.Context.Beverage.Find(1);
             //svm.Context.Beverage.Find(2);
 
             // Setup the preference object using the passed in beverage
-            //SetupPreference();
+            SetupPreference();
 
             // When you first start up the Status Screen, Disable The Inputs (on first launch of application)
             EnablePageElements(false);
 
             // If the current Beverage is set, (will run if a beverage has been selected)
-            if (svm.preferredBeverage != null)
+            if (preferredBeverage != null)
             {   // enable all the elements on the page
                 EnablePageElements(true);
             }
             #endregion
 
-            #region Story 16 code - Notifications
-            //nh = DependencyService.Get<INotificationHandler>();
-            ////TODO: Call the compare when a new temperature is gotten from our device API, not on a timer
-            //Device.StartTimer(TimeSpan.FromSeconds(1), () =>
-            //{
-            //    NotificationCheck();
-
-            //    return true;
-            //});
-
-            #endregion
+            MockTempReadings.StartCounting();
         }
 
         public void UpdateViewModel(object sender, EventArgs args)
@@ -85,20 +69,20 @@ namespace prj3beer.Views
             // and attach itself to the context (Database).
 
             // TODO: Handle Pre-existing Preference Object.
-            svm.preferredBeverage = svm.Context.Preference.Find(1);
+            preferredBeverage = svm.Context.Preference.Find(1);
             //preferredBeverage = null; // This is what the previous line SHOULD be doing.
-            
+
             // If that Preferred beverage did not exist, it will be set to null,
             // So if it is null...
-            if (svm.preferredBeverage == null)
+            if (preferredBeverage == null)
             {   // Create a new Preferred Beverage, with copied values from the Passed In Beverage.
-                svm.preferredBeverage = new Preference() { BeverageID = svm.currentBeverage.BeverageID, Temperature = svm.currentBeverage.Temperature };
+                preferredBeverage = new Preference() { BeverageID = currentBeverage.BeverageID, Temperature = currentBeverage.Temperature };
                 // Add the beverage to the Context (Database)
-                svm.Context.Preference.Add(svm.preferredBeverage);
+                svm.Context.Preference.Add(preferredBeverage);
             }
-          
+
         }
-        
+
         /// <summary>
         /// This method will write changes to the Database for any changes that have happened.
         /// </summary>
@@ -108,7 +92,7 @@ namespace prj3beer.Views
             try
             {   // Set the Temperature of the Preferred beverage to the StatusViewModel's Temperature,
                 // Do a calculation if the temperature is currently set to fahrenheit
-                svm.preferredBeverage.Temperature = svm.IsCelsius ? svm.Temperature.Value : ((svm.Temperature.Value - 32) / 1.8);
+                preferredBeverage.Temperature = svm.IsCelsius ? svm.Temperature.Value : ((svm.Temperature.Value - 32) / 1.8);
             }
             catch (Exception)
             {
@@ -141,7 +125,7 @@ namespace prj3beer.Views
         /// <param name="sender">Entry Field</param>
         /// <param name="args"></param>
         private void SelectEntryText(object sender, EventArgs args)
-        {   // Store the sender cast as an entry to an Entry Object (to avoid casting repeatedly)
+        {   // Store the sender casted as an entry to an Entry Object (to avoid casting repeatedly)
             Entry text = (Entry)sender;
 
             // This string will get the text from the StatusViewModel's Preferred Temperature String
@@ -170,7 +154,7 @@ namespace prj3beer.Views
             UpdatePreference(svm.Context);
         }
         #endregion
-        
+
         async void ToolbarItem_Clicked(object sender, EventArgs e)
         {
             ((ToolbarItem)(sender)).IsEnabled = false;
@@ -195,7 +179,7 @@ namespace prj3beer.Views
             TemperatureStepper.Minimum = -30;
 
             // Set the temperature of the StatusViewModel to the current preferred beverage temperature
-            svm.Temperature = svm.preferredBeverage.Temperature;
+            svm.Temperature = preferredBeverage.Temperature;
 
             // is we are currently set to Celsius,
             if (svm.IsCelsius)
@@ -206,26 +190,10 @@ namespace prj3beer.Views
             else
             {   // Otherwise set the Min/Max to Fahrenheit
                 TemperatureStepper.Minimum = -22;
-                TemperatureStepper.Maximum =  86;
+                TemperatureStepper.Maximum = 86;
             }
             //  Update the binding context to equal the new StatusViewModel
             BindingContext = svm;
         }
-
-        #region Story 16 Method
-        /// <summary>
-        /// Performs a check based on the updated current temperature and the desired drink temperature.  Will send the appropriate notification if necessitated by current conditions.
-        /// </summary>
-        //private void NotificationCheck()
-        //{
-        //    int messageType = Notifications.TryNotification(svm.CurrentTemp, svm.preferredBeverage.Temperature, lastNotification);
-
-        //    if (messageType > 0 && Settings.NotificationSettings == true) //0 corresponds to type of NO_MESSAGE, thus no notification should be sent
-        //    {
-        //        lastNotification = (NotificationType)messageType;
-        //        nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
-        //    }
-        //}
-        #endregion
     }
 }

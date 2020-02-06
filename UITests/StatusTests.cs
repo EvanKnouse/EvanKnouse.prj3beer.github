@@ -33,17 +33,17 @@ namespace UITests
             ////Tap into the screen navigation menu (default for now)
             //app.Tap(c => c.Marked("ScreenSelectButton"));
 
-            ////Sets the Temperature settings to celsius for every test
-            //Settings.TemperatureSettings = true;
+            //Sets the Temperature settings to celsius for every test
+            Settings.TemperatureSettings = true;
 
-            ////Sets the master Notification setting to on
-            //Settings.NotificationSettings = true;
+            //Sets the master Notification setting to on
+            Settings.NotificationSettings = true;
 
-            ////Sets the In Range Notification setting to on
-            //Settings.InRangeSettings = true;
+            //Sets the In Range Notification setting to on
+            Settings.InRangeSettings = true;
 
-            ////Sets the Too Hot/Cold Notification setting to on
-            //Settings.NotificationSettings = true;
+            //Sets the Too Hot/Cold Notification setting to on
+            Settings.NotificationSettings = true;
         }
 
         [Test]
@@ -248,144 +248,6 @@ namespace UITests
         }
         #endregion
 
-        #region Story 15 UI Tests
-        [Test]
-        public void TestThatTurningOffMasterNotificationSwitchHidesNotificationsSubSettings()
-        {
-            //Pick status screen from the screen selection menu
-            app.Tap("Status");
 
-            //Wait for the Settings button to appear on screen
-            app.WaitForElement("Settings");
-
-            //Press Settings menu button
-            app.Tap("Settings");
-
-            app.WaitForElement("SettingsTable");
-
-            //Look for InRange switch
-            AppResult[] results = app.Query(e => e.Class("SwitchCellView").Class("Switch").Index(2));
-     
-            //Does the InRange switch exist before turning off master notifications
-            Assert.IsTrue(results.Any());
-
-            //Tap on the master notification switch, turning notifications off
-            app.Tap(e => e.Class("SwitchCellView").Class("Switch").Index(1));
-
-            //Get the result of querying for the notification sub-setting switch
-            results = app.Query(e => e.Class("SwitchCellView").Class("Switch").Index(2));
-
-            //Results should not contain the notification in range switch
-            Assert.IsFalse(results.Any());
-
-        }
-
-        [Test]
-        public void TestThatTurningOnMasterNotificationSwitchShowsNotificationsSubSettings()
-        {
-            //Pick status screen from the screen selection menu
-            app.Tap("Status");
-
-            //Wait for the Settings button to appear on screen
-            app.WaitForElement("Settings");
-
-            //Press Settings menu button
-            app.Tap("Settings");
-
-            app.WaitForElement("SettingsTable");
-
-            //Turn off master notifications
-            app.Tap(e => e.Class("SwitchCellView").Class("Switch").Index(1));
-
-            //Get the result of querying for the inRange notification switch
-            AppResult[] results = app.Query(e => e.Class("SwitchCellView").Class("Switch").Index(2));
-
-            //Results should not contain the inRange switch
-            Assert.IsFalse(results.Any());
-
-            //app.WaitForElement("notificationSubSettings");
-
-            //Turn on notifications by tapping master notification switch
-            app.Tap(e => e.Class("SwitchCellView").Class("Switch").Index(1));
-
-            //Get the result of querying for the inRange notification switch
-            results = app.Query(e => e.Class("SwitchCellView").Class("Switch").Index(2));
-
-            //Results should contain the notification in range switch
-            Assert.IsTrue(results.Any());
-        }
-
-        [Test]
-        public void TestThatNotificationSettingsPersistOnAppReload()
-        {
-            //Pick Status screen from the screen selection menu
-            app.Tap("Status");
-
-            app.WaitForElement("Settings");
-
-            //Press Settings menu button
-            app.Tap("Settings");
-
-            app.WaitForElement("SettingsTable");
-
-            //Tap the master notifications switch
-            app.Tap(e => e.Class("SwitchCellView").Class("Switch").Index(1));
-
-            bool firstSwitchValue = app.Query(e => e.Class("SwitchCellView").Class("Switch").Index(1).Invoke("isChecked").Value<bool>()).First();
-
-            app = ConfigureApp.Android.ApkFile(apkFile).StartApp(AppDataMode.DoNotClear);
-
-            app.TapCoordinates(150, 90);
-
-            //Pick Status screen from the screen selection menu
-            app.Tap("Status");
-
-            app.WaitForElement("Settings");
-
-            //Press Settings menu button
-            app.Tap("Settings");
-
-            app.WaitForElement("SettingsTable");
-
-            bool secondSwitchValue = app.Query(e => e.Class("SwitchCellView").Class("Switch").Index(1).Invoke("isChecked").Value<bool>()).First();
-
-            Assert.AreEqual(true, firstSwitchValue == secondSwitchValue);
-        }
-
-        [Test]
-        public void TestThatOnlyPerfectNotificationsAreSent()
-        {
-            //Set master notifications setting is on
-            Settings.NotificationSettings = true;
-
-            //Set in range notifications setting to off
-            Settings.InRangeSettings = false;
-
-            //Set too hot/cold notifications setting to off
-            Settings.TooHotColdSettings = false;
-
-            //Pick Status screen from the screen selection menu
-            //app.Tap("Status");
-
-            //app.WaitForElement("Settings");
-
-            ////Press Settings menu button
-            //app.Tap("Settings");
-
-            //app.WaitForElement("SettingsTable");
-
-            //app.Tap(e => e.Class("SwitchCellView").Class("Switch").Index(2));
-
-            //app.Tap(e => e.Class("SwitchCellView").Class("Switch").Index(3));
-
-            //app.Back();
-
-            Assert.AreEqual(0, Notifications.TryNotification(6, 5, NotificationType.NO_MESSAGE));
-
-            Assert.AreEqual(3, Notifications.TryNotification(5, 5, NotificationType.NO_MESSAGE));
-
-            Assert.AreEqual(0, Notifications.TryNotification(0, 5, NotificationType.PERFECT));
-        }
-        #endregion
     }
 }

@@ -6,6 +6,10 @@ using prj3beer.Services;
 
 namespace prj3beer.Views
 {
+    /// <summary>
+    /// This page acts as the settings menu, where temperature and notification
+    /// settings can be configured
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SettingsMenu : ContentPage
     {

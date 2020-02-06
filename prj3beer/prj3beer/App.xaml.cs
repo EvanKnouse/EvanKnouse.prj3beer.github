@@ -21,7 +21,8 @@ namespace prj3beer
 
             StatusViewModel.timerOn = false;
 
-            MockTempReadings.StartCounting();
+            //This was moved to improve reliability of the tests - potentially moving some time
+            //MockTempReadings.StartCounting();
 
             // Instantiate a new Context (Database)
             BeerContext context = new BeerContext();

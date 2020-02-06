@@ -14,8 +14,6 @@ namespace prj3beer.ViewModels
         Notifications notifications;
 
         double currentTemp;
-        public Beverage currentBeverage;
-        public Preference preferredBeverage;
 
         //This boolean will control whether or not the timer
         //responsible for the current temperature mock is on or off
@@ -55,8 +53,8 @@ namespace prj3beer.ViewModels
                     _minimum = IsCelsius ? -30 : -22;
                     _maximum = IsCelsius ? 30 : 86;
 
-                    //_temperature = IsCelsius ? value : ((value * 1.8) + 32);
-                    _temperature = value;
+                    _temperature = IsCelsius ? value : ((value * 1.8) + 32);
+                    //_temperature = value;
                     
                 }
                 finally
@@ -64,7 +62,6 @@ namespace prj3beer.ViewModels
                     OnPropertyChanged("Temperature");
                 }
             }
-            //set { _temperature = value; }
         }
 
         // Returns a string using the stored backing field, needs to be a string to show up in an Entry Field
@@ -78,8 +75,8 @@ namespace prj3beer.ViewModels
             {
                 try
                 {   // store the temperature from the entry, parsed as a double. 
-                    //_temperature = double.Parse(value);
-                    _temperature = IsCelsius ? double.Parse(value) : (double.Parse(value) * 1.8) +32;
+                    _temperature = double.Parse(value);
+                    //_temperature = IsCelsius ? double.Parse(value) : double.Parse(value) * 1.8 +32;
                 }
                 catch
                 {   // If the field is empty, set temperature to null
@@ -100,12 +97,11 @@ namespace prj3beer.ViewModels
                 {
                     currentTemp = value;
 
-                    notifications.NotificationCheck(currentTemp, _temperature);
+                    notifications.NotificationCheck(currentTemp, StatusPage.preferredBeverage.Temperature);
 
                     if (PropertyChanged != null)
                     {
                         //If the property has changed, fire an event.
-                        //PropertyChanged(this, new PropertyChangedEventArgs("CurrentTemp"));
                         OnPropertyChanged("CurrentTemp");
                     }
                 }
@@ -122,20 +118,6 @@ namespace prj3beer.ViewModels
         {
             notifications = new Notifications();
 
-            currentBeverage = Context.Beverage.Find(1);
-
-            preferredBeverage = Context.Preference.Find(1);
-            //preferredBeverage = null; // This is what the previous line SHOULD be doing.
-
-            // If that Preferred beverage did not exist, it will be set to null,
-            // So if it is null...
-            if (preferredBeverage == null)
-            {   // Create a new Preferred Beverage, with copied values from the Passed In Beverage.
-                preferredBeverage = new Preference() { BeverageID = currentBeverage.BeverageID, Temperature = currentBeverage.Temperature };
-                // Add the beverage to the Context (Database)
-                Context.Preference.Add(preferredBeverage);
-            }
-
             //Checks for update temps every second.  Will eventually poll an object associated with a
             //bluetooth reading.  Currently communicates with a class bouncing between -35 and 35 degrees celsius.
             if(!timerOn)
@@ -148,63 +130,6 @@ namespace prj3beer.ViewModels
                 });
             }
         }
-
-        /// <summary>
-        /// This method will check if a notification needs to be sent,
-        /// as well as which notification is allowed to be sent based on 
-        /// the switch settings in the settings menu
-        /// </summary>
-        //private void NotificationCheck()
-        //{
-        //    //This corresponds to one of the messages from the NotificationType Enum
-        //    int messageType = Notifications.TryNotification(CurrentTemp, preferredBeverage.Temperature, Notifications.lastNotification);
-
-        //    if (messageType > 0 && Settings.NotificationSettings) //0 corresponds to type of NO_MESSAGE, thus no notification should be sent
-        //    {
-        //        //Saves the notification that is going to be sent for comparison later
-        //        Notifications.lastNotification = (NotificationType)messageType;
-
-        //        //In Range notifications are on
-        //        if (Settings.InRangeSettings)
-        //        {
-        //            //TooHotCold notifications are on
-        //            if (Settings.TooHotColdSettings)
-        //            {
-        //                //All settings are on
-        //                nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
-        //            }
-        //            else
-        //            {
-        //                //TooHotCold are off, don't send those (message type 1 and 5)
-        //                if(messageType != 1 && messageType != 5)
-        //                {
-        //                    nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
-        //                }
-        //            }
-        //        }
-        //        else //In Range notifications are off
-        //        {
-        //            //TooHotCold notifications are on
-        //            if(Settings.TooHotColdSettings)
-        //            {
-        //                //In range settings are off, don't send those (message type 2 and 4)
-        //                if(messageType != 2 && messageType != 4)
-        //                {
-        //                    nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
-        //                }
-        //            }
-        //            else //TooHotCold notifications are off
-        //            {
-        //                //Only Master is on, only send message type 3
-        //                if(messageType != 1 && messageType != 2 && messageType != 4 && messageType != 5)
-        //                {
-        //                    nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
-        //                }
-        //            }
-        //        }
-
-        //    }
-        //}
 
         protected virtual void OnPropertyChanged(string propertyName)
         {

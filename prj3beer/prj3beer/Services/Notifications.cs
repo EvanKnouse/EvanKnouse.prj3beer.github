@@ -188,7 +188,6 @@ namespace prj3beer.Services
                 }
 
             }
-
             return sendMessage;
         }
     }

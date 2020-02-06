@@ -65,7 +65,7 @@ namespace UITests
             app.WaitForElement("currentTemperature");
 
             //Wait for the temperature to go above 30C
-            Thread.Sleep(121000);
+            Thread.Sleep(123000);
 
             //Store the labels text 
             String result = app.Query("currentTemperature")[0].Text;
@@ -73,13 +73,6 @@ namespace UITests
             //Passes if string equals 'Temperature Out Of Range' "
             Assert.AreEqual(result, "Temperature Out Of Range");
         }
-
-        //[Test]
-        //public void TestDeviceNotFoundError()
-        //{
-        //    AppResult[] results = app.WaitForElement(c => c.Marked("currentTemp"));
-        //    Assert.Equals(results[0].Text, "Waiting for device");
-        //}
 
         [Test]
         public void TestCurrentTemperatureLabelUpdatesWithTemperatureReadings()
