@@ -28,6 +28,13 @@ namespace prj3beer.Services
             }
         }
 
+        /// <summary>
+        /// The method through which the functionality of this class is called by other classes.  Compares the
+        /// temperature received from the device with the desired temperature of the beverage.  Calls the platform-
+        /// specific SendLocalNotification method if there is a successful notification condition.
+        /// </summary>
+        /// <param name="receivedTemp"></param>
+        /// <param name="idealTemp"></param>
         public void NotificationCheck(double receivedTemp, double? idealTemp)
         {
             int messageType = TryNotification(receivedTemp, idealTemp, lastNotification);

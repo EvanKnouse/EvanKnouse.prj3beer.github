@@ -11,6 +11,7 @@ namespace prj3beer.ViewModels
     {
         BeerContext context = new BeerContext();
 
+        //Instance of the notifications class.  Handles checking conditions for and the sending of notifications.
         Notifications notifications;
 
         double currentTemp;
@@ -89,14 +90,20 @@ namespace prj3beer.ViewModels
             }
         }
 
+        /// <summary>
+        /// Property for storing the temperature received from the bluetooth device.  Bound to a label on the Status
+        /// page.
+        /// </summary>
         public double CurrentTemp
         {
             set
             {
+                //Has the value changed?
                 if (currentTemp != value)
                 {
                     currentTemp = value;
 
+                    //Check if a notification should be sent (and send it)
                     notifications.NotificationCheck(currentTemp, StatusPage.preferredBeverage.Temperature);
 
                     if (PropertyChanged != null)
