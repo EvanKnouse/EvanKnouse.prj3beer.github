@@ -56,7 +56,7 @@ namespace prj3beer.Models
             context = new BeerContext();
             Beverage SelectedBeverage = (context.Beverage.Find(BeverageID));
 
-            SaveImage(SelectedBeverage.ImageURL);
+            //SaveImage(SelectedBeverage.ImageURL);
         }
 
         //public Preference(int prefId, Beverage prefBev, double faveTemp)

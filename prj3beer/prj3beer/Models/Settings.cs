@@ -28,6 +28,8 @@ namespace prj3beer.Models
         private const string BaseURL = "base_url";
         private static readonly string BaseURLDefault = @"http://my-json-server.typicode.com/prj3beer/prj3beer-api";
 
+        private const string BeverageKey = "beverage_key";
+        private static readonly int BeverageDefault = -1;
         #endregion
 
         /// <summary>
@@ -57,6 +59,13 @@ namespace prj3beer.Models
             {
                 AppSettings.AddOrUpdateValue(BaseURL, value);
             }
+        }
+
+        public static int BeverageSettings
+        {
+            get { return AppSettings.GetValueOrDefault(BeverageKey, BeverageDefault); }
+
+            set { AppSettings.AddOrUpdateValue(BeverageKey, value); }
         }
     }
 }

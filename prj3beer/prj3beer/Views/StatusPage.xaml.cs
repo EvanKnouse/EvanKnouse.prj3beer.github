@@ -24,6 +24,7 @@ namespace prj3beer.Views
         static Brand currentBrand;
         static Preference preferredBeverage;
 
+
         INotificationHandler nh;
         NotificationType lastNotification = NotificationType.NO_MESSAGE;
         
@@ -31,102 +32,56 @@ namespace prj3beer.Views
         //int targetTempValue = 2;
 
         public StatusPage()
-        { 
-            InitializeComponent();
-
-            bool checkIfExists = System.IO.File.Exists("placeholder_can.png");
-
-            #region old Default
-            /*
-            
-            #region Story 04 Code
-            // Instantiate new StatusViewModel
-            svm = new StatusViewModel();
-
-            // Setup the current Beverage (find it from the Context) -- This will be passed in from a viewmodel/bundle/etc in the future.
-            //currentBeverage = new Beverage { BeverageID = 1, Name = "Great Western Radler", Brand = svm.Context.Brands.Find(2), Type = Models.Type.Radler, Temperature = 2 };
-            currentBeverage = svm.Context.Beverage.Find(1);
-            //svm.Context.Beverage.Find(2);
-
-            // Setup the preference object using the passed in beverage
-            SetupPreference();
-
-            // When you first start up the Status Screen, Disable The Inputs (on first launch of application)
-            EnablePageElements(false);
-
-            // If the current Beverage is set, (will run if a beverage has been selected)
-            if (preferredBeverage != null)
-            {   // enable all the elements on the page
-                EnablePageElements(true);
-            }
-            #endregion
-
-            #region Story 16 code
-            nh = DependencyService.Get<INotificationHandler>();
-            //TODO: Call the compare when a new temperature is gotten from our device API, not on a timer
-            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
-            {
-                NotificationCheck();
-
-                return true;
-            });
-
-            #endregion
-
-            */
-            #endregion
-
-            #region Story 07 Code
-
-            beverageName.Text = "No Beverage";
-            brandName.Text = "No Brand";
-            beverageImage.Source = ImageSource.FromFile("placeholder_can");
-            //EnablePageElements(false);
-
-            #endregion
-        }
-
-        public StatusPage(int selectedBeverageID)
         {
             InitializeComponent();
             MenuPage page = new MenuPage();
-
-            #region Story 04/07 Code
-            // Instantiate new StatusViewModel
-            svm = new StatusViewModel();
-
-            // Setup the current Beverage (find it from the Context) -- This will be passed in from a viewmodel/bundle/etc in the future.
-            //currentBeverage = new Beverage { BeverageID = 1, Name = "Great Western Radler", Brand = svm.Context.Brands.Find(2), Type = Models.Type.Radler, Temperature = 2 };
-            currentBeverage = svm.Context.Beverage.Find(selectedBeverageID);
-            currentBrand = svm.Context.Brands.Find(currentBeverage.BrandID);
-            //svm.Context.Beverage.Find(2);
-
-            // Setup the preference object using the passed in beverage
-            SetupPreference(selectedBeverageID);
-
-            // When you first start up the Status Screen, Disable The Inputs (on first launch of application)
-            EnablePageElements(false);
-
-            // If the current Beverage is set, (will run if a beverage has been selected)
-            if (preferredBeverage != null)
-            {   // enable all the elements on the page
-                EnablePageElements(true);
-            }
-
-            PopulateStatusScreen();
-            #endregion
-
-            #region Story 16 code
-            nh = DependencyService.Get<INotificationHandler>();
-            //TODO: Call the compare when a new temperature is gotten from our device API, not on a timer
-            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            int savedID = Settings.BeverageSettings;
+            if (savedID == -1)
             {
-                NotificationCheck();
+                beverageName.Text = "No Beverage";
+                brandName.Text = "No Brand";
+                beverageImage.Source = ImageSource.FromFile("placeholder_can");
+            }
+            else
+            {
+                #region Story 04/07 Code
+                // Instantiate new StatusViewModel
+                svm = new StatusViewModel();
 
-                return true;
-            });
+                // Setup the current Beverage (find it from the Context) -- This will be passed in from a viewmodel/bundle/etc in the future.
+                //currentBeverage = new Beverage { BeverageID = 1, Name = "Great Western Radler", Brand = svm.Context.Brands.Find(2), Type = Models.Type.Radler, Temperature = 2 };
+                currentBeverage = svm.Context.Beverage.Find(savedID);
+                currentBrand = svm.Context.Brands.Find(currentBeverage.BrandID);
+                //svm.Context.Beverage.Find(2);
 
-            #endregion
+                // Setup the preference object using the passed in beverage
+                SetupPreference(savedID);
+
+                // When you first start up the Status Screen, Disable The Inputs (on first launch of application)
+                EnablePageElements(false);
+
+                // If the current Beverage is set, (will run if a beverage has been selected)
+                if (preferredBeverage != null)
+                {   // enable all the elements on the page
+                    EnablePageElements(true);
+                }
+
+                PopulateStatusScreen();
+                #endregion
+
+                #region Story 16 code
+                nh = DependencyService.Get<INotificationHandler>();
+                //TODO: Call the compare when a new temperature is gotten from our device API, not on a timer
+                Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+                {
+                    NotificationCheck();
+
+                    return true;
+                });
+
+                #endregion
+
+            }
 
         }
 
@@ -292,7 +247,7 @@ namespace prj3beer.Views
             svm = new StatusViewModel();
 
 
-            if (currentBeverage != null)// So default opening no longer uses a drink that does not exist
+            if (Settings.BeverageSettings != -1)// So default opening no longer uses a drink that does not exist
             {
                 // Set it's Monitored Celsius value to the value from the Settings 
                 svm.IsCelsius = Settings.TemperatureSettings;
