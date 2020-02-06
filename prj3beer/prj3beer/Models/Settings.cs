@@ -73,7 +73,7 @@ namespace prj3beer.Models
         }
 
         /// <summary>
-        /// This Method is responsible for setting/updating the values for the Currently Logged in User Name
+        /// This Property is responsible for setting/updating the values for the Currently Logged in User Name
         /// </summary>
         public static string CurrentUserName
         {
@@ -88,7 +88,7 @@ namespace prj3beer.Models
         }
 
         /// <summary>
-        /// This Method is responsible for setting/updating the values for the Currently Logged in User Email
+        /// This Property is responsible for setting/updating the values for the Currently Logged in User Email
         /// </summary>
         public static string CurrentUserEmail
         {
@@ -102,6 +102,9 @@ namespace prj3beer.Models
             }
         }
 
+        /// <summary>
+        /// This property is responsible for storing and retrieving the beer database API url.
+        /// </summary>
         public static string URLSetting
         {
             get
@@ -117,7 +120,7 @@ namespace prj3beer.Models
         }
 
         /// <summary>
-        /// This Method is responsible for setting/updating the promp key for a user returning to the Application.
+        /// This Property is responsible for setting/updating the promp key for a user returning to the Application.
         /// </summary>
         public static bool WelcomePromptSetting
         {
