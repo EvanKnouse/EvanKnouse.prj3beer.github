@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "605957098217",
+    "firebase_url": "https://prj3beer-45039.firebaseio.com",
+    "project_id": "prj3beer-45039",
+    "storage_bucket": "prj3beer-45039.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605957098217:android:f652c42af1840233a4fe78",
+        "android_client_info": {
+          "package_name": "com.companyname.prj3beer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "605957098217-cugn1jpo6pc9ouca5ko4579llp6ignv6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.companyname.prj3beer",
+            "certificate_hash": "a5fb830dced9195e43aeb10744dd5f24ce76d9ae"
+          }
+        },
+        {
+          "client_id": "605957098217-0idleq1hssavekbfbkqnt95hevnp7ic1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGBnx8_qdnMyJcRpr26nlLkI1Rk1pzlfs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "605957098217-0idleq1hssavekbfbkqnt95hevnp7ic1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -17,6 +17,29 @@ namespace prj3beer
         {
             InitializeComponent();
 
+            // Reset the local user object in settings
+            ResetUser();
+
+            // Set Up App Default Presets
+            SetUpPreset();
+
+            MainPage = new MainPage();
+        }
+
+        /// <summary>
+        /// This method is used to remove the currently saved user that is stored in settings
+        /// May be used by the rest when the actual Log Out process HAS to happen.
+        /// </summary>
+        public void ResetUser()
+        {
+            Settings.WelcomePromptSetting = false;
+            //Settings.CurrentUserEmail = null;
+            //Settings.CurrentUserName = null;
+        }
+
+        private void SetUpPreset()
+        {
+            // Set the default URL of API to default
             Settings.URLSetting = default;
 
             StatusViewModel.timerOn = false;
@@ -32,8 +55,6 @@ namespace prj3beer
 
             // Connect to the API and store Beverages/Brands in the Database
             FetchData(context, apiManager);
-          
-            MainPage = new MainPage(context);
         }
 
         public static async void FetchData(BeerContext context, APIManager apiManager)

@@ -133,6 +133,8 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Plugin.GoogleClient">
+      <Version>1.1.1</Version>
     <PackageReference Include="Xam.Plugins.Settings">
       <Version>3.1.1</Version>
     </PackageReference>
@@ -145,5 +147,8 @@
       <Project>{D04E2BA2-773F-45AB-8CE5-1E46A9FFF9E9}</Project>
       <Name>prj3beer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\logo_placeholder.png" />
   </ItemGroup>
 </Project>
