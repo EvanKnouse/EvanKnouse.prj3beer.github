@@ -37,6 +37,7 @@ namespace prj3beer.Views
 
             InitializeComponent();
             MenuPage page = new MenuPage();
+            var test = page.Content;
             int savedID = Settings.BeverageSettings;
             if (savedID == -1)
             {
@@ -104,8 +105,8 @@ namespace prj3beer.Views
             //{
             //    beverageImage.Source = ImageSource.FromFile("placeholder_can");
             //}
-            //beverageImage.WidthRequest = Application.Current.MainPage.Width*0.8;
-            //beverageImage.HeightRequest = Application.Current.MainPage.Height * 0.6;
+            beverageImage.WidthRequest = Application.Current.MainPage.Width*0.8;
+            beverageImage.HeightRequest = Application.Current.MainPage.Height * 0.6;
             
         }
 

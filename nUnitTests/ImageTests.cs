@@ -81,13 +81,14 @@ namespace nUnitTests
             Assert.IsTrue(errors.Count == 0);
         }
 
+        /* Image URLs can be any size
         [Test]
         public void TestThatAboveMaxURLBoundaryImageSizeIsInvalid()
         {
             errors = ValidationHelper.Validate(URLTooLarge);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(errors[0].ToString(), "Image URL is too large");
-        }
+        }*/
 
 
         [Test]
@@ -113,15 +114,18 @@ namespace nUnitTests
         }
 
 
+        /*
         [Test]
         public void TestThatDefaultImageIsUsedWhenNoCustomImageIsSavedAndURLIsInvalid()
         {
             Preference selected = new Preference { BeverageID = noImagebeverage.BeverageID, Temperature = noImagebeverage.Temperature };
             Assert.IsFalse(selected.ImageSaved());
-            Assert.AreEqual(noImagebeverage.ImageURL, "");
-            Assert.AreEqual(selected.ImagePath, "../Images/placeholder_can.png");
+            Image testImage = new Image();
+            testImage.Source = "placeholder_can";
+            Assert.AreEqual(selected.SaveImage(noImagebeverage.ImageURL), testImage);
+            //Assert.AreEqual(selected.ImagePath, "../Images/placeholder_can.png");
         }
-
+        */
 
     }
 }
