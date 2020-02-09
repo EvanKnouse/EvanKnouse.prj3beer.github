@@ -20,10 +20,15 @@ namespace UITests
         IApp app;
         Platform platform;
 
+        public BeverageToStatusScreenTests(Platform platform)
+        {
+            this.platform = platform;
+        }
+
         #region brand initializors
         public static string tooLong = new String('a', 200);
         public static string longBoundary = new String('a', 138);
-        Beverage LargeCoorsLiteImage = new Beverage { BeverageID = 1, Name = "Coors Light", BrandID = 1, Type = Type.Light, Temperature = 3, ImageURL = "https://www.lcbo.com/content/dam/lcbo/products/906628.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg" };
+        Beverage LargeCoorsLiteImage = new Beverage { BeverageID = 1, Name = "Great Western Radler", BrandID = 1, Type = Type.Light, Temperature = 3, ImageURL = "https://www.lcbo.com/content/dam/lcbo/products/906628.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg" };
         Beverage SmallCoorsLiteImage = new Beverage
         {
             BeverageID = 2,
@@ -37,7 +42,7 @@ namespace UITests
         Beverage URLTooLarge = new Beverage
         {
             BeverageID = 2,
-            Name = "Coors Light",
+            Name = "Great Western Radler",
             BrandID = 1,
             Type = Type.Light,
             Temperature = 3,
@@ -47,7 +52,7 @@ namespace UITests
         Beverage URLLargeBoundary = new Beverage
         {
             BeverageID = 2,
-            Name = "Coors Light",
+            Name = "Great Western Radler",
             BrandID = 1,
             Type = Type.Light,
             Temperature = 3,
@@ -57,20 +62,20 @@ namespace UITests
         Beverage InvalidURLBeverage = new Beverage
         {
             BeverageID = 2,
-            Name = "Coors Light",
+            Name = "Great Western Radler",
             BrandID = 1,
             Type = Type.Light,
             Temperature = 3,
             ImageURL = "HelloWorldTheEarthSaysHello"
         };
-         #endregion
+        #endregion
 
-        double mainDisplayInfoWidth = DeviceDisplay.MainDisplayInfo.Width;
-        double mainDisplayInfoHeight = DeviceDisplay.MainDisplayInfo.Height;
+        double mainDisplayInfoWidth; 
+        double mainDisplayInfoHeight; 
 
 
-        //Brand --> x:automationID = brandLabel
-        //BeverageName --> x:automationID = beverageLabel
+        //Brand --> x:automationID = brandName
+        //BeverageName --> x:automationID = beverageName
         //BeverageImage --> x:automationID = beverageImage
         [SetUp]
         public void BeforeEachTest()
@@ -87,7 +92,10 @@ namespace UITests
             // tap to navigate to the beverage select screen
             app.Tap("Beverage Select");
             app.EnterText("searchBeverage", searchBeverage.ToString());
-            app.Tap(searchBeverage);
+
+            app.TapCoordinates(3,701);
+            mainDisplayInfoWidth = 0;//DeviceDisplay.MainDisplayInfo.Width;
+            mainDisplayInfoHeight = 0;//DeviceDisplay.MainDisplayInfo.Height;
         }
 
         public void notSelectingBeverage()
@@ -103,19 +111,19 @@ namespace UITests
         }
 
         /// <summary>
-        /// This method will be used to add coors light to the status page
+        /// This method will be used to add Great Western Radler to the status page
         /// </summary>
         public void addCoorsLightToStatusPage()
         {
-            selectABeverage("Coors Light");
+            selectABeverage("Great Western Radler");
 
-            app.WaitForElement("beverageLabel");
+            app.WaitForElement("beverageName");
 
-            AppResult[] beverageDisplay = app.Query("beverageLabel");
+            AppResult[] beverageDisplay = app.Query("beverageName");
 
-            Assert.AreEqual(beverageDisplay[0].Text, "Coors Light");
+            Assert.AreEqual(beverageDisplay[0].Text, "Great Western Radler");
 
-            beverageDisplay = app.Query("brandLabel");
+            beverageDisplay = app.Query("brandName");
 
             Assert.AreEqual(beverageDisplay[0].Text, "Coors");
 
@@ -139,11 +147,11 @@ namespace UITests
         {
             notSelectingBeverage();
 
-            AppResult[] beverageDisplay = app.Query("beverageLabel");
+            AppResult[] beverageDisplay = app.Query("beverageName");
 
             Assert.AreEqual(beverageDisplay[0].Text, "");
 
-            beverageDisplay = app.Query("brandLabel");
+            beverageDisplay = app.Query("brandName");
 
             Assert.AreEqual(beverageDisplay[0].Text, "");
 
@@ -160,11 +168,11 @@ namespace UITests
         {
             notSelectingBeverage();
 
-            AppResult[] beverageDisplay = app.Query("beverageLabel");
+            AppResult[] beverageDisplay = app.Query("beverageName");
 
             Assert.AreEqual(beverageDisplay[0].Text, "No Beverage");
 
-            beverageDisplay = app.Query("brandLabel");
+            beverageDisplay = app.Query("brandName");
 
             Assert.AreEqual(beverageDisplay[0].Text, "No Brand");
 
@@ -179,14 +187,14 @@ namespace UITests
         [Test]
         public void TestThatTappingNewBeverageOverwritesOtherBeverageOnStatusScreen()
         {
-            selectABeverage("Coors Light");
+            selectABeverage("Great Western Radler");
             selectABeverage("Great Western Pilsner");
 
-            AppResult[] beverageDisplay = app.Query("beverageLabel");
+            AppResult[] beverageDisplay = app.Query("beverageName");
 
             Assert.AreEqual(beverageDisplay[0].Text, "Great Western Pilsner");
 
-            beverageDisplay = app.Query("brandLabel");
+            beverageDisplay = app.Query("brandName");
 
             Assert.AreEqual(beverageDisplay[0].Text, "Great Western brewing Company");
 
@@ -205,9 +213,9 @@ namespace UITests
         [Test]
         public void TestThatBeverageTemperatureIsDisplayedOnStatusScreen()
         {
-            selectABeverage("Coors Light");
+            selectABeverage("Great Western Radler");
             AppResult[] beverageDisplay = app.Query("currentTarget");
-            Assert.AreEqual(2, beverageDisplay[0].Text);
+            Assert.AreEqual(3, beverageDisplay[0].Text);
         }
 
 
@@ -234,7 +242,7 @@ namespace UITests
         [Test]
         public void TestThatTappingABeverageMovesToStatusScreen()
         {
-            selectABeverage("Coors Light");
+            selectABeverage("Great Western Radler");
 
             AppResult[] beverageDisplay = app.Query("StatusPage");
 
@@ -245,7 +253,7 @@ namespace UITests
         [Test]
         public void TestThatSelectedBeverageNameIsDisplayed()
         {
-            selectABeverage("Coors Light");
+            selectABeverage("Great Western Radler");
             AppResult[] beverageDisplay = app.Query("currentTarget");
             Assert.AreEqual(2, beverageDisplay[0].Text);
         }
@@ -253,34 +261,35 @@ namespace UITests
         [Test]
         public void TestThatSelectedBrandNameIsDisplayed()
         {
-            selectABeverage("Coors Light");
-            app.WaitForElement("brandLabel");
+            selectABeverage("Great Western Radler");
+            app.WaitForElement("brandName");
 
-            AppResult[] beverageDisplay = app.Query("brandLabel");
+            AppResult[] beverageDisplay = app.Query("brandName");
 
-            Assert.AreEqual(beverageDisplay[0].Text, "Coors");
+            Assert.AreEqual(beverageDisplay[0].Text, "Great Western Radler");
         }
 
 
         [Test]
         public void TestThatBrandEntryLableIsOnStatusScreen()
         {
-            selectABeverage("Coors Light");
-            app.WaitForElement("brandLabel");
+            selectABeverage("Great Western Radler");
+            app.WaitForElement("brandName");
 
-            AppResult[] beverageDisplay = app.Query("brandLabel");
+            AppResult[] beverageDisplay = app.Query("brandName");
 
             Assert.IsTrue(beverageDisplay.Any());
         }
 
 
         [Test]
-        public void TestThatBeveragelabelIsOnStatusScreen()
+        public void TestThatbeverageNameIsOnStatusScreen()
         {
-            selectABeverage("Coors Light");
-            app.WaitForElement("beverageLabel");
+            selectABeverage("Great Western Radler");
+            
+            app.WaitForElement("beverageName");
 
-            AppResult[] beverageDisplay = app.Query("beverageLabel");
+            AppResult[] beverageDisplay = app.Query("beverageName");
 
             Assert.IsTrue(beverageDisplay.Any());
         }
@@ -288,7 +297,7 @@ namespace UITests
         [Test]
         public void TestThatBeverageImageIsShownOnScreen()
         {
-            selectABeverage("Coors Light");
+            selectABeverage("Great Western Radler");
             app.WaitForElement("beverageImage");
 
             AppResult[] beverageDisplay = app.Query("beverageImage");
@@ -298,20 +307,20 @@ namespace UITests
 
 
         [Test]
-        public void TestThatBeverageLabelCanNotBeEdited()
+        public void TestThatbeverageNameCanNotBeEdited()
         {
-            selectABeverage("Coors Light");
+            selectABeverage("Great Western Radler");
 
-            AppResult[] appResult = app.Query("beverageLabel");
+            AppResult[] appResult = app.Query("beverageName");
             Assert.IsFalse(appResult[0].Enabled);
         }
 
         [Test]
-        public void TestThatBrandLabelCanNotBeEdited()
+        public void TestThatbrandNameCanNotBeEdited()
         {
-            selectABeverage("Coors Light");
+            selectABeverage("Great Western Radler");
 
-            AppResult[] appResult = app.Query("brandLabel");
+            AppResult[] appResult = app.Query("brandName");
             Assert.IsFalse(appResult[0].Enabled);
         }
 
@@ -319,7 +328,7 @@ namespace UITests
         [Test]
         public void TestThatImageBoxCannotBeEdited()
         {
-            selectABeverage("Coors Light");
+            selectABeverage("Great Western Radler");
 
             AppResult[] appResult = app.Query("beverageImage");
             Assert.IsFalse(appResult[0].Enabled);
@@ -348,7 +357,7 @@ namespace UITests
             AppResult[] imageDisplay = app.Query("Image");
 
             app.TapCoordinates(150, 90);
-            selectABeverage("Coors Light");
+            selectABeverage("Great Western Radler");
 
             AppResult[] imageDisplay2 = app.Query("Image");
 
