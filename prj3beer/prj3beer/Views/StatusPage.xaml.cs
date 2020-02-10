@@ -23,23 +23,15 @@ namespace prj3beer.Views
         static StatusViewModel svm;
         static Beverage currentBeverage;
         static Preference preferredBeverage;
-
-        INotificationHandler nh;
-        NotificationType lastNotification = NotificationType.NO_MESSAGE;
-        
-        //Placeholder for target temperature element, implemented in another story.
-        //int targetTempValue = 2;
-
-        public static Preference preferredBeverage;
         static Brand currentBrand;
-        static Preference preferredBeverage;
-
 
         INotificationHandler nh;
         NotificationType lastNotification = NotificationType.NO_MESSAGE;
         
         //Placeholder for target temperature element, implemented in another story.
         //int targetTempValue = 2;
+
+    
 
         public StatusPage()
         {
@@ -80,7 +72,7 @@ namespace prj3beer.Views
 
                 PopulateStatusScreen();
                 #endregion
-
+                /*
                 #region Story 16 code
                 nh = DependencyService.Get<INotificationHandler>();
                 //TODO: Call the compare when a new temperature is gotten from our device API, not on a timer
@@ -90,26 +82,13 @@ namespace prj3beer.Views
 
                     return true;
                 });
-
                 #endregion
+                */
 
+                MockTempReadings.StartCounting();
             }
 
         }
-/*
-            #region Story 16 code
-            nh = DependencyService.Get<INotificationHandler>();
-            //TODO: Call the compare when a new temperature is gotten from our device API, not on a timer
-            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
-            {
-                NotificationCheck();
-
-                return true;
-            });
-
-            #endregion
-*/
-            MockTempReadings.StartCounting();
 
         private void PopulateStatusScreen()
         {
@@ -312,6 +291,7 @@ namespace prj3beer.Views
          
         }
 
+        /*
         #region Story 16 Method
         /// <summary>
         /// Performs a check based on the updated current temperature and the desired drink temperature.  Will send the appropriate notification if necessitated by current conditions.
@@ -327,24 +307,6 @@ namespace prj3beer.Views
             }
         }
         #endregion
+        */
 
-        
-
-
-        #region Story 16 Method
-        /// <summary>
-        /// Performs a check based on the updated current temperature and the desired drink temperature.  Will send the appropriate notification if necessitated by current conditions.
-        /// </summary>
-        private void NotificationCheck()
-        {
-            int messageType = Notifications.TryNotification(svm.CurrentTemp, preferredBeverage.Temperature, lastNotification);
-
-            if (messageType > 0) //0 corresponds to type of NO_MESSAGE, thus no notification should be sent
-            {
-                lastNotification = (NotificationType)messageType;
-                nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
-            }
-        }
-        #endregion
-    }
 }

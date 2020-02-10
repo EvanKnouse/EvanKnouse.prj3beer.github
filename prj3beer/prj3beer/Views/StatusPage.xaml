@@ -41,6 +41,7 @@
                             PropertyChanged="UpdateViewModel"/>
                     </Label.BindingContext>
                 </Label>
+                
                 <Label x:Name="labelCFCurrentTemperature"
                        AutomationId="labelCFCurrentTemperature"
                        Text=""

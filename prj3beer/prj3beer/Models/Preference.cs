@@ -45,14 +45,6 @@ namespace prj3beer.Models
         //    this.faveTemp = faveTemp;
         //}
         
-      
-        
-             
-        public double? Temperature { get; set; }
-
-        //[ForeignKey("bevId")]
-        //[Required(ErrorMessage = "Beverage object is required")]
-        //Beverage prefBev;
 
         [DefaultValue("placeholder_can")]
         //[DefaultValue("")]

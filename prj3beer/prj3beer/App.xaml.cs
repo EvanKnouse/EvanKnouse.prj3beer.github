@@ -62,7 +62,8 @@ namespace prj3beer
             FetchData(context, apiManager);
           
 #endif
-            MainPage = new MainPage(context);
+            //MainPage = new MainPage(context);
+            MainPage = new MainPage();
         }
 
         public static async void FetchData(BeerContext context, APIManager apiManager)
