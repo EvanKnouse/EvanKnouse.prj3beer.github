@@ -74,12 +74,13 @@ namespace nUnitTests
 
         #endregion
 
+        /* No longer a boundry that needs to be tested
         [Test]
         public void TestThatMaxBoundaryURLImageSizeIsValid()
         {
             errors = ValidationHelper.Validate(URLLargeBoundary);
             Assert.IsTrue(errors.Count == 0);
-        }
+        }*/
 
         /* Image URLs can be any size
         [Test]

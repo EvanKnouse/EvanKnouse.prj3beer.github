@@ -22,16 +22,16 @@ namespace prj3beer.Views
 
         static StatusViewModel svm;
         static Beverage currentBeverage;
-        static Preference preferredBeverage;
+        public static Preference preferredBeverage; //Set to public to fix problem in stus view model
         static Brand currentBrand;
 
         INotificationHandler nh;
         NotificationType lastNotification = NotificationType.NO_MESSAGE;
-        
+
         //Placeholder for target temperature element, implemented in another story.
         //int targetTempValue = 2;
 
-    
+
 
         public StatusPage()
         {
@@ -72,6 +72,8 @@ namespace prj3beer.Views
 
                 PopulateStatusScreen();
                 #endregion
+
+
                 /*
                 #region Story 16 code
                 nh = DependencyService.Get<INotificationHandler>();
@@ -101,15 +103,19 @@ namespace prj3beer.Views
             //{
             //    //beverageImage.Source = ImageSource.FromFile(preferredBeverage.ImagePath.ToString());
             //    //beverageImage = preferredBeverage.savedImage;
-                
+
             //}
             //else
             //{
             //    beverageImage.Source = ImageSource.FromFile("placeholder_can");
             //}
-            beverageImage.WidthRequest = Application.Current.MainPage.Width*0.8;
+            beverageImage.WidthRequest = Application.Current.MainPage.Width * 0.8;
             beverageImage.HeightRequest = Application.Current.MainPage.Height * 0.6;
-            
+
+
+            beverageName.IsEnabled = false;
+            brandName.IsEnabled = false;
+            beverageImage.IsEnabled = false;
         }
 
         public void UpdateViewModel(object sender, EventArgs args)
@@ -157,7 +163,7 @@ namespace prj3beer.Views
             // So if it is null...
             if (preferredBeverage == null)
             {   // Create a new Preferred Beverage, with copied values from the Passed In Beverage.
-                preferredBeverage = new Preference(bevID) { BeverageID =bevID, Temperature = currentBeverage.Temperature };
+                preferredBeverage = new Preference(bevID) { BeverageID = bevID, Temperature = currentBeverage.Temperature };
                 // Add the beverage to the Context (Database)
                 svm.Context.Preference.Add(preferredBeverage);
             }
@@ -279,7 +285,7 @@ namespace prj3beer.Views
                 //  Update the binding context to equal the new StatusViewModel
                 BindingContext = svm;
             }
-            
+
             else
             {   // Otherwise set the Min/Max to Fahrenheit
                 TemperatureStepper.Minimum = -22;
@@ -288,9 +294,9 @@ namespace prj3beer.Views
             //  Update the binding context to equal the new StatusViewModel
             BindingContext = svm;
 
-         
-        }
 
+        }
+    }
         /*
         #region Story 16 Method
         /// <summary>

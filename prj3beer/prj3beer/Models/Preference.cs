@@ -17,8 +17,6 @@ namespace prj3beer.Models
         #region Attributes
         BeerContext context;
 
-
-        #region Attributes
         [Key]
         [Required(ErrorMessage = "ID is required")]
         public int BeverageID { get; set; }
@@ -30,7 +28,7 @@ namespace prj3beer.Models
         //[ForeignKey("bevId")]
         //[Required(ErrorMessage = "Beverage object is required")]
         //Beverage prefBev;
-        #endregion
+        
 
 
         //public Preference()
@@ -111,7 +109,7 @@ namespace prj3beer.Models
                 {
 
 
-                    Uri uriImage = new Uri(imageURL);
+                    stUri uriImage = new Uri(imageURL);
                     //Uri uriImage = new Uri("https://uca5cfff121c99373e472113118c.previews.dropboxusercontent.com/p/thumb/AAtr0X92A9m_ux4gfWXZ1prCfeYReWu9b5x36LsTq57AXO0vO-f9yz4tSWC2vSFLep7JB7a0HzZBG6iFPtgcB7Lw1V2hmwx4vpdWCXNAibIpHKHLYnL1gT6VN1MydjACBB0lpCY9HjpNgNXm2X9QWj6PzNfhv8oKd4MYeDqqd8YR8ReWsc-y5WZVIegS3MX3CYKRs9jsFRKEojX3EEF54kWUa6WrYJSUKBjEU6pEGLMqnUDEC6tOR22O3c8PoeOz5pC5PPZxaWaxU2X6IqJgqzfB8Io1pTV8ujh5A71PQg8bOqanZiNWhcjqg7vBFsbvfVj8w4g_bmP8N47fwy7FlEMhTaIrCpI9r_q44NrVUB8oo4rxfZMBtFysQ6b7e3jchAxVuK9uvY1pKUqR1slm3iET/p.png?fv_content=true&size_mode=5");
 
                     image.Source = new UriImageSource
