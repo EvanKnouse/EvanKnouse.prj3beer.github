@@ -140,7 +140,7 @@ namespace prj3beer.Views
             // await Navigation.PushModalAsync(new NavigationPage(new StatusPage()));
             var id = (int)MenuItemType.Status;
             
-            await RootPage.NavigateFromMenu(id);
+            //await RootPage.NavigateFromMenu(id);
 
         }
     }

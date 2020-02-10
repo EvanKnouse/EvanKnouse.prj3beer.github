@@ -27,6 +27,7 @@
         <StackLayout VerticalOptions="Center" >
             <StackLayout Orientation="Vertical"
                          HorizontalOptions="CenterAndExpand">
+                
                 <Label x:Name="currentTemperature"
                        AutomationId="currentTemperature"
                        Text="{Binding CurrentTemp, Converter={StaticResource tempConverter}, StringFormat='{0:g}'}"
@@ -48,7 +49,8 @@
                        VerticalOptions="Center"
                        FontSize="38"
                        >
-				</Label>-->
+                </Label>
+                -->
                 
                 <Image MinimumHeightRequest="200" Source="beverageImage" x:Name="beverageImage" AutomationId="beverageImage" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Image>
                 <!--<Image Source="placeholder_can"/>-->
