@@ -47,6 +47,7 @@ namespace prj3beer.Views
                 beverageImage.Source = ImageSource.FromFile("placeholder_can");
                 TemperatureStepper.IsEnabled = false;
                 TemperatureInput.IsEnabled = false;
+                
             }
             else
             {
