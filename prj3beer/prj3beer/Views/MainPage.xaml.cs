@@ -35,11 +35,12 @@ namespace prj3beer.Views
         {
             if (!MenuPages.ContainsKey(id) || id == 0)
             {
+                MenuPages.Remove(id);
 
                 switch (id)
                 {
                     case (int)MenuItemType.Status:
-                        MenuPages.Remove(id);
+                        //MenuPages.Remove(id);
                         MenuPages.Add(id, new NavigationPage(new StatusPage()));
                         
                         break;

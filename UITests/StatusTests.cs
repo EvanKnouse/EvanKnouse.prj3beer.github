@@ -33,6 +33,17 @@ namespace UITests
             ////Tap into the screen navigation menu (default for now)
             //app.Tap(c => c.Marked("ScreenSelectButton"));
 
+            /*
+                Changed to select a drink as the stepper has been disabled when no beverage is selected
+            */
+            #region Added to get off the defualt beverage, and enable the stepper buttons
+            app.Tap("Beverage Select");
+            app.EnterText("searchBeverage", "Great Western Radler");
+            app.TapCoordinates(3, 701);
+            //app.WaitForElement("beverageName");
+            app.TapCoordinates(150, 90);
+            #endregion
+
             //Sets the Temperature settings to celsius for every test
             Settings.TemperatureSettings = true;
 
@@ -222,7 +233,7 @@ namespace UITests
 
             int startTemp = int.Parse(app.Query("currentTarget")[0].Text);
 
-            app.TapCoordinates(860, 1650);
+            app.TapCoordinates(860, 1960);
 
             string targetTemperature = app.Query("currentTarget")[0].Text;
 
@@ -240,7 +251,7 @@ namespace UITests
 
             int startTemp = int.Parse(app.Query("currentTarget")[0].Text);
 
-            app.TapCoordinates(560, 1560);
+            app.TapCoordinates(560, 1960);
 
             string targetTemperature = app.Query("currentTarget")[0].Text;
 

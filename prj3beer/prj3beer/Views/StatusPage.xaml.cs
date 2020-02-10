@@ -22,7 +22,7 @@ namespace prj3beer.Views
 
         static StatusViewModel svm;
         static Beverage currentBeverage;
-        public static Preference preferredBeverage; //Set to public to fix problem in stus view model
+        public static Preference preferredBeverage; //Set to public to fix problem in staus view model
         static Brand currentBrand;
 
         INotificationHandler nh;
@@ -45,7 +45,8 @@ namespace prj3beer.Views
                 beverageName.Text = "No Beverage";
                 brandName.Text = "No Brand";
                 beverageImage.Source = ImageSource.FromFile("placeholder_can");
-                
+                TemperatureStepper.IsEnabled = false;
+                TemperatureInput.IsEnabled = false;
             }
             else
             {
