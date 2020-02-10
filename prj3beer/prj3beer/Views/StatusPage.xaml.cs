@@ -111,8 +111,8 @@ namespace prj3beer.Views
             //{
             //    beverageImage.Source = ImageSource.FromFile("placeholder_can");
             //}
-            beverageImage.WidthRequest = Application.Current.MainPage.Width * 0.8;
-            beverageImage.HeightRequest = Application.Current.MainPage.Height * 0.6;
+            beverageImage.WidthRequest = 200;
+            beverageImage.HeightRequest =200;
 
 
             beverageName.IsEnabled = false;
@@ -165,7 +165,7 @@ namespace prj3beer.Views
             // So if it is null...
             if (preferredBeverage == null)
             {   // Create a new Preferred Beverage, with copied values from the Passed In Beverage.
-                preferredBeverage = new Preference(bevID) { BeverageID = bevID, Temperature = currentBeverage.Temperature };
+                preferredBeverage = new Preference() { BeverageID = bevID, Temperature = currentBeverage.Temperature };
                 // Add the beverage to the Context (Database)
                 svm.Context.Preference.Add(preferredBeverage);
             }

@@ -50,9 +50,9 @@
                        >
 				</Label>-->
                 
-                <Image Source="beverageImage" x:Name="beverageImage" AutomationId="beverageImage" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Image>
+                <Image MinimumHeightRequest="200" Source="beverageImage" x:Name="beverageImage" AutomationId="beverageImage" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Image>
                 <!--<Image Source="placeholder_can"/>-->
-                <Label x:Name="beverageName" AutomationId="beverageName" HorizontalOptions="FillAndExpand"></Label>
+                <Label x:Name="beverageName" AutomationId="beverageName" HorizontalOptions="FillAndExpand" ></Label>
                 <Label x:Name="brandName" AutomationId="brandName"></Label>
 
                 

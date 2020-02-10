@@ -28,7 +28,7 @@ namespace prj3beer.Models
         //[ForeignKey("bevId")]
         //[Required(ErrorMessage = "Beverage object is required")]
         //Beverage prefBev;
-        
+
 
 
         //public Preference()
@@ -42,45 +42,13 @@ namespace prj3beer.Models
         //    this.prefBev = prefBev;
         //    this.faveTemp = faveTemp;
         //}
-        
+
 
         [DefaultValue("placeholder_can")]
         //[DefaultValue("")]
         public string ImagePath { get; set; }
 
-        //public Image savedImage { get; set; }
-
         #endregion
-
-
-    
-
-        public Preference()
-        {
-            this.BeverageID = BeverageID;
-            context = new BeerContext();
-            Beverage SelectedBeverage = (context.Beverage.Find(BeverageID));
-
-
-            SaveImage(SelectedBeverage.ImageURL);
-        }
-
-
-        public Preference(int bevID)
-        {
-            this.BeverageID = bevID;
-            context = new BeerContext();
-            Beverage SelectedBeverage = (context.Beverage.Find(BeverageID));
-
-            //SaveImage(SelectedBeverage.ImageURL);
-        }
-
-        //public Preference(int prefId, Beverage prefBev, double faveTemp)
-        //{
-        //    this.prefId = prefId;
-        //    this.prefBev = prefBev;
-        //    this.faveTemp = faveTemp;
-        //}
 
 
         /// <summary>
@@ -91,7 +59,7 @@ namespace prj3beer.Models
         {
             //throw new NotImplementedException();
             //if (ImagePath == null)
-            if (ImagePath == "" || ImagePath == "placeholder_can" || ImagePath==null)
+            if (ImagePath == "" || ImagePath == "placeholder_can" || ImagePath == null)
             {
                 return false;
             }
@@ -128,4 +96,3 @@ namespace prj3beer.Models
         }
     }
 }
- 

@@ -106,7 +106,12 @@ namespace prj3beer.ViewModels
                     //Check if a notification should be sent (and send it) 
 
                     //MERGE QUESTION: This gave an error
-                    notifications.NotificationCheck(currentTemp, StatusPage.preferredBeverage.Temperature);
+                    if (StatusPage.preferredBeverage != null)
+                    {
+                        notifications.NotificationCheck(currentTemp, StatusPage.preferredBeverage.Temperature);
+                    }
+           
+
 
                     if (PropertyChanged != null)
                     {
