@@ -29,6 +29,10 @@ namespace prj3beer.Models
         private const string BaseURL = "base_url";
         private static readonly string BaseURLDefault = @"http://my-json-server.typicode.com/prj3beer/prj3beer-api";
 
+<<<<<<< HEAD
+        private const string BeverageKey = "beverage_key";
+        private static readonly int BeverageDefault = -1;
+=======
         // Stores The Current User Name
         private const string UserKey = "user_key";
         // Default value for Name should be null
@@ -53,8 +57,7 @@ namespace prj3beer.Models
         private const string TooHotColdKey = "toohotcold_key";
         private static readonly bool TooHotColdDefault = true;
 
-        private const string BeverageKey = "beverage_key";
-        private static readonly int BeverageDefault = -1;
+>>>>>>> master
         #endregion
 
         /// <summary>
@@ -121,6 +124,13 @@ namespace prj3beer.Models
             }
         }
 
+<<<<<<< HEAD
+        public static int BeverageSettings
+        {
+            get { return AppSettings.GetValueOrDefault(BeverageKey, BeverageDefault); }
+
+            set { AppSettings.AddOrUpdateValue(BeverageKey, value); }
+=======
         /// <summary>
         /// This Property is responsible for setting/updating the promp key for a user returning to the Application.
         /// </summary>
@@ -188,12 +198,7 @@ namespace prj3beer.Models
                 //Set the TooHotColdSettings key-value pair sets its value to the passed in value
                 AppSettings.AddOrUpdateValue(TooHotColdKey, value);
             }
-        }
-        public static int BeverageSettings
-        {
-            get { return AppSettings.GetValueOrDefault(BeverageKey, BeverageDefault); }
-
-            set { AppSettings.AddOrUpdateValue(BeverageKey, value); }
+>>>>>>> master
         }
     }
 }

@@ -19,11 +19,14 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
+<<<<<<< HEAD
+        
+        
+        
+        
+=======
         <!-- Main stacklayout-->
-        
-        
-        
-        
+>>>>>>> master
         <StackLayout VerticalOptions="Center" >
             <StackLayout Orientation="Vertical"
                          HorizontalOptions="CenterAndExpand">
@@ -33,28 +36,30 @@
                        VerticalOptions="Center" 
                        MinimumWidthRequest="3"
                        FontSize="38"
-                       
+<<<<<<< HEAD
                        HorizontalOptions="Center"
+=======
+>>>>>>> master
                        >
                     <Label.BindingContext>
                         <vm:StatusViewModel 
                             PropertyChanged="UpdateViewModel"/>
                     </Label.BindingContext>
                 </Label>
-                <Label x:Name="labelCFCurrentTemperature"
-                       AutomationId="labelCFCurrentTemperature"
-                       Text=""
-                       VerticalOptions="Center"
-                       FontSize="38"
-                       >
-				</Label>
-                
+<<<<<<< HEAD
                 <Image Source="beverageImage" x:Name="beverageImage" AutomationId="beverageImage" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Image>
                 <!--<Image Source="placeholder_can"/>-->
                 <Label x:Name="beverageName" AutomationId="beverageName" HorizontalOptions="FillAndExpand"></Label>
                 <Label x:Name="brandName" AutomationId="brandName"></Label>
 
-                
+                <!--<Label x:Name="labelCFCurrentTemperature"
+                       AutomationId="labelCFCurrentTemperature"
+                       Text=""
+                       VerticalOptions="Center"
+                       FontSize="38"
+                       ></Label>-->
+=======
+>>>>>>> master
             </StackLayout>
 
             <!-- STORY 04 XAML -->

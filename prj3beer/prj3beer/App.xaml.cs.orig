@@ -57,12 +57,14 @@ namespace prj3beer
 #if DEBUG
             //LoadFixtures(context);
             FetchData(context, apiManager);
+<<<<<<< HEAD
 #elif RELEASE
             //Release mode breaks, but can swap these for API usage
             FetchData(context, apiManager);
-          
 #endif
             MainPage = new MainPage(context);
+=======
+>>>>>>> master
         }
 
         public static async void FetchData(BeerContext context, APIManager apiManager)

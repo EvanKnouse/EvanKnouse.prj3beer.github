@@ -3,6 +3,7 @@ using System.ComponentModel;
 using Xamarin.Forms;
 using prj3beer.Views;
 using prj3beer.Services;
+using prj3beer.Models;
 
 namespace prj3beer.ViewModels
 {
@@ -10,8 +11,14 @@ namespace prj3beer.ViewModels
     {
         BeerContext context = new BeerContext();
 
+        //Instance of the notifications class.  Handles checking conditions for and the sending of notifications.
+        Notifications notifications;
+
         double currentTemp;
 
+        //This boolean will control whether or not the timer
+        //responsible for the current temperature mock is on or off
+        public static bool timerOn = false;
 
         public BeerContext Context { get { return this.context; } }
         
@@ -48,6 +55,7 @@ namespace prj3beer.ViewModels
                     _maximum = IsCelsius ? 30 : 86;
 
                     _temperature = IsCelsius ? value : ((value * 1.8) + 32);
+                    //_temperature = value;
                     
                 }
                 finally
@@ -55,7 +63,6 @@ namespace prj3beer.ViewModels
                     OnPropertyChanged("Temperature");
                 }
             }
-            //set { _temperature = value; }
         }
 
         // Returns a string using the stored backing field, needs to be a string to show up in an Entry Field
@@ -70,6 +77,7 @@ namespace prj3beer.ViewModels
                 try
                 {   // store the temperature from the entry, parsed as a double. 
                     _temperature = double.Parse(value);
+                    //_temperature = IsCelsius ? double.Parse(value) : double.Parse(value) * 1.8 +32;
                 }
                 catch
                 {   // If the field is empty, set temperature to null
@@ -82,18 +90,25 @@ namespace prj3beer.ViewModels
             }
         }
 
+        /// <summary>
+        /// Property for storing the temperature received from the bluetooth device.  Bound to a label on the Status
+        /// page.
+        /// </summary>
         public double CurrentTemp
         {
             set
             {
+                //Has the value changed?
                 if (currentTemp != value)
                 {
                     currentTemp = value;
 
+                    //Check if a notification should be sent (and send it)
+                    notifications.NotificationCheck(currentTemp, StatusPage.preferredBeverage.Temperature);
+
                     if (PropertyChanged != null)
                     {
                         //If the property has changed, fire an event.
-                        //PropertyChanged(this, new PropertyChangedEventArgs("CurrentTemp"));
                         OnPropertyChanged("CurrentTemp");
                     }
                 }
@@ -108,13 +123,19 @@ namespace prj3beer.ViewModels
 
         public StatusViewModel()
         {
+            notifications = new Notifications();
+
             //Checks for update temps every second.  Will eventually poll an object associated with a
             //bluetooth reading.  Currently communicates with a class bouncing between -35 and 35 degrees celsius.
-            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            if(!timerOn)
             {
-                this.CurrentTemp = MockTempReadings.Temp;
-                return true;
-            });
+                timerOn = true;
+                Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+                {
+                    this.CurrentTemp = MockTempReadings.Temp;
+                    return true;
+                });
+            }
         }
 
         protected virtual void OnPropertyChanged(string propertyName)

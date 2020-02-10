@@ -1,6 +1,8 @@
-﻿using System;
+﻿using prj3beer.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace prj3beer.Services
 {
@@ -8,13 +10,47 @@ namespace prj3beer.Services
     {
         // These arrays have values in place to correspond to match the Notification type gotten from TryNotification
         // This is so that the notification send can more easily pull from a pre-made list of titles and bodys
-        public static string[] Title = { "Message Error", "Heat Warning", "Temperature Alert", "Drink Time!", "Temperature Alert", "Cold Warning" };
-        public static string[] Body = { "This should not be seen", "Your beverage is getting too hot.", "Your beverage is just above the desired temperature.", "Your beverage has reached the perfect temperature.", "Your beverage is just below the desired temperature.", "Your beverage is getting too cold." };
+        private static string[] Title = { "Message Error", "Heat Warning", "Temperature Alert", "Drink Time!", "Temperature Alert", "Cold Warning" };
+        private static string[] Body = { "This should not be seen", "Your beverage is getting too hot.", "Your beverage is just above the desired temperature.", "Your beverage has reached the perfect temperature.", "Your beverage is just below the desired temperature.", "Your beverage is getting too cold." };
 
+        //This variable will contain the last notification that has been sent in order to compare
+        //to control notification functionality
+        public static NotificationType lastNotification = NotificationType.NO_MESSAGE;
+
+        //The platform-specific notification handler, created on class-instantiation.
+        private static INotificationHandler nh;
+
+        public Notifications()
+        {
+            if (nh == null)
+            {
+                nh = DependencyService.Get<INotificationHandler>();
+            }
+        }
+
+        /// <summary>
+        /// The method through which the functionality of this class is called by other classes.  Compares the
+        /// temperature received from the device with the desired temperature of the beverage.  Calls the platform-
+        /// specific SendLocalNotification method if there is a successful notification condition.
+        /// </summary>
+        /// <param name="receivedTemp"></param>
+        /// <param name="idealTemp"></param>
+        public void NotificationCheck(double receivedTemp, double? idealTemp)
+        {
+            int messageType = TryNotification(receivedTemp, idealTemp, lastNotification);
+
+            if (messageType > 0)
+            {
+                lastNotification = (NotificationType)messageType;
+
+                nh.SendLocalNotification(Title[messageType], Body[messageType]);
+            }
+        }
 
         /// <summary>
         /// Calling this method will give a number based on the NotificationType Enumeration
-        ///     to be used to select the corresponding title and body of a notification form the arrays above
+        ///     to be used to select the corresponding title and body of a notification form the arrays above.
+        ///     Remains public for testing purposes.
         /// </summary>
         /// <param name="receivedTemp">The temperature last recived from the bluetooth device</param>
         /// <param name="idealTemp">The set ideal temperature of the user's currently selected beverage</param>
@@ -36,7 +72,7 @@ namespace prj3beer.Services
                 }
             }
 
-            if (CheckLastNotification(newNotification, lastNotification))//If this returns true because it's appropriate to send a new notification (this is the spam check)
+            if (CheckLastNotification(newNotification, lastNotification) && SettingsCheck(newNotification))//If this returns true because it's appropriate to send a new notification (this is the spam check)
             {
                 return (int)newNotification;//An int to use for getting messages from the Title and body arrays
             }
@@ -52,7 +88,16 @@ namespace prj3beer.Services
         /// <returns>The notification type that is relevent to the received temperature based on their difference</returns>
         static private NotificationType CompareTemp(double receivedTemp, double? idealTemp)
         {
-            int dif = (int)( receivedTemp - idealTemp );
+            int dif;
+
+            try
+            {
+                dif = (int)(receivedTemp - idealTemp);
+            }
+            catch (Exception e)
+            {
+                return NotificationType.NO_MESSAGE;
+            }
 
             NotificationType curType = default;
 
@@ -73,7 +118,6 @@ namespace prj3beer.Services
                 curType = NotificationType.TOO_COLD;
 
             return curType;
-
         }
 
         /// <summary>
@@ -96,6 +140,62 @@ namespace prj3beer.Services
             }
             
             return sendable;
+        }
+
+        /// <summary>
+        /// This method will check the current app settings to determine if the selected message type is enabled.
+        /// </summary>
+        /// <param name="currentMessage">The current message type.</param>
+        /// <returns>true if the appropriate setting is enabled, false if not</returns>
+        static private bool SettingsCheck(NotificationType newNotification)
+        {
+            bool sendMessage = false;
+
+            int messageType = (int)newNotification;
+
+            if (Settings.NotificationSettings) //Is the master notifications setting set to on?
+            {
+                //In Range notifications are on
+                if (Settings.InRangeSettings)
+                {
+                    //TooHotCold notifications are on
+                    if (Settings.TooHotColdSettings)
+                    {
+                        //All settings are on
+                        sendMessage = true;
+                    }
+                    else
+                    {
+                        //TooHotCold are off, don't send those (message type 1 and 5)
+                        if (messageType != 1 && messageType != 5)
+                        {
+                            sendMessage = true;
+                        }
+                    }
+                }
+                else //In Range notifications are off
+                {
+                    //TooHotCold notifications are on
+                    if (Settings.TooHotColdSettings)
+                    {
+                        //In range settings are off, don't send those (message type 2 and 4)
+                        if (messageType != 2 && messageType != 4)
+                        {
+                            sendMessage = true;
+                        }
+                    }
+                    else //TooHotCold notifications are off
+                    {
+                        //Only Master is on, only send message type 3
+                        if (messageType != 1 && messageType != 2 && messageType != 4 && messageType != 5)
+                        {
+                            sendMessage = true;
+                        }
+                    }
+                }
+
+            }
+            return sendMessage;
         }
     }
 }

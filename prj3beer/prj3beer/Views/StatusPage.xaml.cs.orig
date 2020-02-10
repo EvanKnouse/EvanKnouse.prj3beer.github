@@ -22,15 +22,7 @@ namespace prj3beer.Views
 
         static StatusViewModel svm;
         static Beverage currentBeverage;
-        static Preference preferredBeverage;
-
-        INotificationHandler nh;
-        NotificationType lastNotification = NotificationType.NO_MESSAGE;
-        
-        //Placeholder for target temperature element, implemented in another story.
-        //int targetTempValue = 2;
-
-        public static Preference preferredBeverage;
+<<<<<<< HEAD
         static Brand currentBrand;
         static Preference preferredBeverage;
 
@@ -44,6 +36,12 @@ namespace prj3beer.Views
         public StatusPage()
         {
 
+=======
+        public static Preference preferredBeverage;
+
+        public StatusPage()
+        {
+>>>>>>> master
             InitializeComponent();
             MenuPage page = new MenuPage();
             var test = page.Content;
@@ -95,21 +93,8 @@ namespace prj3beer.Views
 
             }
 
+<<<<<<< HEAD
         }
-/*
-            #region Story 16 code
-            nh = DependencyService.Get<INotificationHandler>();
-            //TODO: Call the compare when a new temperature is gotten from our device API, not on a timer
-            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
-            {
-                NotificationCheck();
-
-                return true;
-            });
-
-            #endregion
-*/
-            MockTempReadings.StartCounting();
 
         private void PopulateStatusScreen()
         {
@@ -131,6 +116,9 @@ namespace prj3beer.Views
             beverageImage.WidthRequest = Application.Current.MainPage.Width*0.8;
             beverageImage.HeightRequest = Application.Current.MainPage.Height * 0.6;
             
+=======
+            MockTempReadings.StartCounting();
+>>>>>>> master
         }
 
         public void UpdateViewModel(object sender, EventArgs args)
@@ -153,7 +141,6 @@ namespace prj3beer.Views
             preferredBeverage = svm.Context.Preference.Find(1);
             //preferredBeverage = null; // This is what the previous line SHOULD be doing.
 
-
             // If that Preferred beverage did not exist, it will be set to null,
             // So if it is null...
             if (preferredBeverage == null)
@@ -165,6 +152,7 @@ namespace prj3beer.Views
 
         }
 
+<<<<<<< HEAD
         private void SetupPreference(int bevID)
         {   // Set the page's preferred beverage equal to -> Finding the Beverage in the Database.
             // If the object is found in the database, it will return itself immediately,
@@ -185,6 +173,8 @@ namespace prj3beer.Views
 
         }
 
+=======
+>>>>>>> master
         /// <summary>
         /// This method will write changes to the Database for any changes that have happened.
         /// </summary>
@@ -282,6 +272,7 @@ namespace prj3beer.Views
                 // Set the Temperature Stepper to the Max/Minimum possible
                 TemperatureStepper.Maximum = 86;
                 TemperatureStepper.Minimum = -30;
+<<<<<<< HEAD
 
                 // Set the temperature of the StatusViewModel to the current preferred beverage temperature
                 svm.Temperature = preferredBeverage.Temperature;
@@ -299,36 +290,19 @@ namespace prj3beer.Views
                 }
                 //  Update the binding context to equal the new StatusViewModel
                 BindingContext = svm;
+=======
+                TemperatureStepper.Maximum = 30;
             }
-            
             else
             {   // Otherwise set the Min/Max to Fahrenheit
                 TemperatureStepper.Minimum = -22;
                 TemperatureStepper.Maximum = 86;
+>>>>>>> master
             }
-            //  Update the binding context to equal the new StatusViewModel
-            BindingContext = svm;
 
-         
+            
         }
-
-        #region Story 16 Method
-        /// <summary>
-        /// Performs a check based on the updated current temperature and the desired drink temperature.  Will send the appropriate notification if necessitated by current conditions.
-        /// </summary>
-        private void NotificationCheck()
-        {
-            int messageType = Notifications.TryNotification(svm.CurrentTemp, preferredBeverage.Temperature, lastNotification);
-
-            if (messageType > 0) //0 corresponds to type of NO_MESSAGE, thus no notification should be sent
-            {
-                lastNotification = (NotificationType)messageType;
-                nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
-            }
-        }
-        #endregion
-
-        
+<<<<<<< HEAD
 
 
         #region Story 16 Method
@@ -346,5 +320,7 @@ namespace prj3beer.Views
             }
         }
         #endregion
+=======
+>>>>>>> master
     }
 }

@@ -20,9 +20,9 @@ namespace prj3beer.Views
         public static BeerContext context;
 
         Dictionary<int, NavigationPage> MenuPages = new Dictionary<int, NavigationPage>();
-        public MainPage(BeerContext bc)
+        public MainPage()
         {
-            context = bc;
+            context = new BeerContext();
 
             InitializeComponent();
 

@@ -11,6 +11,7 @@ namespace prj3beer.Services
     /// </summary>
     public static class MockTempReadings
     {
+        private static bool isCounting = false;
         private static double temp;
         private static bool goesDown; //whether the temperature counts down or up.
 
@@ -48,29 +49,35 @@ namespace prj3beer.Services
             Temp = newTemp;
             GoesDown = direction;
 
-            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            //Do not start a new timer if a previous one exists, will run simultaneously with previous timers.
+            if (!isCounting)
             {
-                if (temp < -35.0)
+                isCounting = true;
+
+                Device.StartTimer(TimeSpan.FromSeconds(1), () =>
                 {
-                    goesDown = false;
-                }
-                if (temp > 35.0)
-                {
-                    goesDown = true;
-                }
-                if (count)
-                {
-                    if (goesDown)
+                    if (temp < -35.0)
                     {
-                        temp -= 1.0;
+                        goesDown = false;
                     }
-                    else
+                    if (temp > 35.0)
                     {
-                        temp += 1.0;
+                        goesDown = true;
                     }
-                }
-                return true;
-            });
+                    if (count)
+                    {
+                        if (goesDown)
+                        {
+                            temp -= 1.0;
+                        }
+                        else
+                        {
+                            temp += 1.0;
+                        }
+                    }
+                    return true;
+                });
+            }
         }
     }
 }

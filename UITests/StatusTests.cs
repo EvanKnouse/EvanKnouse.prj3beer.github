@@ -3,6 +3,9 @@ using System.Linq;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
 using prj3beer.Models;
+using Xamarin.Forms;
+using Xamarin.UITest.Configuration;
+using prj3beer.Services;
 
 namespace UITests
 {
@@ -24,14 +27,23 @@ namespace UITests
         public void BeforeEachTest()
         {
             //Initialize the app, arrive at home page (default for now)
-            app = app = ConfigureApp.Android.ApkFile(apkFile).StartApp();
+            app = ConfigureApp.Android.ApkFile(apkFile).StartApp();
             //Tap into the screen navigation menu
             app.TapCoordinates(150, 90);
             ////Tap into the screen navigation menu (default for now)
             //app.Tap(c => c.Marked("ScreenSelectButton"));
 
-            //Sets the Temperature settings to celcius everytest
-            Settings.TemperatureSettings = true; 
+            //Sets the Temperature settings to celsius for every test
+            Settings.TemperatureSettings = true;
+
+            //Sets the master Notification setting to on
+            Settings.NotificationSettings = true;
+
+            //Sets the In Range Notification setting to on
+            Settings.InRangeSettings = true;
+
+            //Sets the Too Hot/Cold Notification setting to on
+            Settings.NotificationSettings = true;
         }
 
         [Test]
@@ -47,10 +59,10 @@ namespace UITests
             app.Tap("Settings");
 
             //Wait for the Temperature switch to appear on screen
-            app.WaitForElement("switchTemp");
+            app.WaitForElement("SettingsTable");
 
             //Look for the toggle button on the Settings Menu
-            AppResult[] button = app.Query(("switchTemp"));
+            AppResult[] button = app.Query(("SettingsTable"));
 
             //Will be greater than 0 if it exists, returns AppResult[]
             Assert.IsTrue(button.Any());
@@ -67,20 +79,21 @@ namespace UITests
             //Wait for the Settings button to appear on screen
             app.WaitForElement("Settings");
 
-            //Press Settings menu button
-            app.Tap("Settings");
-
-            //Wait for the Temperature switch to appear on screen
-            app.WaitForElement("switchTemp");
-
             //Check that the label for the current temperature is set to "\u00B0C"
             string tempLabel = app.Query("currentTemperature")[0].Text;
 
             //If equal, the temperature label has been set to Celsius
-            Assert.AreEqual(tempLabel.Contains("\u00B0C"), true);
+            bool isCelsius = tempLabel.Contains("\u00B0C");
+
+            //Press Settings menu button
+            app.Tap("Settings");
+
+            //Wait for the Temperature switch to appear on screen
+            app.WaitForElement("SettingsTable");
 
             //Tap on the toggle button to change the temperature setting to fahrenheit
-            app.Tap("switchTemp");
+            //app.Tap("switchTemp");
+            app.Tap(e => e.Class("SwitchCellView").Class("Switch").Index(0));
 
             //Go back to the Status screen
             app.Back();
@@ -88,14 +101,15 @@ namespace UITests
             //Wait for the Current Temperature Label to appear on screen
             app.WaitForElement("currentTemperature");
 
-            // Wait for the temp to read 45F
-            app.WaitForElement("45\u00B0F");
-
             //Check that the label for the current temperature is set to "\u00B0F"
             tempLabel = app.Query("currentTemperature")[0].Text;
 
+            bool isFahrenheit = tempLabel.Contains("\u00b0F");
+
+            //If equal, the temperature was initially set to celsius
+            Assert.AreEqual(true, isCelsius);
             //If equal, the temperature label has been set to fahrenheit and the settings have been applied
-            Assert.AreEqual(tempLabel.Contains("\u00B0F"), true);
+            Assert.AreEqual(true, isFahrenheit);
         }
 
         [Test]
@@ -111,22 +125,22 @@ namespace UITests
             app.Tap("Settings");
 
             //Wait for the Temperature switch to appear on screen
-            app.WaitForElement("switchTemp");
+            app.WaitForElement("SettingsTable");
 
-            //Grab the temperature label text to prove it was Celsius before it switched
-            string toggled = app.Query("lblTemp")[0].Text;
+            //Grab the switch value to prove it was Celsius before it switched
+            bool switchValue = app.Query(e => e.Class("SwitchCellView").Class("Switch").Index(0).Invoke("isChecked").Value<bool>()).First();
 
             //If it was originally Celsius it would pass
-            Assert.AreEqual(toggled, "Celsius");
+            Assert.AreEqual(true, switchValue);
 
             //Tap on the toggle button to change the temperature setting to fahrenheit
-            app.Tap("switchTemp");
+            app.Tap(e => e.Class("SwitchCellView").Class("Switch").Index(0));
 
             //Grab the temperature label text to prove it switched
-            toggled = app.Query("lblTemp")[0].Text;
+            switchValue = app.Query(e => e.Class("SwitchCellView").Class("Switch").Index(0).Invoke("isChecked").Value<bool>()).First();
 
             //Check if the enabled value is true
-            Assert.AreEqual(toggled, "Fahrenheit");
+            Assert.AreEqual(false, switchValue);
         }
 
         #region Story 04 UI Tests
@@ -208,7 +222,7 @@ namespace UITests
 
             int startTemp = int.Parse(app.Query("currentTarget")[0].Text);
 
-            app.TapCoordinates(860,1650);
+            app.TapCoordinates(860, 1650);
 
             string targetTemperature = app.Query("currentTarget")[0].Text;
 

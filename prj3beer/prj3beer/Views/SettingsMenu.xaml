@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:prj3beer.ViewModels"
              mc:Ignorable="d"
              x:Class="prj3beer.Views.SettingsMenu"
              Title="Settings"
@@ -13,17 +14,28 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout Orientation="Horizontal" Padding="20" VerticalOptions="Start">
-                <Label Text="Celsius"
-                FontSize="35"
-                VerticalOptions="Center"
-                HorizontalOptions="StartAndExpand" 
-                x:Name="lblTemp"
-                AutomationId="lblTemp"/>
-
-                <Switch IsToggled="true" VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="EndAndExpand" Toggled="Switch_Toggled"
-                    x:Name="switchTemp" AutomationId="switchTemp"/>
+        <!-- Setting Menu Main Stack-->
+        <StackLayout>
+            <!-- Setting Menu TableView-->
+            <TableView x:Name="SettingsTable" AutomationId="SettingsTable" Intent="Settings">
+                <TableRoot BindingContext="vm:SettingsViewModel">
+                    <!-- Temperature Setting section-->
+                    <TableSection x:Name="tempSettingsSection">
+                        <SwitchCell x:Name="switchTemp"
+                                    AutomationId="switchTemp"
+                                    Text="Celsius"
+                                    OnChanged="Temp_Switch_Toggled"></SwitchCell>
+                    </TableSection>
+                    <!-- Master Notification Setting section-->
+                    <TableSection x:Name="notificationMasterSection">
+                        <SwitchCell x:Name="switchNotifications"
+                                    Text="Notifications"
+                                    OnChanged="Notifications_Switch_Toggled"
+                                    >
+                        </SwitchCell>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
