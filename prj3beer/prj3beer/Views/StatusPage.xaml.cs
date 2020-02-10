@@ -45,6 +45,7 @@ namespace prj3beer.Views
                 beverageName.Text = "No Beverage";
                 brandName.Text = "No Brand";
                 beverageImage.Source = ImageSource.FromFile("placeholder_can");
+                
             }
             else
             {
@@ -87,8 +88,9 @@ namespace prj3beer.Views
                 #endregion
                 */
 
-                MockTempReadings.StartCounting();
+                
             }
+            MockTempReadings.StartCounting();
 
         }
 

@@ -12,9 +12,14 @@ namespace nUnitTests
         [SetUp]
         public void Setup()
         {
+            
             mockPref = new Preference();
             mockPref.BeverageID = 1;
             mockPref.Temperature = 2;
+            
+
+            //Preference mockPref = new Preference { BeverageID = 1, Temperature = 2 };
+
         }
 
         [Test]

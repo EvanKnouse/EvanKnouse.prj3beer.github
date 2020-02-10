@@ -188,6 +188,7 @@ namespace UITests
         public void TestThatTappingNewBeverageOverwritesOtherBeverageOnStatusScreen()
         {
             selectABeverage("Great Western Radler");
+            notSelectingBeverage();
             selectABeverage("Great Western Pilsner");
 
             AppResult[] beverageDisplay = app.Query("beverageName");
@@ -200,21 +201,14 @@ namespace UITests
 
             beverageDisplay = app.Query("beverageImage");
 
-
-            if ((beverageDisplay[0].Rect.Width == mainDisplayInfoWidth * 0.8) || (beverageDisplay[0].Rect.Height == mainDisplayInfoHeight * 0.6))
-                Assert.IsTrue(true);
-            else
-                Assert.IsTrue(false);
-
-            //Assert.AreEqual(beverageDisplay[0].Rect.Width, mainDisplayInfoWidth * 0.7);
-            //Assert.AreEqual(beverageDisplay[0].Rect.Height, mainDisplayInfoHeight * 0.7);
         }
 
         [Test]
         public void TestThatBeverageTemperatureIsDisplayedOnStatusScreen()
         {
             selectABeverage("Great Western Radler");
-            AppResult[] beverageDisplay = app.Query("currentTarget");
+            app.WaitForElement("currentTemperature");
+            AppResult[] beverageDisplay = app.Query("currentTemperature");
             Assert.AreEqual(3, beverageDisplay[0].Text);
         }
 
@@ -265,7 +259,8 @@ namespace UITests
         public void TestThatSelectedBeverageNameIsDisplayed()
         {
             selectABeverage("Great Western Radler");
-            AppResult[] beverageDisplay = app.Query("currentTarget");
+            app.WaitForElement("beverageName");
+            AppResult[] beverageDisplay = app.Query("beverageName");
             Assert.AreEqual(2, beverageDisplay[0].Text);
         }
 
@@ -340,7 +335,7 @@ namespace UITests
         public void TestThatImageBoxCannotBeEdited()
         {
             selectABeverage("Great Western Radler");
-
+            app.WaitForElement("beverageImage");
             AppResult[] appResult = app.Query("beverageImage");
             Assert.IsFalse(appResult[0].Enabled);
         }
@@ -386,7 +381,6 @@ namespace UITests
         {
             notSelectingBeverage();
             AppResult[] imageDisplay = app.Query("Image");
-
             Assert.IsTrue(imageDisplay[0].Text.Equals("default"));
         }
     }
