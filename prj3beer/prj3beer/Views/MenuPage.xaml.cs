@@ -34,5 +34,10 @@ namespace prj3beer.Views
                 await RootPage.NavigateFromMenu(id);
             };
         }
+
+        private void Button_Clicked(object sender, System.EventArgs e)
+        {
+            //Sign in or out depending on button pressed.
+        }
     }
 }

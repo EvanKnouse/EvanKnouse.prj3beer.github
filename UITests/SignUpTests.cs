@@ -234,5 +234,100 @@ namespace UITests
         //    Assert.IsTrue(true);
         //}
         #endregion
+
+        #region Sign out Tests
+        [Test]
+        public void TestThatSignOutButtonAppearsIfUserIsSignedIn()
+        {
+            // navigate to the sign up page
+            app.Tap("SignInButton");
+
+            // navigate to enter external credentials
+            app.Tap("GoogleButton");
+
+            // test that the welcoming label contains welcoming text
+            app.WaitForElement("ContinueButton");
+
+            // Tap the Continue Button
+            app.Tap("ContinueButton");
+
+            //Open the hamburger menu
+            app.TapCoordinates(150, 90);
+
+            app.WaitForElement("btnMenuSignOut");
+
+            // test that the sign out button is on the screen
+            AppResult[] result = app.Query("btnMenuSignOut");
+            Assert.IsTrue(result.Any());
+        }
+
+        [Test]
+        public void TestThatSignOutButtonIsNotVisibleIfUserIsNotSignedIn()
+        {
+            //Open the hamburger menu
+            app.TapCoordinates(150, 90);
+
+            app.WaitForElement("btnMenuSignOut");
+
+            // test that the sign out button is on the screen
+            AppResult[] result = app.Query("btnMenuSignOut");
+            Assert.IsFalse(result.Any());
+        }
+
+        [Test]
+        public void TestThatUserIsNotAbleToSignInOrUpTwice()
+        {
+            // navigate to the sign up page
+            app.Tap("SignInButton");
+
+            // navigate to enter external credentials
+            app.Tap("GoogleButton");
+
+            // test that the welcoming label contains welcoming text
+            app.WaitForElement("ContinueButton");
+
+            // Tap the Continue Button
+            app.Tap("ContinueButton");
+
+            //Open the hamburger menu
+            app.TapCoordinates(150, 90);
+
+            app.WaitForElement("btnMenuSignIn");
+
+            // test that the sign out button is on the screen
+            AppResult[] result = app.Query("btnMenuSignIn");
+            Assert.IsFalse(result.Any());
+        }
+
+        [Test]
+        public void TestThatAUserCanSignInOrUpAfterLoggingOut()
+        {
+            // navigate to the sign up page
+            app.Tap("SignInButton");
+
+            // navigate to enter external credentials
+            app.Tap("GoogleButton");
+
+            // test that the welcoming label contains welcoming text
+            app.WaitForElement("ContinueButton");
+
+            // Tap the Continue Button
+            app.Tap("ContinueButton");
+
+            //Open the hamburger menu
+            app.TapCoordinates(150, 90);
+
+            app.WaitForElement("btnMenuSignOut");
+
+            //Sign out
+            app.Tap("btnMenuSignOut");
+
+            //app.WaitForElement("SignInButton");
+
+            // test that the sign out button is on the screen
+            AppResult[] result = app.Query("SignInButton");
+            Assert.IsTrue(result.Any());
+        }
+        #endregion
     }
 }

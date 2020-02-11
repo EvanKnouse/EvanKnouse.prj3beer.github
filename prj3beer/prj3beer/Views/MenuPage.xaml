@@ -28,6 +28,14 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Button Text="Sign In"
+                Clicked="Button_Clicked"
+                AutomationId="btnMenuSignIn"
+                IsVisible="False"/>
+        <Button Text="Sign Out"
+                Clicked="Button_Clicked"
+                AutomationId="btnMenuSignOut"
+                IsVisible="False"/>
     </StackLayout>
 
 </ContentPage>
