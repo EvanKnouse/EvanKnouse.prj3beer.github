@@ -24,6 +24,7 @@ namespace prj3beer.Views
         static Beverage currentBeverage;
         public static Preference preferredBeverage; //Set to public to fix problem in staus view model
         static Brand currentBrand;
+        int savedID;
 
         INotificationHandler nh;
         NotificationType lastNotification = NotificationType.NO_MESSAGE;
@@ -38,8 +39,8 @@ namespace prj3beer.Views
 
             InitializeComponent();
             MenuPage page = new MenuPage();
-            var test = page.Content;
-            int savedID = Settings.BeverageSettings;
+            //var test = page.Content;
+            savedID = Settings.BeverageSettings;
             if (savedID == -1)
             {
                 beverageName.Text = "No Beverage";
@@ -62,7 +63,7 @@ namespace prj3beer.Views
                 //svm.Context.Beverage.Find(2);
 
                 // Setup the preference object using the passed in beverage
-                SetupPreference(savedID);
+                SetupPreference();
 
                 // When you first start up the Status Screen, Disable The Inputs (on first launch of application)
                 EnablePageElements(false);
@@ -139,7 +140,7 @@ namespace prj3beer.Views
             // and attach itself to the context (Database).
 
             // TODO: Handle Pre-existing Preference Object.
-            preferredBeverage = svm.Context.Preference.Find(1);
+            preferredBeverage = svm.Context.Preference.Find(savedID);
             //preferredBeverage = null; // This is what the previous line SHOULD be doing.
 
 
@@ -153,7 +154,7 @@ namespace prj3beer.Views
             }
 
         }
-
+        /*
         private void SetupPreference(int bevID)
         {   // Set the page's preferred beverage equal to -> Finding the Beverage in the Database.
             // If the object is found in the database, it will return itself immediately,
@@ -172,7 +173,7 @@ namespace prj3beer.Views
                 svm.Context.Preference.Add(preferredBeverage);
             }
 
-        }
+        }*/
 
         /// <summary>
         /// This method will write changes to the Database for any changes that have happened.

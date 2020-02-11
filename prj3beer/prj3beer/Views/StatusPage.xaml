@@ -42,15 +42,7 @@
                             PropertyChanged="UpdateViewModel"/>
                     </Label.BindingContext>
                 </Label>
-                <!--
-                <Label x:Name="labelCFCurrentTemperature"
-                       AutomationId="labelCFCurrentTemperature"
-                       Text=""
-                       VerticalOptions="Center"
-                       FontSize="38"
-                       >
-                </Label>
-                -->
+                
                 
                 <Image MinimumHeightRequest="200" Source="beverageImage" x:Name="beverageImage" AutomationId="beverageImage" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Image>
                 <!--<Image Source="placeholder_can"/>-->

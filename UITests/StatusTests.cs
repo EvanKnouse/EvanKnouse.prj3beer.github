@@ -79,7 +79,7 @@ namespace UITests
         }
 
 
-        //This test is written poorly, it fails if the temperature was set to Fahrenheit earlier
+        //This test is written poorly, it fails if the temperature was set to Fahrenheit earlier and some other odd unknown circumstances
         [Test]
         public void TestSettingsAreAppliedOnSettingsChange()
         {
@@ -90,6 +90,7 @@ namespace UITests
 
             //Wait for the Settings button to appear on screen
             app.WaitForElement("Settings");
+            app.WaitForElement("currentTemperature"); //Added this wait or it searched for this element before it existed
 
             //Check that the label for the current temperature is set to "\u00B0C"
             string tempLabel = app.Query("currentTemperature")[0].Text;
