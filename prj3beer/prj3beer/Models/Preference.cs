@@ -29,28 +29,12 @@ namespace prj3beer.Models
         //[Required(ErrorMessage = "Beverage object is required")]
         //Beverage prefBev;
 
-
-
-        //public Preference()
-        //{
-
-        //}
-
-        //public Preference(int prefId, Beverage prefBev, double faveTemp)
-        //{
-        //    this.prefId = prefId;
-        //    this.prefBev = prefBev;
-        //    this.faveTemp = faveTemp;
-        //}
-
-
         [DefaultValue("placeholder_can")]
-        //[DefaultValue("")]
         public string ImagePath { get; set; }
 
         #endregion
 
-
+        #region Story 7 code
         /// <summary>
         /// This method will set a bool value to true when the image gets saved locally
         /// </summary>
@@ -69,6 +53,14 @@ namespace prj3beer.Models
             }
         }
 
+
+        /// <summary>
+        /// Gets and returns an image based on the passed in URL
+        /// Assuming the image is not already cached, gets it from the internet
+        /// Saves the image to cach if it did not have it - Saved for 7 days
+        /// </summary>
+        /// <param name="imageURL"> The url of the image to display. Bust be a valid image URL</param>
+        /// <returns> Returns the newly saved image as it cannot be saved as a variable</returns>
         public Image SaveImage(String imageURL)
         {
             Image image = new Image();
@@ -94,5 +86,7 @@ namespace prj3beer.Models
             return image;
 
         }
+
+        #endregion
     }
 }

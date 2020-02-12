@@ -115,7 +115,7 @@ namespace nUnitTests
         }
 
 
-        /*
+        /* Was changed to a UI Test
         [Test]
         public void TestThatDefaultImageIsUsedWhenNoCustomImageIsSavedAndURLIsInvalid()
         {

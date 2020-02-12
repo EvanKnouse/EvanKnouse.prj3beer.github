@@ -131,15 +131,25 @@ namespace prj3beer.Views
             loadingSpinner.IsRunning = false;
         }
 
+        /// <summary>
+        /// Selecting a beverage from the list
+        /// Sets the settings page prefferd ID to be used on the stauts page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void BeverageTapped(object sender, ItemTappedEventArgs e)
         {
-
+            //Get the beverage tapped
             Beverage tappedBeverage = (context.Beverage.Where(b => b.Name.Contains(e.Item.ToString()))).First();
+            //Get that beverage's ID
             Settings.BeverageSettings = tappedBeverage.BeverageID;
             //Application.Current.MainPage = new NavigationPage(new StatusPage());
             // await Navigation.PushModalAsync(new NavigationPage(new StatusPage()));
+            
+            //Set the ID to the setting page
             var id = (int)MenuItemType.Status;
             
+            //Go to the settings page, done like this to keep the menu - May need to be changed later
             await RootPage.NavigateFromMenu(id);
 
         }

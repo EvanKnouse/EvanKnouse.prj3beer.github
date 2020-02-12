@@ -39,16 +39,20 @@ namespace prj3beer.Views
 
             InitializeComponent();
             MenuPage page = new MenuPage();
-            //var test = page.Content;
+
+            //The id on the settings page of the app
+            // Defaults as -1, seleccting a beverage changes it
             savedID = Settings.BeverageSettings;
+
+            //If a beverage was not selected
             if (savedID == -1)
             {
+                //Set default values of a beverage
                 beverageName.Text = "No Beverage";
                 brandName.Text = "No Brand";
                 beverageImage.Source = ImageSource.FromFile("placeholder_can");
                 TemperatureStepper.IsEnabled = false;
                 TemperatureInput.IsEnabled = false;
-                
             }
             else
             {
@@ -78,8 +82,9 @@ namespace prj3beer.Views
                 #endregion
 
 
-                /*
+                
                 #region Story 16 code
+            /*
                 nh = DependencyService.Get<INotificationHandler>();
                 //TODO: Call the compare when a new temperature is gotten from our device API, not on a timer
                 Device.StartTimer(TimeSpan.FromSeconds(1), () =>
@@ -88,8 +93,9 @@ namespace prj3beer.Views
 
                     return true;
                 });
+             */
                 #endregion
-                */
+                
 
                 
             }
@@ -97,27 +103,22 @@ namespace prj3beer.Views
 
         }
 
+        /// <summary>
+        /// This method is run if there is a beverage selected
+        /// Sets the images and text elements to represent the selected beverage
+        /// </summary>
         private void PopulateStatusScreen()
         {
-
+            // Sets displayed information of the beverage
             beverageName.Text = currentBeverage.Name.ToString();
             brandName.Text = currentBrand.Name.ToString();
             beverageImage.Source = (preferredBeverage.SaveImage(currentBeverage.ImageURL)).Source;
-
-            //if (preferredBeverage.ImageSaved())
-            //{
-            //    //beverageImage.Source = ImageSource.FromFile(preferredBeverage.ImagePath.ToString());
-            //    //beverageImage = preferredBeverage.savedImage;
-
-            //}
-            //else
-            //{
-            //    beverageImage.Source = ImageSource.FromFile("placeholder_can");
-            //}
+            
+            // Size of all our images we currently use, and looks good on screen
             beverageImage.WidthRequest = 200;
             beverageImage.HeightRequest =200;
 
-
+            // Ensure elements are enabled if there is a beverage selected
             beverageName.IsEnabled = false;
             brandName.IsEnabled = false;
             beverageImage.IsEnabled = false;

@@ -103,41 +103,6 @@ namespace UITests
             app.Tap("Beverage Select");
             app.EnterText("searchBeverage", searchBeverage.ToString());
         }
-
-        /// <summary>
-        /// This method will be used to add Great Western Radler to the status page
-        /// </summary>
-        /// 
-        /*
-        public void addCoorsLightToStatusPage()
-        {
-            selectABeverage("Great Western Radler");
-
-            app.WaitForElement("beverageName");
-
-            AppResult[] beverageDisplay = app.Query("beverageName");
-
-            Assert.AreEqual(beverageDisplay[0].Text, "Great Western Radler");
-
-            beverageDisplay = app.Query("brandName");
-
-            Assert.AreEqual(beverageDisplay[0].Text, "Coors");
-
-            beverageDisplay = app.Query("beverageImage");
-
-
-            if((beverageDisplay[0].Rect.Width == mainDisplayInfoWidth * 0.8) || (beverageDisplay[0].Rect.Height == mainDisplayInfoHeight * 0.6))
-                Assert.IsTrue(true);
-            else
-                Assert.IsTrue(false);
-            
-
-            
-        }
-
-        */
-        
-
         
 
         [Test]
@@ -176,7 +141,7 @@ namespace UITests
                 Assert.IsTrue(false);
         }
 
-        /*
+        /* Image is now always force set to 200 pixels
         [Test]
         public void TestThatImageProportioinIsCorrect()
         {
