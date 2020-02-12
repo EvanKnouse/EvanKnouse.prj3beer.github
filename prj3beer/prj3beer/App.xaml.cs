@@ -13,8 +13,6 @@ namespace prj3beer
 {
     public partial class App : Application
     {
-        public static int publicint = 0;
-
         public App()
         {
             InitializeComponent();
