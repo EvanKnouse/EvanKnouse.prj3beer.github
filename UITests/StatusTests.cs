@@ -79,7 +79,7 @@ namespace UITests
         }
 
 
-        //This test is written poorly, it fails if the temperature was set to Fahrenheit earlier and some other odd unknown circumstances
+        //This test is written poorly, it fails if the temperature was set to Fahrenheit earlier and did not give diaplay a chance to change after
         [Test]
         public void TestSettingsAreAppliedOnSettingsChange()
         {
@@ -112,6 +112,14 @@ namespace UITests
             app.Back();
 
             //Wait for the Current Temperature Label to appear on screen
+            app.WaitForElement("currentTemperature");
+
+            //Slowing down the app to give the temperature display a chance to update - Don't send bad code to master
+            app.WaitForElement("Settings");
+            app.Tap("Settings");
+            app.WaitForElement("SettingsTable");
+            app.Back();
+
             app.WaitForElement("currentTemperature");
 
             //Check that the label for the current temperature is set to "\u00B0F"
