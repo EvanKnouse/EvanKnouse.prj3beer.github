@@ -19,7 +19,7 @@ namespace prj3beer.Views
     public partial class CredentialSelectPage : ContentPage
     {
         // View Model containing all user information and google Oauth Methods
-        CredentialSelectViewModel csvm;
+        public static CredentialSelectViewModel csvm;
         // Boolean to see if this is a new sign up, or exisiting sign in.
         public static bool newUser;
 

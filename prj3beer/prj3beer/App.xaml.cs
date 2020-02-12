@@ -13,6 +13,8 @@ namespace prj3beer
 {
     public partial class App : Application
     {
+        public static int publicint = 0;
+
         public App()
         {
             InitializeComponent();
@@ -20,10 +22,10 @@ namespace prj3beer
             // Reset the local user object in settings
             ResetUser();
 
+            MainPage = new MainPage();
+
             // Set Up App Default Presets
             SetUpPreset();
-
-            MainPage = new MainPage();
         }
 
         /// <summary>

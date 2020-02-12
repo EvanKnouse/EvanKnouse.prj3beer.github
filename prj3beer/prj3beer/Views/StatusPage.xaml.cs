@@ -27,6 +27,8 @@ namespace prj3beer.Views
         {
             InitializeComponent();
 
+            App.publicint = 5;
+
             #region Story 04 Code
             // Instantiate new StatusViewModel
             svm = new StatusViewModel();

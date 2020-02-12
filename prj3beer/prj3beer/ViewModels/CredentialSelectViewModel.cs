@@ -39,8 +39,8 @@ namespace prj3beer.ViewModels
         // ICommand that triggers when the User attempts to Log In
         public ICommand LoginCommand { get; set; }
 
-        // Not Implemented in this story. Will be used to Log a User OUT
-        //public ICommand LogoutCommand { get; set; }
+        // Icommand that will trigger when the User logs out
+        public ICommand LogoutCommand { get; set; }
 
         // Private Interfaced GoogleClientManager
         // This interface enforces that elements on this ViewModel use certain methods.
@@ -57,13 +57,19 @@ namespace prj3beer.ViewModels
             LoginCommand = new Command(LoginAsync);
 
             // Implement in the future for logging a user out!
-            //LogoutCommand = new Command(Logout);
+            LogoutCommand = new Command(Logout);
 
             // Instantiate the googleClientManager
             _googleClientManager = CrossGoogleClient.Current;
 
             // Boolean for if the user is currently Logged in or not
             IsLoggedIn = false;
+        }
+
+        // This method is called using the LogoutCommand
+        public void Logout()
+        {
+
         }
 
         // This method is called using the LoginCommand
