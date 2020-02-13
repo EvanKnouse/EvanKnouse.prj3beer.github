@@ -16,13 +16,11 @@ namespace prj3beer.Views
     [DesignTimeVisible(false)]
     public partial class MainPage : MasterDetailPage
     {
-        //Static BeerContext to pass between pages for database operations
-        public static BeerContext context;
+
 
         Dictionary<int, NavigationPage> MenuPages = new Dictionary<int, NavigationPage>();
         public MainPage()
         {
-            context = new BeerContext();
 
             InitializeComponent();
 

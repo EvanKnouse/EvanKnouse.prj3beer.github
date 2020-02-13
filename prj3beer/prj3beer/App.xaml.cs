@@ -13,14 +13,20 @@ namespace prj3beer
 {
     public partial class App : Application
     {
+        //Static BeerContext to pass between pages for database operations
+        public static BeerContext context;
+
         public App()
         {
             InitializeComponent();
 
+            //Instantiate context
+            context = new BeerContext();
+
             // Reset the local user object in settings
             ResetUser();
 
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new HomePage());
 
             // Set Up App Default Presets
             SetUpPreset();
@@ -48,7 +54,7 @@ namespace prj3beer
             //MockTempReadings.StartCounting();
 
             // Instantiate a new Context (Database)
-            BeerContext context = new BeerContext();
+            //BeerContext context = new BeerContext();
 
             //Instantiate a new API Manager
             APIManager apiManager = new APIManager();
@@ -63,7 +69,7 @@ namespace prj3beer
           
 #endif
             //MainPage = new MainPage(context);
-            MainPage = new MainPage();
+            //MainPage = new MainPage();
         }
 
         public static async void FetchData(BeerContext context, APIManager apiManager)
@@ -76,8 +82,15 @@ namespace prj3beer
 
             // Set URL of api Manager to point to the Brands API
             // Load the Brands that Validate into the Local Storage
-            context.Brands.AddRange(await apiManager.GetBrandsAsync());
+            List<Brand> brands = await apiManager.GetBrandsAsync();
 
+            brands.ForEach( (brand)=>
+            {
+                
+            });
+
+            context.Brands.AddRange(await apiManager.GetBrandsAsync());
+            //context.Brands.UpdateRange
             // Set URL of api Manager to point to the Beverage API
             // Load the Beverages that Validate into the Local Storage
             context.Beverage.AddRange(await apiManager.GetBeveragesAsync());
