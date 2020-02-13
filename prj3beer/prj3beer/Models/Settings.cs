@@ -53,6 +53,8 @@ namespace prj3beer.Models
         private const string TooHotColdKey = "toohotcold_key";
         private static readonly bool TooHotColdDefault = true;
 
+        private const string BeverageKey = "beverage_key";
+        private static readonly int BeverageDefault = -1;
         #endregion
 
         /// <summary>
@@ -186,6 +188,12 @@ namespace prj3beer.Models
                 //Set the TooHotColdSettings key-value pair sets its value to the passed in value
                 AppSettings.AddOrUpdateValue(TooHotColdKey, value);
             }
+        }
+        public static int BeverageSettings
+        {
+            get { return AppSettings.GetValueOrDefault(BeverageKey, BeverageDefault); }
+
+            set { AppSettings.AddOrUpdateValue(BeverageKey, value); }
         }
     }
 }

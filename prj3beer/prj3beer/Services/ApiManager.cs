@@ -94,7 +94,7 @@ namespace prj3beer.Services
             try
             {
                 //Create a response container to store the JSON string as a response
-                response = await client.GetStringAsync(BaseURL + "/beverages");
+                response = await client.GetStringAsync(BaseURL + "/beveragesWithImages");
             }
             catch (HttpRequestException)
             {

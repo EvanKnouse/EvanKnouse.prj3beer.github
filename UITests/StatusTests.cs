@@ -33,6 +33,16 @@ namespace UITests
             ////Tap into the screen navigation menu (default for now)
             //app.Tap(c => c.Marked("ScreenSelectButton"));
 
+            /*
+                Changed to select a drink as the stepper has been disabled when no beverage is selected
+            */
+            #region Added to get off the defualt beverage, and enable the stepper buttons
+            app.Tap("Beverage Select");
+            app.EnterText("searchBeverage", "Great Western Radler");
+            app.TapCoordinates(3, 701);
+            //app.WaitForElement("Settings");
+            #endregion
+
             //Sets the Temperature settings to celsius for every test
             Settings.TemperatureSettings = true;
 
@@ -50,7 +60,7 @@ namespace UITests
         public void TestSettingsMenuIsDisplayedOnStatusScreenWhenSettingsButtonIsPressed()
         {
             //Pick Status screen from the screen selection menu
-            app.Tap("Status");
+            //app.Tap("Status");
 
             //Wait for the Settings button to appear on screen
             app.WaitForElement("Settings");
@@ -68,16 +78,19 @@ namespace UITests
             Assert.IsTrue(button.Any());
         }
 
+
+        //This test is written poorly, it fails if the temperature was set to Fahrenheit earlier and did not give diaplay a chance to change after
         [Test]
         public void TestSettingsAreAppliedOnSettingsChange()
         {
             Settings.TemperatureSettings = true;
 
             //Pick Status screen from the screen selection menu
-            app.Tap("Status");
+            //app.Tap("Status");
 
             //Wait for the Settings button to appear on screen
             app.WaitForElement("Settings");
+            app.WaitForElement("currentTemperature"); //Added this wait or it searched for this element before it existed
 
             //Check that the label for the current temperature is set to "\u00B0C"
             string tempLabel = app.Query("currentTemperature")[0].Text;
@@ -101,6 +114,14 @@ namespace UITests
             //Wait for the Current Temperature Label to appear on screen
             app.WaitForElement("currentTemperature");
 
+            //Slowing down the app to give the temperature display a chance to update - Don't send bad code to master
+            app.WaitForElement("Settings");
+            app.Tap("Settings");
+            app.WaitForElement("SettingsTable");
+            app.Back();
+
+            app.WaitForElement("currentTemperature");
+
             //Check that the label for the current temperature is set to "\u00B0F"
             tempLabel = app.Query("currentTemperature")[0].Text;
 
@@ -116,7 +137,7 @@ namespace UITests
         public void TestThatSettingsMenuDisplaysCurrentAppSettings()
         {
             //Pick status screen from the screen selection menu
-            app.Tap("Status");
+            //app.Tap("Status");
 
             //Wait for the Settings button to appear on screen
             app.WaitForElement("Settings");
@@ -152,7 +173,7 @@ namespace UITests
             //app.Tap("Status");
             //Thread.Sleep(5000);
 
-            app.TapCoordinates(150, 90);
+            //app.TapCoordinates(150, 90);
 
             //Thread.Sleep(5000);
 
@@ -168,7 +189,7 @@ namespace UITests
         public void TargetTempEntryIsOnPage()
         {
             //Pick Status screen from the screen selection menu
-            app.Tap("Status");
+            //app.Tap("Status");
 
             app.WaitForElement("currentTarget");
 
@@ -182,7 +203,7 @@ namespace UITests
         public void StepperIsOnPage()
         {
             //Pick Status screen from the screen selection menu
-            app.Tap("Status");
+            //app.Tap("Status");
 
             app.WaitForElement("TempStepper");
 
@@ -195,7 +216,7 @@ namespace UITests
         public void TargetTempEntryFieldCanBeSetManually()
         {
             //Pick Status screen from the screen selection menu
-            app.Tap("Status");
+            //app.Tap("Status");
 
             app.WaitForElement("currentTarget");
 
@@ -216,13 +237,13 @@ namespace UITests
         public void TargetTempIsIncrementedByButton()
         {
             //Pick Status screen from the screen selection menu
-            app.Tap("Status");
+            //app.Tap("Status");
 
             app.WaitForElement("currentTarget");
 
             int startTemp = int.Parse(app.Query("currentTarget")[0].Text);
 
-            app.TapCoordinates(860, 1650);
+            app.TapCoordinates(860, 1960);
 
             string targetTemperature = app.Query("currentTarget")[0].Text;
 
@@ -234,13 +255,13 @@ namespace UITests
         public void TargetTempIsDecrementedByButton()
         {
             //Pick Status screen from the screen selection menu
-            app.Tap("Status");
+            //app.Tap("Status");
 
             app.WaitForElement("currentTarget");
 
             int startTemp = int.Parse(app.Query("currentTarget")[0].Text);
 
-            app.TapCoordinates(560, 1560);
+            app.TapCoordinates(560, 1960);
 
             string targetTemperature = app.Query("currentTarget")[0].Text;
 

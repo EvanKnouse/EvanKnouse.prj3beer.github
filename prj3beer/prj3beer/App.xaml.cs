@@ -54,7 +54,16 @@ namespace prj3beer
             APIManager apiManager = new APIManager();
 
             // Connect to the API and store Beverages/Brands in the Database
+#if DEBUG
+            //LoadFixtures(context);
             FetchData(context, apiManager);
+#elif RELEASE
+            //Release mode breaks, but can swap these for API usage
+            FetchData(context, apiManager);
+          
+#endif
+            //MainPage = new MainPage(context);
+            MainPage = new MainPage();
         }
 
         public static async void FetchData(BeerContext context, APIManager apiManager)
@@ -92,5 +101,61 @@ namespace prj3beer
         {
             // Handle when your app resumes
         }
+
+        private async void LoadFixtures(BeerContext context)
+        {
+            /*
+            List<Brand> brandList = new List<Brand>();
+
+            brandList.Add(new Brand() { BrandID = 4, Name = "Great Western Brewery" });
+            brandList.Add(new Brand() { BrandID = 5, Name = "Churchhill Brewing Company" });
+            brandList.Add(new Brand() { BrandID = 6, Name = "Prarie Sun Brewery" });
+            brandList.Add(new Brand() { BrandID = 7, Name = new string('a', 61) });
+            brandList.Add(new Brand() { BrandID = 3, Name = "" });
+            // Story 24 Brand, for testing
+            brandList.Add(new Brand() { BrandID = 25, Name = "Coors" });
+
+            //ValidateBrands(brandList, context);
+            */
+
+            // Create a series of 3 new beverages with different values.
+            Beverage bev1 = new Beverage { BeverageID = 1, Name = "Great Western Radler", BrandID = 1, Type = Type.Radler, Temperature = 3 };
+            Beverage bev2 = new Beverage { BeverageID = 2, Name = "Great Western Pilsner", BrandID = 1, Type = (Type)4, Temperature = 13 };
+            Beverage bev3 = new Beverage { BeverageID = 3, Name = "Original 16 Copper Ale", BrandID = 1, Type = (Type)5, Temperature = 2 };
+            Beverage bev4 = new Beverage { BeverageID = 4, Name = "Original 16 Pale Ale", BrandID = 201, Type = (Type)5, Temperature = 2 };
+            Beverage bev5 = new Beverage { BeverageID = 5, Name = "Churchill Blonde Lager", BrandID = 2, Type = (Type)4, Temperature = 3 };
+            Beverage bev6 = new Beverage { BeverageID = 6, Name = "Rebellion Zilla IPA", BrandID = 3, Type = (Type)3, Temperature = 4 };
+            Beverage bev7 = new Beverage { BeverageID = 7, Name = "Rebellion Amber Ale", BrandID = 3, Type = (Type)1, Temperature = 53 };
+            Beverage bev8 = new Beverage { BeverageID = 0, Name = "Rebellion Lentil Beer", BrandID = 3, Type = (Type)10, Temperature = 3 };
+            Beverage bev9 = new Beverage { BeverageID = 99, Name = "Rebellion Pear Beer", BrandID = 3, Type = (Type)3, Temperature = 3 };
+            Beverage bev10 = new Beverage { BeverageID = 8, Name = "ThisNameIsWayTooLongAndIKnowBecauseIJustStartedTypingRandomStuffButIMadeSureToTypeItInPascalCaseXOXOLOLOLOL", BrandID = 2, Type = (Type)8, Temperature = -40 };
+            Beverage bev11 = new Beverage { BeverageID = 9, Name = " ", BrandID = 0, Type = (Type)6, Temperature = 3 };
+
+            Preference pref1 = new Preference { BeverageID = 1, Temperature = 10 };
+
+            try
+            {   // Try to Delete The Database
+                await context.Database.EnsureDeletedAsync();
+                // Try to Create the Database
+                await context.Database.EnsureCreatedAsync();
+                // Add Each beverage to the Database - ready to be written to the database.(watched)
+                context.Beverage.Add(bev1);
+                context.Beverage.Add(bev2);
+                context.Beverage.Add(bev3);
+                // Story 24 Beverages, for testing
+                context.Beverage.Add(bev4);
+                context.Beverage.Add(bev5);
+                context.Beverage.Add(bev6);
+                context.Preference.Add(pref1);
+
+                // Save Changes (updates/new) to the database
+                await context.SaveChangesAsync();
+            }
+            catch (SqliteException)
+            {
+                throw;
+            }
+        }
+
     }
 }
