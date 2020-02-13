@@ -33,5 +33,11 @@ namespace prj3beer.Models
         [Range(-30, 30, ErrorMessage = "Target Temperature cannot be below -30C or above 30C")]
         [JsonProperty("temperature")]
         public double? Temperature { get; set; }
+
+        //[MaxLength(150, ErrorMessage = "Image URL is too large")]
+       [RegularExpression("(http(s?):)([/|.|\\w|\\s|-])*\\.(?:jpg|gif|png|jpeg)", ErrorMessage = "Image URL is not actually an image URL")]
+        [JsonProperty("image")]
+        public string ImageURL { get; set; }
+
     }
 }

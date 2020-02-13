@@ -24,7 +24,7 @@ namespace prj3beer.Views
 
             ListViewMenu.ItemsSource = menuItems;
 
-            //ListViewMenu.SelectedItem = menuItems[0];
+            ListViewMenu.SelectedItem = null;
             ListViewMenu.ItemSelected += async (sender, e) =>
             {
                 if (e.SelectedItem == null)

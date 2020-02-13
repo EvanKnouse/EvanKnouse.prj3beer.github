@@ -33,18 +33,23 @@ namespace prj3beer.Views
 
         public async Task NavigateFromMenu(int id)
         {
-            if (!MenuPages.ContainsKey(id))
+            if (!MenuPages.ContainsKey(id) || id == 0)
             {
+                MenuPages.Remove(id);
+
                 switch (id)
                 {
                     case (int)MenuItemType.Status:
+                        //MenuPages.Remove(id);
                         MenuPages.Add(id, new NavigationPage(new StatusPage()));
+                        
                         break;
                     case (int)MenuItemType.Beverage:
                         MenuPages.Add(id, new NavigationPage(new BeverageSelectPage()));
                         break;
                 }
             }
+      
 
             var newPage = MenuPages[id];
 

@@ -19,37 +19,109 @@ namespace prj3beer.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class StatusPage : ContentPage
     {
+
         static StatusViewModel svm;
         static Beverage currentBeverage;
-        public static Preference preferredBeverage;
+        public static Preference preferredBeverage; //Set to public to fix problem in staus view model
+        static Brand currentBrand;
+        int savedID;
+
+        INotificationHandler nh;
+        NotificationType lastNotification = NotificationType.NO_MESSAGE;
+
+        //Placeholder for target temperature element, implemented in another story.
+        //int targetTempValue = 2;
+
+
 
         public StatusPage()
         {
+
             InitializeComponent();
+            MenuPage page = new MenuPage();
 
-            #region Story 04 Code
-            // Instantiate new StatusViewModel
-            svm = new StatusViewModel();
+            //The id on the settings page of the app
+            // Defaults as -1, seleccting a beverage changes it
+            savedID = Settings.BeverageSettings;
 
-            // Setup the current Beverage (find it from the Context) -- This will be passed in from a viewmodel/bundle/etc in the future.
-            //currentBeverage = new Beverage { BeverageID = 1, Name = "Great Western Radler", Brand = svm.Context.Brands.Find(2), Type = Models.Type.Radler, Temperature = 2 };
-            currentBeverage = svm.Context.Beverage.Find(1);
-            //svm.Context.Beverage.Find(2);
-
-            // Setup the preference object using the passed in beverage
-            SetupPreference();
-
-            // When you first start up the Status Screen, Disable The Inputs (on first launch of application)
-            EnablePageElements(false);
-
-            // If the current Beverage is set, (will run if a beverage has been selected)
-            if (preferredBeverage != null)
-            {   // enable all the elements on the page
-                EnablePageElements(true);
+            //If a beverage was not selected
+            if (savedID == -1)
+            {
+                //Set default values of a beverage
+                beverageName.Text = "No Beverage";
+                brandName.Text = "No Brand";
+                beverageImage.Source = ImageSource.FromFile("placeholder_can");
+                TemperatureStepper.IsEnabled = false;
+                TemperatureInput.IsEnabled = false;
             }
-            #endregion
+            else
+            {
+                #region Story 04/07 Code
+                // Instantiate new StatusViewModel
+                svm = new StatusViewModel();
 
+                // Setup the current Beverage (find it from the Context) -- This will be passed in from a viewmodel/bundle/etc in the future.
+                //currentBeverage = new Beverage { BeverageID = 1, Name = "Great Western Radler", Brand = svm.Context.Brands.Find(2), Type = Models.Type.Radler, Temperature = 2 };
+                currentBeverage = svm.Context.Beverage.Find(savedID);
+                currentBrand = svm.Context.Brands.Find(currentBeverage.BrandID);
+                //svm.Context.Beverage.Find(2);
+
+                // Setup the preference object using the passed in beverage
+                SetupPreference();
+
+                // When you first start up the Status Screen, Disable The Inputs (on first launch of application)
+                EnablePageElements(false);
+
+                // If the current Beverage is set, (will run if a beverage has been selected)
+                if (preferredBeverage != null)
+                {   // enable all the elements on the page
+                    EnablePageElements(true);
+                }
+
+                PopulateStatusScreen();
+                #endregion
+
+
+                
+                #region Story 16 code
+            /*
+                nh = DependencyService.Get<INotificationHandler>();
+                //TODO: Call the compare when a new temperature is gotten from our device API, not on a timer
+                Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+                {
+                    NotificationCheck();
+
+                    return true;
+                });
+             */
+                #endregion
+                
+
+                
+            }
             MockTempReadings.StartCounting();
+
+        }
+
+        /// <summary>
+        /// This method is run if there is a beverage selected
+        /// Sets the images and text elements to represent the selected beverage
+        /// </summary>
+        private void PopulateStatusScreen()
+        {
+            // Sets displayed information of the beverage
+            beverageName.Text = currentBeverage.Name.ToString();
+            brandName.Text = currentBrand.Name.ToString();
+            beverageImage.Source = (preferredBeverage.SaveImage(currentBeverage.ImageURL)).Source;
+            
+            // Size of all our images we currently use, and looks good on screen
+            beverageImage.WidthRequest = 200;
+            beverageImage.HeightRequest =200;
+
+            // Ensure elements are enabled if there is a beverage selected
+            beverageName.IsEnabled = false;
+            brandName.IsEnabled = false;
+            beverageImage.IsEnabled = false;
         }
 
         public void UpdateViewModel(object sender, EventArgs args)
@@ -69,8 +141,9 @@ namespace prj3beer.Views
             // and attach itself to the context (Database).
 
             // TODO: Handle Pre-existing Preference Object.
-            preferredBeverage = svm.Context.Preference.Find(1);
+            preferredBeverage = svm.Context.Preference.Find(savedID);
             //preferredBeverage = null; // This is what the previous line SHOULD be doing.
+
 
             // If that Preferred beverage did not exist, it will be set to null,
             // So if it is null...
@@ -82,6 +155,26 @@ namespace prj3beer.Views
             }
 
         }
+        /*
+        private void SetupPreference(int bevID)
+        {   // Set the page's preferred beverage equal to -> Finding the Beverage in the Database.
+            // If the object is found in the database, it will return itself immediately,
+            // and attach itself to the context (Database).
+
+            // TODO: Handle Pre-existing Preference Object.
+            preferredBeverage = svm.Context.Preference.Find(bevID);
+            //preferredBeverage = null; // This is what the previous line SHOULD be doing.
+
+            // If that Preferred beverage did not exist, it will be set to null,
+            // So if it is null...
+            if (preferredBeverage == null)
+            {   // Create a new Preferred Beverage, with copied values from the Passed In Beverage.
+                preferredBeverage = new Preference() { BeverageID = bevID, Temperature = currentBeverage.Temperature };
+                // Add the beverage to the Context (Database)
+                svm.Context.Preference.Add(preferredBeverage);
+            }
+
+        }*/
 
         /// <summary>
         /// This method will write changes to the Database for any changes that have happened.
@@ -171,22 +264,34 @@ namespace prj3beer.Views
         {   // Instantiate a new StatusViewModel
             svm = new StatusViewModel();
 
-            // Set it's Monitored Celsius value to the value from the Settings 
-            svm.IsCelsius = Settings.TemperatureSettings;
 
-            // Set the Temperature Stepper to the Max/Minimum possible
-            TemperatureStepper.Maximum = 86;
-            TemperatureStepper.Minimum = -30;
+            if (Settings.BeverageSettings != -1)// So default opening no longer uses a drink that does not exist
+            {
+                // Set it's Monitored Celsius value to the value from the Settings 
+                svm.IsCelsius = Settings.TemperatureSettings;
 
-            // Set the temperature of the StatusViewModel to the current preferred beverage temperature
-            svm.Temperature = preferredBeverage.Temperature;
-
-            // is we are currently set to Celsius,
-            if (svm.IsCelsius)
-            {   // Set the Steppers to Min/Max for Celsius,
+                // Set the Temperature Stepper to the Max/Minimum possible
+                TemperatureStepper.Maximum = 86;
                 TemperatureStepper.Minimum = -30;
-                TemperatureStepper.Maximum = 30;
+
+                // Set the temperature of the StatusViewModel to the current preferred beverage temperature
+                svm.Temperature = preferredBeverage.Temperature;
+
+                // is we are currently set to Celsius,
+                if (svm.IsCelsius)
+                {   // Set the Steppers to Min/Max for Celsius,
+                    TemperatureStepper.Minimum = -30;
+                    TemperatureStepper.Maximum = 30;
+                }
+                else
+                {   // Otherwise set the Min/Max to Fahrenheit
+                    TemperatureStepper.Minimum = -22;
+                    TemperatureStepper.Maximum = 86;
+                }
+                //  Update the binding context to equal the new StatusViewModel
+                BindingContext = svm;
             }
+
             else
             {   // Otherwise set the Min/Max to Fahrenheit
                 TemperatureStepper.Minimum = -22;
@@ -194,6 +299,26 @@ namespace prj3beer.Views
             }
             //  Update the binding context to equal the new StatusViewModel
             BindingContext = svm;
+
+
         }
     }
+        /*
+        #region Story 16 Method
+        /// <summary>
+        /// Performs a check based on the updated current temperature and the desired drink temperature.  Will send the appropriate notification if necessitated by current conditions.
+        /// </summary>
+        private void NotificationCheck()
+        {
+            int messageType = Notifications.TryNotification(svm.CurrentTemp, preferredBeverage.Temperature, lastNotification);
+
+            if (messageType > 0) //0 corresponds to type of NO_MESSAGE, thus no notification should be sent
+            {
+                lastNotification = (NotificationType)messageType;
+                nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
+            }
+        }
+        #endregion
+        */
+
 }

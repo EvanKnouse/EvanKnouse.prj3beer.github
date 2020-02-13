@@ -10,7 +10,6 @@
              Title="Status Page"
              xmlns:src="clr-namespace:prj3beer.Services"
              >
-
     <ContentPage.ToolbarItems>
         <ToolbarItem StyleId="btnSettings" x:Name="btnSettings"  Text="Settings" Clicked="ToolbarItem_Clicked" />
     </ContentPage.ToolbarItems>
@@ -19,24 +18,38 @@
             <src:CelsiusFahrenheitConverter x:Key="tempConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-
     <ContentPage.Content>
         <!-- Main stacklayout-->
+        
+        
+        
+        
         <StackLayout VerticalOptions="Center" >
-            <StackLayout Orientation="Horizontal"
+            <StackLayout Orientation="Vertical"
                          HorizontalOptions="CenterAndExpand">
+                
                 <Label x:Name="currentTemperature"
                        AutomationId="currentTemperature"
                        Text="{Binding CurrentTemp, Converter={StaticResource tempConverter}, StringFormat='{0:g}'}"
                        VerticalOptions="Center" 
                        MinimumWidthRequest="3"
                        FontSize="38"
+                       
+                       HorizontalOptions="Center"
                        >
                     <Label.BindingContext>
                         <vm:StatusViewModel 
                             PropertyChanged="UpdateViewModel"/>
                     </Label.BindingContext>
                 </Label>
+                
+                
+                <Image MinimumHeightRequest="200" Source="beverageImage" x:Name="beverageImage" AutomationId="beverageImage" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Image>
+                <!--<Image Source="placeholder_can"/>-->
+                <Label x:Name="beverageName" AutomationId="beverageName" HorizontalOptions="FillAndExpand" ></Label>
+                <Label x:Name="brandName" AutomationId="brandName"></Label>
+
+                
             </StackLayout>
 
             <!-- STORY 04 XAML -->

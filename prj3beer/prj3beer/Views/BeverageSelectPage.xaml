@@ -13,7 +13,7 @@
 
             <ActivityIndicator x:Name="loadingSpinner" AutomationId="loadingSpinner" />
 
-            <ListView x:Name="beverageListView" AutomationId="beverageListView" />
+            <ListView x:Name="beverageListView" AutomationId="beverageListView" ItemTapped="BeverageTapped"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
