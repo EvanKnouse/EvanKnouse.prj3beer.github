@@ -17,7 +17,7 @@ namespace prj3beer.Services
         public DbSet<Preference> Preference { get; set; }
 
         //DB Set for Brands
-        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Brand> Brand { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

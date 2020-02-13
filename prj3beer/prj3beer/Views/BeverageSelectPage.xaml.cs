@@ -15,11 +15,10 @@ namespace prj3beer.Views
     //No beverages displayed if search bar is left blank
     public partial class BeverageSelectPage : ContentPage
     {
-
         MainPage RootPage { get => Application.Current.MainPage as MainPage; }
 
         //Context used to grab all beverages from local storage
-        BeerContext context;
+        //BeerContext context;
 
         //A list that will contain all valid beverages that meet the search criteria
         List<String> listViewBeverages = new List<String>();
@@ -41,7 +40,9 @@ namespace prj3beer.Views
                 Navigation.PushModalAsync(new WelcomeModal());
             }
 
-            context = new BeerContext();
+            
+
+            //context = new BeerContext();
         }
 
         /// <summary>
@@ -70,7 +71,7 @@ namespace prj3beer.Views
             //Checks on 3 different fields (brandName, Name of beverage, and the type) and stores it
 
             //Check to see if the search string finds any brands with a mtaching name
-            var brands = context.Brands.Where(b => b.Name.ToLower().Contains(searchString)).Distinct();
+            var brands = App.Context.Brand.Where(b => b.Name.ToLower().Contains(searchString)).Distinct();
 
             //Initialize a nullable integer to store the brand ID
             int? brand = null;
@@ -87,7 +88,7 @@ namespace prj3beer.Views
             }
 
             // Search the Beverages Database for search string and brand ID that matches
-            var beverages = context.Beverage.Where(b => b.BrandID.Value.Equals(brand) || b.Name.ToLower().Contains(searchString) || b.Type.ToString().ToLower().Contains(searchString)).Distinct();
+            var beverages = App.Context.Beverage.Where(b => b.BrandID.Value.Equals(brand) || b.Name.ToLower().Contains(searchString) || b.Type.ToString().ToLower().Contains(searchString)).Distinct();
             
             //If the search string is not empty
             if (!searchString.Equals(""))
@@ -140,7 +141,7 @@ namespace prj3beer.Views
         private async void BeverageTapped(object sender, ItemTappedEventArgs e)
         {
             //Get the beverage tapped
-            Beverage tappedBeverage = (context.Beverage.Where(b => b.Name.Contains(e.Item.ToString()))).First();
+            Beverage tappedBeverage = (App.Context.Beverage.Where(b => b.Name.Contains(e.Item.ToString()))).First();
             //Get that beverage's ID
             Settings.BeverageSettings = tappedBeverage.BeverageID;
             //Application.Current.MainPage = new NavigationPage(new StatusPage());
@@ -151,6 +152,21 @@ namespace prj3beer.Views
             
             //Go to the settings page, done like this to keep the menu - May need to be changed later
             await RootPage.NavigateFromMenu(id);
+
+        }
+
+        private void Settings_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new NavigationPage(new SettingsMenu()));
+        }
+
+        private void SignIn_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new CredentialSelectPage(false));
+        }
+
+        private void SignOut_Clicked(object sender, EventArgs e)
+        {
 
         }
     }

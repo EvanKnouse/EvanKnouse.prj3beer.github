@@ -4,16 +4,19 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="prj3beer.Views.BeverageSelectPage">
+             x:Class="prj3beer.Views.BeverageSelectPage"
+             Title="Select A Beverage">
     <ContentPage.Content>
         <StackLayout>
             <SearchBar x:Name="searchBeverage" AutomationId="searchBeverage" TextChanged="SearchChanged" Placeholder="Please enter a beverage, type, or brand!!"/>
-
             <Label x:Name="errorLabel" AutomationId="errorLabel" />
-
             <ActivityIndicator x:Name="loadingSpinner" AutomationId="loadingSpinner" />
-
             <ListView x:Name="beverageListView" AutomationId="beverageListView" ItemTapped="BeverageTapped"/>
         </StackLayout>
     </ContentPage.Content>
+    <ContentPage.ToolbarItems x:Uid="Toolbar">
+        <ToolbarItem x:Name="btnSettings" Text="Settings" Order="Secondary" Clicked="Settings_Clicked"/>
+        <ToolbarItem x:Name="btnSignIn" Text="Sign In" Order="Secondary" Clicked="SignIn_Clicked"/>
+        <ToolbarItem x:Name="btnSignOut" Text="Sign Out" Order="Secondary" Clicked="SignOut_Clicked"/>
+    </ContentPage.ToolbarItems>
 </ContentPage>

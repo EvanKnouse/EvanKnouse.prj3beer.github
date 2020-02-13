@@ -8,11 +8,6 @@
              x:Class="prj3beer.Views.SettingsMenu"
              Title="Settings"
              AutomationId="settingsPage">
-
-    <ContentPage.ToolbarItems>
-        <ToolbarItem  AutomationId="SettingsMenuButton" Text="Close" Clicked="Close_Clicked" IconImageSource="outline_clear_black_24.png"/>
-    </ContentPage.ToolbarItems>
-
     <ContentPage.Content>
         <!-- Setting Menu Main Stack-->
         <StackLayout>
@@ -38,4 +33,7 @@
             </TableView>
         </StackLayout>
     </ContentPage.Content>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem  AutomationId="SettingsMenuButton" Text="Close" Clicked="Close_Clicked" IconImageSource="outline_clear_black_24.png"/>
+    </ContentPage.ToolbarItems>
 </ContentPage>

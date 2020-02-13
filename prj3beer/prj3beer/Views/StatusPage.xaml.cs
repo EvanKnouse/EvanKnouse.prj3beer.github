@@ -63,7 +63,7 @@ namespace prj3beer.Views
                 // Setup the current Beverage (find it from the Context) -- This will be passed in from a viewmodel/bundle/etc in the future.
                 //currentBeverage = new Beverage { BeverageID = 1, Name = "Great Western Radler", Brand = svm.Context.Brands.Find(2), Type = Models.Type.Radler, Temperature = 2 };
                 currentBeverage = svm.Context.Beverage.Find(savedID);
-                currentBrand = svm.Context.Brands.Find(currentBeverage.BrandID);
+                currentBrand = svm.Context.Brand.Find(currentBeverage.BrandID);
                 //svm.Context.Beverage.Find(2);
 
                 // Setup the preference object using the passed in beverage
@@ -248,14 +248,31 @@ namespace prj3beer.Views
         }
         #endregion
 
-        async void ToolbarItem_Clicked(object sender, EventArgs e)
+        //async void Settings_Clicked(object sender, EventArgs e)
+        //{
+        //    ((ToolbarItem)(sender)).IsEnabled = false;
+
+        //    await Navigation.PushModalAsync(new NavigationPage(new SettingsMenu()));
+
+        //    ((ToolbarItem)(sender)).IsEnabled = true;
+        //}
+
+        private void Settings_Clicked(object sender, EventArgs e)
         {
-            ((ToolbarItem)(sender)).IsEnabled = false;
-
-            await Navigation.PushModalAsync(new NavigationPage(new SettingsMenu()));
-
-            ((ToolbarItem)(sender)).IsEnabled = true;
+            Navigation.PushModalAsync(new NavigationPage(new SettingsMenu()));
         }
+
+        private void SignIn_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new CredentialSelectPage(false));
+        }
+
+        private void SignOut_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+
 
         /// <summary>
         /// This method is called every time the page is opened.

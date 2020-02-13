@@ -10,9 +10,6 @@
              Title="Status Page"
              xmlns:src="clr-namespace:prj3beer.Services"
              >
-    <ContentPage.ToolbarItems>
-        <ToolbarItem StyleId="btnSettings" x:Name="btnSettings"  Text="Settings" Clicked="ToolbarItem_Clicked" />
-    </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <ResourceDictionary>
             <src:CelsiusFahrenheitConverter x:Key="tempConverter" />
@@ -20,59 +17,37 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <!-- Main stacklayout-->
-        
-        
-        
-        
         <StackLayout VerticalOptions="Center" >
-            <StackLayout Orientation="Vertical"
-                         HorizontalOptions="CenterAndExpand">
-                
-                <Label x:Name="currentTemperature"
-                       AutomationId="currentTemperature"
-                       Text="{Binding CurrentTemp, Converter={StaticResource tempConverter}, StringFormat='{0:g}'}"
-                       VerticalOptions="Center" 
-                       MinimumWidthRequest="3"
-                       FontSize="38"
-                       
-                       HorizontalOptions="Center"
-                       >
+            <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand">
+                <Label x:Name="currentTemperature" AutomationId="currentTemperature"
+                       Text="{Binding CurrentTemp, Converter={StaticResource tempConverter}, StringFormat='{0:g}'}" FontSize="38"
+                       VerticalOptions="Center" HorizontalOptions="Center" MinimumWidthRequest="3">
                     <Label.BindingContext>
-                        <vm:StatusViewModel 
-                            PropertyChanged="UpdateViewModel"/>
+                        <vm:StatusViewModel PropertyChanged="UpdateViewModel"/>
                     </Label.BindingContext>
                 </Label>
-                
-                
-                <Image MinimumHeightRequest="200" Source="beverageImage" x:Name="beverageImage" AutomationId="beverageImage" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Image>
-                <!--<Image Source="placeholder_can"/>-->
-                <Label x:Name="beverageName" AutomationId="beverageName" HorizontalOptions="FillAndExpand" ></Label>
-                <Label x:Name="brandName" AutomationId="brandName"></Label>
-
-                
+                <Image MinimumHeightRequest="200" Source="beverageImage" x:Name="beverageImage" AutomationId="beverageImage" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                <Label x:Name="beverageName" AutomationId="beverageName" HorizontalOptions="FillAndExpand" />
+                <Label x:Name="brandName" AutomationId="brandName" />
             </StackLayout>
-
             <!-- STORY 04 XAML -->
             <StackLayout>
-                <Entry AutomationId="currentTarget" 
-                       x:Name="TemperatureInput" 
-                       Keyboard="Numeric"
-                       HorizontalOptions="FillAndExpand"
-                       HorizontalTextAlignment="End"
-                       Text="{Binding Source={x:Reference TemperatureStepper},Path=Value,Mode=TwoWay}"
-		        Focused="SelectEntryText"/>
+                <Entry AutomationId="currentTarget" x:Name="TemperatureInput" 
+                       Keyboard="Numeric" Text="{Binding Source={x:Reference TemperatureStepper},Path=Value,Mode=TwoWay}"
+                       HorizontalOptions="FillAndExpand" HorizontalTextAlignment="End" Focused="SelectEntryText"/>
                 <Label x:Name="Degree" Text="{Binding Scale}"/>
             </StackLayout>
             <StackLayout HorizontalOptions="Center">
-                <Stepper AutomationId="TempStepper"
-                    x:Name="TemperatureStepper"
+                <Stepper AutomationId="TempStepper" x:Name="TemperatureStepper"
                     Value="{Binding PreferredTemperatureString, Mode=TwoWay}"
-                    Maximum="{Binding Maximum}" 
-                    Minimum="{Binding Minimum}" 
-                    Increment="1" 
-                    HorizontalOptions="Center"
-		            ValueChanged="TemperatureStepperChanged"/>
+                    Maximum="{Binding Maximum}" Minimum="{Binding Minimum}" Increment="1" 
+                    HorizontalOptions="Center" ValueChanged="TemperatureStepperChanged"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
+    <ContentPage.ToolbarItems x:Uid="Toolbar">
+        <ToolbarItem x:Name="btnSettings"   Text="Settings" Order="Secondary" Clicked="Settings_Clicked" />
+        <ToolbarItem x:Name="btnSignIn"     Text="Sign In" Order="Secondary" Clicked="SignIn_Clicked"/>
+        <ToolbarItem x:Name="btnSignOut"    Text="Sign Out" Order="Secondary" Clicked="SignOut_Clicked"/>
+    </ContentPage.ToolbarItems>
 </ContentPage>

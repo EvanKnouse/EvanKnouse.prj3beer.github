@@ -22,7 +22,7 @@ namespace prj3beer.Models
         [Required (ErrorMessage = "Brand is Required")]
         [JsonProperty("brand")]
         [Range(1, 200, ErrorMessage = "Brand ID must be a positive number less than 200")]
-        [ForeignKey("Brand")]
+        [ForeignKey("BrandID")]
         public int? BrandID { get; set; }
 
         [Required(ErrorMessage = "Type is Required")]

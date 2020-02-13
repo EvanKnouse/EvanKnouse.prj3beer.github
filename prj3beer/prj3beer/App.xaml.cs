@@ -8,30 +8,103 @@ using System.Linq;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using prj3beer.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace prj3beer
 {
     public partial class App : Application
     {
         //Static BeerContext to pass between pages for database operations
-        public static BeerContext context;
+        public static BeerContext Context;
+        public static APIManager APIManager;
 
         public App()
         {
             InitializeComponent();
 
-            //Instantiate context
-            context = new BeerContext();
+            //Instantiate context & API Manager
+            Context = new BeerContext();
+            APIManager = new APIManager();
 
             // Reset the local user object in settings
             ResetUser();
 
-            MainPage = new NavigationPage(new HomePage());
+            SetupDatabase();
 
-            // Set Up App Default Presets
-            SetUpPreset();
+            MainPage = new NavigationPage(new BeverageSelectPage());
         }
 
+        public void SetupDatabase()
+        {
+            // Set the default URL of API to default
+            Settings.URLSetting = default;
+
+            StatusViewModel.timerOn = false;
+
+            APIManager apiManager = new APIManager();
+
+            BeerContext context = new BeerContext();
+
+            FetchData();
+        }
+
+        public static async void FetchData()
+        {
+            // REMOVE FOR PERSISTENT Data
+            Context.Database.EnsureDeleted();
+
+            // Ensure the Database is Created
+            Context.Database.EnsureCreated();
+
+            // Set URL of api Manager to point to the Brands API
+            // Load the Brands that Validate into the Local Storage
+            List<Brand> brands = await APIManager.GetBrandsAsync();
+
+            
+
+            try
+            {
+                Context.Brand.AttachRange(brands);
+                Context.Brand.AddRange(brands);
+            }
+            catch(DbUpdateException exception)
+            {
+                Debug.WriteLine(exception.Message);
+
+                Context.Brand.UpdateRange(brands);
+            }
+            finally
+            {
+                Context.ChangeTracker.DetectChanges();
+                Context.SaveChanges();
+            }
+
+            // Load the Beverages that Validate into the Local Storage
+            List<Beverage> beverages = await APIManager.GetBeveragesAsync();
+
+            try
+            {
+                Context.Beverage.AttachRange(beverages);
+                Context.Beverage.AddRange(beverages);
+            }
+            catch (DbUpdateException exception)
+            {
+                Debug.WriteLine(exception.Message);
+
+                Context.Beverage.UpdateRange(beverages);
+
+            }
+            finally
+            {
+
+                Context.ChangeTracker.DetectChanges();
+                Context.SaveChanges();
+            }
+
+
+            // Release database resources
+            //Context?.Dispose();
+        }
         /// <summary>
         /// This method is used to remove the currently saved user that is stored in settings
         /// May be used by the rest when the actual Log Out process HAS to happen.
@@ -54,7 +127,7 @@ namespace prj3beer
             //MockTempReadings.StartCounting();
 
             // Instantiate a new Context (Database)
-            //BeerContext context = new BeerContext();
+            BeerContext context = new BeerContext();
 
             //Instantiate a new API Manager
             APIManager apiManager = new APIManager();
@@ -62,7 +135,7 @@ namespace prj3beer
             // Connect to the API and store Beverages/Brands in the Database
 #if DEBUG
             //LoadFixtures(context);
-            FetchData(context, apiManager);
+            //FetchData(context, apiManager);
 #elif RELEASE
             //Release mode breaks, but can swap these for API usage
             FetchData(context, apiManager);
@@ -72,33 +145,7 @@ namespace prj3beer
             //MainPage = new MainPage();
         }
 
-        public static async void FetchData(BeerContext context, APIManager apiManager)
-        {
-            // REMOVE FOR PERSISTENT Data
-            context.Database.EnsureDeleted();
-
-            // Ensure the Database is Created
-            context.Database.EnsureCreated();
-
-            // Set URL of api Manager to point to the Brands API
-            // Load the Brands that Validate into the Local Storage
-            List<Brand> brands = await apiManager.GetBrandsAsync();
-
-            brands.ForEach( (brand)=>
-            {
-                
-            });
-
-            context.Brands.AddRange(await apiManager.GetBrandsAsync());
-            //context.Brands.UpdateRange
-            // Set URL of api Manager to point to the Beverage API
-            // Load the Beverages that Validate into the Local Storage
-            context.Beverage.AddRange(await apiManager.GetBeveragesAsync());
-
-            // Save changes to the Local Storage
-            Task databaseWrite = context.SaveChangesAsync();
-            databaseWrite.Wait();
-        }
+        
 
         protected override void OnStart()
         {
