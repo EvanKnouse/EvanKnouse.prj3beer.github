@@ -32,6 +32,10 @@ namespace prj3beer.Models
         [DefaultValue("placeholder_can")]
         public string ImagePath { get; set; }
 
+
+        [Required(ErrorMessage = "Favourite is required")]
+        public bool Favourite { get; set; }
+
         #endregion
 
         #region Story 7 code

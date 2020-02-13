@@ -73,6 +73,12 @@
                     HorizontalOptions="Center"
 		            ValueChanged="TemperatureStepperChanged"/>
             </StackLayout>
+
+
+            <ImageButton x:Name="FavouriteButton" AutomationId="FavouriteButton" />
         </StackLayout>
+
+        
+
     </ContentPage.Content>
 </ContentPage>
