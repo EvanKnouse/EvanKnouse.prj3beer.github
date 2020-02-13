@@ -149,10 +149,10 @@ namespace prj3beer.Views
             
             //Set the ID to the setting page
             var id = (int)MenuItemType.Status;
-            
-            //Go to the settings page, done like this to keep the menu - May need to be changed later
-            await RootPage.NavigateFromMenu(id);
 
+            //Go to the settings page, done like this to keep the menu - May need to be changed later
+            //await RootPage.NavigateFromMenu(id);
+            await Navigation.PushAsync(new StatusPage());
         }
 
         private void Settings_Clicked(object sender, EventArgs e)
@@ -162,12 +162,12 @@ namespace prj3beer.Views
 
         private void SignIn_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushModalAsync(new CredentialSelectPage(false));
+            Navigation.PushModalAsync(new NavigationPage(new CredentialSelectPage(false)));
         }
 
         private void SignOut_Clicked(object sender, EventArgs e)
         {
-
+            Navigation.PushModalAsync(new LogoutPage());
         }
     }
 }

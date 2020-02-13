@@ -281,6 +281,9 @@ namespace prj3beer.Views
         {   // Instantiate a new StatusViewModel
             svm = new StatusViewModel();
 
+            //currentTemperature.SetBinding(Label.TextProperty, "CurrentTemp", default, new CelsiusFahrenheitConverter());
+
+
 
             if (Settings.BeverageSettings != -1)// So default opening no longer uses a drink that does not exist
             {
@@ -320,22 +323,4 @@ namespace prj3beer.Views
 
         }
     }
-        /*
-        #region Story 16 Method
-        /// <summary>
-        /// Performs a check based on the updated current temperature and the desired drink temperature.  Will send the appropriate notification if necessitated by current conditions.
-        /// </summary>
-        private void NotificationCheck()
-        {
-            int messageType = Notifications.TryNotification(svm.CurrentTemp, preferredBeverage.Temperature, lastNotification);
-
-            if (messageType > 0) //0 corresponds to type of NO_MESSAGE, thus no notification should be sent
-            {
-                lastNotification = (NotificationType)messageType;
-                nh.SendLocalNotification(Notifications.Title[messageType], Notifications.Body[messageType]);
-            }
-        }
-        #endregion
-        */
-
 }
