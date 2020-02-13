@@ -302,6 +302,11 @@ namespace prj3beer.Views
 
 
         }
+
+        private void FavouriteButtonClicked(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
         /*
         #region Story 16 Method
@@ -320,5 +325,4 @@ namespace prj3beer.Views
         }
         #endregion
         */
-
 }

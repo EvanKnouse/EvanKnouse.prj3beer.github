@@ -1,6 +1,4 @@
-﻿
-using NUnit.Framework;
-using System;
+﻿using NUnit.Framework;
 using System.Linq;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
@@ -28,17 +26,15 @@ namespace UITests
         public void BeforeEachTest()
         {
             app = ConfigureApp.Android.ApkFile(apkPath).StartApp();
-            // tap on the hamburger menu
-            app.TapCoordinates(150, 90);
-
-            // tap to navigate to the beverage select screen
-            //app.Tap("Beverage Select");
         }
 
         #region Helper Methods
         // helper method for going to the beverage page, selecting a beverage, and going to the status screen
         public void SelectABeverage(string searchBeverage)
         {
+            // tap on the hamburger menu
+            app.TapCoordinates(150, 90);
+
             // tap to navigate to the beverage select screen
             app.Tap("Beverage Select");
             app.EnterText("searchBeverage", searchBeverage);
@@ -86,9 +82,6 @@ namespace UITests
             //Fix menu alignment
             GoToStatus();
 
-            // tap the hamburger menu again
-            app.TapCoordinates(150, 90);
-
             // select the beverage that was just favourited
             SelectABeverage("Great Western Radler");
 
@@ -116,9 +109,6 @@ namespace UITests
             //Align the menu page
             GoToStatus();
 
-            // tap the hamburger menu again
-            app.TapCoordinates(150, 90);
-
             // select the beverage that was just favourited
             SelectABeverage("Great Western Radler");
 
@@ -127,7 +117,6 @@ namespace UITests
 
             // check that the favourite button is toggled properly, should not be favourited
             AppResult[] favouriteButton = app.Query("FavouriteButton");
-
 
             //Recreate image that will be used for the favorite button
             string testSoure = "NotFavorite";
@@ -153,10 +142,10 @@ namespace UITests
             // wait for an element on the status screen
             app.WaitForElement("FavouriteButton");
 
-            //Check if the button is favorited or not
-            if (!((Preference)svm.Context.Preference.Find(Settings.BeverageSettings)).Favourite)
+            //Check if the button is favourited or not
+            if (!svm.Context.Preference.Find(Settings.BeverageSettings).Favourite)
             {
-                //Favorite button cooridinence
+                //Favourite button cooridinence
                 app.TapCoordinates(0,0);
             }
 
@@ -172,11 +161,10 @@ namespace UITests
             // wait for an element on the status screen
             app.WaitForElement("FavouriteButton");
 
-            //
+            // get the current status of the favourite button
             favouriteButton = app.Query("FavouriteButton");
 
-
-            //Will compare th
+            //Will compare the image source of the button to the expected image
             Assert.IsTrue(favouriteButton.Any());
         }
 
@@ -188,29 +176,33 @@ namespace UITests
             SelectABeverage("Churchill Blonde Lager");
 
             // wait for an element on the status screen
-            app.WaitForElement("currentTemperature");
+            app.WaitForElement("FavouriteButton");
 
             // tap the favourite button to add the current beverage as a favourite
             app.Tap("FavouriteButton");
 
             // check that the favourite button is toggled properly, should be favourited
             AppResult[] favouriteButton = app.Query("FavouriteButton");
+
+            // will compare the image source of the button to the expected image
             Assert.IsTrue(favouriteButton.Any());
 
-            // tap the hamburger menu again
-            app.TapCoordinates(150, 90);
+            // go to the status screen fix
+            GoToStatus();
 
             // select a new beverage
             SelectABeverage("Rebellion Pear Beer");
 
             // wait for an element on the status screen
-            app.WaitForElement("currentTemperature");
+            app.WaitForElement("FavouriteButton");
 
             // tap the favourite button to add the current beverage as a favourite
             app.Tap("FavouriteButton");
 
             // check that the favourite button is toggled properly, should be favourited
             favouriteButton = app.Query("FavouriteButton");
+
+            // will compare the image source of the button to the expected image
             Assert.IsTrue(favouriteButton.Any());
         }
     }

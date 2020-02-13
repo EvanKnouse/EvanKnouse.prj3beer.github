@@ -34,7 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppInitializer.cs" />
-    <Compile Include="FavoritesTest.cs" />
+    <Compile Include="FavouritesTest.cs" />
     <Compile Include="SignUpTests.cs" />
     <Compile Include="BeverageSelectTests.cs" />
     <Compile Include="BeverageToStausScreenTests.cs" />
