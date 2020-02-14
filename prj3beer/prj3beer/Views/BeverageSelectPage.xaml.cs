@@ -15,11 +15,6 @@ namespace prj3beer.Views
     //No beverages displayed if search bar is left blank
     public partial class BeverageSelectPage : ContentPage
     {
-        MainPage RootPage { get => Application.Current.MainPage as MainPage; }
-
-        //Context used to grab all beverages from local storage
-        //BeerContext context;
-
         //A list that will contain all valid beverages that meet the search criteria
         List<String> listViewBeverages = new List<String>();
 
@@ -39,10 +34,45 @@ namespace prj3beer.Views
                 // If it hasn't been shown yet, then push a new modalscreen to the user.
                 Navigation.PushModalAsync(new WelcomeModal());
             }
+        }
 
-            
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
 
-            //context = new BeerContext();
+            LogInOutButton();
+        }
+
+        private void LogInOutButton()
+        {
+            ToolbarItems.RemoveAt(1);
+
+            bool SignInOut = (Settings.CurrentUserEmail.Length == 0 || Settings.CurrentUserName.Length == 0) ? true : false;
+
+            if (SignInOut)
+            {
+                ToolbarItem SignInButton = new ToolbarItem
+                {
+                    AutomationId = "SignIn",
+                    Text = "Sign In",
+                    Order = ToolbarItemOrder.Secondary
+                };
+                
+                ToolbarItems.Add(SignInButton);
+            }
+            else
+            {
+                ToolbarItem SignOutButton = new ToolbarItem
+                {
+                    AutomationId = "SignOut",
+                    Text = "Sign Out",
+                    Order = ToolbarItemOrder.Secondary
+                };
+               
+                ToolbarItems.Add(SignOutButton);
+            }
+
+            ToolbarItems.ElementAt(1).Clicked += SignInOut_Clicked;
         }
 
         /// <summary>
@@ -160,9 +190,9 @@ namespace prj3beer.Views
             Navigation.PushModalAsync(new NavigationPage(new SettingsMenu()));
         }
 
-        private void SignIn_Clicked(object sender, EventArgs e)
+        private async void SignInOut_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushModalAsync(new NavigationPage(new CredentialSelectPage(false)));
+            await Navigation.PushModalAsync(new NavigationPage(new CredentialSelectPage(false)));
         }
 
         private void SignOut_Clicked(object sender, EventArgs e)

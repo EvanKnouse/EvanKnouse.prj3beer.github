@@ -4,8 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -38,7 +38,8 @@ namespace prj3beer.Views
             BindingContext = csvm = new CredentialSelectViewModel();
 
             // Set the message label to different text depending on the passed in boolean.
-            MessageLabel.Text = isNew ? "Sign Up With" : "Sign In With";
+            //MessageLabel.Text = isNew ? "Sign Up With" : "Sign In With";
+            //MessageLabel.Text = "Sign In With";
         }
 
         /// <summary>
@@ -48,12 +49,42 @@ namespace prj3beer.Views
         {
             base.OnAppearing();
 
-            // If there is already a signed in user, 
-            if(Settings.CurrentUserEmail != null && Settings.CurrentUserName != null)
+            csvm.NavigateAway = false;
+
+            bool loggedin = Settings.CurrentUserEmail != "" && Settings.CurrentUserName != "";
+
+            MessageLabel.Text = loggedin ? "Are You Sure You Want To Sign Out?" : "Sign In With";
+
+            if (loggedin)
             {
-                // Send the user to the Beverage Select Page instead
-                Navigation.PushAsync(new BeverageSelectPage());
+                GoogleButton.IsVisible = false;
+                YesButton.IsVisible = true;
+                //csvm.NavigateAway = true;
             }
+            else
+            {
+                GoogleButton.IsVisible = true;
+                YesButton.IsVisible = false;
+            }
+
+            Device.StartTimer(TimeSpan.FromMilliseconds(1), () =>
+            {
+                if (csvm.NavigateAway)
+                {
+                    Task.Run(async () =>
+                    {
+                        csvm.NavigateAway = false;
+                        await Navigation.PopModalAsync();
+                        return false;
+                    });
+                }
+                return true;
+            });
+        }
+
+        private void CancelButton_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PopModalAsync();
         }
     }
 }

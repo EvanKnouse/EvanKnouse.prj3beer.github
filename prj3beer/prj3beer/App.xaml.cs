@@ -112,8 +112,8 @@ namespace prj3beer
         public void ResetUser()
         {
             Settings.WelcomePromptSetting = false;
-            //Settings.CurrentUserEmail = null;
-            //Settings.CurrentUserName = null;
+            Settings.CurrentUserEmail = "";
+            Settings.CurrentUserName = "";
         }
 
         private void SetUpPreset()

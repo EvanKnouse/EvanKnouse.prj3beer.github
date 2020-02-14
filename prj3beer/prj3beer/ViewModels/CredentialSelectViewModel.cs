@@ -49,6 +49,7 @@ namespace prj3beer.ViewModels
         // Event handler for properties changing
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public bool NavigateAway { get; set; }
 
         // Constructor for the Credential View Model
         public CredentialSelectViewModel()
@@ -69,7 +70,20 @@ namespace prj3beer.ViewModels
         // This method is called using the LogoutCommand
         public void Logout()
         {
+            _googleClientManager.OnLogout += OnLogoutCompleted;
+            _googleClientManager.Logout();
+        }
 
+        private void OnLogoutCompleted(object sender, EventArgs loginEventArgs)
+        {
+            IsLoggedIn = false;
+            User.Email = "";
+            Settings.CurrentUserEmail = "";
+            Settings.CurrentUserName = "";
+
+            NavigateAway = true;
+
+            _googleClientManager.OnLogout -= OnLogoutCompleted;
         }
 
         // This method is called using the LoginCommand
@@ -77,7 +91,6 @@ namespace prj3beer.ViewModels
         {
             // Add the Event Handler to the GoogleClient Manager's on login property
             _googleClientManager.OnLogin += OnLoginCompleted;
-
             
 			try
             {   // Try to use the Google Client Manager to Login Asyncronously
@@ -140,11 +153,10 @@ namespace prj3beer.ViewModels
                 // You will be welcomed after sign in
                 Settings.WelcomePromptSetting = true;
 
-                // Set the token to be the Active Torken from the CrossGoogleClient
-                //var token = CrossGoogleClient.Current.ActiveToken;
-
                 // Set the token to the Active Token from the Cross Google Client
                 Token = CrossGoogleClient.Current.ActiveToken;
+
+                NavigateAway = true;
             }
             else
             {   // If there is an issue retriving data from the returned event
@@ -153,7 +165,6 @@ namespace prj3beer.ViewModels
 
             // Removes (unsubscribes) the event handler from the GoogleClientHandler
             _googleClientManager.OnLogin -= OnLoginCompleted;
-
         }
     }
 }
