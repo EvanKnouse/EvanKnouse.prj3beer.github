@@ -251,10 +251,10 @@ namespace UITests
             app.TapCoordinates(1350, 175);
 
 
-            app.WaitForElement("btnSignOut");
+            //app.WaitForElement("btnSignOut");
 
             // test that the sign out button is on the screen
-            AppResult[] result = app.Query("btnMenuSignOut");
+            AppResult[] result = app.Query("Sign Out");
             Assert.IsTrue(result.Any());
         }
 
@@ -264,7 +264,7 @@ namespace UITests
             //Open the hamburger menu
             //app.TapCoordinates(150, 90);
 
-            app.WaitForElement("btnSignOut");
+            //app.WaitForElement("btnSignOut");
 
             // test that the sign out button is on the screen
             AppResult[] result = app.Query("btnSignOut");

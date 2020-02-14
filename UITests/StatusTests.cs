@@ -74,7 +74,7 @@ namespace UITests
         {
             //Pick Status screen from the screen selection menu
             //app.Tap("Status");
-            //app.TapCoordinates(1350, 175);
+            app.TapCoordinates(1350, 175);
 
 
             //Wait for the Settings button to appear on screen
@@ -104,7 +104,7 @@ namespace UITests
             //app.Tap("Status");
 
             //Wait for the Settings button to appear on screen
-            app.WaitForElement("Settings");
+            //app.WaitForElement("Settings");
             app.WaitForElement("currentTemperature"); //Added this wait or it searched for this element before it existed
 
             //Check that the label for the current temperature is set to "\u00B0C"
@@ -112,6 +112,9 @@ namespace UITests
 
             //If equal, the temperature label has been set to Celsius
             bool isCelsius = tempLabel.Contains("\u00B0C");
+
+            app.TapCoordinates(1350, 175);
+
 
             //Press Settings menu button
             app.Tap("Settings");
@@ -128,6 +131,8 @@ namespace UITests
 
             //Wait for the Current Temperature Label to appear on screen
             app.WaitForElement("currentTemperature");
+
+            app.TapCoordinates(1350, 175);
 
             //Slowing down the app to give the temperature display a chance to update - Don't send bad code to master
             app.WaitForElement("Settings");
@@ -153,6 +158,8 @@ namespace UITests
         {
             //Pick status screen from the screen selection menu
             //app.Tap("Status");
+
+            app.TapCoordinates(1350, 175);
 
             //Wait for the Settings button to appear on screen
             app.WaitForElement("Settings");

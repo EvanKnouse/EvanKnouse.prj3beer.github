@@ -194,10 +194,8 @@ namespace UITests
 
             app = ConfigureApp.Android.ApkFile(apkFile).StartApp(AppDataMode.DoNotClear);
 
-            app.TapCoordinates(150, 90);
-
-            //Pick Status screen from the screen selection menu
-            app.Tap("Status");
+            //Tap into the screen navigation menu
+            app.TapCoordinates(1350, 175);
 
             app.WaitForElement("Settings");
 
