@@ -6,6 +6,7 @@ using prj3beer.Models;
 using Xamarin.Forms;
 using Xamarin.UITest.Configuration;
 using prj3beer.Services;
+using System;
 
 namespace UITests
 {
@@ -48,14 +49,24 @@ namespace UITests
             /*
                 Changed to select a drink as the stepper has been disabled when no beverage is selected
             */
-            #region Added to get off the defualt beverage, and enable the stepper buttons
-            app.Tap("Beverage Select");
-            app.EnterText("searchBeverage", "Great Western Radler");
-            app.TapCoordinates(3, 701);
-            #endregion
+            //#region Added to get off the defualt beverage, and enable the stepper buttons
+            //app.Tap("Beverage Select");
+            //app.EnterText("searchBeverage", "Great Western Radler");
+            //app.TapCoordinates(3, 701);
+            //#endregion
 
             //app.WaitForElement("Settings");
+            //app.TapCoordinates(1350, 175);
+            selectABeverage("Great Western Radler");
+        }
 
+        public void selectABeverage(String searchBeverage)
+        {
+            // tap to navigate to the beverage select screen
+            //app.Tap("Beverage Select");
+            app.EnterText("searchBeverage", searchBeverage.ToString());
+
+            app.TapCoordinates(200, 710);
         }
 
         [Test]
@@ -63,7 +74,7 @@ namespace UITests
         {
             //Pick Status screen from the screen selection menu
             //app.Tap("Status");
-            app.TapCoordinates(1350, 175);
+            //app.TapCoordinates(1350, 175);
 
 
             //Wait for the Settings button to appear on screen

@@ -231,7 +231,9 @@ namespace UITests
         public void TestThatSignOutButtonAppearsIfUserIsSignedIn()
         {
             // navigate to the sign up page
-            app.Tap("SignInButton");
+            //app.Tap("SignInButton");
+            app.TapCoordinates(1350, 350);
+
 
             // navigate to enter external credentials
             app.Tap("GoogleButton");
@@ -241,6 +243,8 @@ namespace UITests
 
             // Tap the Continue Button
             //app.Tap("ContinueButton");
+
+            Thread.Sleep(2000);
 
             //Open the  menu
             //app.TapCoordinates(150, 90);
@@ -286,12 +290,12 @@ namespace UITests
 
             //Open the menu
             //app.TapCoordinates(150, 90);
-            app.TapCoordinates(1350, 350);
+            app.TapCoordinates(1350, 175);
 
-            app.WaitForElement("btnMenuSignIn");
+            //app.WaitForElement("btnMenuSignIn");
 
             // test that the sign out button is on the screen
-            AppResult[] result = app.Query("btnMenuSignIn");
+            AppResult[] result = app.Query("Sign In");
             Assert.IsFalse(result.Any());
         }
 
@@ -310,12 +314,13 @@ namespace UITests
 
             // Tap the Continue Button
             //app.Tap("ContinueButton");
+            Thread.Sleep(2000);
 
             //Open the hamburger menu
             //app.TapCoordinates(150, 90);
             app.TapCoordinates(1350, 175);
 
-            app.WaitForElement("btnSignOut");
+            //app.WaitForElement("btnSignOut");
 
             app.TapCoordinates(1350, 350);
             //Sign out
@@ -325,7 +330,7 @@ namespace UITests
             app.TapCoordinates(1350, 175);
 
             // test that the sign out button is on the screen
-            AppResult[] result = app.Query("SignInButton");
+            AppResult[] result = app.Query("Sign In");
             Assert.IsTrue(result.Any());
         }
         #endregion

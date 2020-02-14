@@ -68,19 +68,19 @@ namespace prj3beer.Views
                 YesButton.IsVisible = false;
             }
 
-            //Device.StartTimer(TimeSpan.FromMilliseconds(1), () =>
-            //{
-            //    if (csvm.NavigateAway)
-            //    {
-            //        Task.Run(async () =>
-            //        {
-            //            csvm.NavigateAway = false;
-            //            await Navigation.PopModalAsync();
-            //            return false;
-            //        });
-            //    }
-            //    return true;
-            //});
+            Device.StartTimer(TimeSpan.FromMilliseconds(1), () =>
+            {
+                if (csvm.NavigateAway)
+                {
+                    Task.Run(async () =>
+                    {
+                        csvm.NavigateAway = false;
+                        await Navigation.PopModalAsync();
+                        return false;
+                    });
+                }
+                return true;
+            });
         }
 
         private void CancelButton_Clicked(object sender, EventArgs e)

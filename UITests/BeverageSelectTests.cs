@@ -421,7 +421,7 @@ namespace UITests
         {
             AppResult[] warningLabel = app.Query("errorLabel");
 
-            Assert.IsFalse(warningLabel.Any());
+            Assert.IsFalse(warningLabel[0].Text.Length < 0);
         }
         #endregion
 
