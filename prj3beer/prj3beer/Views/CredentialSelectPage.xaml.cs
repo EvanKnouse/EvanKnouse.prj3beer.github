@@ -83,17 +83,15 @@ namespace prj3beer.Views
             });
         }
 
+        /// <summary>
+        /// Event handler for the persistent cancel button on the sign in/out screen.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CancelButton_Clicked(object sender, EventArgs e)
         {
+            //Close the Sign in/out screen
             Navigation.PopModalAsync();
-        }
-
-        void OnAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
-        {
-            if (e.IsAuthenticated)
-            {
-                Navigation.PopModalAsync();
-            }
         }
     }
 }
