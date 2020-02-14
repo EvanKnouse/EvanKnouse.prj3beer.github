@@ -28,12 +28,12 @@ namespace prj3beer.Views
             InitializeComponent();
 
             // Check to see if the welcome prompt has fired since the user has logged in
-            if (Settings.WelcomePromptSetting)
-            {   // If it fires, disable it from firing again
-                Settings.WelcomePromptSetting = false;
-                // If it hasn't been shown yet, then push a new modalscreen to the user.
-                Navigation.PushModalAsync(new WelcomeModal());
-            }
+            //if (Settings.WelcomePromptSetting)
+            //{   // If it fires, disable it from firing again
+            //    Settings.WelcomePromptSetting = false;
+            //    // If it hasn't been shown yet, then push a new modalscreen to the user.
+            //    Navigation.PushModalAsync(new WelcomeModal());
+            //}
         }
 
         protected override void OnAppearing()
@@ -193,11 +193,6 @@ namespace prj3beer.Views
         private async void SignInOut_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new NavigationPage(new CredentialSelectPage(false)));
-        }
-
-        private void SignOut_Clicked(object sender, EventArgs e)
-        {
-            Navigation.PushModalAsync(new LogoutPage());
         }
     }
 }
