@@ -38,7 +38,7 @@ namespace prj3beer.Views
         {
 
             InitializeComponent();
-            MenuPage page = new MenuPage();
+            //MenuPage page = new MenuPage(); //What is this doing here?
 
             //The id on the settings page of the app
             // Defaults as -1, seleccting a beverage changes it
@@ -116,7 +116,7 @@ namespace prj3beer.Views
             
             // Size of all our images we currently use, and looks good on screen
             beverageImage.WidthRequest = 200;
-            beverageImage.HeightRequest =200;
+            beverageImage.HeightRequest = 200;
 
             // Ensure elements are enabled if there is a beverage selected
             beverageName.IsEnabled = false;
