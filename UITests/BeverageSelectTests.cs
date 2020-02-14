@@ -42,10 +42,14 @@ namespace UITests
         {
             //app = AppInitializer.StartApp(platform);
             app = ConfigureApp.Android.ApkFile(apkPath).StartApp();
-            // tap on the hamburger menu
-            app.TapCoordinates(150, 90);
+
+            /* Story 9 Navigation Change.
+             // tap on the hamburger menu
+            //app.TapCoordinates(150, 90);
             // tap to navigate to the beverage select screen
-            app.Tap("Beverage Select");
+            //app.Tap("Beverage Select");
+             */
+
         }
 
         #region Element on Screen Tests

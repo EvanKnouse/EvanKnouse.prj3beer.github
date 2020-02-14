@@ -28,8 +28,7 @@ namespace UITests
         {
             //Initialize the app, arrive at home page (default for now)
             app = ConfigureApp.Android.ApkFile(apkFile).StartApp();
-            //Tap into the screen navigation menu
-            app.TapCoordinates(150, 90);
+
             ////Tap into the screen navigation menu (default for now)
             //app.Tap(c => c.Marked("ScreenSelectButton"));
 
@@ -44,13 +43,16 @@ namespace UITests
 
             //Sets the Too Hot/Cold Notification setting to on
             Settings.NotificationSettings = true;
+
+            //Tap into the screen navigation menu
+            app.TapCoordinates(1350, 175);
         }
 
         [Test]
         public void TestSettingsMenuIsDisplayedOnStatusScreenWhenSettingsButtonIsPressed()
         {
             //Pick Status screen from the screen selection menu
-            app.Tap("Status");
+            //app.Tap("Status");
 
             //Wait for the Settings button to appear on screen
             app.WaitForElement("Settings");
@@ -110,7 +112,7 @@ namespace UITests
         public void TestThatTurningOffMasterNotificationSwitchHidesNotificationsSubSettings()
         {
             //Pick status screen from the screen selection menu
-            app.Tap("Status");
+            //app.Tap("Status");
 
             //Wait for the Settings button to appear on screen
             app.WaitForElement("Settings");
@@ -141,7 +143,7 @@ namespace UITests
         public void TestThatTurningOnMasterNotificationSwitchShowsNotificationsSubSettings()
         {
             //Pick status screen from the screen selection menu
-            app.Tap("Status");
+            //app.Tap("Status");
 
             //Wait for the Settings button to appear on screen
             app.WaitForElement("Settings");
@@ -176,7 +178,7 @@ namespace UITests
         public void TestThatNotificationSettingsPersistOnAppReload()
         {
             //Pick Status screen from the screen selection menu
-            app.Tap("Status");
+            //app.Tap("Status");
 
             app.WaitForElement("Settings");
 

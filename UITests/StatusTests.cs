@@ -29,19 +29,9 @@ namespace UITests
             //Initialize the app, arrive at home page (default for now)
             app = ConfigureApp.Android.ApkFile(apkFile).StartApp();
             //Tap into the screen navigation menu
-            app.TapCoordinates(150, 90);
+            //app.TapCoordinates(150, 90);
             ////Tap into the screen navigation menu (default for now)
             //app.Tap(c => c.Marked("ScreenSelectButton"));
-
-            /*
-                Changed to select a drink as the stepper has been disabled when no beverage is selected
-            */
-            #region Added to get off the defualt beverage, and enable the stepper buttons
-            app.Tap("Beverage Select");
-            app.EnterText("searchBeverage", "Great Western Radler");
-            app.TapCoordinates(3, 701);
-            //app.WaitForElement("Settings");
-            #endregion
 
             //Sets the Temperature settings to celsius for every test
             Settings.TemperatureSettings = true;
@@ -54,6 +44,18 @@ namespace UITests
 
             //Sets the Too Hot/Cold Notification setting to on
             Settings.NotificationSettings = true;
+
+            /*
+                Changed to select a drink as the stepper has been disabled when no beverage is selected
+            */
+            #region Added to get off the defualt beverage, and enable the stepper buttons
+            app.Tap("Beverage Select");
+            app.EnterText("searchBeverage", "Great Western Radler");
+            app.TapCoordinates(3, 701);
+            #endregion
+
+            //app.WaitForElement("Settings");
+
         }
 
         [Test]
@@ -61,6 +63,8 @@ namespace UITests
         {
             //Pick Status screen from the screen selection menu
             //app.Tap("Status");
+            app.TapCoordinates(1350, 175);
+
 
             //Wait for the Settings button to appear on screen
             app.WaitForElement("Settings");

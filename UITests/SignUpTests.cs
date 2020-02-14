@@ -37,29 +37,36 @@ namespace UITests
             //app = AppInitializer.StartApp(platform);
             app = ConfigureApp.Android.ApkFile(apkPath).StartApp();
 
+            app.TapCoordinates(1350, 175);
         }
 
         #region Sign In/Up Tests
+        //[Test] PAGE NO LONGER EXISTS
+        //public void TestThatSignInSignUpButtonsAreOnScreen()
+        //{
+        //    // Wait for the sign up button to appear on screen
+        //    // app.WaitForElement("SignUpButton");
+        //    app.TapCoordinates(1350, 350);
+
+        //    // test that the sign up button is on the screen
+        //    AppResult[] button = app.Query("SignUpButton");
+        //    Assert.IsTrue(button.Any());
+
+        //    // test that the sign in button is on the screen
+        //    button = app.Query("SignInButton");
+        //    Assert.IsTrue(button.Any());
+        //}
+
+            /// <summary>
+            /// REMOVED SIGN UP TESTS - SIGN IN FUNCTIONS THE SAME
+            /// </summary>
+
         [Test]
-        public void TestThatSignInSignUpButtonsAreOnScreen()
-        {
-            // Wait for the sign up button to appear on screen
-            app.WaitForElement("SignUpButton");
-
-            // test that the sign up button is on the screen
-            AppResult[] button = app.Query("SignUpButton");
-            Assert.IsTrue(button.Any());
-
-            // test that the sign in button is on the screen
-            button = app.Query("SignInButton");
-            Assert.IsTrue(button.Any());
-        }
-
-        [Test]
-        public void TestThatSignUpScreenElementsExistOnPage()
+        public void TestThatSignInScreenElementsExistOnPage()
         {
             // navigate to the sign up page
-            app.Tap("SignUpButton");
+            //app.Tap("SignUpButton");
+            app.TapCoordinates(1350, 350);
 
             // Wait for the Google button to appear on screen
             app.WaitForElement("GoogleButton");
@@ -68,25 +75,7 @@ namespace UITests
             AppResult[] result = app.Query("GoogleButton");
             Assert.IsTrue(result.Any());
 
-            // test that the label is on the screen
-            result = app.Query("MessageLabel");
-            Assert.IsTrue(result.Any());
-
-            // test that the label contains the proper text
-            Assert.AreEqual(result[0].Text, "Sign Up With");
-        }
-
-        [Test]
-        public void TestThatSignInScreenElementsExistOnPage()
-        {
-            // navigate to the sign in page
-            app.Tap("SignInButton");
-
-            // Wait for the Google Button to appear on screen
-            app.WaitForElement("GoogleButton");
-
-            // test that the Google sign in button is on the screen
-            AppResult[] result = app.Query("GoogleButton");
+            result = app.Query("CancelButton");
             Assert.IsTrue(result.Any());
 
             // test that the label is on the screen
@@ -101,7 +90,8 @@ namespace UITests
         public void TestThatUserIsTakenToBeverageSelectPageAfterSuccessfulSignIn()
         {
             // navigate to the sign up page
-            app.Tap("SignInButton");
+            //app.Tap("SignInButton");
+            app.TapCoordinates(1350, 350);
 
             // navigate to enter external credentials
             app.Tap("GoogleButton");
@@ -109,13 +99,14 @@ namespace UITests
             // select account or enter credentials
             //app.TapCoordinates(690, 1300); // Taps behind Android Prompt Window
 
-            app.WaitForElement("WelcomeLabel");
+            // NO LABEL ANYMORE
+            //app.WaitForElement("WelcomeLabel");
 
             // test that the welcoming label contains welcoming text
-            app.WaitForElement("ContinueButton");
+            //app.WaitForElement("ContinueButton");
 
             // Tap the Continue Button
-            app.Tap("ContinueButton");
+           // app.Tap("ContinueButton");
 
             // Wait for the search field to be on the screen
             app.WaitForElement("searchBeverage");
@@ -246,15 +237,17 @@ namespace UITests
             app.Tap("GoogleButton");
 
             // test that the welcoming label contains welcoming text
-            app.WaitForElement("ContinueButton");
+            //app.WaitForElement("ContinueButton");
 
             // Tap the Continue Button
-            app.Tap("ContinueButton");
+            //app.Tap("ContinueButton");
 
-            //Open the hamburger menu
-            app.TapCoordinates(150, 90);
+            //Open the  menu
+            //app.TapCoordinates(150, 90);
+            app.TapCoordinates(1350, 175);
 
-            app.WaitForElement("btnMenuSignOut");
+
+            app.WaitForElement("btnSignOut");
 
             // test that the sign out button is on the screen
             AppResult[] result = app.Query("btnMenuSignOut");
@@ -265,12 +258,12 @@ namespace UITests
         public void TestThatSignOutButtonIsNotVisibleIfUserIsNotSignedIn()
         {
             //Open the hamburger menu
-            app.TapCoordinates(150, 90);
+            //app.TapCoordinates(150, 90);
 
-            app.WaitForElement("btnMenuSignOut");
+            app.WaitForElement("btnSignOut");
 
             // test that the sign out button is on the screen
-            AppResult[] result = app.Query("btnMenuSignOut");
+            AppResult[] result = app.Query("btnSignOut");
             Assert.IsFalse(result.Any());
         }
 
@@ -278,19 +271,22 @@ namespace UITests
         public void TestThatUserIsNotAbleToSignInOrUpTwice()
         {
             // navigate to the sign up page
-            app.Tap("SignInButton");
+            //app.Tap("SignInButton");
+            app.TapCoordinates(1350, 350);
+
 
             // navigate to enter external credentials
             app.Tap("GoogleButton");
 
             // test that the welcoming label contains welcoming text
-            app.WaitForElement("ContinueButton");
+            //app.WaitForElement("ContinueButton");
 
             // Tap the Continue Button
-            app.Tap("ContinueButton");
+            //app.Tap("ContinueButton");
 
-            //Open the hamburger menu
-            app.TapCoordinates(150, 90);
+            //Open the menu
+            //app.TapCoordinates(150, 90);
+            app.TapCoordinates(1350, 350);
 
             app.WaitForElement("btnMenuSignIn");
 
@@ -303,26 +299,30 @@ namespace UITests
         public void TestThatAUserCanSignInOrUpAfterLoggingOut()
         {
             // navigate to the sign up page
-            app.Tap("SignInButton");
+            //app.Tap("SignInButton");
+            app.TapCoordinates(1350, 350);
 
             // navigate to enter external credentials
             app.Tap("GoogleButton");
 
             // test that the welcoming label contains welcoming text
-            app.WaitForElement("ContinueButton");
+            //app.WaitForElement("ContinueButton");
 
             // Tap the Continue Button
-            app.Tap("ContinueButton");
+            //app.Tap("ContinueButton");
 
             //Open the hamburger menu
-            app.TapCoordinates(150, 90);
+            //app.TapCoordinates(150, 90);
+            app.TapCoordinates(1350, 175);
 
-            app.WaitForElement("btnMenuSignOut");
+            app.WaitForElement("btnSignOut");
 
+            app.TapCoordinates(1350, 350);
             //Sign out
-            app.Tap("btnMenuSignOut");
+            app.Tap("YesButton");
 
             //app.WaitForElement("SignInButton");
+            app.TapCoordinates(1350, 175);
 
             // test that the sign out button is on the screen
             AppResult[] result = app.Query("SignInButton");

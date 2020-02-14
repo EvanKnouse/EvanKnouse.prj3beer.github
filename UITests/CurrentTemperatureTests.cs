@@ -25,13 +25,28 @@ namespace UITests
             this.platform = platform;
         }
 
+        public void selectABeverage(String searchBeverage)
+        {
+            // tap to navigate to the beverage select screen
+            //app.Tap("Beverage Select");
+            app.EnterText("searchBeverage", searchBeverage.ToString());
+
+            app.TapCoordinates(200, 710);
+        }
+
         [SetUp]
         public void BeforeEachTest()
         {
             //Initialize the app, arrive at home page (default for now)
             app = app = ConfigureApp.Android.ApkFile(apkPath).StartApp();
             //Tap into the screen navigation menu
-            app.TapCoordinates(150, 90);
+            //app.TapCoordinates(150, 90);
+
+            selectABeverage("Great Western Radler");
+
+            //app.TapCoordinates(1350, 175);
+            //app.TapCoordinates(175, 1350);
+
             ////Tap into the screen navigation menu (default for now)
             //app.Tap(c => c.Marked("ScreenSelectButton"));
         }
@@ -40,7 +55,7 @@ namespace UITests
         public void TestTemperatureBelowRangeError()
         {
             //Tap on the status text to navigate the status screen
-            app.Tap("Status");
+            //app.Tap("Status");
 
             //Wait for the current Temperature label to appear on screen
             app.WaitForElement("currentTemperature");
@@ -59,7 +74,7 @@ namespace UITests
         public void TestTemperatureAboveRangeError()
         {
             //Tap on the status text to navigate the status screen
-            app.Tap("Status");
+            //app.Tap("Status");
 
             //Wait for the current Temperature label to appear on screen
             app.WaitForElement("currentTemperature");
@@ -77,7 +92,7 @@ namespace UITests
         [Test]
         public void TestCurrentTemperatureLabelUpdatesWithTemperatureReadings()
         {
-            app.Tap("Status");
+            //app.Tap("Status");
 
 
             app.WaitForElement("currentTemperature");

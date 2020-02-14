@@ -73,36 +73,37 @@ namespace UITests
         //Brand --> x:automationID = brandName
         //BeverageName --> x:automationID = beverageName
         //BeverageImage --> x:automationID = beverageImage
+
         [SetUp]
         public void BeforeEachTest()
         {
             //app = AppInitializer.StartApp(platform);
             app = ConfigureApp.Android.ApkFile(apkPath).StartApp();
             // tap on the hamburger menu
-            app.TapCoordinates(150, 90);
+            //app.TapCoordinates(150, 90);
 
         }
 
         public void selectABeverage(String searchBeverage)
         {
             // tap to navigate to the beverage select screen
-            app.Tap("Beverage Select");
+            //app.Tap("Beverage Select");
             app.EnterText("searchBeverage", searchBeverage.ToString());
 
-            app.TapCoordinates(3,701);
+            app.TapCoordinates(200, 710);
         }
 
-        public void notSelectingBeverage()
-        {
-            app.Tap("Status");
-        }
+        //public void notSelectingBeverage()
+        //{
+        //    app.Tap("Status");
+        //}
 
-        public void goToBeverageSelectScreen(String searchBeverage)
-        {
-            // tap to navigate to the beverage select screen
-            app.Tap("Beverage Select");
-            app.EnterText("searchBeverage", searchBeverage.ToString());
-        }
+        //public void goToBeverageSelectScreen(String searchBeverage)
+        //{
+        //    // tap to navigate to the beverage select screen
+        //    app.Tap("Beverage Select");
+        //    app.EnterText("searchBeverage", searchBeverage.ToString());
+        //}
         
 
         [Test]
@@ -160,7 +161,6 @@ namespace UITests
             AppResult[] beverageDisplay = app.Query("StatusPage");
 
             Assert.IsTrue(beverageDisplay.Any());
-
         }
 
         [Test]

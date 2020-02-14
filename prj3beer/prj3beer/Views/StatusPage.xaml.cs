@@ -257,22 +257,7 @@ namespace prj3beer.Views
         //    ((ToolbarItem)(sender)).IsEnabled = true;
         //}
 
-        private void Settings_Clicked(object sender, EventArgs e)
-        {
-            Navigation.PushModalAsync(new NavigationPage(new SettingsMenu()));
-        }
-
-        private void SignIn_Clicked(object sender, EventArgs e)
-        {
-            Navigation.PushModalAsync(new CredentialSelectPage(false));
-        }
-
-        private void SignOut_Clicked(object sender, EventArgs e)
-        {
-
-        }
-
-
+        
 
         /// <summary>
         /// This method is called every time the page is opened.
@@ -320,7 +305,48 @@ namespace prj3beer.Views
             //  Update the binding context to equal the new StatusViewModel
             BindingContext = svm;
 
+            LogInOutButton();
+        }
+        private void LogInOutButton()
+        {
+            ToolbarItems.RemoveAt(1);
 
+            bool SignInOut = (Settings.CurrentUserEmail.Length == 0 || Settings.CurrentUserName.Length == 0) ? true : false;
+
+            if (SignInOut)
+            {
+                ToolbarItem SignInButton = new ToolbarItem
+                {
+                    AutomationId = "SignIn",
+                    Text = "Sign In",
+                    Order = ToolbarItemOrder.Secondary
+                };
+
+                ToolbarItems.Add(SignInButton);
+            }
+            else
+            {
+                ToolbarItem SignOutButton = new ToolbarItem
+                {
+                    AutomationId = "SignOut",
+                    Text = "Sign Out",
+                    Order = ToolbarItemOrder.Secondary
+                };
+
+                ToolbarItems.Add(SignOutButton);
+            }
+
+            ToolbarItems.ElementAt(1).Clicked += SignInOut_Clicked;
+        }
+
+        private void Settings_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new NavigationPage(new SettingsMenu()));
+        }
+
+        private async void SignInOut_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new NavigationPage(new CredentialSelectPage(false)));
         }
     }
 }
