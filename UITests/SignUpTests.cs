@@ -41,25 +41,10 @@ namespace UITests
         }
 
         #region Sign In/Up Tests
-        //[Test] PAGE NO LONGER EXISTS
-        //public void TestThatSignInSignUpButtonsAreOnScreen()
-        //{
-        //    // Wait for the sign up button to appear on screen
-        //    // app.WaitForElement("SignUpButton");
-        //    app.TapCoordinates(1350, 350);
-
-        //    // test that the sign up button is on the screen
-        //    AppResult[] button = app.Query("SignUpButton");
-        //    Assert.IsTrue(button.Any());
-
-        //    // test that the sign in button is on the screen
-        //    button = app.Query("SignInButton");
-        //    Assert.IsTrue(button.Any());
-        //}
-
             /// <summary>
             /// REMOVED SIGN UP TESTS - SIGN IN FUNCTIONS THE SAME
             /// </summary>
+            /// 
 
         [Test]
         public void TestThatSignInScreenElementsExistOnPage()
@@ -73,6 +58,9 @@ namespace UITests
 
             // test that the Google sign in button is on the screen
             AppResult[] result = app.Query("GoogleButton");
+            Assert.IsTrue(result.Any());
+
+            result = app.Query("FacebookButton");
             Assert.IsTrue(result.Any());
 
             result = app.Query("CancelButton");
@@ -114,6 +102,9 @@ namespace UITests
             AppResult[] result = app.Query("searchBeverage");
             Assert.IsTrue(result.Any());
         }
+
+        [Test]
+        public void TestThatUser
         #endregion
 
         #region Tests That Cant Run
