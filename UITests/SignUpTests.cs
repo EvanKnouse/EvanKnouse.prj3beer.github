@@ -41,12 +41,8 @@ namespace UITests
         }
 
         #region Sign In/Up Tests
-            /// <summary>
-            /// REMOVED SIGN UP TESTS - SIGN IN FUNCTIONS THE SAME
-            /// </summary>
-            /// 
 
-        [Test]
+        [Test] // Test that all elements on the sign in page
         public void TestThatSignInScreenElementsExistOnPage()
         {
             // navigate to the sign up page
@@ -75,7 +71,7 @@ namespace UITests
         }
 
         [Test] // Must sign in to application at least once to complete test
-        public void TestThatUserIsTakenToBeverageSelectPageAfterSuccessfulSignIn()
+        public void TestThatUserIsTakenToBeverageSelectPageAfterSuccessfulSignInWithGoogle()
         {
             // navigate to the sign up page
             //app.Tap("SignInButton");
@@ -84,17 +80,22 @@ namespace UITests
             // navigate to enter external credentials
             app.Tap("GoogleButton");
 
-            // select account or enter credentials
-            //app.TapCoordinates(690, 1300); // Taps behind Android Prompt Window
+            // Wait for the search field to be on the screen
+            app.WaitForElement("searchBeverage");
 
-            // NO LABEL ANYMORE
-            //app.WaitForElement("WelcomeLabel");
+            AppResult[] result = app.Query("searchBeverage");
+            Assert.IsTrue(result.Any());
+        }
+        
+        [Test] // Must sign in to application at least once to complete test
+        public void TestThatUserIsTakenToBeverageSelectPageAfterSuccessfulSignInWithFacebook()
+        {
+            // navigate to the sign up page
+            //app.Tap("SignInButton");
+            app.TapCoordinates(1350, 350);
 
-            // test that the welcoming label contains welcoming text
-            //app.WaitForElement("ContinueButton");
-
-            // Tap the Continue Button
-           // app.Tap("ContinueButton");
+            // navigate to enter external credentials
+            app.Tap("FacebookButton");
 
             // Wait for the search field to be on the screen
             app.WaitForElement("searchBeverage");
@@ -104,7 +105,26 @@ namespace UITests
         }
 
         [Test]
-        public void TestThatUser
+        public void TestThatUserIsUnableToSignInMultipleTimes()
+        {
+            // navigate to the sign up page
+            app.TapCoordinates(1350, 350);
+
+            // navigate to enter external credentials
+            app.Tap("FacebookButton");
+
+            // Wait for the beverage select page appears again
+            app.WaitForElement("searchBeverage");
+
+            // Tap the ellipsis menu again
+            app.TapCoordinates(1350, 175);
+
+            // Look for Sign In button
+            AppResult[] result = app.Query("btnSignIn");
+
+            // Sign In button shouldn't appear on screen
+            Assert.IsFalse(result.Any());
+        }
         #endregion
 
         #region Tests That Cant Run

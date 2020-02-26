@@ -16,6 +16,6 @@
     </ContentPage.Content>
     <ContentPage.ToolbarItems x:Uid="Toolbar">
         <ToolbarItem x:Name="btnSettings" Text="Settings" Order="Secondary" Clicked="Settings_Clicked"/>
-        <ToolbarItem x:Name="btnSignIn" Text="Sign In" Order="Secondary" Clicked="SignInOut_Clicked"/>
+        <ToolbarItem AutomationId="btnSignIn" x:Name="btnSignIn" Text="Sign In" Order="Secondary" Clicked="SignInOut_Clicked"/>
     </ContentPage.ToolbarItems>
 </ContentPage>
