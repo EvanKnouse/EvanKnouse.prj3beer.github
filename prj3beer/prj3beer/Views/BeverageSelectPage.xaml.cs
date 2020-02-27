@@ -22,18 +22,10 @@ namespace prj3beer.Views
         /// This will initialize the page and bring in the beverage objects from local storage
         /// and places in a context
         /// </summary>
-        /// <param name="beerContext"></param>
+        /// <param></param>
         public BeverageSelectPage()
         {
             InitializeComponent();
-
-            // Check to see if the welcome prompt has fired since the user has logged in
-            //if (Settings.WelcomePromptSetting)
-            //{   // If it fires, disable it from firing again
-            //    Settings.WelcomePromptSetting = false;
-            //    // If it hasn't been shown yet, then push a new modalscreen to the user.
-            //    Navigation.PushModalAsync(new WelcomeModal());
-            //}
         }
 
         protected override void OnAppearing()
