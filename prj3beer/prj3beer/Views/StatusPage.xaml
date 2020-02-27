@@ -42,10 +42,9 @@
                     Value="{Binding PreferredTemperatureString, Mode=TwoWay}"
                     Maximum="{Binding Maximum}" Minimum="{Binding Minimum}" Increment="1" 
                     HorizontalOptions="Center" ValueChanged="TemperatureStepperChanged"/>
-                <ImageButton x:Name="FavouriteButton" AutomationId="FavouriteButton" Source="NotFavourite.png"></ImageButton>
             </StackLayout>
-            <ImageButton x:Name="FavouriteButton" AutomationId="FavouriteButton" Clicked="FavouriteButtonClicked" />
-
+            
+            <ImageButton x:Name="FavouriteButton" AutomationId="FavouriteButton" Clicked="FavouriteButtonClicked" Source="NotFavourite.png"/>
 
             
         </StackLayout>

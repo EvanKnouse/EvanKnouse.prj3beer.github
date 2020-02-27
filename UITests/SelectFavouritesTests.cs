@@ -9,6 +9,8 @@ using Xamarin.UITest.Queries;
 using prj3beer.Views;
 using Xamarin.Forms;
 using prj3beer.Models;
+using prj3beer.ViewModels;
+using Android.Graphics;
 
 namespace UITests
 {
@@ -21,18 +23,109 @@ namespace UITests
         IApp app;
         Platform platform;
 
+        static StatusViewModel svm;
+
         List<string> beverages = new List<string> { "Churchill Blonde Lager", "Great Western Pilsner", "Great Western Radler", "Original 16 Copper Ale", "Rebellion Zilla IPA" };
+
+        const int first = 750;
+        const int second = 900;
+        const int third = 1050;
+        const int fourth = 1200;
+        const int fifth = 1350;
+
+
 
         [SetUp]
         public void BeforeEachTest()
         {
             //app = AppInitializer.StartApp(platform);
             app = ConfigureApp.Android.ApkFile(apkPath).StartApp();
+
+
+        }
+
+        public void selectABeverage(String searchBeverage, int placement)
+        {
+            // tap to navigate to the beverage select screen
+            //app.Tap("Beverage Select");
+
+            app.EnterText("searchBeverage", searchBeverage.ToString());
+            app.TapCoordinates(200, placement);
+        }
+
+
+        [Test]
+        public void UserSeesAFavoritedBeverageOnTheBeverageSelectPage()
+        {
+            selectABeverage("chu", first);
+
+            app.WaitForElement("FavouriteButton");
+
+            AppResult[] favouriteButton = app.Query("FavouriteButton");
+
+
+            //Bitmap faved = new Bitmap(); ;
+
+            //Color gold = Colo;
+
+
+            var favButton = favouriteButton[0].Text;
+
+            //(ImageButton)favButton;
+
+
+            app.TapCoordinates(715, 2130);
         }
 
         [Test]
-        public void TestThat()
+        public void UserNoLongerSeesABeverageOnTheBeverageSelectPageAfterItIsRemovedAsAFavorited()
         {
         }
+
+        [Test]
+        public void UserSeesMultipleFavoritedBeveragesOnTheBeverageSelectPage()
+        {
+        }
+
+        [Test]
+        public void UserSeesAllFiveOfTheirFavoritedBeveragesOnTheBeverageSelectPage()
+        {
+        }
+
+        [Test]
+        public void UserSeesTheirFavoriteDrinksAppearWithASpecialSymbolAndAboveOtherDrinksInTheBeverageSelectPage()
+        {
+        }
+
+        [Test]
+        public void UserSeesABeverageSelectListIsSortedCorrectlyAfterRemovingADrinkFromTheirFavorites()
+        {
+        }
+
+        [Test]
+        public void UserDoesNotSeeAFavoritedBeverageInAnUnrelatedSearch()
+        {
+        }
+
+        [Test]
+        public void UsersWithNoFavoriteDrinksSeesTheStockMessageOnTheBeverageSelectPage()
+        {
+        }
+
+        [Test]
+        public void UserWithFavoriteDrinksDoesNotSeeOutStockMessage()
+        {
+        }
+
+        [Test]
+        public void UserSelectsAFavoritedDrinkFromTheBeverageSelectPageWithoutUsingTheSearchBar()
+        {
+        }
+
+        [Test]
+        public void UserSelectsaFavouritedDrinkFromTheBeverageSelectPageAfterSearchingForIt()
+        {
+        }
+
     }
 }

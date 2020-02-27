@@ -38,7 +38,7 @@ namespace prj3beer.Views
         {
 
             InitializeComponent();
-            //MenuPage page = new MenuPage(); //What is this doing here
+            //MenuPage page = new MenuPage(); //What is this doing here?
 
             //The id on the settings page of the app
             // Defaults as -1, seleccting a beverage changes it
@@ -122,10 +122,6 @@ namespace prj3beer.Views
             beverageName.IsEnabled = false;
             brandName.IsEnabled = false;
             beverageImage.IsEnabled = false;
-
-
-            //This is where to put the check if preffered beverage is already favorited or not and change the sourse accordingly
-
         }
 
         public void UpdateViewModel(object sender, EventArgs args)
@@ -311,9 +307,22 @@ namespace prj3beer.Views
 
             LogInOutButton();
         }
-
-        
+<<<<<<< HEAD
         private void LogInOutButton()
+=======
+
+        private void FavouriteButtonClicked(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+    }
+        /*
+        #region Story 16 Method
+        /// <summary>
+        /// Performs a check based on the updated current temperature and the desired drink temperature.  Will send the appropriate notification if necessitated by current conditions.
+        /// </summary>
+        private void NotificationCheck()
+>>>>>>> story29_user_selects_deselects_current_beverage_as_a_favourite
         {
             ToolbarItems.RemoveAt(1);
 
@@ -344,20 +353,20 @@ namespace prj3beer.Views
 
             ToolbarItems.ElementAt(1).Clicked += SignInOut_Clicked;
         }
+<<<<<<< HEAD
 
         private void Settings_Clicked(object sender, EventArgs e)
         {
             Navigation.PushModalAsync(new NavigationPage(new SettingsMenu()));
         }
-        
+
         private async void SignInOut_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new NavigationPage(new CredentialSelectPage(false)));
         }
-
-		private void FavouriteButtonClicked(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
     }
+=======
+        #endregion
+        */
+>>>>>>> story29_user_selects_deselects_current_beverage_as_a_favourite
 }
