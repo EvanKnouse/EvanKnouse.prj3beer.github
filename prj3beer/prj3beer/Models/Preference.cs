@@ -14,6 +14,9 @@ namespace prj3beer.Models
 {
     public class Preference
     {
+        #region Attributes
+        BeerContext context;
+
         [Key]
         [Required(ErrorMessage = "ID is required")]
         public int BeverageID { get; set; }
@@ -24,6 +27,16 @@ namespace prj3beer.Models
 
         [DefaultValue("placeholder_can")]
         public string ImagePath { get; set; }
+
+        
+
+
+        [Required(ErrorMessage = "Favourite is required")]
+        public bool Favourite { get; set; }
+
+        #endregion
+
+        
 
         #region Story 7 code
         /// <summary>

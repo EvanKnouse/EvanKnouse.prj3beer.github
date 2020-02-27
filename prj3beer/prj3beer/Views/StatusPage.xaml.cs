@@ -38,7 +38,7 @@ namespace prj3beer.Views
         {
 
             InitializeComponent();
-            //MenuPage page = new MenuPage(); //What is this doing here?
+            //MenuPage page = new MenuPage(); //What is this doing here
 
             //The id on the settings page of the app
             // Defaults as -1, seleccting a beverage changes it
@@ -307,6 +307,8 @@ namespace prj3beer.Views
 
             LogInOutButton();
         }
+
+        
         private void LogInOutButton()
         {
             ToolbarItems.RemoveAt(1);
@@ -343,10 +345,15 @@ namespace prj3beer.Views
         {
             Navigation.PushModalAsync(new NavigationPage(new SettingsMenu()));
         }
-
+        
         private async void SignInOut_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new NavigationPage(new CredentialSelectPage(false)));
+        }
+
+		private void FavouriteButtonClicked(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -43,7 +43,14 @@
                     Maximum="{Binding Maximum}" Minimum="{Binding Minimum}" Increment="1" 
                     HorizontalOptions="Center" ValueChanged="TemperatureStepperChanged"/>
             </StackLayout>
+            <ImageButton x:Name="FavouriteButton" AutomationId="FavouriteButton" Clicked="FavouriteButtonClicked" />
+
+
+            
         </StackLayout>
+
+        
+
     </ContentPage.Content>
     <ContentPage.ToolbarItems x:Uid="Toolbar">
         <ToolbarItem x:Name="btnSettings"   Text="Settings" Order="Secondary" Clicked="Settings_Clicked" />
