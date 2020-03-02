@@ -28,13 +28,14 @@ namespace UITests
 
         List<string> beverages = new List<string> { "Churchill Blonde Lager", "Great Western Pilsner", "Great Western Radler", "Original 16 Copper Ale", "Rebellion Zilla IPA" };
 
+        //const int[] iaPositions
         const int first = 750;
         const int second = 900;
         const int third = 1050;
         const int fourth = 1200;
         const int fifth = 1350;
 
-
+        int iFavCount = svm.Context.Preference.Where(c => c.Favourite == true).Count();
 
         [SetUp]
         public void BeforeEachTest()
@@ -48,58 +49,113 @@ namespace UITests
         public void selectABeverage(String searchBeverage, int placement)
         {
             // tap to navigate to the beverage select screen
-            app.Tap("Beverage Select");
+            // Assumes app.EnterText knows where to enter text
+            //app.Tap("Beverage Select");
 
             app.EnterText("searchBeverage", searchBeverage.ToString());
             app.TapCoordinates(200, placement);
+        }
+
+        private void FavouriteADrink(string sFullBevName, string sSearch, int iPosition)
+        {
+            iFavCount = svm.Context.Preference.Where(c => c.Favourite == true).Count();
+
+            Beverage bev = svm.Context.Beverage.Find(sFullBevName);
+            Preference pref = svm.Context.Preference.Find(bev.BeverageID);
+
+            pref.Favourite = true;
+
+            svm.Context.Preference.Update(pref);
+
+            /*if (!pref.Favourite)
+            {
+                if (iFavCount >= 5)
+                {
+                    // Change this depending on how the CarouselView displays
+                    app.TapCoordinates(200, 775);
+
+                    app.WaitForElement("FavouriteButton");
+
+                    app.TapCoordinates(715, 2130);
+
+                    app.Back();
+
+                    app.WaitForElement("Beverage Select");
+                }
+
+                selectABeverage(sSearch, iPosition);
+
+                app.WaitForElement("FavouriteButton");
+
+                app.TapCoordinates(715, 2130);
+
+                app.Back();
+
+                app.WaitForElement("Beverage Select");
+
+                //app.Tap("Beverage Select");
+
+                app.TapCoordinates(1330, 350);
+
+                app.Back();
+            }*/
         }
 
 
         [Test]
         public void UserSeesAFavoritedBeverageOnTheBeverageSelectPage()
         {
-            selectABeverage("chu", first);
+            FavouriteADrink("Churchill Blonde Lager", "chu", first);
 
-            app.WaitForElement("FavouriteButton");
+            AppResult[] favouritedBeverage = app.Query("Churchill Blonde Lager");
 
-            AppResult[] favouriteButton = app.Query("FavouriteButton");
+            Assert.IsTrue(favouritedBeverage.Any());
 
-            Preference pref = svm.Context.Preference.Find(Settings.BeverageSettings);
-
-            if (!pref.Favourite)
-            {
-                app.TapCoordinates(715, 2130);
-            }
-
-            app.Back();
-
-            app.WaitForElement("Beverage Select");
-
-            app.Tap("Beverage Select");
-
-            app.TapCoordinates(1330, 350);
-
-            app.Back();
-
-            AppResult[] Carosol = app.Query("FavouritesCarousel");
-
-            Carosol[0].
-
+            // Querying the CarouselView may be better in the future
+            //AppResult[] Carosol = app.Query("FavouritesCarousel");
         }
 
         [Test]
         public void UserNoLongerSeesABeverageOnTheBeverageSelectPageAfterItIsRemovedAsAFavorited()
         {
+            FavouriteADrink("Churchill Blonde Lager", "chu", first);
+
+            // Change this depending on how the CarouselView displays
+            app.TapCoordinates(200, 775);
+
+            app.WaitForElement("FavouriteButton");
+
+            app.TapCoordinates(715, 2130);
+
+            app.Back();
+
+            app.WaitForElement("Beverage Select");
+
+            AppResult[] favouritedBeverage = app.Query("Churchill Blonde Lager");
+
+            Assert.IsFalse(favouritedBeverage.Any());
         }
 
         [Test]
         public void UserSeesMultipleFavoritedBeveragesOnTheBeverageSelectPage()
         {
+            for(int i = iFavCount; i <= 5; i++)
+            {
+
+            }
+
+            FavouriteADrink("c", first);
+            FavouriteADrink("c", first);
+            FavouriteADrink("c", first);
+            FavouriteADrink("c", first);
+            FavouriteADrink("chu", first);
+
         }
 
         [Test]
         public void UserSeesAllFiveOfTheirFavoritedBeveragesOnTheBeverageSelectPage()
         {
+
         }
 
         [Test]
