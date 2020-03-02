@@ -195,5 +195,6 @@ namespace prj3beer.Models
 
             set { AppSettings.AddOrUpdateValue(BeverageKey, value); }
         }
+
     }
 }

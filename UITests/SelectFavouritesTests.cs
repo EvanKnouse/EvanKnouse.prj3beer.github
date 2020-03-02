@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
 using prj3beer.Views;
@@ -47,7 +48,7 @@ namespace UITests
         public void selectABeverage(String searchBeverage, int placement)
         {
             // tap to navigate to the beverage select screen
-            //app.Tap("Beverage Select");
+            app.Tap("Beverage Select");
 
             app.EnterText("searchBeverage", searchBeverage.ToString());
             app.TapCoordinates(200, placement);
@@ -63,18 +64,27 @@ namespace UITests
 
             AppResult[] favouriteButton = app.Query("FavouriteButton");
 
+            Preference pref = svm.Context.Preference.Find(Settings.BeverageSettings);
 
-            //Bitmap faved = new Bitmap(); ;
+            if (!pref.Favourite)
+            {
+                app.TapCoordinates(715, 2130);
+            }
 
-            //Color gold = Colo;
+            app.Back();
 
+            app.WaitForElement("Beverage Select");
 
-            var favButton = favouriteButton[0].Text;
+            app.Tap("Beverage Select");
 
-            //(ImageButton)favButton;
+            app.TapCoordinates(1330, 350);
 
+            app.Back();
 
-            app.TapCoordinates(715, 2130);
+            AppResult[] Carosol = app.Query("FavouritesCarousel");
+
+            Carosol[0].
+
         }
 
         [Test]
