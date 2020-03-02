@@ -126,6 +126,12 @@ namespace UITests
 
             // Sign In button shouldn't appear on screen
             Assert.IsFalse(result.Any());
+
+            // Look for Sign Out button
+            result = app.Query("Sign Out");
+
+            // Sign Out button should appear on screen
+            Assert.IsTrue(result.Any());
         }
         #endregion
 
@@ -249,7 +255,7 @@ namespace UITests
         //    //app.TapCoordinates(x, y);
 
         //    // wait for the main page to be displayed
-        //    //app.WaitForElement("MainPage");
+        //    //app.WaitForElement("searchBeverage");
 
         //    // test that the sign up button is on the screen, as the user is sent back to the original screen
         //    //AppResult[] button = app.Query("btnSignUp");
