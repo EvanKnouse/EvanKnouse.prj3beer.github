@@ -56,6 +56,7 @@ namespace prj3beer.Views
 
             MessageLabel.Text = loggedin ? "Are You Sure You Want To Sign Out?" : "Sign In With";
 
+            //TODO: Implement Facebook conditions
             if (loggedin)
             {
                 GoogleButton.IsVisible = false;

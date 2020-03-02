@@ -8,6 +8,7 @@ using Plugin.GoogleClient;
 using Plugin.GoogleClient.Shared;
 
 using Xamarin.Forms;
+using System.Threading.Tasks;
 
 namespace prj3beer.ViewModels
 {
@@ -18,6 +19,9 @@ namespace prj3beer.ViewModels
     /// </summary>
     public class CredentialSelectViewModel : INotifyPropertyChanged
     {
+        // Permissions string to store the keys for Facebook permissions
+        string[] permissions = new string[] { "email","public_profile","user_posts"};
+
         // Creates a new UserProfile, set up with a getter/setter for OAuth
         public UserProfile User { get; set; } = new UserProfile();
 
@@ -41,6 +45,9 @@ namespace prj3beer.ViewModels
 
         // Icommand that will trigger when the User logs out
         public ICommand LogoutCommand { get; set; }
+
+        // LoadFacebookDataCommand - trigger the command to load all the Facebook data using LoadFacebookData method
+        public Command LoadFacebookDataCommand { get; set; }
 
         // Private Interfaced GoogleClientManager
         // This interface enforces that elements on this ViewModel use certain methods.
@@ -165,6 +172,11 @@ namespace prj3beer.ViewModels
 
             // Removes (unsubscribes) the event handler from the GoogleClientHandler
             _googleClientManager.OnLogin -= OnLoginCompleted;
+        }
+
+        public async Task LoadFacebookData()
+        {
+
         }
     }
 }

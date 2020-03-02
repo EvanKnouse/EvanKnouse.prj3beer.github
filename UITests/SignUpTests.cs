@@ -37,6 +37,7 @@ namespace UITests
             //app = AppInitializer.StartApp(platform);
             app = ConfigureApp.Android.ApkFile(apkPath).StartApp();
 
+            // Tap the Ellipsis menu button
             app.TapCoordinates(1350, 175);
         }
 
@@ -56,9 +57,11 @@ namespace UITests
             AppResult[] result = app.Query("GoogleButton");
             Assert.IsTrue(result.Any());
 
+            // test that the Facebook sign in button is on screen
             result = app.Query("FacebookButton");
             Assert.IsTrue(result.Any());
 
+            // test that the Cancel button is on screen
             result = app.Query("CancelButton");
             Assert.IsTrue(result.Any());
 
@@ -90,8 +93,7 @@ namespace UITests
         [Test] // Must sign in to application at least once to complete test
         public void TestThatUserIsTakenToBeverageSelectPageAfterSuccessfulSignInWithFacebook()
         {
-            // navigate to the sign up page
-            //app.Tap("SignInButton");
+            // navigate to the sign up page - tap the Sign In button in the ellipsis menu
             app.TapCoordinates(1350, 350);
 
             // navigate to enter external credentials
@@ -105,7 +107,7 @@ namespace UITests
         }
 
         [Test]
-        public void TestThatUserIsUnableToSignInMultipleTimes()
+        public void TestThatUserIsUnableToSignInOrUpMultipleTimesWithFacebook()
         {
             // navigate to the sign up page
             app.TapCoordinates(1350, 350);
@@ -120,7 +122,7 @@ namespace UITests
             app.TapCoordinates(1350, 175);
 
             // Look for Sign In button
-            AppResult[] result = app.Query("btnSignIn");
+            AppResult[] result = app.Query("Sign In");
 
             // Sign In button shouldn't appear on screen
             Assert.IsFalse(result.Any());
@@ -129,13 +131,31 @@ namespace UITests
 
         #region Tests That Cant Run
         //[Test] // This test cannot be run, Xamarin has no access to the Android UI Or Google Prompts
-        //public void TestThatUserIsTakenOutsideOfAppToSelectExternalAccount()
+        //public void TestThatUserIsTakenOutsideOfAppToSelectExternalAccountGoogle()
         //{
         //    // navigate to the sign up page
         //    //app.Tap("SignUpButton");
 
         //    // navigate to enter external credentials
         //    //app.Tap("GoogleButton");
+
+        //    // test that we're on the page, somehow
+
+        //    // select account or enter credentials?
+        //    //app.TapCoordinates(x, y);
+        //    // allow permissions?
+        //    //app.Tap("Allow");
+        //    Assert.IsTrue(true);
+        //}
+
+        //[Test] // This test cannot be run, Xamarin has no access to the Android UI Or Google Prompts
+        //public void TestThatUserIsTakenOutsideOfAppToSelectExternalAccountFacebook()
+        //{
+        //    // navigate to the sign up page
+        //    //app.Tap("SignUpButton");
+
+        //    // navigate to enter external credentials
+        //    //app.Tap("FacebookButton");
 
         //    // test that we're on the page, somehow
 
@@ -265,7 +285,7 @@ namespace UITests
             //app.WaitForElement("btnSignOut");
 
             // test that the sign out button is on the screen
-            AppResult[] result = app.Query("Sign Out");
+            AppResult[] result = app.Query("btnSignOut");
             Assert.IsTrue(result.Any());
         }
 
@@ -274,6 +294,8 @@ namespace UITests
         {
             //Open the hamburger menu
             //app.TapCoordinates(150, 90);
+            //Open ellipsis menu
+            app.TapCoordinates(1350, 175);
 
             //app.WaitForElement("btnSignOut");
 
@@ -283,27 +305,20 @@ namespace UITests
         }
 
         [Test]
-        public void TestThatUserIsNotAbleToSignInOrUpTwice()
+        public void TestThatUserIsNotAbleToSignInOrUpMultipleTimesWithGoogle()
         {
             // navigate to the sign up page
             //app.Tap("SignInButton");
             app.TapCoordinates(1350, 350);
 
-
             // navigate to enter external credentials
             app.Tap("GoogleButton");
 
-            // test that the welcoming label contains welcoming text
-            //app.WaitForElement("ContinueButton");
+            // Wait for the beverage select page to appear again
+            app.WaitForElement("searchBeverage");
 
-            // Tap the Continue Button
-            //app.Tap("ContinueButton");
-
-            //Open the menu
-            //app.TapCoordinates(150, 90);
+            // Tap the ellipsis menu again
             app.TapCoordinates(1350, 175);
-
-            //app.WaitForElement("btnMenuSignIn");
 
             // test that the sign out button is on the screen
             AppResult[] result = app.Query("Sign In");

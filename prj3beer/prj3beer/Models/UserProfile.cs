@@ -16,6 +16,8 @@ namespace prj3beer.Models
         public string Name { get; set; }
         // Current User's Email
         public string Email { get; set; }
+        // Current Access Token
+        public string Token { get; set; }
         // Link to the User's Google Profile Picture
         public Uri Picture { get; set; }
 
