@@ -59,12 +59,14 @@ namespace prj3beer.Views
             //TODO: Implement Facebook conditions
             if (loggedin)
             {
+                FacebookButton.IsVisible = false;
                 GoogleButton.IsVisible = false;
                 YesButton.IsVisible = true;
                 //csvm.NavigateAway = true;
             }
             else
             {
+                FacebookButton.IsVisible = true;
                 GoogleButton.IsVisible = true;
                 YesButton.IsVisible = false;
             }

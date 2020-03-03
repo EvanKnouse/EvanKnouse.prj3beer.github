@@ -11,6 +11,7 @@ using Xamarin.Forms;
 using System.Threading.Tasks;
 using Plugin.FacebookClient;
 using Newtonsoft.Json.Linq;
+using prj3beer.Views;
 
 namespace prj3beer.ViewModels
 {
@@ -21,8 +22,6 @@ namespace prj3beer.ViewModels
     /// </summary>
     public class CredentialSelectViewModel : INotifyPropertyChanged
     {
-        public string loginMethod { get; set; }
-
         // Permissions string to store the keys for Facebook permissions
         protected string[] permissions = new string[] { "email","public_profile","user_posts"};
 
@@ -90,7 +89,7 @@ namespace prj3beer.ViewModels
         // This method is called using the LogoutCommand
         public void Logout()
         {
-            switch (loginMethod)
+            switch (Settings.LoginMethodSetting)
             {
                 case "Facebook":
                     if(CrossFacebookClient.Current.IsLoggedIn)
@@ -104,7 +103,6 @@ namespace prj3beer.ViewModels
 
                         NavigateAway = true;
                     }
-
                 break;
 
                 case "Google":
@@ -130,6 +128,8 @@ namespace prj3beer.ViewModels
         // This method is called using the LoginCommand
         public async void GoogleLoginAsync()
         {
+            Settings.LoginMethodSetting = "Google";
+
             // Add the Event Handler to the GoogleClient Manager's on login property
             _googleClientManager.OnLogin += OnLoginCompleted;
             
@@ -165,12 +165,15 @@ namespace prj3beer.ViewModels
 
         public async Task FacebookLoginAsync()
         {
+            Settings.LoginMethodSetting = "Facebook";
             FacebookResponse<bool> response = await CrossFacebookClient.Current.LoginAsync(permissions);
             switch (response.Status)
             {
                 case FacebookActionStatus.Completed:
                     IsLoggedIn = true;
                     LoadFacebookDataCommand.Execute(null);
+                    NavigateAway = true;
+                    await App.Current.MainPage.Navigation.PopToRootAsync();
                     break;
                 case FacebookActionStatus.Canceled:
 
@@ -222,6 +225,8 @@ namespace prj3beer.ViewModels
                 User.Token = CrossGoogleClient.Current.ActiveToken;
 
                 NavigateAway = true;
+
+                Application.Current.MainPage.Navigation.PopToRootAsync();
             }
             else
             {   // If there is an issue retriving data from the returned event
@@ -230,8 +235,6 @@ namespace prj3beer.ViewModels
 
             // Removes (unsubscribes) the event handler from the GoogleClientHandler
             _googleClientManager.OnLogin -= OnLoginCompleted;
-
-            loginMethod = "Google";
         }
 
         public async Task LoadFacebookData()
@@ -246,10 +249,11 @@ namespace prj3beer.ViewModels
             {
                 Name = data["name"].ToString(),
                 Picture = new UriImageSource { Uri = new Uri($"{data["picture"]["data"]["url"]}") },
-                Email = data["email"].ToString()
+                Email = data["email"].ToString(),
             };
-
-            loginMethod = "Facebook";
+            // After the user is created from the returned Facebook data, set persistent user's data
+            Settings.CurrentUserName = User.Name;
+            Settings.CurrentUserEmail = User.Email;
         }
     }
 }
