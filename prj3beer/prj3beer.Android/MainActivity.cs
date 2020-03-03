@@ -9,6 +9,7 @@ using Android.OS;
 using System.IO;
 using Plugin.GoogleClient;
 using Java.Security;
+using Plugin.FacebookClient;
 
 namespace prj3beer.Droid
 {
@@ -23,10 +24,33 @@ namespace prj3beer.Droid
             base.OnCreate(savedInstanceState);
 
             GoogleClientManager.Initialize(this);
+            FacebookClientManager.Initialize(this);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             //global::Xamarin.Auth.Presenters.XamarinAndroid.AuthenticationConfiguration.Init(this, savedInstanceState);
+
+            /* This is for getting the KeyStore ID */
+            try
+            {
+                PackageInfo info = Android.App.Application.Context.PackageManager.GetPackageInfo(Android.App.Application.Context.PackageName, PackageInfoFlags.Signatures);
+
+                foreach (var signature in info.Signatures)
+                {
+                    MessageDigest md = MessageDigest.GetInstance("SHA");
+                    md.Update(signature.ToByteArray());
+                    var output = Convert.ToBase64String(md.Digest());
+                    System.Diagnostics.Debug.WriteLine(output);
+                }
+            }
+            catch (NoSuchAlgorithmException e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+            }
 
             LoadApplication(new App());
         }
@@ -36,10 +60,11 @@ namespace prj3beer.Droid
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-        protected override void OnActivityResult(int requestCode, Result resultCode, Android.Content.Intent data)
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
             GoogleClientManager.OnAuthCompleted(requestCode, resultCode, data);
+            FacebookClientManager.OnActivityResult(requestCode, resultCode, data);
         }
     }
 }

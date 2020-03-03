@@ -9,6 +9,8 @@ using Plugin.GoogleClient.Shared;
 
 using Xamarin.Forms;
 using System.Threading.Tasks;
+using Plugin.FacebookClient;
+using Newtonsoft.Json.Linq;
 
 namespace prj3beer.ViewModels
 {
@@ -19,8 +21,10 @@ namespace prj3beer.ViewModels
     /// </summary>
     public class CredentialSelectViewModel : INotifyPropertyChanged
     {
+        public string loginMethod { get; set; }
+
         // Permissions string to store the keys for Facebook permissions
-        string[] permissions = new string[] { "email","public_profile","user_posts"};
+        protected string[] permissions = new string[] { "email","public_profile","user_posts"};
 
         // Creates a new UserProfile, set up with a getter/setter for OAuth
         public UserProfile User { get; set; } = new UserProfile();
@@ -32,7 +36,7 @@ namespace prj3beer.ViewModels
         public string Email { get => User.Email; set => User.Email = value; }
 
         // Getter/Setter Attribute for the User's Picture
-        public Uri Picture{ get => User.Picture; set => User.Picture = value; }
+        public UriImageSource Picture{ get => User.Picture; set => User.Picture = value; }
 
         // Getter/Setter Attribute for a logged in status
         public bool IsLoggedIn { get; set; }
@@ -40,11 +44,14 @@ namespace prj3beer.ViewModels
         // Google's Token - Persistent for 1 hour
         public string Token { get; set; }
 
-        // ICommand that triggers when the User attempts to Log In
-        public ICommand LoginCommand { get; set; }
+        // Command that triggers when the user logs in with Google
+        public Command GoogleLoginCommand { get; set; }
 
-        // Icommand that will trigger when the User logs out
-        public ICommand LogoutCommand { get; set; }
+        // command that will trigger when the User logs out
+        public Command LogoutCommand { get; set; }
+
+        // Command that triggers when the user logs in with Facebook
+        public Command FacebookLoginCommand { get; set; }
 
         // LoadFacebookDataCommand - trigger the command to load all the Facebook data using LoadFacebookData method
         public Command LoadFacebookDataCommand { get; set; }
@@ -61,8 +68,14 @@ namespace prj3beer.ViewModels
         // Constructor for the Credential View Model
         public CredentialSelectViewModel()
         {
-            // Initialize the LogInCommand command
-            LoginCommand = new Command(LoginAsync);
+            // Initialize the GoogleLogInCommand command
+            GoogleLoginCommand = new Command(GoogleLoginAsync);
+
+            // Initialize the Facebook Login Command
+            FacebookLoginCommand = new Command(async () => await FacebookLoginAsync());
+
+            // Initialize the LoadFacebook Data Command
+            LoadFacebookDataCommand = new Command(async () => await LoadFacebookData());
 
             // Implement in the future for logging a user out!
             LogoutCommand = new Command(Logout);
@@ -77,8 +90,29 @@ namespace prj3beer.ViewModels
         // This method is called using the LogoutCommand
         public void Logout()
         {
-            _googleClientManager.OnLogout += OnLogoutCompleted;
-            _googleClientManager.Logout();
+            switch (loginMethod)
+            {
+                case "Facebook":
+                    if(CrossFacebookClient.Current.IsLoggedIn)
+                    {
+                        CrossFacebookClient.Current.Logout();
+                        IsLoggedIn = false;
+
+                        User.Email = "";
+                        Settings.CurrentUserEmail = "";
+                        Settings.CurrentUserName = "";
+
+                        NavigateAway = true;
+                    }
+
+                break;
+
+                case "Google":
+                    _googleClientManager.OnLogout += OnLogoutCompleted;
+                    _googleClientManager.Logout();
+                    break;
+            }
+            
         }
 
         private void OnLogoutCompleted(object sender, EventArgs loginEventArgs)
@@ -94,7 +128,7 @@ namespace prj3beer.ViewModels
         }
 
         // This method is called using the LoginCommand
-        public async void LoginAsync()
+        public async void GoogleLoginAsync()
         {
             // Add the Event Handler to the GoogleClient Manager's on login property
             _googleClientManager.OnLogin += OnLoginCompleted;
@@ -129,6 +163,28 @@ namespace prj3beer.ViewModels
             }
         }
 
+        public async Task FacebookLoginAsync()
+        {
+            FacebookResponse<bool> response = await CrossFacebookClient.Current.LoginAsync(permissions);
+            switch (response.Status)
+            {
+                case FacebookActionStatus.Completed:
+                    IsLoggedIn = true;
+                    LoadFacebookDataCommand.Execute(null);
+                    break;
+                case FacebookActionStatus.Canceled:
+
+                    break;
+                case FacebookActionStatus.Unauthorized:
+                    await App.Current.MainPage.DisplayAlert("Unauthorized", response.Message, "Ok");
+                    break;
+                case FacebookActionStatus.Error:
+                    await App.Current.MainPage.DisplayAlert("Error", response.Message, "Ok");
+                    break;
+            }
+
+        }
+
         /// <summary>
         /// This method is called when a user has completed the log in process
         /// </summary>
@@ -151,7 +207,7 @@ namespace prj3beer.ViewModels
                 Settings.CurrentUserEmail = googleUser.Email;
 
                 // Store the user's picture to the local user 
-                User.Picture = googleUser.Picture;
+                //User.Picture = googleUser.Picture;
                 // Did not implement in permanent storage - we don't display it anywhere
                
                 // Change the logged in boolean to true
@@ -162,6 +218,8 @@ namespace prj3beer.ViewModels
 
                 // Set the token to the Active Token from the Cross Google Client
                 Token = CrossGoogleClient.Current.ActiveToken;
+                // Also save it to the user
+                User.Token = CrossGoogleClient.Current.ActiveToken;
 
                 NavigateAway = true;
             }
@@ -172,11 +230,26 @@ namespace prj3beer.ViewModels
 
             // Removes (unsubscribes) the event handler from the GoogleClientHandler
             _googleClientManager.OnLogin -= OnLoginCompleted;
+
+            loginMethod = "Google";
         }
 
         public async Task LoadFacebookData()
         {
+            var jsonData = await CrossFacebookClient.Current.RequestUserDataAsync
+            (
+                  new string[] { "id", "name", "email", "picture", "cover", "friends" }, new string[] { }
+            );
 
+            var data = JObject.Parse(jsonData.Data);
+            User = new UserProfile()
+            {
+                Name = data["name"].ToString(),
+                Picture = new UriImageSource { Uri = new Uri($"{data["picture"]["data"]["url"]}") },
+                Email = data["email"].ToString()
+            };
+
+            loginMethod = "Facebook";
         }
     }
 }

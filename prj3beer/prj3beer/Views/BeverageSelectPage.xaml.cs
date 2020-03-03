@@ -164,6 +164,7 @@ namespace prj3beer.Views
         {
             //Get the beverage tapped
             Beverage tappedBeverage = (App.Context.Beverage.Where(b => b.Name.Contains(e.Item.ToString()))).First();
+            
             //Get that beverage's ID
             Settings.BeverageSettings = tappedBeverage.BeverageID;
             //Application.Current.MainPage = new NavigationPage(new StatusPage());

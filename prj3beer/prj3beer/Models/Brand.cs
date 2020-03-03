@@ -23,5 +23,8 @@ namespace prj3beer.Models
         [MinLength(3,ErrorMessage = "Brand Name Too Short, 3 Characters Minimum")] // Validation - Min Length of 3
         [JsonProperty("name")] // JSON property
         public string Name { get; set; }
+
+        public ICollection<Beverage> Beverages { get; set; }
+        // Need to figure out how to populate this... https://stackoverflow.com/questions/11365007/entity-framework-one-to-many
     }
 }

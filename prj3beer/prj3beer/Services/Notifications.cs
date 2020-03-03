@@ -94,7 +94,7 @@ namespace prj3beer.Services
             {
                 dif = (int)(receivedTemp - idealTemp);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return NotificationType.NO_MESSAGE;
             }
