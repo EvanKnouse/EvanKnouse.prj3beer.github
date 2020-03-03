@@ -56,18 +56,26 @@ namespace UITests
             app.TapCoordinates(200, placement);
         }
 
-        private void FavouriteADrink(string sFullBevName, string sSearch, int iPosition)
+
+        private void FavouriteADrink(string sFullBevName)
         {
             iFavCount = svm.Context.Preference.Where(c => c.Favourite == true).Count();
 
             Beverage bev = svm.Context.Beverage.Find(sFullBevName);
             Preference pref = svm.Context.Preference.Find(bev.BeverageID);
 
-            pref.Favourite = true;
 
+            if(iFavCount >= 5 && !pref.Favourite)
+            {
+                removeFavorite(svm.Context.Preference.Where(c => c.Favourite == true).First().BeverageID);
+            }
+
+
+            pref.Favourite = true;
             svm.Context.Preference.Update(pref);
 
-            /*if (!pref.Favourite)
+            /*
+            if (!pref.Favourite)
             {
                 if (iFavCount >= 5)
                 {
@@ -98,14 +106,62 @@ namespace UITests
                 app.TapCoordinates(1330, 350);
 
                 app.Back();
-            }*/
+            }
+            */
         }
 
+        public void removeFavorite(string sFullBevName)
+        {
+            IQueryable<Preference> favorites = svm.Context.Preference.Where(c => c.Favourite == true);
+
+            int bTemp = svm.Context.Beverage.Find(sFullBevName).BeverageID;
+
+            for (int i=0; i< favorites.Count(); i++)
+            {
+                Preference pTemp = favorites.ElementAt(i);
+                if (pTemp.BeverageID == bTemp)
+                {
+                    pTemp.Favourite = false;
+                    svm.Context.Preference.Update(pTemp);
+                }
+            }
+        }
+
+
+        public void removeFavorite(int bevID)
+        {
+            IQueryable<Preference> favorites = svm.Context.Preference.Where(c => c.Favourite == true);
+
+            for (int i = 0; i < favorites.Count(); i++)
+            {
+                Preference pTemp = favorites.ElementAt(i);
+                if (pTemp.BeverageID == bevID)
+                {
+                    pTemp.Favourite = false;
+                    svm.Context.Preference.Update(pTemp);
+                }
+            }
+        }
+
+
+        public void removeAllFavorites()
+        {
+            IQueryable<Preference> favorites = svm.Context.Preference.Where(c => c.Favourite == true);
+            for (int i = 0; i < favorites.Count(); i++)
+            {
+                Preference pTemp = favorites.ElementAt(i);
+                pTemp.Favourite = false;
+                svm.Context.Preference.Update(pTemp);
+                
+            }
+        }
 
         [Test]
         public void UserSeesAFavoritedBeverageOnTheBeverageSelectPage()
         {
-            FavouriteADrink("Churchill Blonde Lager", "chu", first);
+            FavouriteADrink("Churchill Blonde Lager");
+
+            app.WaitForElement("Churchill Blonde Lager");
 
             AppResult[] favouritedBeverage = app.Query("Churchill Blonde Lager");
 
@@ -118,7 +174,7 @@ namespace UITests
         [Test]
         public void UserNoLongerSeesABeverageOnTheBeverageSelectPageAfterItIsRemovedAsAFavorited()
         {
-            FavouriteADrink("Churchill Blonde Lager", "chu", first);
+            FavouriteADrink("Churchill Blonde Lager");
 
             // Change this depending on how the CarouselView displays
             app.TapCoordinates(200, 775);
@@ -139,22 +195,49 @@ namespace UITests
         [Test]
         public void UserSeesMultipleFavoritedBeveragesOnTheBeverageSelectPage()
         {
-            for(int i = iFavCount; i <= 5; i++)
+           
+            FavouriteADrink("Churchill Blonde Lager");
+            FavouriteADrink("Great Western Pilsner");
+            FavouriteADrink("Rebellion Pear Beer");
+
+
+            IQueryable<Preference> favorites = svm.Context.Preference.Where(c => c.Favourite == true);
+            removeFavorite(favorites.First().BeverageID);
+
+            favorites = svm.Context.Preference.Where(c => c.Favourite == true);
+
+            for (int i=0; i<favorites.Count(); i++)
             {
+                Beverage temp = svm.Context.Beverage.Find(favorites.ElementAt(i).BeverageID);
 
+                AppResult[] favouritedBeverage = app.Query(temp.Name);
+
+                Console.WriteLine(temp.Name + "Exists");
+                Assert.IsTrue(favouritedBeverage.Any());
             }
-
-            FavouriteADrink("c", first);
-            FavouriteADrink("c", first);
-            FavouriteADrink("c", first);
-            FavouriteADrink("c", first);
-            FavouriteADrink("chu", first);
 
         }
 
         [Test]
         public void UserSeesAllFiveOfTheirFavoritedBeveragesOnTheBeverageSelectPage()
         {
+            removeAllFavorites();
+
+            
+            FavouriteADrink(beverages[0]);
+            FavouriteADrink(beverages[1]);
+            FavouriteADrink(beverages[2]);
+            FavouriteADrink(beverages[3]);
+            FavouriteADrink(beverages[4]);
+
+            for (int i = 0; i <5; i++)
+            {
+                AppResult[] favouritedBeverage = app.Query(beverages[i]);
+
+                Console.WriteLine(beverages[i] + "Exists");
+                Assert.IsTrue(favouritedBeverage.Any());
+            }
+
 
         }
 
