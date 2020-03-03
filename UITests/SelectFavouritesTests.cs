@@ -46,7 +46,7 @@ namespace UITests
 
         }
 
-        public void selectABeverage(String searchBeverage, int placement)
+        public void SelectABeverage(String searchBeverage, int placement)
         {
             // tap to navigate to the beverage select screen
             // Assumes app.EnterText knows where to enter text
@@ -67,7 +67,7 @@ namespace UITests
 
             if(iFavCount >= 5 && !pref.Favourite)
             {
-                removeFavorite(svm.Context.Preference.Where(c => c.Favourite == true).First().BeverageID);
+                RemoveFavourite(svm.Context.Preference.Where(c => c.Favourite == true).First().BeverageID);
             }
 
 
@@ -110,7 +110,7 @@ namespace UITests
             */
         }
 
-        public void removeFavorite(string sFullBevName)
+        public void RemoveFavourite(string sFullBevName)
         {
             IQueryable<Preference> favorites = svm.Context.Preference.Where(c => c.Favourite == true);
 
@@ -127,8 +127,7 @@ namespace UITests
             }
         }
 
-
-        public void removeFavorite(int bevID)
+        public void RemoveFavourite(int bevID)
         {
             IQueryable<Preference> favorites = svm.Context.Preference.Where(c => c.Favourite == true);
 
@@ -144,7 +143,7 @@ namespace UITests
         }
 
 
-        public void removeAllFavorites()
+        public void RemoveAllFavourites()
         {
             IQueryable<Preference> favorites = svm.Context.Preference.Where(c => c.Favourite == true);
             for (int i = 0; i < favorites.Count(); i++)
@@ -202,7 +201,7 @@ namespace UITests
 
 
             IQueryable<Preference> favorites = svm.Context.Preference.Where(c => c.Favourite == true);
-            removeFavorite(favorites.First().BeverageID);
+            RemoveFavourite(favorites.First().BeverageID);
 
             favorites = svm.Context.Preference.Where(c => c.Favourite == true);
 
@@ -221,9 +220,8 @@ namespace UITests
         [Test]
         public void UserSeesAllFiveOfTheirFavoritedBeveragesOnTheBeverageSelectPage()
         {
-            removeAllFavorites();
+            RemoveAllFavourites();
 
-            
             FavouriteADrink(beverages[0]);
             FavouriteADrink(beverages[1]);
             FavouriteADrink(beverages[2]);
@@ -237,44 +235,110 @@ namespace UITests
                 Console.WriteLine(beverages[i] + "Exists");
                 Assert.IsTrue(favouritedBeverage.Any());
             }
-
-
         }
 
         [Test]
         public void UserSeesTheirFavoriteDrinksAppearWithASpecialSymbolAndAboveOtherDrinksInTheBeverageSelectPage()
         {
+            RemoveAllFavourites();
+
+            FavouriteADrink(beverages[1]);
+
+            app.EnterText("searchBeverage", "c");
+
+            AppResult[] favBev = app.Query(beverages[1]);
+            float fBevPos = favBev[0].Rect.CenterY;
+
+            AppResult[] favSymbol = app.Query("FavouriteSymbol");
+            float fSymbolPos = favSymbol[0].Rect.CenterY;
+
+            Assert.AreEqual(fBevPos, fSymbolPos);
+            // Greater than 750 and less than 900
+            Assert.IsTrue(fBevPos > 2625f && fBevPos < 3150f);
         }
 
         [Test]
         public void UserSeesABeverageSelectListIsSortedCorrectlyAfterRemovingADrinkFromTheirFavorites()
         {
+            /*RemoveAllFavourites();
+            FavouriteADrink(beverages[1]);
+            app.EnterText("searchBeverage", "c");*/
+
+            UserSeesTheirFavoriteDrinksAppearWithASpecialSymbolAndAboveOtherDrinksInTheBeverageSelectPage();
+
+            RemoveFavourite(beverages[1]);
+
+            app.EnterText("searchBeverage", "c");
+
+            AppResult[] favBev = app.Query(beverages[1]);
+            float fBevPos = favBev[0].Rect.CenterY;
+
+            Assert.IsTrue(fBevPos > 3150f && fBevPos < 3675f);
         }
 
         [Test]
         public void UserDoesNotSeeAFavoritedBeverageInAnUnrelatedSearch()
         {
+            FavouriteADrink(beverages[1]);
+
+            app.EnterText("searchBeverage", "copper");
+
+            AppResult[] bev = app.Query(beverages[1]);
+            Assert.IsFalse(bev.Any());
         }
 
         [Test]
         public void UsersWithNoFavoriteDrinksSeesTheStockMessageOnTheBeverageSelectPage()
         {
+            RemoveAllFavourites();
+
+            AppResult[] stockMessage = app.Query("NoFavouritesLabel");
+            // Might have to test actual text
+            Assert.IsTrue(stockMessage.Any());
         }
 
         [Test]
         public void UserWithFavoriteDrinksDoesNotSeeOutStockMessage()
         {
+            FavouriteADrink(beverages[0]);
+
+            AppResult[] stockMessage = app.Query("NoFavouritesLabel");
+            // Might have to test actual text
+            Assert.IsFalse(stockMessage.Any());
         }
 
         [Test]
         public void UserSelectsAFavoritedDrinkFromTheBeverageSelectPageWithoutUsingTheSearchBar()
         {
+            RemoveAllFavourites();
+
+            FavouriteADrink(beverages[0]);
+
+            app.TapCoordinates(200, 775);
+
+            app.WaitForElement("FavouriteButton");
+
+            AppResult[] bevStatus = app.Query(beverages[0]);
+
+            Assert.IsTrue(bevStatus.Any());
         }
 
         [Test]
         public void UserSelectsaFavouritedDrinkFromTheBeverageSelectPageAfterSearchingForIt()
         {
-        }
+            RemoveAllFavourites();
 
+            FavouriteADrink(beverages[3]);
+
+            SelectABeverage("c", first);
+
+            // Don't process and drink
+
+            app.WaitForElement("FavouriteButton");
+
+            AppResult[] bevStatus = app.Query(beverages[3]);
+
+            Assert.IsTrue(bevStatus.Any());
+        }
     }
 }
