@@ -39,7 +39,7 @@ namespace prj3beer.Views
         {
             ToolbarItems.RemoveAt(1);
 
-            bool SignInOut = (Settings.CurrentUserEmail.Length == 0 || Settings.CurrentUserName.Length == 0) ? true : false;
+            bool SignInOut = (Settings.CurrentUserEmail.Length == 0) ? true : false;
 
             if (SignInOut)
             {

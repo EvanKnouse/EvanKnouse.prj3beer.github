@@ -102,8 +102,9 @@ namespace prj3beer.ViewModels
                         Settings.CurrentUserName = "";
 
                         NavigateAway = true;
+                        App.Current.MainPage.Navigation.PopModalAsync();
                     }
-                break;
+                    break;
 
                 case "Google":
                     _googleClientManager.OnLogout += OnLogoutCompleted;
@@ -121,6 +122,7 @@ namespace prj3beer.ViewModels
             Settings.CurrentUserName = "";
 
             NavigateAway = true;
+            App.Current.MainPage.Navigation.PopModalAsync();
 
             _googleClientManager.OnLogout -= OnLogoutCompleted;
         }
@@ -173,7 +175,7 @@ namespace prj3beer.ViewModels
                     IsLoggedIn = true;
                     LoadFacebookDataCommand.Execute(null);
                     NavigateAway = true;
-                    await App.Current.MainPage.Navigation.PopToRootAsync();
+                    await App.Current.MainPage.Navigation.PopModalAsync();
                     break;
                 case FacebookActionStatus.Canceled:
 
@@ -226,7 +228,7 @@ namespace prj3beer.ViewModels
 
                 NavigateAway = true;
 
-                Application.Current.MainPage.Navigation.PopToRootAsync();
+                App.Current.MainPage.Navigation.PopModalAsync();
             }
             else
             {   // If there is an issue retriving data from the returned event

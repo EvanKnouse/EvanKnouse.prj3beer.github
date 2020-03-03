@@ -52,7 +52,7 @@ namespace prj3beer.Views
 
             csvm.NavigateAway = false;
 
-            bool loggedin = Settings.CurrentUserEmail != "" && Settings.CurrentUserName != "";
+            bool loggedin = Settings.CurrentUserEmail != "";// && Settings.CurrentUserName != "";
 
             MessageLabel.Text = loggedin ? "Are You Sure You Want To Sign Out?" : "Sign In With";
 
@@ -71,19 +71,19 @@ namespace prj3beer.Views
                 YesButton.IsVisible = false;
             }
 
-            Device.StartTimer(TimeSpan.FromMilliseconds(1), () =>
-            {
-                if (csvm.NavigateAway)
-                {
-                    Task.Run(async () =>
-                    {
-                        csvm.NavigateAway = false;
-                        await Navigation.PopModalAsync();
-                        return false;
-                    });
-                }
-                return true;
-            });
+            //Device.StartTimer(TimeSpan.FromMilliseconds(1), () =>
+            //{
+            //    if (csvm.NavigateAway)
+            //    {
+            //        Task.Run(async () =>
+            //        {
+            //            csvm.NavigateAway = false;
+            //            await Navigation.PopModalAsync();
+            //            return false;
+            //        });
+            //    }
+            //    return true;
+            //});
         }
 
         /// <summary>
