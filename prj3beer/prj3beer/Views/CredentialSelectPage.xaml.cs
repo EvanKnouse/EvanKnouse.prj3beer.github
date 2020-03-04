@@ -28,12 +28,12 @@ namespace prj3beer.Views
         /// Default constructor, takes in the boolean from the previous screen
         /// </summary>
         /// <param name="isNew"></param>
-        public CredentialSelectPage(bool isNew)
+        public CredentialSelectPage()
         {
             InitializeComponent();
 
             // Set the new User boolean to true or false from passed in value
-            newUser = isNew;
+            //newUser = isNew;
 
             // Set the binding context of the View to the csvm, and instantiate it
             BindingContext = csvm = new CredentialSelectViewModel();

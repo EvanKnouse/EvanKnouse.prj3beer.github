@@ -32,8 +32,6 @@ namespace prj3beer.Views
         //Placeholder for target temperature element, implemented in another story.
         //int targetTempValue = 2;
 
-
-
         public StatusPage()
         {
 
@@ -346,7 +344,7 @@ namespace prj3beer.Views
 
         private async void SignInOut_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new NavigationPage(new CredentialSelectPage(false)));
+            await Navigation.PushModalAsync(new NavigationPage(new CredentialSelectPage()));
         }
     }
 }

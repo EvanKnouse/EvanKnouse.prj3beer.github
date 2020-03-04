@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Plugin.FacebookClient;
 using Newtonsoft.Json.Linq;
 using prj3beer.Views;
+using System.Linq;
 
 namespace prj3beer.ViewModels
 {
@@ -174,8 +175,11 @@ namespace prj3beer.ViewModels
                 case FacebookActionStatus.Completed:
                     IsLoggedIn = true;
                     LoadFacebookDataCommand.Execute(null);
-                    NavigateAway = true;
+                    //NavigateAway = true;
+                    //App.Current.MainPage = App.Current.MainPage.Navigation.NavigationStack.LastOrDefault();
                     await App.Current.MainPage.Navigation.PopModalAsync();
+                    
+                        //new NavigationPage(new BeverageSelectPage());
                     break;
                 case FacebookActionStatus.Canceled:
 
