@@ -2,16 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
-using prj3beer.Views;
-using Xamarin.Forms;
 using prj3beer.Models;
 using prj3beer.ViewModels;
-using Android.Graphics;
 
 namespace UITests
 {
@@ -37,9 +31,6 @@ namespace UITests
         const int fourth = 1200;
         const int fifth = 1350;
 
-        int iFavCount = svm.Context.Preference.Where(c => c.Favourite == true).Count();
-
-
         public SelectFavouritesTests(Platform platform)
         {
             this.platform = platform;
@@ -51,7 +42,7 @@ namespace UITests
             //app = AppInitializer.StartApp(platform);
             app = ConfigureApp.Android.ApkFile(apkPath).StartApp();
 
-
+            svm = new StatusViewModel();
         }
 
         /// <summary>
@@ -59,7 +50,7 @@ namespace UITests
         /// </summary>
         /// <param name="searchBeverage"> What is inputed into the search bar </param>
         /// <param name="placement"> The position of the beverage in the list to tap </param>
-        public void SelectABeverage(String searchBeverage, int placement)
+        public void SelectABeverage(string searchBeverage, int placement)
         {
             // tap to navigate to the beverage select screen
             // Assumes app.EnterText knows where to enter text
@@ -69,7 +60,6 @@ namespace UITests
             app.TapCoordinates(200, placement); //Tapping a result from the list gotten from the search
         }
 
-
         /// <summary>
         /// Sets a beverage preference to be favorited
         /// Will remove a favorite at random if the limit has already been reached
@@ -77,7 +67,7 @@ namespace UITests
         /// <param name="sFullBevName"> The breverage to favorite </param>
         private void FavouriteADrink(string sFullBevName)
         {
-            iFavCount = svm.Context.Preference.Where(c => c.Favourite == true).Count();//Gets a count of how many beverages are already set as favorites
+            int iFavCount = svm.Context.Preference.Where(c => c.Favourite == true).Count();//Gets a count of how many beverages are already set as favorites
 
             Beverage bev = svm.Context.Beverage.Find(sFullBevName);//Gets the beverages beased on what's passed in
             Preference pref = svm.Context.Preference.Find(bev.BeverageID);//Get the preference of the beverage inputed
@@ -92,8 +82,7 @@ namespace UITests
             svm.Context.Preference.Update(pref); //Save the preference now that it is favorited
 
             #region shrinking comments
-            /*
-            if (!pref.Favourite)
+            /*if (!pref.Favourite)
             {
                 if (iFavCount >= 5)
                 {
@@ -124,8 +113,7 @@ namespace UITests
                 app.TapCoordinates(1330, 350);
 
                 app.Back();
-            }
-            */
+            }*/
             #endregion
         }
 
@@ -298,9 +286,9 @@ namespace UITests
         [Test]
         public void UserSeesABeverageSelectListIsSortedCorrectlyAfterRemovingADrinkFromTheirFavorites()
         {
-            /*RemoveAllFavourites();
-            FavouriteADrink(beverages[1]);
-            app.EnterText("searchBeverage", "c");*/
+            //RemoveAllFavourites();
+            //FavouriteADrink(beverages[1]);
+            //app.EnterText("searchBeverage", "c");
 
             UserSeesTheirFavoriteDrinksAppearWithASpecialSymbolAndAboveOtherDrinksInTheBeverageSelectPage(); //Makes sure a beverage is favorited right to begin with
 
@@ -383,5 +371,5 @@ namespace UITests
 
             Assert.IsTrue(bevStatus.Any()); //Again: passes if the beverage was found on it's own status page
         }
-    }
+}
 }

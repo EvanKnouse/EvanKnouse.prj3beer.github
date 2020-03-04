@@ -20,6 +20,7 @@ namespace UITests
         public FavouritesTests(Platform platform)
         {
             this.platform = platform;
+            svm = new StatusViewModel();
         }
 
         [SetUp]
