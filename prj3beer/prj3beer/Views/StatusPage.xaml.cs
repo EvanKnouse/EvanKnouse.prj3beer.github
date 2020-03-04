@@ -266,8 +266,6 @@ namespace prj3beer.Views
 
             //currentTemperature.SetBinding(Label.TextProperty, "CurrentTemp", default, new CelsiusFahrenheitConverter());
 
-
-
             if (Settings.BeverageSettings != -1)// So default opening no longer uses a drink that does not exist
             {
                 // Set it's Monitored Celsius value to the value from the Settings 
@@ -309,7 +307,7 @@ namespace prj3beer.Views
         {
             ToolbarItems.RemoveAt(1);
 
-            bool SignInOut = (Settings.CurrentUserEmail.Length == 0 || Settings.CurrentUserName.Length == 0) ? true : false;
+            bool SignInOut = (Settings.CurrentUserEmail.Length == 0) ? true : false;
 
             if (SignInOut)
             {
@@ -335,6 +333,8 @@ namespace prj3beer.Views
             }
 
             ToolbarItems.ElementAt(1).Clicked += SignInOut_Clicked;
+
+            
         }
 
         private void Settings_Clicked(object sender, EventArgs e)
@@ -344,7 +344,7 @@ namespace prj3beer.Views
 
         private async void SignInOut_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new NavigationPage(new CredentialSelectPage()));
+            await Navigation.PushModalAsync((new CredentialSelectPage()));
         }
     }
 }

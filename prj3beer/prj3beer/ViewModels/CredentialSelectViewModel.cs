@@ -63,7 +63,7 @@ namespace prj3beer.ViewModels
         // Event handler for properties changing
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public bool NavigateAway { get; set; }
+        //public bool NavigateAway { get; set; }
 
         // Constructor for the Credential View Model
         public CredentialSelectViewModel()
@@ -90,20 +90,30 @@ namespace prj3beer.ViewModels
         // This method is called using the LogoutCommand
         public void Logout()
         {
+            // Switch Statement (gets the last signed in method from settings)
             switch (Settings.LoginMethodSetting)
             {
                 case "Facebook":
+                    // If We are currently logged in with facebook,
                     if(CrossFacebookClient.Current.IsLoggedIn)
-                    {
+                    {   // Call the logout method 
                         CrossFacebookClient.Current.Logout();
+                        // Set local IsLoggedIn bool to false;
                         IsLoggedIn = false;
 
+                        // Clear the current local user email,
                         User.Email = "";
+                        // Clear the currently logged in user from the settings.
                         Settings.CurrentUserEmail = "";
                         Settings.CurrentUserName = "";
-
-                        NavigateAway = true;
+                        
+                        // Pop This Modal
+                        // TODO ------- Convert this to a page??
                         App.Current.MainPage.Navigation.PopModalAsync();
+                        
+                        App.Current.MainPage = new NavigationPage(new BeverageSelectPage());
+
+                        App.Current.MainPage.Navigation.PopToRootAsync();
                     }
                     break;
 
@@ -122,8 +132,9 @@ namespace prj3beer.ViewModels
             Settings.CurrentUserEmail = "";
             Settings.CurrentUserName = "";
 
-            NavigateAway = true;
+            //NavigateAway = true;
             App.Current.MainPage.Navigation.PopModalAsync();
+            App.Current.MainPage.Navigation.PopToRootAsync();
 
             _googleClientManager.OnLogout -= OnLogoutCompleted;
         }
@@ -176,10 +187,14 @@ namespace prj3beer.ViewModels
                     IsLoggedIn = true;
                     LoadFacebookDataCommand.Execute(null);
                     //NavigateAway = true;
-                    //App.Current.MainPage = App.Current.MainPage.Navigation.NavigationStack.LastOrDefault();
-                    await App.Current.MainPage.Navigation.PopModalAsync();
+
+                    //App.Current.MainPage = new NavigationPage(new BeverageSelectPage());
                     
-                        //new NavigationPage(new BeverageSelectPage());
+                    await App.Current.MainPage.Navigation.PopModalAsync();
+                    //await App.Current.MainPage.Navigation.PopToRootAsync();
+
+                    //new NavigationPage(new BeverageSelectPage());
+
                     break;
                 case FacebookActionStatus.Canceled:
 
@@ -230,7 +245,7 @@ namespace prj3beer.ViewModels
                 // Also save it to the user
                 User.Token = CrossGoogleClient.Current.ActiveToken;
 
-                NavigateAway = true;
+                //NavigateAway = true;
 
                 App.Current.MainPage.Navigation.PopModalAsync();
             }

@@ -50,7 +50,7 @@ namespace prj3beer.Views
         {
             base.OnAppearing();
 
-            csvm.NavigateAway = false;
+            //csvm.NavigateAway = false;
 
             bool loggedin = Settings.CurrentUserEmail != "";// && Settings.CurrentUserName != "";
 
@@ -70,20 +70,12 @@ namespace prj3beer.Views
                 GoogleButton.IsVisible = true;
                 YesButton.IsVisible = false;
             }
+        }
 
-            //Device.StartTimer(TimeSpan.FromMilliseconds(1), () =>
-            //{
-            //    if (csvm.NavigateAway)
-            //    {
-            //        Task.Run(async () =>
-            //        {
-            //            csvm.NavigateAway = false;
-            //            await Navigation.PopModalAsync();
-            //            return false;
-            //        });
-            //    }
-            //    return true;
-            //});
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            Application.Current.MainPage = new NavigationPage(new BeverageSelectPage());
         }
 
         /// <summary>

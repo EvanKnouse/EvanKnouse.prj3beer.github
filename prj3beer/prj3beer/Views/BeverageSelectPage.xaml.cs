@@ -185,7 +185,7 @@ namespace prj3beer.Views
 
         private async void SignInOut_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new NavigationPage(new CredentialSelectPage()));
+            await Navigation.PushModalAsync(new CredentialSelectPage());
         }
     }
 }
