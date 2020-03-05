@@ -3,23 +3,21 @@ using prj3beer.Models;
 using prj3beer.Services;
 using prj3beer.ViewModels;
 using System;
+using System.Linq;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 using System.ComponentModel;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
-
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace prj3beer.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class StatusPage : ContentPage
     {
-
         static StatusViewModel svm;
         static Beverage currentBeverage;
         public static Preference preferredBeverage; //Set to public to fix problem in staus view model
@@ -32,13 +30,9 @@ namespace prj3beer.Views
         //Placeholder for target temperature element, implemented in another story.
         //int targetTempValue = 2;
 
-
-
         public StatusPage()
         {
-
             InitializeComponent();
-            //MenuPage page = new MenuPage(); //What is this doing here
 
             //The id on the settings page of the app
             // Defaults as -1, seleccting a beverage changes it
@@ -81,10 +75,8 @@ namespace prj3beer.Views
                 PopulateStatusScreen();
                 #endregion
 
-
-                
                 #region Story 16 code
-            /*
+                /*
                 nh = DependencyService.Get<INotificationHandler>();
                 //TODO: Call the compare when a new temperature is gotten from our device API, not on a timer
                 Device.StartTimer(TimeSpan.FromSeconds(1), () =>
@@ -93,14 +85,11 @@ namespace prj3beer.Views
 
                     return true;
                 });
-             */
+                */
                 #endregion
-                
-
-                
             }
-            MockTempReadings.StartCounting();
 
+            MockTempReadings.StartCounting();
         }
 
         /// <summary>
@@ -126,7 +115,7 @@ namespace prj3beer.Views
 
             //This is where to put the check if preffered beverage is already favorited or not and change the sourse accordingly
 
-            FavouriteButton.Source = preferredBeverage.Favourite? "Favourite" : "NotFavourite";
+            FavouriteButton.Source = preferredBeverage.Favourite ? "Favourite" : "NotFavourite";
             //FavouriteButton.Source = "Favourite";
             
         }
@@ -151,16 +140,15 @@ namespace prj3beer.Views
             preferredBeverage = svm.Context.Preference.Find(savedID);
             //preferredBeverage = null; // This is what the previous line SHOULD be doing.
 
-
             // If that Preferred beverage did not exist, it will be set to null,
             // So if it is null...
-            if (preferredBeverage == null)
+            if(preferredBeverage == null)
             {   // Create a new Preferred Beverage, with copied values from the Passed In Beverage.
-                preferredBeverage = new Preference() { BeverageID = currentBeverage.BeverageID, Temperature = currentBeverage.Temperature };
+                preferredBeverage = new Preference() { BeverageID = currentBeverage.BeverageID, Temperature = currentBeverage.Temperature, Favourite = false };
                 // Add the beverage to the Context (Database)
                 svm.Context.Preference.Add(preferredBeverage);
+                svm.Context.SaveChanges();
             }
-
         }
         /*
         private void SetupPreference(int bevID)
@@ -201,6 +189,7 @@ namespace prj3beer.Views
 
             try
             {   // Write Changes to Database when it is not busy.
+                svm.Context.Preference.Update(preferredBeverage);
                 await context.SaveChangesAsync();
             }
             catch (SqliteException) { throw; }
@@ -263,8 +252,6 @@ namespace prj3beer.Views
 
         //    ((ToolbarItem)(sender)).IsEnabled = true;
         //}
-
-        
 
         /// <summary>
         /// This method is called every time the page is opened.
@@ -360,19 +347,30 @@ namespace prj3beer.Views
 
 		private void FavouriteButtonClicked(object sender, EventArgs e)
         {
-            if (preferredBeverage.Favourite)
+            // If the beverage is favourited
+            if(preferredBeverage.Favourite)
             {
+                // Remove as a favourite
                 preferredBeverage.Favourite = false;
                 FavouriteButton.Source = "NotFavourite";
             }
-
+            // If the beverage is favourited
             else
             {
-                preferredBeverage.Favourite = true;
-                FavouriteButton.Source = "Favourite";
+                if(svm.Context.Preference.Where(p => p.Favourite == true).Count() < 5)
+                {
+                    // Add as a favourite
+                    preferredBeverage.Favourite = true;
+                    FavouriteButton.Source = "Favourite";
+                }
+                else
+                {
+                    Console.WriteLine("No!");
+                }
             }
 
             svm.Context.Preference.Update(preferredBeverage);
+            svm.Context.SaveChanges();
         }
     }
 }

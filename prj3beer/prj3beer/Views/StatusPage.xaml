@@ -44,12 +44,8 @@
                     HorizontalOptions="Center" ValueChanged="TemperatureStepperChanged"/>
             </StackLayout>
 
-            <ImageButton x:Name="FavouriteButton" AutomationId="FavouriteButton" Clicked="FavouriteButtonClicked" WidthRequest="10" />
-            <!--<ImageButton x:Name="UnFavoriteButton" AutomationId="UnFavoriteButton" Clicked="UnFavoriteButtonClicked" Source="Favourite.png"/>-->
-
+            <ImageButton x:Name="FavouriteButton" AutomationId="FavouriteButton" Clicked="FavouriteButtonClicked" />
         </StackLayout>
-
-        
 
     </ContentPage.Content>
     <ContentPage.ToolbarItems x:Uid="Toolbar">

@@ -64,8 +64,8 @@ namespace prj3beer
 
             try
             {
-                Context.Brand.AttachRange(brands);
-                Context.Brand.AddRange(brands);
+               // Context.Brand.att
+                Context.Brand.UpdateRange(brands);
             }
             catch(DbUpdateException exception)
             {
@@ -75,7 +75,7 @@ namespace prj3beer
             }
             finally
             {
-                Context.ChangeTracker.DetectChanges();
+                //Context.ChangeTracker.DetectChanges();
                 Context.SaveChanges();
             }
 
@@ -84,8 +84,8 @@ namespace prj3beer
 
             try
             {
-                Context.Beverage.AttachRange(beverages);
-                Context.Beverage.AddRange(beverages);
+               // Context.Beverage.AttachRange(beverages);
+                Context.Beverage.UpdateRange(beverages);
             }
             catch (DbUpdateException exception)
             {
@@ -97,7 +97,7 @@ namespace prj3beer
             finally
             {
 
-                Context.ChangeTracker.DetectChanges();
+                //Context.ChangeTracker.DetectChanges();
                 Context.SaveChanges();
             }
 
