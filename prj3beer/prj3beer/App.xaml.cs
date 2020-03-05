@@ -51,7 +51,7 @@ namespace prj3beer
         public static async void FetchData()
         {
             // REMOVE FOR PERSISTENT Data
-            Context.Database.EnsureDeleted();
+            //Context.Database.EnsureDeleted();
 
             // Ensure the Database is Created
             Context.Database.EnsureCreated();

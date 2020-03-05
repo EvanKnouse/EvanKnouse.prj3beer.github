@@ -126,6 +126,9 @@ namespace prj3beer.Views
 
             //This is where to put the check if preffered beverage is already favorited or not and change the sourse accordingly
 
+            FavouriteButton.Source = preferredBeverage.Favourite? "Favourite" : "NotFavourite";
+            //FavouriteButton.Source = "Favourite";
+            
         }
 
         public void UpdateViewModel(object sender, EventArgs args)
@@ -357,7 +360,19 @@ namespace prj3beer.Views
 
 		private void FavouriteButtonClicked(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            if (preferredBeverage.Favourite)
+            {
+                preferredBeverage.Favourite = false;
+                FavouriteButton.Source = "NotFavourite";
+            }
+
+            else
+            {
+                preferredBeverage.Favourite = true;
+                FavouriteButton.Source = "Favourite";
+            }
+
+            svm.Context.Preference.Update(preferredBeverage);
         }
     }
 }
