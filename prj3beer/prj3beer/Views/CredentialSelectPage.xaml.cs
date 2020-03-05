@@ -50,32 +50,27 @@ namespace prj3beer.Views
         {
             base.OnAppearing();
 
-            //csvm.NavigateAway = false;
+            // Boolean to keep track of a signed in/out user.
+            bool loggedIn = Settings.CurrentUserEmail.Length == 0;
 
-            bool loggedin = Settings.CurrentUserEmail != "";// && Settings.CurrentUserName != "";
+            // Change the message label based on a user being logged in or out.
+            MessageLabel.Text = loggedIn ? "Are You Sure You Want To Sign Out?" : "Sign In With";
 
-            MessageLabel.Text = loggedin ? "Are You Sure You Want To Sign Out?" : "Sign In With";
-
-            //TODO: Implement Facebook conditions
-            if (loggedin)
-            {
+            // If user is logged in
+            if (loggedIn)
+            {   // Hide the Facebook + Google Buttons
                 FacebookButton.IsVisible = false;
                 GoogleButton.IsVisible = false;
+                // Show the Yes button
                 YesButton.IsVisible = true;
-                //csvm.NavigateAway = true;
             }
             else
-            {
+            {   // Show the Facebook + Google Buttons
                 FacebookButton.IsVisible = true;
                 GoogleButton.IsVisible = true;
+                // Hide the Yes Button
                 YesButton.IsVisible = false;
             }
-        }
-
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-            Application.Current.MainPage = new NavigationPage(new BeverageSelectPage());
         }
 
         /// <summary>
@@ -88,5 +83,16 @@ namespace prj3beer.Views
             //Close the Sign in/out screen
             Navigation.PopModalAsync();
         }
+
+        /* NOTE */
+        /* ENABLE THIS TO SEND USERS BACK TO THE START PAGE */
+        /* AFTER SIGNING IN OR OUT OF GOOGLE/FACEBOOK */
+        /* 
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            Application.Current.MainPage = new NavigationPage(new BeverageSelectPage());
+        }
+        */
     }
 }

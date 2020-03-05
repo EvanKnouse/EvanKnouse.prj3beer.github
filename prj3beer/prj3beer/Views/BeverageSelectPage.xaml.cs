@@ -32,38 +32,47 @@ namespace prj3beer.Views
         {
             base.OnAppearing();
 
+            //  Setup The Menu Button
             LogInOutButton();
         }
 
+        /// <summary>
+        /// This method will replace the Log In / Log Out button 
+        /// </summary>
         private void LogInOutButton()
         {
+            // Remove the Log in/out button
             ToolbarItems.RemoveAt(1);
 
-            bool loggedOut = (Settings.CurrentUserEmail.Length == 0) ? true : false;
+            //bool loggedOut = (Settings.CurrentUserEmail.Length == 0) ? true : false;
 
-            if (loggedOut)
+            // If there is no current user signed in
+            if (Settings.CurrentUserEmail.Length == 0)
             {
+                // Create a new ToolBar Button
                 ToolbarItem SignInButton = new ToolbarItem
-                {
+                {   // Assign it the properties below
                     AutomationId = "SignIn",
                     Text = "Sign In",
+                    // Set the menu button to the sub-menu
                     Order = ToolbarItemOrder.Secondary
                 };
-                
+                // Add the button to the menu
                 ToolbarItems.Add(SignInButton);
             }
-            else
-            {
+            else // A user is signed in
+            {   // Create a new toolbar button caled Sign Out
                 ToolbarItem SignOutButton = new ToolbarItem
-                {
+                {   // Assign it the properties below
                     AutomationId = "SignOut",
                     Text = "Sign Out",
+                    // Set the menu button to the sub-menu
                     Order = ToolbarItemOrder.Secondary
                 };
-               
+                // Add the button to the menu
                 ToolbarItems.Add(SignOutButton);
             }
-
+            // Add the click event handler to the button
             ToolbarItems.ElementAt(1).Clicked += SignInOut_Clicked;
         }
 
@@ -178,13 +187,25 @@ namespace prj3beer.Views
             await Navigation.PushAsync(new StatusPage());
         }
 
+        /// <summary>
+        /// This method is called when the Settings Menu Button is Clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Settings_Clicked(object sender, EventArgs e)
         {
+            // Push a new settings modal
             Navigation.PushModalAsync(new NavigationPage(new SettingsMenu()));
         }
 
+        /// <summary>
+        /// This method is called when the Sign In or Out button is clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void SignInOut_Clicked(object sender, EventArgs e)
-        {
+        {   
+            // Push a new login page modal
             await Navigation.PushModalAsync(new CredentialSelectPage());
         }
     }
