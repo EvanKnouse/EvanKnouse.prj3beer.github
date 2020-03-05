@@ -111,9 +111,9 @@ namespace prj3beer.ViewModels
                         // TODO ------- Convert this to a page??
                         App.Current.MainPage.Navigation.PopModalAsync();
                         
-                        App.Current.MainPage = new NavigationPage(new BeverageSelectPage());
+                        //App.Current.MainPage = new NavigationPage(new BeverageSelectPage());
 
-                        App.Current.MainPage.Navigation.PopToRootAsync();
+                        //App.Current.MainPage.Navigation.PopModalAsync();
                     }
                     break;
 
@@ -134,7 +134,7 @@ namespace prj3beer.ViewModels
 
             //NavigateAway = true;
             App.Current.MainPage.Navigation.PopModalAsync();
-            App.Current.MainPage.Navigation.PopToRootAsync();
+            //App.Current.MainPage.Navigation.PopToRootAsync();
 
             _googleClientManager.OnLogout -= OnLogoutCompleted;
         }
@@ -190,7 +190,7 @@ namespace prj3beer.ViewModels
 
                     //App.Current.MainPage = new NavigationPage(new BeverageSelectPage());
                     
-                    await App.Current.MainPage.Navigation.PopModalAsync();
+                    
                     //await App.Current.MainPage.Navigation.PopToRootAsync();
 
                     //new NavigationPage(new BeverageSelectPage());
@@ -275,6 +275,8 @@ namespace prj3beer.ViewModels
             // After the user is created from the returned Facebook data, set persistent user's data
             Settings.CurrentUserName = User.Name;
             Settings.CurrentUserEmail = User.Email;
+
+            await App.Current.MainPage.Navigation.PopModalAsync();
         }
     }
 }

@@ -307,9 +307,9 @@ namespace prj3beer.Views
         {
             ToolbarItems.RemoveAt(1);
 
-            bool SignInOut = (Settings.CurrentUserEmail.Length == 0) ? true : false;
+            bool loggedOut = (Settings.CurrentUserEmail.Length == 0) ? true : false;
 
-            if (SignInOut)
+            if (loggedOut)
             {
                 ToolbarItem SignInButton = new ToolbarItem
                 {
@@ -332,9 +332,7 @@ namespace prj3beer.Views
                 ToolbarItems.Add(SignOutButton);
             }
 
-            ToolbarItems.ElementAt(1).Clicked += SignInOut_Clicked;
-
-            
+            ToolbarItems.ElementAt(1).Clicked += SignInOut_Clicked; 
         }
 
         private void Settings_Clicked(object sender, EventArgs e)
