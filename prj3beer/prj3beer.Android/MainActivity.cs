@@ -9,6 +9,7 @@ using Android.OS;
 using System.IO;
 using Plugin.GoogleClient;
 using Java.Security;
+using prj3beer.Services;
 
 namespace prj3beer.Droid
 {
@@ -41,5 +42,7 @@ namespace prj3beer.Droid
             base.OnActivityResult(requestCode, resultCode, data);
             GoogleClientManager.OnAuthCompleted(requestCode, resultCode, data);
         }
+
     }
+
 }
