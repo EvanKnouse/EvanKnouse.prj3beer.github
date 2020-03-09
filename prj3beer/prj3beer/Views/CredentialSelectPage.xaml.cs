@@ -51,7 +51,7 @@ namespace prj3beer.Views
             base.OnAppearing();
 
             // Boolean to keep track of a signed in/out user.
-            bool loggedIn = Settings.CurrentUserEmail.Length == 0;
+            bool loggedIn = Settings.CurrentUserEmail.Length != 0;
 
             // Change the message label based on a user being logged in or out.
             MessageLabel.Text = loggedIn ? "Are You Sure You Want To Sign Out?" : "Sign In With";
