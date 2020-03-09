@@ -6,17 +6,10 @@ using Xamarin.Forms;
 
 namespace prj3beer.Services
 {
-    public interface iToastHandler
+    public interface IToastHandler
     {
+        void LongToast(string msg);
 
-        void longtoast(string msg);
-
-        void shortToast(string msg);
-
-
-        
+        void ShortToast(string msg);
     }
-
-    
-
 }

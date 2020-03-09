@@ -27,6 +27,50 @@ namespace prj3beer.Views
         {
             InitializeComponent();
 
+            FavouritesCarousel.ItemsSource = App.Context.Preference.Where(p => p.Favourite == true);
+
+            FavouritesCarousel.ItemTemplate = new DataTemplate(() =>
+            {
+                Label nameLabel = new Label { Text = "Test" };
+                //nameLabel.SetBinding(Label.TextProperty, "Name");
+
+                Label tempLabel = new Label { };
+                tempLabel.SetBinding(Label.TextProperty, "Temperature");
+
+                /*Image image = new Image { ... };
+                image.SetBinding(Image.SourceProperty, "ImageUrl");
+
+                Label locationLabel = new Label { ... };
+                locationLabel.SetBinding(Label.TextProperty, "Location");
+
+                Label detailsLabel = new Label { ... };
+                detailsLabel.SetBinding(Label.TextProperty, "Details");*/
+
+                StackLayout stackLayout = new StackLayout
+                {
+                    Children = { nameLabel, tempLabel }
+                };
+
+                Frame frame = new Frame
+                {
+                    HasShadow = true,
+                    BorderColor = Color.DarkGray,
+                    CornerRadius = 5,
+                    Margin = 20,
+                    HeightRequest = 300,
+                    WidthRequest = 150,
+                    HorizontalOptions = LayoutOptions.Center,
+                    VerticalOptions = LayoutOptions.CenterAndExpand,
+                    Content = stackLayout
+                };
+                StackLayout rootStackLayout = new StackLayout
+                {
+                    Children = { frame }
+                };
+
+                return rootStackLayout;
+            });
+
             // Check to see if the welcome prompt has fired since the user has logged in
             //if (Settings.WelcomePromptSetting)
             //{   // If it fires, disable it from firing again
@@ -57,7 +101,7 @@ namespace prj3beer.Views
                     Text = "Sign In",
                     Order = ToolbarItemOrder.Secondary
                 };
-                
+
                 ToolbarItems.Add(SignInButton);
             }
             else
@@ -68,7 +112,7 @@ namespace prj3beer.Views
                     Text = "Sign Out",
                     Order = ToolbarItemOrder.Secondary
                 };
-               
+
                 ToolbarItems.Add(SignOutButton);
             }
 
@@ -111,7 +155,7 @@ namespace prj3beer.Views
                 //Try to save the result from the previous search
                 brand = brands.First().BrandID;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 //If there is an exception, reset the brand ID to null
                 brand = null;
@@ -119,7 +163,7 @@ namespace prj3beer.Views
 
             // Search the Beverages Database for search string and brand ID that matches
             var beverages = App.Context.Beverage.Where(b => b.BrandID.Value.Equals(brand) || b.Name.ToLower().Contains(searchString) || b.Type.ToString().ToLower().Contains(searchString)).Distinct();
-            
+
             //If the search string is not empty
             if (!searchString.Equals(""))
             {
@@ -176,7 +220,7 @@ namespace prj3beer.Views
             Settings.BeverageSettings = tappedBeverage.BeverageID;
             //Application.Current.MainPage = new NavigationPage(new StatusPage());
             // await Navigation.PushModalAsync(new NavigationPage(new StatusPage()));
-            
+
             //Set the ID to the setting page
             var id = (int)MenuItemType.Status;
 
@@ -193,6 +237,36 @@ namespace prj3beer.Views
         private async void SignInOut_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new NavigationPage(new CredentialSelectPage(false)));
+        }
+    }
+
+    public class BeerCarousel : ViewCell
+    {
+        public BeerCarousel()
+        {
+            Label nameLabel = new Label { Text = "Test" };
+            //nameLabel.SetBinding(Label.TextProperty, "Name");
+
+            //Image image = new Image { };
+            //image.SetBinding(Image.SourceProperty, "ImagePath");
+
+            //Label locationLabel = new Label { };
+            //locationLabel.SetBinding(Label.TextProperty, "Location");
+
+            //Label detailsLabel = new Label { };
+            //detailsLabel.SetBinding(Label.TextProperty, "Details");
+
+            //StackLayout stackLayout = new StackLayout
+            //{
+            //    Children = { nameLabel, image, locationLabel, detailsLabel }
+            //};
+
+            StackLayout rootStackLayout = new StackLayout
+            {
+                Children = { nameLabel }
+            };
+
+            View = rootStackLayout;
         }
     }
 }

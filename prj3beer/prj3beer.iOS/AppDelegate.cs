@@ -28,6 +28,7 @@ namespace prj3beer.iOS
 
             SQLitePCL.Batteries_V2.Init();
 
+            global::Xamarin.Forms.Forms.SetFlags("Shell_Experimental", "Visual_Experimental", "CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 

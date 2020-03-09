@@ -366,9 +366,7 @@ namespace prj3beer.Views
                 else
                 {
 
-                    DependencyService.Get<iToastHandler>().longtoast("You cannot have any more favorites");
-
-                    //Console.WriteLine("No!");
+                    DependencyService.Get<IToastHandler>().LongToast("You cannot have any more favourites");
                 }
             }
 

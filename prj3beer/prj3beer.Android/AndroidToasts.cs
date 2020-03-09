@@ -15,16 +15,16 @@ using AndroidApp = Android.App.Application;
 [assembly: Dependency(typeof(prj3beer.Droid.AndroidToasts))]
 namespace prj3beer.Droid
 {
-    class AndroidToasts : Services.iToastHandler
+    class AndroidToasts : Services.IToastHandler
     {
         #region story 52/29 Favorites
         
-            public void longtoast(string msg)
+            public void LongToast(string msg)
             {
                 Toast.MakeText(AndroidApp.Context, msg, ToastLength.Long).Show();
             }
 
-            public void shortToast(string msg)
+            public void ShortToast(string msg)
             {
                 Toast.MakeText(AndroidApp.Context, msg, ToastLength.Short).Show();
             }
