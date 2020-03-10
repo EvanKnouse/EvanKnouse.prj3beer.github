@@ -200,33 +200,6 @@ namespace prj3beer.ViewModels
                     // Set is Logged in to true,
                     IsLoggedIn = true;
                     // Load all of the User's Data
-                    //var syncTask = new Task(() => {
-
-                    //    // Store the Facebook Data in a string, populated from the Current Facebook Profile
-                    //    var jsonData = CrossFacebookClient.Current.RequestUserDataAsync
-                    //    (                   // Request the ID, Name, Email, Picture, Cover, Friends
-                    //          new string[] { "id", "name", "email", "picture", "cover", "friends" }, new string[] { }
-                    //    ).Result;
-
-                    //    // Parse the Data out of the JSON string
-                    //    var data = JObject.Parse(jsonData.Data);
-
-                    //    // Create a new User 
-                    //    User = new UserProfile()
-                    //    {   // Set it's name from the data[name] property,
-                    //        Name = data["name"].ToString(),
-                    //        // Set it's picture from the picture source, creating a new URI based on the picture, data, and url fields
-                    //        Picture = new UriImageSource { Uri = new Uri($"{data["picture"]["data"]["url"]}") },
-                    //        // Set it's email from the data[email] property
-                    //        Email = data["email"].ToString(),
-                    //    };
-                    //    // After the user is created from the returned Facebook data, set persistent user's data
-                    //    Settings.CurrentUserName = User.Name;
-                    //    Settings.CurrentUserEmail = User.Email;
-                    //});
-
-                    //syncTask.RunSynchronously();
-
                     await LoadFacebookData();
 
                     var syncTask2 = new Task(() => {

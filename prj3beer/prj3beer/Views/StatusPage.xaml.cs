@@ -23,10 +23,6 @@ namespace prj3beer.Views
         // Saved ID from the last selected Beverage
         int savedID;
 
-        INotificationHandler nh;
-        NotificationType lastNotification = NotificationType.NO_MESSAGE;
-
-
         public StatusPage()
         {
             InitializeComponent();

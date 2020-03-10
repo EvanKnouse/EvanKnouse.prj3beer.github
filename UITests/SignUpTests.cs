@@ -115,6 +115,8 @@ namespace UITests
             // navigate to enter external credentials
             app.Tap("FacebookButton");
 
+            Thread.Sleep(5000);
+
             // Wait for the beverage select page appears again
             app.WaitForElement("searchBeverage");
 
@@ -271,27 +273,17 @@ namespace UITests
             //app.Tap("SignInButton");
             app.TapCoordinates(1350, 350);
 
-
             // navigate to enter external credentials
             app.Tap("GoogleButton");
-
-            // test that the welcoming label contains welcoming text
-            //app.WaitForElement("ContinueButton");
-
-            // Tap the Continue Button
-            //app.Tap("ContinueButton");
-
-            Thread.Sleep(2000);
 
             //Open the  menu
             //app.TapCoordinates(150, 90);
             app.TapCoordinates(1350, 175);
 
-
-            //app.WaitForElement("btnSignOut");
+            app.WaitForElement("Sign Out");
 
             // test that the sign out button is on the screen
-            AppResult[] result = app.Query("btnSignOut");
+            AppResult[] result = app.Query("Sign Out");
             Assert.IsTrue(result.Any());
         }
 
@@ -306,7 +298,7 @@ namespace UITests
             //app.WaitForElement("btnSignOut");
 
             // test that the sign out button is on the screen
-            AppResult[] result = app.Query("btnSignOut");
+            AppResult[] result = app.Query("Sign Out");
             Assert.IsFalse(result.Any());
         }
 
@@ -358,10 +350,10 @@ namespace UITests
             //Sign out
             app.Tap("YesButton");
 
-            //app.WaitForElement("SignInButton");
+            //Tap the ellipsis menu
             app.TapCoordinates(1350, 175);
 
-            // test that the sign out button is on the screen
+            // test that the sign in button is on the screen
             AppResult[] result = app.Query("Sign In");
             Assert.IsTrue(result.Any());
         }
