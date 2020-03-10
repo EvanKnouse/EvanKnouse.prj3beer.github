@@ -16,7 +16,7 @@ namespace prj3beer.Views
     public partial class BeverageSelectPage : ContentPage
     {
         //A list that will contain all valid beverages that meet the search criteria
-        List<String> listViewBeverages = new List<String>();
+        List<string> listViewBeverages = new List<string>();
 
         /// <summary>
         /// This will initialize the page and bring in the beverage objects from local storage
@@ -29,28 +29,18 @@ namespace prj3beer.Views
 
             FavouritesCarousel.ItemsSource = App.Context.Preference.Where(p => p.Favourite == true);
 
-
-
             FavouritesCarousel.ItemTemplate = new DataTemplate(() =>
             {
-                Label nameLabel = new Label { Text = "Test" };
-                //nameLabel.SetBinding(Label.TextProperty, "Name");
+                //Image image = new Image { };
+                //image.SetBinding(Image.SourceProperty, "ImageURL");
 
-                Label tempLabel = new Label { };
-                tempLabel.SetBinding(Label.TextProperty, "Temperature");
-
-                Image image = new Image {  };
-                image.SetBinding(Image.SourceProperty, "placeholder_can");
-                /*
-                Label locationLabel = new Label { ... };
-                locationLabel.SetBinding(Label.TextProperty, "Location");
-
-                Label detailsLabel = new Label { ... };
-                detailsLabel.SetBinding(Label.TextProperty, "Details");*/
+                Label lblID = new Label { };
+                lblID.SetBinding(Label.TextProperty, "BeverageID");
 
                 StackLayout stackLayout = new StackLayout
                 {
-                    Children = { nameLabel, tempLabel, image }
+                    //Children = { nameLabel, tempLabel, image }
+                    Children = { lblID }
                 };
 
                 Frame frame = new Frame
@@ -59,8 +49,8 @@ namespace prj3beer.Views
                     BorderColor = Color.DarkGray,
                     CornerRadius = 5,
                     Margin = 20,
-                    HeightRequest = 500,
-                    WidthRequest = 300,
+                    HeightRequest = 200,
+                    WidthRequest = 150,
                     HorizontalOptions = LayoutOptions.Center,
                     VerticalOptions = LayoutOptions.CenterAndExpand,
                     Content = stackLayout
@@ -72,6 +62,8 @@ namespace prj3beer.Views
 
                 return rootStackLayout;
             });
+
+
 
             // Check to see if the welcome prompt has fired since the user has logged in
             //if (Settings.WelcomePromptSetting)

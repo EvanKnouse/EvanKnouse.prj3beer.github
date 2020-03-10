@@ -26,7 +26,7 @@ namespace prj3beer.Models
         public double? Temperature { get; set; }
 
         [DefaultValue("placeholder_can")]
-        public String ImagePath { get; set; }
+        public string ImagePath { get; set; }
 
         [Required(ErrorMessage = "Favourite is required")]
         [DefaultValue(false)]
@@ -37,11 +37,6 @@ namespace prj3beer.Models
 
         //[DefaultValue("")]
         //public UriImageSource savedImg { get; set; }
-
-
-        [DefaultValue("placeholder_can")]
-        public string placeholder_can { get; set; }
-
         #endregion
 
 
@@ -89,8 +84,8 @@ namespace prj3beer.Models
         {
             Image image = new Image();
             image.Source = "placeholder_can";
-            //if (ImageSaved() == false)
-            //{
+            if (ImageSaved() == false)
+            {
                 if (imageURL.Length > 0)
                 {
                     //ImagePath = imageURL;
@@ -103,12 +98,10 @@ namespace prj3beer.Models
                         CacheValidity = new TimeSpan(7, 0, 0, 0)
                     };
 
-                //ImagePath = uriImage;
+                    //ImagePath = uriImage;
                     //image.Source = savedImg;
-
-
+                }
             }
-            //}
             return image;
         }
         #endregion
