@@ -28,12 +28,22 @@ namespace prj3beer.Views
             InitializeComponent();
         }
 
+        public void ReAppearing()
+        {
+            LogInOutButton();
+        }
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
             //  Setup The Menu Button
             LogInOutButton();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
         }
 
         /// <summary>

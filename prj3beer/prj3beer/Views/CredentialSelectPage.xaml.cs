@@ -87,12 +87,19 @@ namespace prj3beer.Views
         /* NOTE */
         /* ENABLE THIS TO SEND USERS BACK TO THE START PAGE */
         /* AFTER SIGNING IN OR OUT OF GOOGLE/FACEBOOK */
-        /* 
+        
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            Application.Current.MainPage = new NavigationPage(new BeverageSelectPage());
+            //Application.Current.MainPage = new NavigationPage(new BeverageSelectPage());
+
+            //Application.Current.MainPage.Navigation.PushModalAsync(new Page());
+            //Application.Current.MainPage.Navigation.PopModalAsync();
+
+
         }
-        */
+
+
+
     }
 }

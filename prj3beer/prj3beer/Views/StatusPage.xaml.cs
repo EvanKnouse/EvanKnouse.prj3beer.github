@@ -303,5 +303,10 @@ namespace prj3beer.Views
             // Push a new login page modal
             await Navigation.PushModalAsync(new CredentialSelectPage());
         }
+
+        public void ReAppearing()
+        {
+            OnAppearing();
+        }
     }
 }
