@@ -29,6 +29,8 @@ namespace prj3beer.Views
 
             FavouritesCarousel.ItemsSource = App.Context.Preference.Where(p => p.Favourite == true);
 
+
+
             FavouritesCarousel.ItemTemplate = new DataTemplate(() =>
             {
                 Label nameLabel = new Label { Text = "Test" };
@@ -37,9 +39,9 @@ namespace prj3beer.Views
                 Label tempLabel = new Label { };
                 tempLabel.SetBinding(Label.TextProperty, "Temperature");
 
-                /*Image image = new Image { ... };
-                image.SetBinding(Image.SourceProperty, "ImageUrl");
-
+                Image image = new Image {  };
+                image.SetBinding(Image.SourceProperty, "placeholder_can");
+                /*
                 Label locationLabel = new Label { ... };
                 locationLabel.SetBinding(Label.TextProperty, "Location");
 
@@ -48,7 +50,7 @@ namespace prj3beer.Views
 
                 StackLayout stackLayout = new StackLayout
                 {
-                    Children = { nameLabel, tempLabel }
+                    Children = { nameLabel, tempLabel, image }
                 };
 
                 Frame frame = new Frame
@@ -57,8 +59,8 @@ namespace prj3beer.Views
                     BorderColor = Color.DarkGray,
                     CornerRadius = 5,
                     Margin = 20,
-                    HeightRequest = 300,
-                    WidthRequest = 150,
+                    HeightRequest = 500,
+                    WidthRequest = 300,
                     HorizontalOptions = LayoutOptions.Center,
                     VerticalOptions = LayoutOptions.CenterAndExpand,
                     Content = stackLayout

@@ -26,15 +26,25 @@ namespace prj3beer.Models
         public double? Temperature { get; set; }
 
         [DefaultValue("placeholder_can")]
-        public string ImagePath { get; set; }
+        public String ImagePath { get; set; }
 
         [Required(ErrorMessage = "Favourite is required")]
         [DefaultValue(false)]
         public bool Favourite { get; set; }
 
+        //const Uri uriImage = new Uri("placeholder_can");
+        //UriImageSource test = new UriImageSource { Uri = uriImage };
+
+        //[DefaultValue("")]
+        //public UriImageSource savedImg { get; set; }
+
+
+        [DefaultValue("placeholder_can")]
+        public string placeholder_can { get; set; }
+
         #endregion
 
-        
+
 
         #region Story 7 code
         /// <summary>
@@ -55,6 +65,18 @@ namespace prj3beer.Models
             }
         }
 
+        //public bool ImageSaved()
+        //{
+        //    if (savedImg == null)
+        //    {
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        return true;
+        //    }
+        //}
+
 
         /// <summary>
         /// Gets and returns an image based on the passed in URL
@@ -67,10 +89,11 @@ namespace prj3beer.Models
         {
             Image image = new Image();
             image.Source = "placeholder_can";
-            if (ImageSaved() == false)
-            {
+            //if (ImageSaved() == false)
+            //{
                 if (imageURL.Length > 0)
                 {
+                    //ImagePath = imageURL;
                     Uri uriImage = new Uri(imageURL);
 
                     image.Source = new UriImageSource
@@ -79,8 +102,13 @@ namespace prj3beer.Models
                         CachingEnabled = true,
                         CacheValidity = new TimeSpan(7, 0, 0, 0)
                     };
-                }
+
+                //ImagePath = uriImage;
+                    //image.Source = savedImg;
+
+
             }
+            //}
             return image;
         }
         #endregion
