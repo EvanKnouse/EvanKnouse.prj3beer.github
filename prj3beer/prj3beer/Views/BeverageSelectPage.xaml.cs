@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using prj3beer.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using prj3beer.Services;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Microsoft.EntityFrameworkCore;
+using prj3beer.Services;
 
 namespace prj3beer.Views
 {
@@ -27,71 +26,7 @@ namespace prj3beer.Views
         public BeverageSelectPage()
         {
             InitializeComponent();
-
-            FavouritesCarousel.ItemsSource = App.Context.Preference.Where(p => p.Favourite == true);
-
-            FavouritesCarousel.ItemTemplate = new DataTemplate(() =>
-            {
-
-                var tapGesRec = new TapGestureRecognizer();
-
-                //tapGesRec.SetBinding(Id, "BeverageID");
-
-                //tapGesRec.SetBinding(TapGestureRecognizer.)
-
-                tapGesRec.Tapped += (s, e) =>
-                {
-                    //Beverage tappedBeverage = (App.Context.Beverage.Where(b => b.Name.Contains(e.ToString()))).First();
-
-                    //toStatusPage(tappedBeverage.BeverageID);
-
-
-
-                    //DependencyService.Get<IToastHandler>().LongToast("Tapped: "+((Label)s).Text);
-                    
-                };
-
-                Image image = new Image { };
-                image.SetBinding(Image.SourceProperty, "ImagePath");
-
-
-                Label lblID = new Label { };
-                lblID.SetBinding(Label.TextProperty, "BeverageID");
-
-                //image.GestureRecognizers.Add(tapGesRec);
-
-                lblID.GestureRecognizers.Add(tapGesRec);
-
-
-                StackLayout stackLayout = new StackLayout
-                {
-                    Children = { image, lblID }
-                };
-
-                Frame frame = new Frame
-                {
-                    HasShadow = true,
-                    BorderColor = Color.DarkGray,
-                    CornerRadius = 5,
-                    Margin = 20,
-                    HeightRequest = 200,
-                    WidthRequest = 150,
-                    HorizontalOptions = LayoutOptions.Center,
-                    VerticalOptions = LayoutOptions.CenterAndExpand,
-                    Content = stackLayout
-                };
-                StackLayout rootStackLayout = new StackLayout
-                {
-                    Children = { frame }
-                };
-
-
-
-                return rootStackLayout;
-            });
-
-
-
+            
             // Check to see if the welcome prompt has fired since the user has logged in
             //if (Settings.WelcomePromptSetting)
             //{   // If it fires, disable it from firing again
@@ -101,9 +36,70 @@ namespace prj3beer.Views
             //}
         }
 
+        private void PopulateCarousel()
+        {
+            IQueryable<Preference> favPrefs = App.Context.Preference.Where(p => p.Favourite == true);
+
+            if(favPrefs.Count() == 0)
+            {
+                NoFavouritesLabel.IsVisible = true;
+                NoFavouritesLabel.Text = "Favourite, get spinny";
+
+                FavouritesCarousel.ItemsSource = null;
+            }
+            else
+            {
+                NoFavouritesLabel.IsVisible = false;
+
+                FavouritesCarousel.ItemsSource = favPrefs;
+
+                FavouritesCarousel.ItemTemplate = new DataTemplate(() =>
+                {
+                    var tapGesRec = new TapGestureRecognizer();
+
+                    tapGesRec.Tapped += (s, e) =>
+                    {
+                        toStatusPage(int.Parse(((Image)s).AutomationId));
+                    };
+
+                    Image image = new Image { };
+                    image.SetBinding(Image.SourceProperty, "ImagePath");
+                    image.SetBinding(Image.AutomationIdProperty, "BeverageID");
+
+                    image.GestureRecognizers.Add(tapGesRec);
+
+                    StackLayout stackLayout = new StackLayout
+                    {
+                        Children = { image }
+                    };
+
+                    Frame frame = new Frame
+                    {
+                        HasShadow = true,
+                        BorderColor = Color.DarkGray,
+                        CornerRadius = 5,
+                        Margin = 20,
+                        HeightRequest = 200,
+                        WidthRequest = 150,
+                        HorizontalOptions = LayoutOptions.Center,
+                        VerticalOptions = LayoutOptions.CenterAndExpand,
+                        Content = stackLayout
+                    };
+                    StackLayout rootStackLayout = new StackLayout
+                    {
+                        Children = { frame }
+                    };
+
+                    return rootStackLayout;
+                });
+            }
+        }
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
+
+            PopulateCarousel();
 
             LogInOutButton();
         }
@@ -275,7 +271,6 @@ namespace prj3beer.Views
 
         #endregion
 
-
         private void Settings_Clicked(object sender, EventArgs e)
         {
             Navigation.PushModalAsync(new NavigationPage(new SettingsMenu()));
@@ -285,35 +280,23 @@ namespace prj3beer.Views
         {
             await Navigation.PushModalAsync(new NavigationPage(new CredentialSelectPage(false)));
         }
-    }
 
-    public class BeerCarousel : ViewCell
-    {
-        public BeerCarousel()
+        private void SearchBeverageFocused(object sender, FocusEventArgs e)
         {
-            Label nameLabel = new Label { Text = "Test" };
-            //nameLabel.SetBinding(Label.TextProperty, "Name");
+            FavouritesCarousel.HeightRequest = 0;
 
-            //Image image = new Image { };
-            //image.SetBinding(Image.SourceProperty, "ImagePath");
-
-            //Label locationLabel = new Label { };
-            //locationLabel.SetBinding(Label.TextProperty, "Location");
-
-            //Label detailsLabel = new Label { };
-            //detailsLabel.SetBinding(Label.TextProperty, "Details");
-
-            //StackLayout stackLayout = new StackLayout
-            //{
-            //    Children = { nameLabel, image, locationLabel, detailsLabel }
-            //};
-
-            StackLayout rootStackLayout = new StackLayout
+            if(searchBeverage.Text == null || searchBeverage.Text.Equals(""))
             {
-                Children = { nameLabel }
-            };
+                beverageListView.ItemsSource = App.Context.Beverage.ToList();
+            }
+        }
 
-            View = rootStackLayout;
+        private void SearchBeverageUnfocused(object sender, FocusEventArgs e)
+        {
+            if(searchBeverage.Text == null || searchBeverage.Text.Equals(""))
+            {
+                FavouritesCarousel.HeightRequest = 200;
+            }
         }
     }
 }
