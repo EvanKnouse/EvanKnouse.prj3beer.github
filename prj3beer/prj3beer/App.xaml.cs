@@ -64,7 +64,8 @@ namespace prj3beer
 
             try
             {
-               // Context.Brand.att
+                //Context.Brand.att
+                //Context.Brand.AddRange(brands);
                 Context.Brand.UpdateRange(brands);
             }
             catch(DbUpdateException exception)
@@ -84,7 +85,8 @@ namespace prj3beer
 
             try
             {
-               // Context.Beverage.AttachRange(beverages);
+                //Context.Beverage.AttachRange(beverages);
+                //Context.Beverage.AddRange(beverages);
                 Context.Beverage.UpdateRange(beverages);
             }
             catch (DbUpdateException exception)

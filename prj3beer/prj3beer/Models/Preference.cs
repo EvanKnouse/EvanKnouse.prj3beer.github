@@ -50,7 +50,7 @@ namespace prj3beer.Models
         {
             //throw new NotImplementedException();
             //if (ImagePath == null)
-            if (ImagePath == "" || ImagePath == "placeholder_can" || ImagePath == null)
+            if(ImagePath.Equals("") || ImagePath.Equals("placeholder_can") || ImagePath == null)
             {
                 return false;
             }
@@ -59,19 +59,6 @@ namespace prj3beer.Models
                 return true;
             }
         }
-
-        //public bool ImageSaved()
-        //{
-        //    if (savedImg == null)
-        //    {
-        //        return false;
-        //    }
-        //    else
-        //    {
-        //        return true;
-        //    }
-        //}
-
 
         /// <summary>
         /// Gets and returns an image based on the passed in URL
@@ -84,23 +71,19 @@ namespace prj3beer.Models
         {
             Image image = new Image();
             image.Source = "placeholder_can";
-            if (ImageSaved() == false)
+            if(!imageURL.Equals(""))
             {
-                if (imageURL.Length > 0)
+                //ImagePath = imageURL;
+                Uri uriImage = new Uri(imageURL);
+
+                image.Source = new UriImageSource
                 {
-                    //ImagePath = imageURL;
-                    Uri uriImage = new Uri(imageURL);
+                    Uri = uriImage,
+                    CachingEnabled = true,
+                    CacheValidity = new TimeSpan(7, 0, 0, 0)
+                };
 
-                    image.Source = new UriImageSource
-                    {
-                        Uri = uriImage,
-                        CachingEnabled = true,
-                        CacheValidity = new TimeSpan(7, 0, 0, 0)
-                    };
-
-                    //ImagePath = uriImage;
-                    //image.Source = savedImg;
-                }
+                ImagePath = uriImage.AbsoluteUri;
             }
             return image;
         }

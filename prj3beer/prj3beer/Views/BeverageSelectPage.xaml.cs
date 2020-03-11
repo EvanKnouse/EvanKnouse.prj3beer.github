@@ -6,6 +6,7 @@ using Xamarin.Forms.Xaml;
 using prj3beer.Services;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Microsoft.EntityFrameworkCore;
 
 namespace prj3beer.Views
 {
@@ -29,18 +30,16 @@ namespace prj3beer.Views
 
             FavouritesCarousel.ItemsSource = App.Context.Preference.Where(p => p.Favourite == true);
 
+            //FavouritesCarousel.ItemsSource = App.Context.Beverage.AsNoTracking().ToArray();
+
             FavouritesCarousel.ItemTemplate = new DataTemplate(() =>
             {
-                //Image image = new Image { };
-                //image.SetBinding(Image.SourceProperty, "ImageURL");
-
-                Label lblID = new Label { };
-                lblID.SetBinding(Label.TextProperty, "BeverageID");
+                Image image = new Image { };
+                image.SetBinding(Image.SourceProperty, "ImagePath");
 
                 StackLayout stackLayout = new StackLayout
                 {
-                    //Children = { nameLabel, tempLabel, image }
-                    Children = { lblID }
+                    Children = { image }
                 };
 
                 Frame frame = new Frame
