@@ -30,16 +30,42 @@ namespace prj3beer.Views
 
             FavouritesCarousel.ItemsSource = App.Context.Preference.Where(p => p.Favourite == true);
 
-            //FavouritesCarousel.ItemsSource = App.Context.Beverage.AsNoTracking().ToArray();
-
             FavouritesCarousel.ItemTemplate = new DataTemplate(() =>
             {
+
+                var tapGesRec = new TapGestureRecognizer();
+
+                //tapGesRec.SetBinding(Id, "BeverageID");
+
+                //tapGesRec.SetBinding(TapGestureRecognizer.)
+
+                tapGesRec.Tapped += (s, e) =>
+                {
+                    //Beverage tappedBeverage = (App.Context.Beverage.Where(b => b.Name.Contains(e.ToString()))).First();
+
+                    //toStatusPage(tappedBeverage.BeverageID);
+
+
+
+                    //DependencyService.Get<IToastHandler>().LongToast("Tapped: "+((Label)s).Text);
+                    
+                };
+
                 Image image = new Image { };
                 image.SetBinding(Image.SourceProperty, "ImagePath");
 
+
+                Label lblID = new Label { };
+                lblID.SetBinding(Label.TextProperty, "BeverageID");
+
+                //image.GestureRecognizers.Add(tapGesRec);
+
+                lblID.GestureRecognizers.Add(tapGesRec);
+
+
                 StackLayout stackLayout = new StackLayout
                 {
-                    Children = { image }
+                    Children = { image, lblID }
                 };
 
                 Frame frame = new Frame
@@ -58,6 +84,8 @@ namespace prj3beer.Views
                 {
                     Children = { frame }
                 };
+
+
 
                 return rootStackLayout;
             });
@@ -205,10 +233,15 @@ namespace prj3beer.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void BeverageTapped(object sender, ItemTappedEventArgs e)
+        private void BeverageTapped(object sender, ItemTappedEventArgs e)
         {
             //Get the beverage tapped
             Beverage tappedBeverage = (App.Context.Beverage.Where(b => b.Name.Contains(e.Item.ToString()))).First();
+
+            toStatusPage(tappedBeverage.BeverageID);
+
+            /*
+
             //Get that beverage's ID
             Settings.BeverageSettings = tappedBeverage.BeverageID;
             //Application.Current.MainPage = new NavigationPage(new StatusPage());
@@ -220,7 +253,28 @@ namespace prj3beer.Views
             //Go to the settings page, done like this to keep the menu - May need to be changed later
             //await RootPage.NavigateFromMenu(id);
             await Navigation.PushAsync(new StatusPage());
+
+    */
         }
+
+        #region stroy 52
+
+        private async void toStatusPage(int bevId)
+        {
+            Settings.BeverageSettings = bevId;
+            //Application.Current.MainPage = new NavigationPage(new StatusPage());
+            // await Navigation.PushModalAsync(new NavigationPage(new StatusPage()));
+
+            //Set the ID to the setting page
+            var id = (int)MenuItemType.Status;
+
+            //Go to the settings page, done like this to keep the menu - May need to be changed later
+            //await RootPage.NavigateFromMenu(id);
+            await Navigation.PushAsync(new StatusPage());
+        }
+
+        #endregion
+
 
         private void Settings_Clicked(object sender, EventArgs e)
         {
