@@ -60,7 +60,7 @@ namespace prj3beer
             // Load the Brands that Validate into the Local Storage
             List<Brand> brands = await APIManager.GetBrandsAsync();
 
-            
+
 
             try
             {
@@ -68,12 +68,13 @@ namespace prj3beer
                 //Context.Brand.AddRange(brands);
                 Context.Brand.UpdateRange(brands);
             }
-            catch(DbUpdateException exception)
+            catch (DbUpdateException exception)
             {
-                Debug.WriteLine(exception.Message);
-
+                //Debug.WriteLine(exception.Message);
                 Context.Brand.UpdateRange(brands);
+                //Context.Brand.AddRange(brands);
             }
+
             finally
             {
                 //Context.ChangeTracker.DetectChanges();
@@ -91,9 +92,9 @@ namespace prj3beer
             }
             catch (DbUpdateException exception)
             {
-                Debug.WriteLine(exception.Message);
-
+                //Debug.WriteLine(exception.Message);
                 Context.Beverage.UpdateRange(beverages);
+                //Context.Beverage.AddRange(beverages);
 
             }
             finally

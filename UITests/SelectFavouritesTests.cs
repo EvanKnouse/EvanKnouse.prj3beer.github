@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
+using prj3beer;
 using prj3beer.Models;
 using prj3beer.ViewModels;
 
@@ -18,7 +19,7 @@ namespace UITests
         IApp app;
         Platform platform;
 
-        static StatusViewModel svm;
+        //static StatusViewModel svm;
 
         //Set some drinks to begin with
         List<string> beverages = new List<string> { "Churchill Blonde Lager", "Great Western Pilsner", "Great Western Radler", "Original 16 Copper Ale", "Rebellion Zilla IPA" };
@@ -42,7 +43,7 @@ namespace UITests
             //app = AppInitializer.StartApp(platform);
             app = ConfigureApp.Android.ApkFile(apkPath).StartApp();
 
-            svm = new StatusViewModel();
+            //svm = new StatusViewModel();
         }
 
         /// <summary>
@@ -67,19 +68,19 @@ namespace UITests
         /// <param name="sFullBevName"> The breverage to favorite </param>
         private void FavouriteADrink(string sFullBevName)
         {
-            int iFavCount = svm.Context.Preference.Where(c => c.Favourite == true).Count();//Gets a count of how many beverages are already set as favorites
+            int iFavCount = App.Context.Preference.Where(c => c.Favourite == true).Count();//Gets a count of how many beverages are already set as favorites
 
-            Beverage bev = svm.Context.Beverage.Find(sFullBevName);//Gets the beverages beased on what's passed in
-            Preference pref = svm.Context.Preference.Find(bev.BeverageID);//Get the preference of the beverage inputed
+            Beverage bev = App.Context.Beverage.Find(sFullBevName);//Gets the beverages beased on what's passed in
+            Preference pref = App.Context.Preference.Find(bev.BeverageID);//Get the preference of the beverage inputed
 
             if(iFavCount >= 5 && !pref.Favourite) //Ensure there are not more favorites then the limit. If trying to favorite an already favorited drink, doesn't add to the count so don't remove any
             {
-                RemoveFavourite(svm.Context.Preference.Where(c => c.Favourite == true).First().BeverageID); //Removes a favorite at random
+                RemoveFavourite(App.Context.Preference.Where(c => c.Favourite == true).First().BeverageID); //Removes a favorite at random
             }
 
 
             pref.Favourite = true; //Set the current to be a favorite
-            svm.Context.Preference.Update(pref); //Save the preference now that it is favorited
+            App.Context.Preference.Update(pref); //Save the preference now that it is favorited
 
             #region shrinking comments
             /*if (!pref.Favourite)
@@ -125,7 +126,7 @@ namespace UITests
         {
             //IQueryable<Preference> favorites = svm.Context.Preference.Where(c => c.Favourite == true);
 
-            int bTemp = svm.Context.Beverage.Find(sFullBevName).BeverageID; //Convert the beverage name to an ID
+            int bTemp = App.Context.Beverage.Find(sFullBevName).BeverageID; //Convert the beverage name to an ID
 
             RemoveFavourite(bTemp); //Remove it with code friendly version
 
@@ -151,10 +152,10 @@ namespace UITests
         {
             ///IQueryable<Preference> favorites = svm.Context.Preference.Where(c => c.Favourite == true);
 
-            Preference pref = svm.Context.Preference.Find(bevID); //Find the preference
+            Preference pref = App.Context.Preference.Find(bevID); //Find the preference
 
             pref.Favourite = false; //Remove the preference as a favorite
-            svm.Context.Preference.Update(pref); //Update it
+            App.Context.Preference.Update(pref); //Update it
 
         }
 
@@ -163,13 +164,13 @@ namespace UITests
         /// </summary>
         public void RemoveAllFavourites()
         {
-            IQueryable<Preference> favorites = svm.Context.Preference.Where(c => c.Favourite == true); //Get how many favorites exist
+            IQueryable<Preference> favorites = App.Context.Preference.Where(c => c.Favourite == true); //Get how many favorites exist
             Preference pref;
             for (int i = 0; i < favorites.Count(); i++) //For all the favorites that exist
             {
                 pref = favorites.ElementAt(i); //Set it as the current
                 pref.Favourite = false; //Remove it as a favorite
-                svm.Context.Preference.Update(pref); //Update it
+                App.Context.Preference.Update(pref); //Update it
                 
             }
         }
@@ -222,15 +223,15 @@ namespace UITests
             FavouriteADrink("Rebellion Pear Beer");
 
 
-            IQueryable<Preference> favorites = svm.Context.Preference.Where(c => c.Favourite == true); //Get all the favorited drinks
+            IQueryable<Preference> favorites = App.Context.Preference.Where(c => c.Favourite == true); //Get all the favorited drinks
 
             RemoveFavourite(favorites.First().BeverageID); //Remove a favorite to prevent an edge case
 
-            favorites = svm.Context.Preference.Where(c => c.Favourite == true); //Update the favorited beverage list now that one has been removed
+            favorites = App.Context.Preference.Where(c => c.Favourite == true); //Update the favorited beverage list now that one has been removed
 
             for (int i=0; i<favorites.Count(); i++) //For every favorite
             {
-                Beverage temp = svm.Context.Beverage.Find(favorites.ElementAt(i).BeverageID); //Single out a single beverage from it's prefence
+                Beverage temp = App.Context.Beverage.Find(favorites.ElementAt(i).BeverageID); //Single out a single beverage from it's prefence
 
                 AppResult[] favouritedBeverage = app.Query(temp.Name); //Queryt for that singled out beverage
 

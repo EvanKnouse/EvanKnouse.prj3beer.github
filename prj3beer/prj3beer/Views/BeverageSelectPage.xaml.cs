@@ -46,7 +46,10 @@ namespace prj3beer.Views
 
             if(updatedFavorites.Count() == 0)
             {
-                NoFavouritesLabel.IsVisible = true;
+                if (searchBeverage.Text == null || searchBeverage.Text.Equals(""))
+                {
+                    NoFavouritesLabel.IsVisible = true;
+                }
                 NoFavouritesLabel.Text = "Favourite, get spinny";
 
                 FavouritesCarousel.ItemsSource = null;
@@ -219,7 +222,7 @@ namespace prj3beer.Views
 
 
                 #region Story 52 (Sort favorites first)
-
+                //Create seperate lists to sort by favorite
                 List<string> listFavorites = new List<string>();
                 List<string> listNonFav = new List<string>();
 
@@ -227,13 +230,20 @@ namespace prj3beer.Views
                 {
                     try
                     {
+                        //It is favorited
                         if (updatedFavorites.Contains(App.Context.Preference.Find(beverage.BeverageID)))
+                            //Add to the favorite list with a star
                             listFavorites.Add(beverage.Name + "    \u2b50");
+                        //Not favorited
                         else
+                            //Add to not favorite list
                             listNonFav.Add(beverage.Name);
                     }
+
+                    //Will be called if a preference for a beverage does not exist
                     catch(Exception exp)
                     {
+                        //Assume it's not a favorite if it has never gone to that page
                         listNonFav.Add(beverage.Name);
                     }
                 }
@@ -294,8 +304,17 @@ namespace prj3beer.Views
         /// <param name="e"></param>
         private void BeverageTapped(object sender, ItemTappedEventArgs e)
         {
+            //Seperate the beverage name
+            string name = e.Item.ToString();
+
+            //Check if there is a star
+            int starIndex = name.IndexOf("    \u2b50");
+
+            // -1 means no star, otherwise cut out the star
+            if (starIndex != -1) name = name.Substring(0, starIndex);
+
             //Get the beverage tapped
-            Beverage tappedBeverage = (App.Context.Beverage.Where(b => b.Name.Contains(e.Item.ToString()))).First();
+            Beverage tappedBeverage = (App.Context.Beverage.Where(b => b.Name.Contains(name))).First();
 
             toStatusPage(tappedBeverage.BeverageID);
 

@@ -11,7 +11,7 @@
             <SearchBar x:Name="searchBeverage" AutomationId="searchBeverage" TextChanged="SearchChanged" Placeholder="Please enter a beverage, type, or brand!!"  Focused="SearchBeverageFocused" Unfocused="SearchBeverageUnfocused"/>
             <Label x:Name="errorLabel" AutomationId="errorLabel" />
             <ActivityIndicator x:Name="loadingSpinner" AutomationId="loadingSpinner" />
-            <Label x:Name="NoFavouritesLabel" AutomationId="NoFavouritesLabel"/>
+            <Label x:Name="NoFavouritesLabel" AutomationId="NoFavouritesLabel" HorizontalOptions="Center"/>
             <CarouselView x:Name="FavouritesCarousel" AutomationId="FavouritesCarousel"/>
             <ListView x:Name="beverageListView" AutomationId="beverageListView" ItemTapped="BeverageTapped"/>
         </StackLayout>
