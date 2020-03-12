@@ -18,12 +18,7 @@ namespace prj3beer.Views
         //A list that will contain all valid beverages that meet the search criteria
         List<string> listViewBeverages = new List<string>();
 
-
-
-        private double carouselHeight;
-        private double NoFavouritesLabelHeight;
         private IQueryable<Preference> updatedFavorites;
-
 
         /// <summary>
         /// This will initialize the page and bring in the beverage objects from local storage
@@ -47,21 +42,21 @@ namespace prj3beer.Views
 
         private void PopulateCarousel()
         {
-            IQueryable<Preference> favPrefs = App.Context.Preference.Where(p => p.Favourite == true);
+            //IQueryable<Preference> favPrefs = App.Context.Preference.Where(p => p.Favourite == true);
 
-            if(favPrefs.Count() == 0)
+            if(updatedFavorites.Count() == 0)
             {
                 NoFavouritesLabel.IsVisible = true;
                 NoFavouritesLabel.Text = "Favourite, get spinny";
 
                 FavouritesCarousel.ItemsSource = null;
-                NoFavouritesLabelHeight = NoFavouritesLabel.Height;
+                //NoFavouritesLabelHeight = NoFavouritesLabel.Height;
             }
             else
             {
                 NoFavouritesLabel.IsVisible = false;
 
-                FavouritesCarousel.ItemsSource = favPrefs;
+                FavouritesCarousel.ItemsSource = updatedFavorites;
 
                 FavouritesCarousel.ItemTemplate = new DataTemplate(() =>
                 {
@@ -97,7 +92,7 @@ namespace prj3beer.Views
                     {
                         HasShadow = true,
                         BackgroundColor = Color.Transparent,
-                        BorderColor = Color.Transparent,
+                        BorderColor = Color.Gray,
                         CornerRadius = 5,
                         Margin = 20,
                         Padding = 0,
@@ -114,9 +109,10 @@ namespace prj3beer.Views
 
                     //rootStackLayout.HorizontalOptions = LayoutOptions.CenterAndExpand;
                     //rootStackLayout.VerticalOptions = LayoutOptions.StartAndExpand;
-                    carouselHeight = FavouritesCarousel.Height;
                     return rootStackLayout;
                 });
+
+                //carouselHeight = FavouritesCarousel.Height;
             }
         }
 
@@ -126,13 +122,13 @@ namespace prj3beer.Views
         {
             base.OnAppearing();
 
-            PopulateCarousel();
-
             //Update the list of favorites to compare to when the search changes
             updatedFavorites = App.Context.Preference.Where(p => p.Favourite);
 
+            PopulateCarousel();
+
             //Update the displayed list when the search page is returned to after a beverage is favorited
-            if(searchBeverage.Text != null)SearchChanged(null, null);
+            if (searchBeverage.Text != null)SearchChanged(null, null);
 
             LogInOutButton();
         }
@@ -212,7 +208,8 @@ namespace prj3beer.Views
             }
 
             // Search the Beverages Database for search string and brand ID that matches
-            var beverages = App.Context.Beverage.Where(b => b.BrandID.Value.Equals(brand) || b.Name.ToLower().Contains(searchString) || b.Type.ToString().ToLower().Contains(searchString)).Distinct();
+            // Added AsEnumerable() for reasons not completely unbeknownst.
+            var beverages = App.Context.Beverage.AsEnumerable().Where(b => b.BrandID.Value.Equals(brand) || b.Name.ToLower().Contains(searchString) || b.Type.ToString().ToLower().Contains(searchString)).Distinct();
 
             //If the search string is not empty
             if (!searchString.Equals(""))
@@ -223,16 +220,24 @@ namespace prj3beer.Views
 
                 #region Story 52 (Sort favorites first)
 
-                List<String> listFavorites = new List<string>();
-                List<String> listNonFav = new List<string>();
+                List<string> listFavorites = new List<string>();
+                List<string> listNonFav = new List<string>();
 
                 foreach (var beverage in beverages)
                 {
-                    if (updatedFavorites.Contains(App.Context.Preference.Find(beverage.BeverageID)))
-                        listFavorites.Add(beverage.Name);
-                    else
+                    try
+                    {
+                        if (updatedFavorites.Contains(App.Context.Preference.Find(beverage.BeverageID)))
+                            listFavorites.Add(beverage.Name + "    \u2b50");
+                        else
+                            listNonFav.Add(beverage.Name);
+                    }
+                    catch(Exception exp)
+                    {
                         listNonFav.Add(beverage.Name);
+                    }
                 }
+
                 //Sort the list seperatly
                 listFavorites.Sort();
                 listNonFav.Sort();
@@ -330,7 +335,7 @@ namespace prj3beer.Views
             // await Navigation.PushModalAsync(new NavigationPage(new StatusPage()));
 
             //Set the ID to the setting page
-            var id = (int)MenuItemType.Status;
+            //var id = (int)MenuItemType.Status; // Doesn't seem to be used.
 
             //Go to the settings page, done like this to keep the menu - May need to be changed later
             //await RootPage.NavigateFromMenu(id);
@@ -340,10 +345,10 @@ namespace prj3beer.Views
 
         private void SearchBeverageFocused(object sender, FocusEventArgs e)
         {
-            FavouritesCarousel.HeightRequest = 0;
-            NoFavouritesLabel.HeightRequest = 0;
+            FavouritesCarousel.IsVisible = false;
+            NoFavouritesLabel.IsVisible = false;
 
-            if (searchBeverage.Text == null || searchBeverage.Text.Equals(""))
+            if(searchBeverage.Text == null || searchBeverage.Text.Equals(""))
             {
                 /*
                 List<String> bevNames = new List<String>();
@@ -364,12 +369,21 @@ namespace prj3beer.Views
         {
             //DependencyService.Get<IToastHandler>().LongToast("SearchBev");
             
-
-            if (searchBeverage.Text == null || searchBeverage.Text.Equals(""))
+            if(searchBeverage.Text == null || searchBeverage.Text.Equals(""))
             {
-                FavouritesCarousel.HeightRequest = carouselHeight*3;
-                NoFavouritesLabel.HeightRequest = NoFavouritesLabelHeight;
-                beverageListView.ItemsSource = null;
+                if(updatedFavorites.Count() == 0)
+                {
+                    NoFavouritesLabel.IsVisible = true;
+                }
+                else
+                {
+                    FavouritesCarousel.IsVisible = true;
+                    //errorLabel.IsVisi
+                }
+
+                //FavouritesCarousel.HeightRequest = carouselHeight*3;
+                //NoFavouritesLabel.HeightRequest = NoFavouritesLabelHeight;
+                //beverageListView.ItemsSource = null;
             }
         }
 
