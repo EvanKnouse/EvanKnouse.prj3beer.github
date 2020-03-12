@@ -20,7 +20,7 @@ namespace AppiumTests
         readonly string apkpath = "D:\\virpc\\prj3beer\\prj3.beer\\prj3beer\\prj3beer.Android\\bin\\Debug\\com.companyname.prj3beer.apk";
 
         private AndroidDriver<AndroidElement> driver;
-        private RemoteWebDriver webDriver;
+        //private RemoteWebDriver webDriver;
 
         AppiumOptions capabilities = new AppiumOptions();
         
@@ -32,29 +32,58 @@ namespace AppiumTests
             capabilities.AddAdditionalCapability(MobileCapabilityType.AutomationName, "UIAutomator2");
             capabilities.AddAdditionalCapability(MobileCapabilityType.BrowserName, "");
             driver = new AndroidDriver<AndroidElement>(new Uri("http://127.0.0.1:4723/wd/hub"), capabilities);
-            webDriver = new RemoteWebDriver(new Uri("http://127.0.0.1:4723/wd/hub"), capabilities);
+            //webDriver = new RemoteWebDriver(new Uri("http://127.0.0.1:4723/wd/hub"), capabilities);
         }
 
+        /// <summary>
+        /// This method will select "Great Western Pilsner" from the beverage select,
+        /// and send you to the status screen.
+        /// </summary>
+        private void SelectBeverage()
+        {
+            TouchAction touchAction = new TouchAction(driver);
+            //AndroidElement element = driver.FindElementByAndroidUIAutomator("new UiSelector().textContains(\"Please enter a beverage, type or brand!!\");");
+            AndroidElement element = driver.FindElementByClassName("android.widget.EditText");
+
+            element.SendKeys("Great");
+
+            Thread.Sleep(500);
+
+            //element = driver.FindElementByAndroidUIAutomator("new UiSelector().textContains(\"Great Western Pilsner\");");
+            element = driver.FindElementByXPath("//android.widget.TextView[@text='Great Western Pilsner']");
+
+            Thread.Sleep(500);
+
+            var action = touchAction.Tap(element);
+            action.Perform();
+            action.Cancel();
+
+            Thread.Sleep(500);
+        }
+
+        /// <summary>
+        /// This method will sign a user IN to facebook
+        /// </summary>
         public void FacebookLogin()
         {
             // Access Menu
             TouchAction touchAction = new TouchAction(driver);
-            AndroidElement androidElement = driver.FindElementByXPath("//android.widget.ImageView[@content-desc='More options']");
-            var action = touchAction.Tap(androidElement);
+            AndroidElement element = driver.FindElementByXPath("//android.widget.ImageView[@content-desc='More options']");
+            var action = touchAction.Tap(element);
             action.Perform();
             action.Cancel();
             Thread.Sleep(1000);
 
             // Tap Sign in 
-            androidElement = driver.FindElementByXPath("//android.widget.TextView[@text='Sign In']");
-            action = touchAction.Tap(androidElement);
+            element = driver.FindElementByXPath("//android.widget.TextView[@text='Sign In']");
+            action = touchAction.Tap(element);
             action.Perform();
             action.Cancel();
             Thread.Sleep(1000);
 
             // Tap Facebook
-            androidElement = driver.FindElementByXPath("//android.widget.Button[@text='FACEBOOK']");
-            action = touchAction.Tap(androidElement);
+            element = driver.FindElementByXPath("//android.widget.Button[@text='FACEBOOK']");
+            action = touchAction.Tap(element);
             action.Perform();
             action.Cancel();
             Thread.Sleep(1000);
@@ -100,15 +129,45 @@ namespace AppiumTests
             action.Cancel();
         }
 
+        /// <summary>
+        /// This method will Sign a User OUT of Facebook
+        /// </summary>
+        public void FacebookLogout()
+        {
+            // Access Menu
+            TouchAction touchAction = new TouchAction(driver);
+            AndroidElement element = driver.FindElementByXPath("//android.widget.ImageView[@content-desc='More options']");
+            var action = touchAction.Tap(element);
+            action.Perform();
+            action.Cancel();
+            Thread.Sleep(1000);
+
+            // Tap Sign in 
+            element = driver.FindElementByXPath("//android.widget.TextView[@text='Sign Out']");
+            action = touchAction.Tap(element);
+            action.Perform();
+            action.Cancel();
+            Thread.Sleep(1000);
+
+            // Tap Yes
+            element = driver.FindElementByXPath("//android.widget.Button[@text='YES']");
+            action = touchAction.Tap(element);
+            action.Perform();
+            action.Cancel();
+            Thread.Sleep(1000);
+        }
+
         [Test]
         public void TestThatUserCanSignInWithFacebookFromBevSelect()
-        {
+        { 
             FacebookLogin();
 
             Thread.Sleep(2000);
             // Check If On Beverage Select screen
             // The search bar only Beverage Select screen
             AndroidElement element = driver.FindElementByClassName("android.widget.SearchView");
+           //AndroidElement element = driver.FindElementByAccessibilityId("BeverageSelectPage");
+
             // If the element is displayed, we are on the Beverage Select screen
             Assert.IsTrue(element.Displayed);
         }
@@ -116,9 +175,16 @@ namespace AppiumTests
         [Test]
         public void TestThatUserCanSignInWithFacebookFromStatus()
         {
+            SelectBeverage();
+
             FacebookLogin();
 
-            // Check If On Status Screen
+            Thread.Sleep(2000);
+            // Check If On Beverage Select screen
+            // The search bar only Beverage Select screen
+            AndroidElement element = driver.FindElementByAccessibilityId("StatusPage");
+            // If the element is displayed, we are on the Beverage Select screen
+            Assert.IsTrue(element.Displayed);
         }
 
         [Test]
@@ -126,11 +192,52 @@ namespace AppiumTests
         {
             FacebookLogin();
 
+            Thread.Sleep(2000);
             // Access Menu
+            TouchAction touchAction = new TouchAction(driver);
+            AndroidElement element = driver.FindElementByXPath("//android.widget.ImageView[@content-desc='More options']");
+            var action = touchAction.Tap(element);
+            action.Perform();
+            action.Cancel();
 
+            Thread.Sleep(1000);
+
+            // Find Sign in 
+            element = driver.FindElementByXPath("//android.widget.TextView[@text='Sign Out']");
+
+            Thread.Sleep(1000);
             // Check If Sign Out Exists
             // Assert True
+            Assert.IsTrue(element.Displayed);
+        }
 
+        [Test]
+        public void TestThatUserCanSignInOnSelectScreenAndOutOnStatusScreen()
+        {
+            FacebookLogin();
+
+            Thread.Sleep(4000);
+
+            SelectBeverage();
+
+            FacebookLogout();
+
+            // The search bar only Beverage Select screen
+            AndroidElement element = driver.FindElementByAccessibilityId("StatusPage");
+
+            // If the element is displayed, we are on the Beverage Select screen
+            Assert.IsTrue(element.Displayed);
+
+            // Access Menu
+            TouchAction touchAction = new TouchAction(driver);
+            element = driver.FindElementByXPath("//android.widget.ImageView[@content-desc='More options']");
+            var action = touchAction.Tap(element);
+            action.Perform();
+            action.Cancel();
+            Thread.Sleep(1000);
+
+            // Find Sign in 
+            element = driver.FindElementByXPath("//android.widget.TextView[@text='Sign In']");
         }
     }
 }

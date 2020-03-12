@@ -120,7 +120,7 @@ namespace prj3beer.Views
             try
             {
                 //Try to save the result from the previous search
-                brand = brands.First().BrandID;
+                brand = brands.FirstOrDefault().BrandID;
             }
             catch(Exception)
             {
@@ -129,8 +129,8 @@ namespace prj3beer.Views
             }
 
             // Search the Beverages Database for search string and brand ID that matches
-            var beverages = App.Context.Beverage.Where(b => b.BrandID.Value.Equals(brand) || b.Name.ToLower().Contains(searchString) || b.Type.ToString().ToLower().Contains(searchString)).Distinct();
-            
+            var beverages = App.Context.Beverage.AsEnumerable().Where(b => b.BrandID.Value.Equals(brand) || b.Name.ToLower().Contains(searchString) || b.Type.ToString().ToLower().Contains(searchString)).Distinct();
+
             //If the search string is not empty
             if (!searchString.Equals(""))
             {
