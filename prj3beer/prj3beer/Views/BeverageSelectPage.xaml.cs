@@ -18,6 +18,10 @@ namespace prj3beer.Views
         //A list that will contain all valid beverages that meet the search criteria
         List<string> listViewBeverages = new List<string>();
 
+
+
+        private double carouselHeight;
+
         /// <summary>
         /// This will initialize the page and bring in the beverage objects from local storage
         /// and places in a context
@@ -35,6 +39,8 @@ namespace prj3beer.Views
             //    Navigation.PushModalAsync(new WelcomeModal());
             //}
         }
+
+        #region Story 52 (The Carousel)
 
         private void PopulateCarousel()
         {
@@ -68,21 +74,33 @@ namespace prj3beer.Views
 
                     image.GestureRecognizers.Add(tapGesRec);
 
+
+                    image.WidthRequest = 200;
+                    image.HeightRequest = 200;
+                    //image.HorizontalOptions = LayoutOptions.CenterAndExpand;
+                    //image.VerticalOptions = LayoutOptions.CenterAndExpand;
+
                     StackLayout stackLayout = new StackLayout
                     {
+                        //HeightRequest = 200,
+                        //WidthRequest = 200,
+                        //HorizontalOptions = LayoutOptions.CenterAndExpand,
+                        //VerticalOptions = LayoutOptions.CenterAndExpand,
                         Children = { image }
                     };
 
                     Frame frame = new Frame
                     {
                         HasShadow = true,
-                        BorderColor = Color.DarkGray,
+                        BackgroundColor = Color.Transparent,
+                        BorderColor = Color.Transparent,
                         CornerRadius = 5,
                         Margin = 20,
-                        HeightRequest = 200,
-                        WidthRequest = 150,
-                        HorizontalOptions = LayoutOptions.Center,
-                        VerticalOptions = LayoutOptions.CenterAndExpand,
+                        Padding = 0,
+                        //HeightRequest = 350,
+                        //WidthRequest = 100,
+                        //HorizontalOptions = LayoutOptions.Center,
+                        //VerticalOptions = LayoutOptions.CenterAndExpand,
                         Content = stackLayout
                     };
                     StackLayout rootStackLayout = new StackLayout
@@ -90,10 +108,15 @@ namespace prj3beer.Views
                         Children = { frame }
                     };
 
+                    //rootStackLayout.HorizontalOptions = LayoutOptions.CenterAndExpand;
+                    //rootStackLayout.VerticalOptions = LayoutOptions.StartAndExpand;
+                    carouselHeight = FavouritesCarousel.Height;
                     return rootStackLayout;
                 });
             }
         }
+
+        #endregion
 
         protected override void OnAppearing()
         {
@@ -187,11 +210,27 @@ namespace prj3beer.Views
                 //hide the error message
                 errorLabel.IsVisible = false;
 
+
+                #region Story 52 (Sort favorites first)
+
+                List<String> listViewFavorites = new List<string>();
+
+                foreach (var beverage in beverages)
+                {
+                    
+
+                    listViewBeverages.Add(beverage.Name);
+                }
+
+                #endregion
+
                 //for each beverage add it to the list
+                /*
                 foreach (var beverage in beverages)
                 {
                     listViewBeverages.Add(beverage.Name);
                 }
+                */
 
                 //Sort beverage list alphabetically for display
                 listViewBeverages.Sort();
@@ -253,7 +292,17 @@ namespace prj3beer.Views
     */
         }
 
-        #region stroy 52
+        private void Settings_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new NavigationPage(new SettingsMenu()));
+        }
+
+        private async void SignInOut_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new NavigationPage(new CredentialSelectPage(false)));
+        }
+
+        #region stroy 52 (Navigate and hide)
 
         private async void toStatusPage(int bevId)
         {
@@ -269,34 +318,40 @@ namespace prj3beer.Views
             await Navigation.PushAsync(new StatusPage());
         }
 
-        #endregion
-
-        private void Settings_Clicked(object sender, EventArgs e)
-        {
-            Navigation.PushModalAsync(new NavigationPage(new SettingsMenu()));
-        }
-
-        private async void SignInOut_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushModalAsync(new NavigationPage(new CredentialSelectPage(false)));
-        }
 
         private void SearchBeverageFocused(object sender, FocusEventArgs e)
         {
+
+            //carouselHeight = FavouritesCarousel.Height;
+
             FavouritesCarousel.HeightRequest = 0;
 
             if(searchBeverage.Text == null || searchBeverage.Text.Equals(""))
             {
-                beverageListView.ItemsSource = App.Context.Beverage.ToList();
+                /*
+                List<String> bevNames = new List<String>();
+                IQueryable<Beverage> iQueryBevs = App.Context.Beverage.Where(b=>b.BrandID>0);
+                //bevs = iQueryBevs.ToList();
+
+                foreach(Beverage  bev in iQueryBevs)
+                {
+                    bevNames.Add(bev.Name);
+                }
+
+                beverageListView.ItemsSource = bevNames;
+                */
             }
         }
 
         private void SearchBeverageUnfocused(object sender, FocusEventArgs e)
         {
-            if(searchBeverage.Text == null || searchBeverage.Text.Equals(""))
+            //DependencyService.Get<IToastHandler>().LongToast("SearchBev");
+            if (searchBeverage.Text == null || searchBeverage.Text.Equals(""))
             {
-                FavouritesCarousel.HeightRequest = 200;
+                FavouritesCarousel.HeightRequest = carouselHeight*3;
+                beverageListView.ItemsSource = null;
             }
         }
+        #endregion
     }
 }
