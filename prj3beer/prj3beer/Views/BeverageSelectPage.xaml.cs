@@ -21,6 +21,9 @@ namespace prj3beer.Views
 
 
         private double carouselHeight;
+        private double NoFavouritesLabelHeight;
+        private IQueryable<Preference> updatedFavorites;
+
 
         /// <summary>
         /// This will initialize the page and bring in the beverage objects from local storage
@@ -52,6 +55,7 @@ namespace prj3beer.Views
                 NoFavouritesLabel.Text = "Favourite, get spinny";
 
                 FavouritesCarousel.ItemsSource = null;
+                NoFavouritesLabelHeight = NoFavouritesLabel.Height;
             }
             else
             {
@@ -123,6 +127,12 @@ namespace prj3beer.Views
             base.OnAppearing();
 
             PopulateCarousel();
+
+            //Update the list of favorites to compare to when the search changes
+            updatedFavorites = App.Context.Preference.Where(p => p.Favourite);
+
+            //Update the displayed list when the search page is returned to after a beverage is favorited
+            if(searchBeverage.Text != null)SearchChanged(null, null);
 
             LogInOutButton();
         }
@@ -213,15 +223,23 @@ namespace prj3beer.Views
 
                 #region Story 52 (Sort favorites first)
 
-                List<String> listViewFavorites = new List<string>();
+                List<String> listFavorites = new List<string>();
+                List<String> listNonFav = new List<string>();
 
                 foreach (var beverage in beverages)
                 {
-                    
-
-                    listViewBeverages.Add(beverage.Name);
+                    if (updatedFavorites.Contains(App.Context.Preference.Find(beverage.BeverageID)))
+                        listFavorites.Add(beverage.Name);
+                    else
+                        listNonFav.Add(beverage.Name);
                 }
+                //Sort the list seperatly
+                listFavorites.Sort();
+                listNonFav.Sort();
 
+                //Combine the lists
+                listViewBeverages.AddRange(listFavorites);
+                listViewBeverages.AddRange(listNonFav);
                 #endregion
 
                 //for each beverage add it to the list
@@ -233,7 +251,8 @@ namespace prj3beer.Views
                 */
 
                 //Sort beverage list alphabetically for display
-                listViewBeverages.Sort();
+                //listViewBeverages.Sort();
+
 
                 //If there are no beverages
                 if (listViewBeverages.Count() == 0)
@@ -321,12 +340,10 @@ namespace prj3beer.Views
 
         private void SearchBeverageFocused(object sender, FocusEventArgs e)
         {
-
-            //carouselHeight = FavouritesCarousel.Height;
-
             FavouritesCarousel.HeightRequest = 0;
+            NoFavouritesLabel.HeightRequest = 0;
 
-            if(searchBeverage.Text == null || searchBeverage.Text.Equals(""))
+            if (searchBeverage.Text == null || searchBeverage.Text.Equals(""))
             {
                 /*
                 List<String> bevNames = new List<String>();
@@ -346,12 +363,16 @@ namespace prj3beer.Views
         private void SearchBeverageUnfocused(object sender, FocusEventArgs e)
         {
             //DependencyService.Get<IToastHandler>().LongToast("SearchBev");
+            
+
             if (searchBeverage.Text == null || searchBeverage.Text.Equals(""))
             {
                 FavouritesCarousel.HeightRequest = carouselHeight*3;
+                NoFavouritesLabel.HeightRequest = NoFavouritesLabelHeight;
                 beverageListView.ItemsSource = null;
             }
         }
+
         #endregion
     }
 }
