@@ -51,7 +51,7 @@ namespace prj3beer
         public static async void FetchData()
         {
             // REMOVE FOR PERSISTENT Data
-            //Context.Database.EnsureDeleted();
+            Context.Database.EnsureDeleted();
 
             // Ensure the Database is Created
             Context.Database.EnsureCreated();
@@ -65,8 +65,8 @@ namespace prj3beer
             try
             {
                 //Context.Brand.att
-                //Context.Brand.AddRange(brands);
-                Context.Brand.UpdateRange(brands);
+                Context.Brand.AddRange(brands);
+                //Context.Brand.UpdateRange(brands);
             }
             catch (DbUpdateException exception)
             {
@@ -87,8 +87,8 @@ namespace prj3beer
             try
             {
                 //Context.Beverage.AttachRange(beverages);
-                //Context.Beverage.AddRange(beverages);
-                Context.Beverage.UpdateRange(beverages);
+                Context.Beverage.AddRange(beverages);
+                //Context.Beverage.UpdateRange(beverages);
             }
             catch (DbUpdateException exception)
             {

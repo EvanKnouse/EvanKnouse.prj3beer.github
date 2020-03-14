@@ -50,7 +50,6 @@ namespace prj3beer.Views
                 {
                     NoFavouritesLabel.IsVisible = true;
                 }
-                NoFavouritesLabel.Text = "Favourite, get spinny";
 
                 FavouritesCarousel.ItemsSource = null;
                 //NoFavouritesLabelHeight = NoFavouritesLabel.Height;
@@ -76,11 +75,13 @@ namespace prj3beer.Views
 
                     image.GestureRecognizers.Add(tapGesRec);
 
-
                     image.WidthRequest = 200;
                     image.HeightRequest = 200;
                     //image.HorizontalOptions = LayoutOptions.CenterAndExpand;
                     //image.VerticalOptions = LayoutOptions.CenterAndExpand;
+
+                    Label lblIDForTesting = new Label();
+                    lblIDForTesting.SetBinding(Label.TextProperty, "BeverageID");
 
                     StackLayout stackLayout = new StackLayout
                     {
@@ -88,7 +89,7 @@ namespace prj3beer.Views
                         //WidthRequest = 200,
                         //HorizontalOptions = LayoutOptions.CenterAndExpand,
                         //VerticalOptions = LayoutOptions.CenterAndExpand,
-                        Children = { image }
+                        Children = { image, lblIDForTesting }
                     };
 
                     Frame frame = new Frame
