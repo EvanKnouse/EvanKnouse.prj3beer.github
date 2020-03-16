@@ -72,14 +72,14 @@ namespace AppiumTests
             var action = touchAction.Tap(element);
             action.Perform();
             action.Cancel();
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
 
             // Tap Sign in 
             element = driver.FindElementByXPath("//android.widget.TextView[@text='Sign In']");
             action = touchAction.Tap(element);
             action.Perform();
             action.Cancel();
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
 
             // Tap Google
             element = driver.FindElementByXPath("//android.widget.Button[@text='GOOGLE']");
@@ -96,7 +96,7 @@ namespace AppiumTests
             action = touchAction.Tap(element);
             action.Perform();
             action.Cancel();
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
         }
 
         /// <summary>
@@ -160,12 +160,14 @@ namespace AppiumTests
             }
             catch (Exception) { }
 
+            Thread.Sleep(2000);
             // If Continue Exists?
             webElement = driver.FindElementByClassName("android.widget.Button");
             action = touchAction.Tap(webElement);
             action.Perform();
             action.Cancel();
 
+            Thread.Sleep(6000);
            
         }
 
