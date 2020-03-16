@@ -165,6 +165,8 @@ namespace AppiumTests
             action = touchAction.Tap(webElement);
             action.Perform();
             action.Cancel();
+
+           
         }
 
         /// <summary>
@@ -208,6 +210,7 @@ namespace AppiumTests
 
             // If the element is displayed, we are on the Beverage Select screen
             Assert.IsTrue(element.Displayed);
+            
         }
 
         [Test]
@@ -245,6 +248,11 @@ namespace AppiumTests
             // Check If Sign Out Exists
             // Assert True
             Assert.IsTrue(element.Displayed);
+
+
+            Thread.Sleep(1000);
+
+            Assert.Throws<OpenQA.Selenium.NoSuchElementException>(()=>element = driver.FindElementByXPath("//android.widget.TextView[@text='Sign Out']"));
         }
 
 
@@ -270,6 +278,10 @@ namespace AppiumTests
             // Check If Sign Out Exists
             // Assert True
             Assert.IsTrue(element.Displayed);
+
+            Thread.Sleep(1000);
+
+            Assert.Throws<OpenQA.Selenium.NoSuchElementException>(() => element = driver.FindElementByXPath("//android.widget.TextView[@text='Sign In']"));
         }
 
         [Test]
