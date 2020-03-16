@@ -21,7 +21,7 @@ namespace prj3beer.iOS
     }
 
     #region Story 52/29 Favorites
-    public class Toasty : iToastHandler
+    public class Toasty : IToastHandler
     {
 
         const double LONG_DELAY = 3.5;
@@ -30,12 +30,12 @@ namespace prj3beer.iOS
         NSTimer alertDelay;
         UIAlertController alert;
 
-        public void longtoast(string msg)
+        public void LongToast(string msg)
         {
             ShowAlert(msg, LONG_DELAY);
         }
 
-        public void shortToast(string msg)
+        public void ShortToast(string msg)
         {
             ShowAlert(msg, SHORT_DELAY);
         }
