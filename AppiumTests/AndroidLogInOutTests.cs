@@ -23,7 +23,7 @@ namespace AppiumTests
         //private RemoteWebDriver webDriver;
 
         AppiumOptions capabilities = new AppiumOptions();
-        
+
         [SetUp]
         public void BeforeAll()
         {
@@ -59,6 +59,44 @@ namespace AppiumTests
             action.Cancel();
 
             Thread.Sleep(500);
+        }
+
+        /// <summary>
+        /// This method will sign a user IN to google
+        /// </summary>
+        public void GoogleLogin()
+        {
+            // Access Menu
+            TouchAction touchAction = new TouchAction(driver);
+            AndroidElement element = driver.FindElementByXPath("//android.widget.ImageView[@content-desc='More options']");
+            var action = touchAction.Tap(element);
+            action.Perform();
+            action.Cancel();
+            Thread.Sleep(1000);
+
+            // Tap Sign in 
+            element = driver.FindElementByXPath("//android.widget.TextView[@text='Sign In']");
+            action = touchAction.Tap(element);
+            action.Perform();
+            action.Cancel();
+            Thread.Sleep(1000);
+
+            // Tap Google
+            element = driver.FindElementByXPath("//android.widget.Button[@text='GOOGLE']");
+            action = touchAction.Tap(element);
+            action.Perform();
+            action.Cancel();
+            Thread.Sleep(6000);
+
+            // Find all the ListViews On The Page
+            var elements = driver.FindElementsByClassName("android.widget.ListView");
+            // The first List View Element is The Button We Want To Tap
+            element = elements.ElementAt(0);
+            // So I'm Gonna Tap It. 
+            action = touchAction.Tap(element);
+            action.Perform();
+            action.Cancel();
+            Thread.Sleep(1000);
         }
 
         /// <summary>
@@ -120,7 +158,7 @@ namespace AppiumTests
                     Thread.Sleep(3000);
                 }
             }
-            catch(Exception){}
+            catch (Exception) { }
 
             // If Continue Exists?
             webElement = driver.FindElementByClassName("android.widget.Button");
@@ -142,7 +180,7 @@ namespace AppiumTests
             action.Cancel();
             Thread.Sleep(1000);
 
-            // Tap Sign in 
+            // Tap Sign out 
             element = driver.FindElementByXPath("//android.widget.TextView[@text='Sign Out']");
             action = touchAction.Tap(element);
             action.Perform();
@@ -159,14 +197,14 @@ namespace AppiumTests
 
         [Test]
         public void TestThatUserCanSignInWithFacebookFromBevSelect()
-        { 
+        {
             FacebookLogin();
 
             Thread.Sleep(2000);
             // Check If On Beverage Select screen
             // The search bar only Beverage Select screen
             AndroidElement element = driver.FindElementByClassName("android.widget.SearchView");
-           //AndroidElement element = driver.FindElementByAccessibilityId("BeverageSelectPage");
+            //AndroidElement element = driver.FindElementByAccessibilityId("BeverageSelectPage");
 
             // If the element is displayed, we are on the Beverage Select screen
             Assert.IsTrue(element.Displayed);
@@ -186,6 +224,29 @@ namespace AppiumTests
             // If the element is displayed, we are on the Beverage Select screen
             Assert.IsTrue(element.Displayed);
         }
+
+        [Test]
+        public void TestThatSignInButtonAppearsIfUserIsSignedOut()
+        {
+            Thread.Sleep(2000);
+            // Access Menu
+            TouchAction touchAction = new TouchAction(driver);
+            AndroidElement element = driver.FindElementByXPath("//android.widget.ImageView[@content-desc='More options']");
+            var action = touchAction.Tap(element);
+            action.Perform();
+            action.Cancel();
+
+            Thread.Sleep(1000);
+
+            // Find Sign in 
+            element = driver.FindElementByXPath("//android.widget.TextView[@text='Sign In']");
+
+            Thread.Sleep(1000);
+            // Check If Sign Out Exists
+            // Assert True
+            Assert.IsTrue(element.Displayed);
+        }
+
 
         [Test]
         public void TestThatSignOutButtonAppearsIfUserIsSignedIn()
@@ -238,6 +299,25 @@ namespace AppiumTests
 
             // Find Sign in 
             element = driver.FindElementByXPath("//android.widget.TextView[@text='Sign In']");
+        }
+
+        [Test]
+        public void TestUserCanSignInWithGoogle()
+        {
+            GoogleLogin();
+
+            // Access Menu
+            TouchAction touchAction = new TouchAction(driver);
+            AndroidElement element = driver.FindElementByXPath("//android.widget.ImageView[@content-desc='More options']");
+            var action = touchAction.Tap(element);
+            action.Perform();
+            action.Cancel();
+            Thread.Sleep(1000);
+
+            // Find Sign Out
+            element = driver.FindElementByXPath("//android.widget.TextView[@text='Sign Out']");
+
+            Assert.IsTrue(element.Displayed);
         }
     }
 }

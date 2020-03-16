@@ -1,12 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Windows.Input;
-
 using prj3beer.Models;
-
 using Plugin.GoogleClient;
 using Plugin.GoogleClient.Shared;
-
 using Xamarin.Forms;
 using System.Threading.Tasks;
 using Plugin.FacebookClient;
@@ -202,10 +198,13 @@ namespace prj3beer.ViewModels
                     // Load all of the User's Data
                     await LoadFacebookData();
 
+                    // Task for poping the modal in the correct order
+                    // May not need to create the task anymore
                     var syncTask2 = new Task(() => {
                         App.Current.MainPage.Navigation.PopModalAsync();
                     });
 
+                    // May not need to to do this now
                     syncTask2.RunSynchronously();
 
                     break;
