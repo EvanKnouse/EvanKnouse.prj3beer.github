@@ -15,8 +15,6 @@ namespace UITests
         IApp app;
         Platform platform;
 
-        //AppResult[] RefUnfavBtn;
-
         public FavouritesTests(Platform platform)
         {
             this.platform = platform;
@@ -41,19 +39,6 @@ namespace UITests
             app.EnterText("searchBeverage", searchBeverage.ToString()); //Entering code into the search bar
             app.TapCoordinates(200, 750); //Tapping a result from the list gotten from the search
         }
-
-
-        public AppResult[] GetRef()
-        {
-            SelectABeverage("c");
-            app.WaitForElement("FavouriteButton");
-            AppResult[] RefUnfavBtn = app.Query("unFavouritedButton");
-            app.Back();
-            //app.WaitForElement("searchBeverage");
-            return RefUnfavBtn;
-        }
-
-
         #endregion
 
         // test that the favourite button is on the status screen
@@ -75,23 +60,18 @@ namespace UITests
         [Test]
         public void TestThatPressingTheFavouriteButtonAddsTheBeverageAsAFavourite()
         {
-            //Get reference of an unfavored favorite button
-            AppResult[] RefUnfavBtn = GetRef();
-
             // go to the beverage select page and select the beverage string
             SelectABeverage("Great Western Radler");
 
             // wait for an element on the status screen
             app.WaitForElement("FavouriteButton");
 
+            //Get reference of an unfavored favorite button
+            AppResult[] RefUnfavBtn = app.Query("FavouriteButton");
+
             // tap the favourite button to add the current beverage as a favourite
             app.Tap("FavouriteButton");
-
-            app.Back();
-
-            // select the beverage that was just favourited
-            SelectABeverage("Great Western Radler");
-
+            
             // wait for an element on the status screen
             app.WaitForElement("FavouriteButton");
 
@@ -113,11 +93,6 @@ namespace UITests
 
             // tap the favourite button to remove the current beverage as a favourite
             app.Tap("FavouriteButton");
-
-            app.Back();
-
-            // select the beverage that was just favourited
-            SelectABeverage("Great Western Radler");
 
             // wait for an element on the status screen
             app.WaitForElement("FavouriteButton");
