@@ -27,7 +27,7 @@ namespace prj3beer.Models
         private static readonly bool TemperatureDefault = true;
 
         private const string BaseURL = "base_url";
-        private static readonly string BaseURLDefault = @"http://my-json-server.typicode.com/prj3beer/prj3beer-api";
+        private static readonly string BaseURLDefault = @"https://my-json-server.typicode.com/prj3beer/prj3beer-api";
 
         // Stores The Current User Name
         private const string UserKey = "user_key";
