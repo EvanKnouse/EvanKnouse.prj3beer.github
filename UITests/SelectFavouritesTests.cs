@@ -157,7 +157,7 @@ namespace UITests
 
             if (bLooseFocus)
             {
-                app.TapCoordinates(715, 515); // Tap below the search bar to remove focus.
+                app.TapCoordinates(715, (float)favoriteButtonY); // Tap below the search bar to remove focus.
             }
         }
 
@@ -212,21 +212,40 @@ namespace UITests
             SetFavouriteStatusOfBeverageUI("e", fourth, false); // Select "Original 16 Copper Ale" and favourite it.
             SetFavouriteStatusOfBeverageUI("e", fifth, true); // Select "Rebellion Pear Beer" and favourite it.
 
+            app.TapCoordinates(540, 805);
+            app.Back();
+            app.WaitForElement("FavouritesCarousel");
+            //app.WaitForElement("FavouritesCarousel");
+            //app.SwipeRightToLeft(0.9, 800, true);
+            //app.TapCoordinates(SearchClearX, SearchClearY);
+            //app.Back();
+            //app.WaitForElement("FavouritesCarousel");
+            //app.SwipeLeftToRight(0.9, 800, true);
+            //app.WaitForElement("FavouritesCarousel");
+
             AppResult[] favBev = app.Query("1"); // Query the beverage select page for the "Great Western Radler" ID.
             Assert.IsTrue(favBev.Any()); // Passes if the ID is shown on the page.
+
+            app.SwipeRightToLeft(0.9, 1000, true);
+            //app.WaitForElement("FavouritesCarousel");
 
             favBev = app.Query("2"); // Query the beverage select page for the "Great Western Pilsner" ID.
             Assert.IsTrue(favBev.Any()); // Passes if the ID is shown on the page.
 
-            app.SwipeRightToLeft(0.9, 500, true);
+            app.SwipeRightToLeft(0.9, 1000, true);
+            //app.SwipeRightToLeft(0.9, 800, true);
 
             favBev = app.Query("3"); // Query the beverage select page for the "Original 16 Copper Ale" ID.
             Assert.IsTrue(favBev.Any()); // Passes if the ID is shown on the page.
 
-            app.SwipeRightToLeft(0.9, 500, true);
+            app.SwipeRightToLeft(0.9, 1000, true);
+            //app.WaitForElement("FavouritesCarousel");
 
             favBev = app.Query("5"); // Query the beverage select page for the "Churchill Blonde Lager" ID.
             Assert.IsTrue(favBev.Any()); // Passes if the ID is shown on the page.
+
+            app.SwipeRightToLeft(0.9, 1000, true);
+            //app.WaitForElement("FavouritesCarousel");
 
             favBev = app.Query("99"); // Query the beverage select page for the "Rebellion Pear Beer" ID.
             Assert.IsTrue(favBev.Any()); // Passes if the ID is shown on the page.
@@ -243,7 +262,7 @@ namespace UITests
             AppResult[] favBev = app.Query(beverages[1] + "    \u2b50"); // Query the beverage select page for the "Great Western Pilsner" list option.
             float fBevPos = favBev[0].Rect.CenterY; // Get the Y position of the list option.
 
-            Assert.IsTrue(fBevPos > 655 && fBevPos < 810); // Passes if the Y position of the list option is at the first position of the list.
+            Assert.IsTrue(fBevPos > first && fBevPos < second); // Passes if the Y position of the list option is at the first position of the list.
         }
 
         // Favourite a beverage and test that it is displayed at the first position of the list, then
@@ -311,7 +330,7 @@ namespace UITests
         {
             SetFavouriteStatusOfBeverageUI("chu", first, true); // Select "Churchill Blonde Lager" and favourite it.
 
-            app.TapCoordinates(420, 1090); // Tap the recently favourited beverage in the carousel.
+            app.TapCoordinates(540, 805); // Tap the recently favourited beverage in the carousel.
 
             app.WaitForElement("FavouriteButton"); // Wait for the status page to load.
 

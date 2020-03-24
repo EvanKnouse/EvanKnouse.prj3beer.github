@@ -35,9 +35,10 @@ namespace UITests
             // Assumes app.EnterText knows where to enter text
             //app.Tap("Beverage Select");
 
-            app.TapCoordinates(1350, 350);
+            app.TapCoordinates(1000, 270);
             app.EnterText("searchBeverage", searchBeverage.ToString()); //Entering code into the search bar
-            app.TapCoordinates(200, 750); //Tapping a result from the list gotten from the search
+            //app.TapCoordinates(200, 750); //Tapping a result from the list gotten from the search
+            app.TapCoordinates(200, 550);
         }
         #endregion
 
