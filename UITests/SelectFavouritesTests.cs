@@ -9,6 +9,7 @@ using prj3beer.Models;
 using prj3beer.ViewModels;
 using prj3beer.Services;
 using Xamarin.Forms;
+using Xamarin.Essentials;
 
 namespace UITests
 {
@@ -28,11 +29,30 @@ namespace UITests
 
         //These are positions of items in the list of the select beverage page
         //Hard coded just for convinience
-        const int first = 750;
-        const int second = 900;
-        const int third = 1050;
-        const int fourth = 1200;
-        const int fifth = 1350;
+        //const int first = 750;
+        //const int second = 900;
+        //const int third = 1050;
+        //const int fourth = 1200;
+        //const int fifth = 1350;
+
+        //Pixel2 Pie9 positions
+        //const int first = 750;
+        //const int second = 900;
+        //const int third = 1050;
+        //const int fourth = 1200;
+        //const int fifth = 1350;
+
+        double first;
+        double second;
+        double third;
+        double fourth;
+        double fifth;
+        double pageheight = 1918.9;
+        double listspace;
+        double favoriteButtonY;
+
+        int SearchClearX = 1000;
+        int SearchClearY = 270;
 
         public SelectFavouritesTests(Platform platform)
         {
@@ -48,6 +68,16 @@ namespace UITests
             app.WaitForElement("searchBeverage"); // Wait for the beverage select page to load.
 
             //svm = new StatusViewModel();
+            //pageheight = DeviceDisplay.MainDisplayInfo.Height;
+            listspace = pageheight * 0.0609724321225702;
+            first = pageheight * 0.2574391578508521;
+            second = first + listspace;
+            third = second + listspace;
+            fourth = third + listspace;
+            fifth = fourth + listspace;
+            double space = pageheight * 0.134452029808744;
+            favoriteButtonY = (pageheight - space) - 5;//(pageheight * 0.1146490176663714‬);
+            
         }
 
         /// <summary>
@@ -55,14 +85,14 @@ namespace UITests
         /// </summary>
         /// <param name="searchBeverage"> What is inputed into the search bar </param>
         /// <param name="placement"> The position of the beverage in the list to tap </param>
-        public void SelectABeverage(string searchBeverage, int placement)
+        public void SelectABeverage(string searchBeverage, double placement)
         {
             // tap to navigate to the beverage select page
             // Assumes app.EnterText knows where to enter text
             //app.Tap("Beverage Select");
 
             app.EnterText("searchBeverage", searchBeverage.ToString()); //Entering code into the search bar
-            app.TapCoordinates(200, placement); //Tapping a result from the list gotten from the search
+            app.TapCoordinates(200, (float)placement+5); //Tapping a result from the list gotten from the search
         }
 
         /// <summary>
@@ -109,21 +139,23 @@ namespace UITests
         }
         
         // Helper method for favouriting/unfavouriting a beverage through the UI.
-        private void SetFavouriteStatusOfBeverageUI(string sBevName, int iListPosition, bool bLooseFocus)
+        private void SetFavouriteStatusOfBeverageUI(string sBevName, double iListPosition, bool bLooseFocus)
         {
             app.EnterText("searchBeverage", sBevName); // Enter the search criteria into the search bar.
 
-            app.TapCoordinates(715, iListPosition); // Tap the beverage option in the list.
+            app.TapCoordinates(715, (float)iListPosition+5); // Tap the beverage option in the list.
 
             app.WaitForElement("FavouriteButton"); // Wait for the status page to load.
-            app.TapCoordinates(715, 2130); // Tap the favourite button for that beverage.
+            //app.TapCoordinates(715, 2130); // Tap the favourite button for that beverage.
+            app.TapCoordinates(715, (float)favoriteButtonY);
 
             app.Back(); // Go back to the beverage select page.
 
             app.WaitForElement("searchBeverage"); // Wait for the beverage select page to load.
-            app.TapCoordinates(1350, 360); // Tap the 'X' on the search bar to clear it.
+            //app.TapCoordinates(1350, 360); // Tap the 'X' on the search bar to clear it.
+            app.TapCoordinates(SearchClearX, SearchClearY);
 
-            if(bLooseFocus)
+            if (bLooseFocus)
             {
                 app.TapCoordinates(715, 515); // Tap below the search bar to remove focus.
             }
@@ -226,7 +258,8 @@ namespace UITests
             AppResult[] favBev = app.Query(beverages[1] + "    \u2b50"); // Query the beverage select page for the "Great Western Pilsner" list option.
             float fBevPos = favBev[0].Rect.CenterY; // Get the Y position of the list option.
 
-            Assert.IsTrue(fBevPos > 655 && fBevPos < 810); // Passes if the Y position of the list option is at the first position of the list.
+            //Assert.IsTrue(fBevPos > 655 && fBevPos < 810); // Passes if the Y position of the list option is at the first position of the list.
+            Assert.IsTrue(fBevPos > first && fBevPos < second);
 
             SetFavouriteStatusOfBeverageUI("", first, false); // Select "Great Western Pilsner" and unfavourite it.
 
@@ -235,7 +268,7 @@ namespace UITests
             favBev = app.Query(beverages[1]); // Query the beverage select page for the "Great Western Pilsner" list option.
             fBevPos = favBev[0].Rect.CenterY; // Get the Y position of the list option.
 
-            Assert.IsTrue(fBevPos > 810 && fBevPos < 965); // Passes if the Y position of the list option is at the second position of the list.
+            Assert.IsTrue(fBevPos > second && fBevPos < third); // Passes if the Y position of the list option is at the second position of the list.
         }
 
         // Favourite a beverage and test that it is not displayed when searching for something unrelated.
@@ -294,7 +327,7 @@ namespace UITests
 
             app.EnterText("searchBeverage", "c"); // Search for the recently favourited beverage.
 
-            app.TapCoordinates(715, first); // Tap the "Original 16 Copper Ale" list option.
+            app.TapCoordinates(715, (float)first+5); // Tap the "Original 16 Copper Ale" list option.
 
             app.WaitForElement("FavouriteButton"); // Wait for the status page to load.
 
