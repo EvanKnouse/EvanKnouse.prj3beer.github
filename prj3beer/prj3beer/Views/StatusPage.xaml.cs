@@ -313,29 +313,36 @@ namespace prj3beer.Views
 
 		private void FavouriteButtonClicked(object sender, EventArgs e)
         {
-            // If the beverage is favourited
+            // If the beverage is favourited.
             if(preferredBeverage.Favourite)
             {
-                // Remove as a favourite
+                // Remove as a favourite.
                 preferredBeverage.Favourite = false;
+                // Change the FavouriteButton image source.
                 FavouriteButton.Source = "NotFavourite";
             }
-            // If the beverage is favourited
+            // If the beverage is favourited.
             else
             {
+                // If the user has less than 5 favourited beverages.
                 if(svm.Context.Preference.Where(p => p.Favourite == true).Count() < 5)
                 {
-                    // Add as a favourite
+                    // Add as a favourite.
                     preferredBeverage.Favourite = true;
+                    // Change the FavouriteButton image source.
                     FavouriteButton.Source = "Favourite";
                 }
+                // If the user has 5 favourited beverages. Limit on number of favourites can be changed at any time.
                 else
                 {
+                    // Display a toast to the user, works for Android and iOS.
                     DependencyService.Get<IToastHandler>().LongToast("You cannot have any more favourites");
                 }
             }
 
+            // Update the preferredBeverage as its favourite boolean may have changed.
             svm.Context.Preference.Update(preferredBeverage);
+            // Saving changes is necessary as the EntityFramework tracking doesn't seem dependable.
             svm.Context.SaveChanges();
         }
     }

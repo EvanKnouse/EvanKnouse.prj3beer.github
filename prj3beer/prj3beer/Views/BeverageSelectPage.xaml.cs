@@ -39,53 +39,59 @@ namespace prj3beer.Views
 
         private void PopulateCarousel()
         {
-            //IQueryable<Preference> favPrefs = App.Context.Preference.Where(p => p.Favourite == true);
-
+            // If there are no beverages favourited.
             if(updatedFavorites.Count() == 0)
             {
-                if (searchBeverage.Text == null || searchBeverage.Text.Equals(""))
+                // If the user is not searching for anything.
+                if(searchBeverage.Text == null || searchBeverage.Text.Equals(""))
                 {
+                    // Display the no favourites label, telling the user to select a beverage and favourite it.
                     NoFavouritesLabel.IsVisible = true;
                 }
 
+                // Reset the FavouritesCarousel items source to the now empty list of favourited beverages.
                 FavouritesCarousel.ItemsSource = null;
-                //NoFavouritesLabelHeight = NoFavouritesLabel.Height;
             }
+            // There are favourited beverages.
             else
             {
+                // Hide the no favourites label.
                 NoFavouritesLabel.IsVisible = false;
 
+                // Set the FavouritesCarousel items source to the list of favourited beverages.
                 FavouritesCarousel.ItemsSource = updatedFavorites;
 
+                // Set the FavouritesCarousel item template. This could be done in a different spot, since it only needs
+                // to be done when the page is created initially, instead of every OnAppearance.
                 FavouritesCarousel.ItemTemplate = new DataTemplate(() =>
                 {
+                    // TapGestureRecognizer for tapping the images in the carousel and going to the Status Page.
                     var tapGesRec = new TapGestureRecognizer();
 
+                    // Event handler for the above TapGestureRecognizer.
                     tapGesRec.Tapped += (s, e) =>
                     {
                         toStatusPage(int.Parse(((Image)s).AutomationId));
                     };
 
+                    // Image to be displayed in the carousel. SourceProperty is for displaying the image, AutomationIdProperty is
+                    // for navigation to the Status Page.
                     Image image = new Image { };
                     image.SetBinding(Image.SourceProperty, "ImagePath");
                     image.SetBinding(Image.AutomationIdProperty, "BeverageID");
 
+                    // Add the TapGestureRecognizer to the image.
                     image.GestureRecognizers.Add(tapGesRec);
 
                     image.WidthRequest = 200;
                     image.HeightRequest = 200;
-                    //image.HorizontalOptions = LayoutOptions.CenterAndExpand;
-                    //image.VerticalOptions = LayoutOptions.CenterAndExpand;
-
+                    
+                    // Label for displaying the preference's BeverageID, "necessary" for UI testing. Should be removed in final product.
                     Label lblIDForTesting = new Label();
                     lblIDForTesting.SetBinding(Label.TextProperty, "BeverageID");
 
                     StackLayout stackLayout = new StackLayout
                     {
-                        //HeightRequest = 200,
-                        //WidthRequest = 200,
-                        //HorizontalOptions = LayoutOptions.CenterAndExpand,
-                        //VerticalOptions = LayoutOptions.CenterAndExpand,
                         Children = { image, lblIDForTesting }
                     };
 
@@ -97,26 +103,18 @@ namespace prj3beer.Views
                         CornerRadius = 5,
                         Margin = 20,
                         Padding = 0,
-                        //HeightRequest = 350,
-                        //WidthRequest = 100,
-                        //HorizontalOptions = LayoutOptions.Center,
-                        //VerticalOptions = LayoutOptions.CenterAndExpand,
                         Content = stackLayout
                     };
+
                     StackLayout rootStackLayout = new StackLayout
                     {
                         Children = { frame }
                     };
 
-                    //rootStackLayout.HorizontalOptions = LayoutOptions.CenterAndExpand;
-                    //rootStackLayout.VerticalOptions = LayoutOptions.StartAndExpand;
                     return rootStackLayout;
                 });
-
-                //carouselHeight = FavouritesCarousel.Height;
             }
         }
-
         #endregion
 
         protected override void OnAppearing()
@@ -126,6 +124,7 @@ namespace prj3beer.Views
             //Update the list of favorites to compare to when the search changes
             updatedFavorites = App.Context.Preference.Where(p => p.Favourite);
 
+            // Show the carousel or no favourites label depending on if the user has favourites.
             PopulateCarousel();
 
             //Update the displayed list when the search page is returned to after a beverage is favorited
