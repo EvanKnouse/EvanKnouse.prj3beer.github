@@ -1,15 +1,8 @@
 ﻿using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
-using prj3beer;
-using prj3beer.Models;
-using prj3beer.ViewModels;
-using prj3beer.Services;
-using Xamarin.Forms;
-using Xamarin.Essentials;
 
 namespace UITests
 {
@@ -21,8 +14,6 @@ namespace UITests
 
         IApp app;
         Platform platform;
-
-        //static StatusViewModel svm;
 
         //Set some drinks to begin with
         List<string> beverages = new List<string> { "Churchill Blonde Lager", "Great Western Pilsner", "Great Western Radler", "Original 16 Copper Ale", "Rebellion Zilla IPA" };
@@ -62,12 +53,10 @@ namespace UITests
         [SetUp]
         public void BeforeEachTest()
         {
-            //app = AppInitializer.StartApp(platform);
             app = ConfigureApp.Android.ApkFile(apkPath).StartApp();
 
             app.WaitForElement("searchBeverage"); // Wait for the beverage select page to load.
 
-            //svm = new StatusViewModel();
             //pageheight = DeviceDisplay.MainDisplayInfo.Height;
             listspace = pageheight * 0.0609724321225702;
             first = pageheight * 0.2574391578508521;
@@ -80,64 +69,6 @@ namespace UITests
             
         }
 
-        /// <summary>
-        /// Selects a drink form the beverage select page
-        /// </summary>
-        /// <param name="searchBeverage"> What is inputed into the search bar </param>
-        /// <param name="placement"> The position of the beverage in the list to tap </param>
-        public void SelectABeverage(string searchBeverage, double placement)
-        {
-            // tap to navigate to the beverage select page
-            // Assumes app.EnterText knows where to enter text
-            //app.Tap("Beverage Select");
-
-            app.EnterText("searchBeverage", searchBeverage.ToString()); //Entering code into the search bar
-            app.TapCoordinates(200, (float)placement+5); //Tapping a result from the list gotten from the search
-        }
-
-        /// <summary>
-        /// Sets a preference to not be favorite
-        /// </summary>
-        /// <param name="sFullBevName"></param>
-        public void RemoveFavourite(string sFullBevName)
-        {
-            //IQueryable<Preference> favorites = svm.Context.Preference.Where(c => c.Favourite == true);
-
-            int bTemp = App.Context.Beverage.Find(sFullBevName).BeverageID; //Convert the beverage name to an ID
-
-            RemoveFavourite(bTemp); //Remove it with code friendly version
-
-        }
-        
-        /// <summary>
-        /// Alternative method of removing a favorite
-        /// More code friendly, but less user friendly
-        /// </summary>
-        /// <param name="bevID"> ID of the beverage preference to unfavorite </param>
-        public void RemoveFavourite(int bevID)
-        {
-            Preference pref = App.Context.Preference.Find(bevID); //Find the preference
-
-            pref.Favourite = false; //Remove the preference as a favorite
-            App.Context.Preference.Update(pref); //Update it
-        }
-
-        /// <summary>
-        /// Sets all preferences that were saved as a favorite to no longer be a favorite
-        /// </summary>
-        public void RemoveAllFavourites()
-        {
-            IQueryable<Preference> favorites = App.Context.Preference.Where(c => c.Favourite == true); //Get how many favorites exist
-            Preference pref;
-            for (int i = 0; i < favorites.Count(); i++) //For all the favorites that exist
-            {
-                pref = favorites.ElementAt(i); //Set it as the current
-                pref.Favourite = false; //Remove it as a favorite
-                App.Context.Preference.Update(pref); //Update it
-                
-            }
-        }
-        
         // Helper method for favouriting/unfavouriting a beverage through the UI.
         private void SetFavouriteStatusOfBeverageUI(string sBevName, double iListPosition, bool bLooseFocus)
         {
@@ -146,14 +77,12 @@ namespace UITests
             app.TapCoordinates(715, (float)iListPosition+5); // Tap the beverage option in the list.
 
             app.WaitForElement("FavouriteButton"); // Wait for the status page to load.
-            //app.TapCoordinates(715, 2130); // Tap the favourite button for that beverage.
-            app.TapCoordinates(715, (float)favoriteButtonY);
+            app.Tap("FavouriteButton"); // Tap the favourite button for that beverage.
 
             app.Back(); // Go back to the beverage select page.
 
             app.WaitForElement("searchBeverage"); // Wait for the beverage select page to load.
-            //app.TapCoordinates(1350, 360); // Tap the 'X' on the search bar to clear it.
-            app.TapCoordinates(SearchClearX, SearchClearY);
+            app.TapCoordinates(SearchClearX, SearchClearY); // Tap the 'X' on the search bar to clear it.
 
             if (bLooseFocus)
             {
@@ -165,7 +94,6 @@ namespace UITests
         [Test]
         public void UserSeesAFavoritedBeverageOnTheBeverageSelectPage()
         {
-            //FavouriteADrink("Churchill Blonde Lager");
             SetFavouriteStatusOfBeverageUI("chu", first, true); // Select "Churchill Blonde Lager" and favourite it.
 
             AppResult[] favBev = app.Query("5"); // Query the beverage select page for the beverage's ID.
@@ -277,8 +205,7 @@ namespace UITests
             AppResult[] favBev = app.Query(beverages[1] + "    \u2b50"); // Query the beverage select page for the "Great Western Pilsner" list option.
             float fBevPos = favBev[0].Rect.CenterY; // Get the Y position of the list option.
 
-            //Assert.IsTrue(fBevPos > 655 && fBevPos < 810); // Passes if the Y position of the list option is at the first position of the list.
-            Assert.IsTrue(fBevPos > first && fBevPos < second);
+            Assert.IsTrue(fBevPos > first && fBevPos < second); // Passes if the Y position of the list option is at the first position of the list.
 
             SetFavouriteStatusOfBeverageUI("", first, false); // Select "Great Western Pilsner" and unfavourite it.
 
