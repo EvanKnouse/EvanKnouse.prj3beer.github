@@ -51,7 +51,9 @@ namespace prj3beer
         public static async void FetchData()
         {
             // REMOVE FOR PERSISTENT Data
+            #if DEBUG
             Context.Database.EnsureDeleted();
+            #endif
 
             // Ensure the Database is Created
             Context.Database.EnsureCreated();
@@ -65,8 +67,11 @@ namespace prj3beer
             try
             {
                 //Context.Brand.att
+#if DEBUG
                 Context.Brand.AddRange(brands);
-                //Context.Brand.UpdateRange(brands);
+#elif RELEASE
+                Context.Brand.UpdateRange(brands);
+#endif
             }
             catch (DbUpdateException exception)
             {
@@ -87,8 +92,11 @@ namespace prj3beer
             try
             {
                 //Context.Beverage.AttachRange(beverages);
+#if DEBUG
                 Context.Beverage.AddRange(beverages);
-                //Context.Beverage.UpdateRange(beverages);
+#elif RELEASE
+                Context.Beverage.UpdateRange(beverages);
+#endif
             }
             catch (DbUpdateException exception)
             {
@@ -141,7 +149,7 @@ namespace prj3beer
             //FetchData(context, apiManager);
 #elif RELEASE
             //Release mode breaks, but can swap these for API usage
-            FetchData(context, apiManager);
+            //FetchData(context, apiManager);
           
 #endif
             //MainPage = new MainPage(context);

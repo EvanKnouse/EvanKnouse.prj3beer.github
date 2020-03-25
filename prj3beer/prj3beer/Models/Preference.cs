@@ -71,7 +71,7 @@ namespace prj3beer.Models
         {
             Image image = new Image();
             image.Source = "placeholder_can";
-            if(!imageURL.Equals(""))
+            if (!imageURL.Equals(""))
             {
                 //ImagePath = imageURL;
                 Uri uriImage = new Uri(imageURL);
@@ -85,6 +85,7 @@ namespace prj3beer.Models
 
                 ImagePath = uriImage.AbsoluteUri;
             }
+            else ImagePath = "placeholder_can";
             return image;
         }
         #endregion

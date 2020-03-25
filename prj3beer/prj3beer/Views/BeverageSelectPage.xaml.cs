@@ -87,14 +87,19 @@ namespace prj3beer.Views
                     image.HeightRequest = 200;
                     
                     // Label for displaying the preference's BeverageID, "necessary" for UI testing. Should be removed in final product.
-                    Label lblIDForTesting = new Label();
-                    lblIDForTesting.SetBinding(Label.TextProperty, "BeverageID");
-
-                    StackLayout stackLayout = new StackLayout
-                    {
-                        Children = { image, lblIDForTesting }
-                    };
-
+                    #if DEBUG
+                        Label lblIDForTesting = new Label();
+                        lblIDForTesting.SetBinding(Label.TextProperty, "BeverageID");
+                        StackLayout stackLayout = new StackLayout
+                        {
+                            Children = { image, lblIDForTesting }
+                        };
+                    #else
+                        StackLayout stackLayout = new StackLayout
+                        {
+                            Children = {image}
+                        };
+                    #endif
                     Frame frame = new Frame
                     {
                         HasShadow = true,
@@ -115,7 +120,7 @@ namespace prj3beer.Views
                 });
             }
         }
-        #endregion
+#endregion
 
         protected override void OnAppearing()
         {
@@ -232,7 +237,7 @@ namespace prj3beer.Views
                 errorLabel.IsVisible = false;
 
 
-                #region Story 52 (Sort favorites first)
+#region Story 52 (Sort favorites first)
                 //Create seperate lists to sort by favorite
                 List<string> listFavorites = new List<string>();
                 List<string> listNonFav = new List<string>();
@@ -266,7 +271,7 @@ namespace prj3beer.Views
                 //Combine the lists
                 listViewBeverages.AddRange(listFavorites);
                 listViewBeverages.AddRange(listNonFav);
-                #endregion
+#endregion
 
                 //for each beverage add it to the list
                 /*
@@ -368,7 +373,7 @@ namespace prj3beer.Views
             await Navigation.PushModalAsync(new CredentialSelectPage());
         }
 
-        #region stroy 52 (Navigate and hide)
+#region stroy 52 (Navigate and hide)
 
         private async void toStatusPage(int bevId)
         {
@@ -429,6 +434,6 @@ namespace prj3beer.Views
             }
         }
 
-        #endregion
+#endregion
     }
 }
