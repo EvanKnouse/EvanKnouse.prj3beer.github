@@ -24,18 +24,15 @@ namespace prj3beer.Views
         /// This will initialize the page and bring in the beverage objects from local storage
         /// and places in a context
         /// </summary>
-        /// <param name="beerContext"></param>
+        /// <param></param>
         public BeverageSelectPage()
         {
             InitializeComponent();
-            
-            // Check to see if the welcome prompt has fired since the user has logged in
-            //if (Settings.WelcomePromptSetting)
-            //{   // If it fires, disable it from firing again
-            //    Settings.WelcomePromptSetting = false;
-            //    // If it hasn't been shown yet, then push a new modalscreen to the user.
-            //    Navigation.PushModalAsync(new WelcomeModal());
-            //}
+        }
+
+        public void ReAppearing()
+        {
+            LogInOutButton();
         }
 
         #region Story 52 (The Carousel)
@@ -134,38 +131,52 @@ namespace prj3beer.Views
             //Update the displayed list when the search page is returned to after a beverage is favorited
             if (searchBeverage.Text != null)SearchChanged(null, null);
 
+            //  Setup The Menu Button
             LogInOutButton();
         }
 
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+        }
+
+        /// <summary>
+        /// This method will replace the Log In / Log Out button 
+        /// </summary>
         private void LogInOutButton()
         {
+            // Remove the Log in/out button
             ToolbarItems.RemoveAt(1);
 
-            bool SignInOut = (Settings.CurrentUserEmail.Length == 0 || Settings.CurrentUserName.Length == 0) ? true : false;
+            //bool loggedOut = (Settings.CurrentUserEmail.Length == 0) ? true : false;
 
-            if (SignInOut)
+            // If there is no current user signed in
+            if (Settings.CurrentUserEmail.Length == 0)
             {
+                // Create a new ToolBar Button
                 ToolbarItem SignInButton = new ToolbarItem
-                {
+                {   // Assign it the properties below
                     AutomationId = "SignIn",
                     Text = "Sign In",
+                    // Set the menu button to the sub-menu
                     Order = ToolbarItemOrder.Secondary
                 };
-
+                // Add the button to the menu
                 ToolbarItems.Add(SignInButton);
             }
-            else
-            {
+            else // A user is signed in
+            {   // Create a new toolbar button caled Sign Out
                 ToolbarItem SignOutButton = new ToolbarItem
-                {
+                {   // Assign it the properties below
                     AutomationId = "SignOut",
                     Text = "Sign Out",
+                    // Set the menu button to the sub-menu
                     Order = ToolbarItemOrder.Secondary
                 };
-
+                // Add the button to the menu
                 ToolbarItems.Add(SignOutButton);
             }
-
+            // Add the click event handler to the button
             ToolbarItems.ElementAt(1).Clicked += SignInOut_Clicked;
         }
 
@@ -203,7 +214,7 @@ namespace prj3beer.Views
             try
             {
                 //Try to save the result from the previous search
-                brand = brands.First().BrandID;
+                brand = brands.FirstOrDefault().BrandID;
             }
             catch (Exception)
             {
@@ -320,7 +331,7 @@ namespace prj3beer.Views
             toStatusPage(tappedBeverage.BeverageID);
 
             /*
-
+            Beverage tappedBeverage = (App.Context.Beverage.Where(b => b.Name.Contains(e.Item.ToString()))).First();
             //Get that beverage's ID
             Settings.BeverageSettings = tappedBeverage.BeverageID;
             //Application.Current.MainPage = new NavigationPage(new StatusPage());
@@ -336,14 +347,26 @@ namespace prj3beer.Views
     */
         }
 
+        /// <summary>
+        /// This method is called when the Settings Menu Button is Clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Settings_Clicked(object sender, EventArgs e)
         {
+            // Push a new settings modal
             Navigation.PushModalAsync(new NavigationPage(new SettingsMenu()));
         }
 
+        /// <summary>
+        /// This method is called when the Sign In or Out button is clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void SignInOut_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushModalAsync(new NavigationPage(new CredentialSelectPage(false)));
+        {   
+            // Push a new login page modal
+            await Navigation.PushModalAsync(new CredentialSelectPage());
         }
 
         #region stroy 52 (Navigate and hide)

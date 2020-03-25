@@ -111,8 +111,6 @@ namespace prj3beer.ViewModels
                         notifications.NotificationCheck(currentTemp, StatusPage.preferredBeverage.Temperature);
                     }
            
-
-
                     if (PropertyChanged != null)
                     {
                         //If the property has changed, fire an event.

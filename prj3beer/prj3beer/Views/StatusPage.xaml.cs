@@ -6,30 +6,23 @@ using System;
 using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using System.ComponentModel;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Plugin.Settings;
-using Plugin.Settings.Abstractions;
 
 namespace prj3beer.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class StatusPage : ContentPage
     {
+        // Static View Model for the page
         static StatusViewModel svm;
+        // Static Beverage to keep track of current Beverage
         static Beverage currentBeverage;
-        public static Preference preferredBeverage; //Set to public to fix problem in staus view model
+        // Static Preference Object to keep track of
+        public static Preference preferredBeverage;
+        // Static Brand Object to keep track of current Beverage/Preference
         static Brand currentBrand;
+        // Saved ID from the last selected Beverage
         int savedID;
-
-        INotificationHandler nh;
-        NotificationType lastNotification = NotificationType.NO_MESSAGE;
-
-        //Placeholder for target temperature element, implemented in another story.
-        //int targetTempValue = 2;
-
+		
         public StatusPage()
         {
             InitializeComponent();
@@ -50,7 +43,6 @@ namespace prj3beer.Views
             }
             else
             {
-                #region Story 04/07 Code
                 // Instantiate new StatusViewModel
                 svm = new StatusViewModel();
 
@@ -72,23 +64,8 @@ namespace prj3beer.Views
                     EnablePageElements(true);
                 }
 
-                PopulateStatusScreen();
-                #endregion
-
-                #region Story 16 code
-                /*
-                nh = DependencyService.Get<INotificationHandler>();
-                //TODO: Call the compare when a new temperature is gotten from our device API, not on a timer
-                Device.StartTimer(TimeSpan.FromSeconds(1), () =>
-                {
-                    NotificationCheck();
-
-                    return true;
-                });
-                */
-                #endregion
+                PopulateStatusScreen();  
             }
-
             MockTempReadings.StartCounting();
         }
 
@@ -125,7 +102,6 @@ namespace prj3beer.Views
             svm.IsCelsius = Settings.TemperatureSettings;
         }
 
-        #region Story 04 Methods
         /// <summary>
         /// This method sets up a Preferred beverage object with the passed in beverage
         /// </summary>
@@ -150,27 +126,7 @@ namespace prj3beer.Views
                 svm.Context.SaveChanges();
             }
         }
-        /*
-        private void SetupPreference(int bevID)
-        {   // Set the page's preferred beverage equal to -> Finding the Beverage in the Database.
-            // If the object is found in the database, it will return itself immediately,
-            // and attach itself to the context (Database).
-
-            // TODO: Handle Pre-existing Preference Object.
-            preferredBeverage = svm.Context.Preference.Find(bevID);
-            //preferredBeverage = null; // This is what the previous line SHOULD be doing.
-
-            // If that Preferred beverage did not exist, it will be set to null,
-            // So if it is null...
-            if (preferredBeverage == null)
-            {   // Create a new Preferred Beverage, with copied values from the Passed In Beverage.
-                preferredBeverage = new Preference() { BeverageID = bevID, Temperature = currentBeverage.Temperature };
-                // Add the beverage to the Context (Database)
-                svm.Context.Preference.Add(preferredBeverage);
-            }
-
-        }*/
-
+       
         /// <summary>
         /// This method will write changes to the Database for any changes that have happened.
         /// </summary>
@@ -242,16 +198,6 @@ namespace prj3beer.Views
         {   // Update the preference object using the Context in the StatusViewModel
             UpdatePreference(svm.Context);
         }
-        #endregion
-
-        //async void Settings_Clicked(object sender, EventArgs e)
-        //{
-        //    ((ToolbarItem)(sender)).IsEnabled = false;
-
-        //    await Navigation.PushModalAsync(new NavigationPage(new SettingsMenu()));
-
-        //    ((ToolbarItem)(sender)).IsEnabled = true;
-        //}
 
         /// <summary>
         /// This method is called every time the page is opened.
@@ -261,8 +207,6 @@ namespace prj3beer.Views
             svm = new StatusViewModel();
 
             //currentTemperature.SetBinding(Label.TextProperty, "CurrentTemp", default, new CelsiusFahrenheitConverter());
-
-
 
             if (Settings.BeverageSettings != -1)// So default opening no longer uses a drink that does not exist
             {
@@ -302,47 +246,69 @@ namespace prj3beer.Views
             LogInOutButton();
         }
 
-        
+        /// <summary>
+        /// This method will replace the Log In / Log Out button 
+        /// </summary>
         private void LogInOutButton()
         {
+            // Remove the Log in/out button
             ToolbarItems.RemoveAt(1);
 
-            bool SignInOut = (Settings.CurrentUserEmail.Length == 0 || Settings.CurrentUserName.Length == 0) ? true : false;
-
-            if (SignInOut)
+            // If there is no current user signed in
+            if (Settings.CurrentUserEmail.Length == 0)
             {
+                // Create a new ToolBar Button
                 ToolbarItem SignInButton = new ToolbarItem
-                {
+                {   // Assign it the properties below
                     AutomationId = "SignIn",
                     Text = "Sign In",
+                    // Set the menu button to the sub-menu
                     Order = ToolbarItemOrder.Secondary
                 };
-
+                // Add the button to the menu
                 ToolbarItems.Add(SignInButton);
             }
-            else
-            {
+            else // A user is signed in
+            {   // Create a new toolbar button caled Sign Out
                 ToolbarItem SignOutButton = new ToolbarItem
-                {
+                {   // Assign it the properties below
                     AutomationId = "SignOut",
                     Text = "Sign Out",
+                    // Set the menu button to the sub-menu
                     Order = ToolbarItemOrder.Secondary
                 };
-
+                // Add the button to the menu
                 ToolbarItems.Add(SignOutButton);
             }
-
+            // Add the click event handler to the button
             ToolbarItems.ElementAt(1).Clicked += SignInOut_Clicked;
         }
 
+        /// <summary>
+        /// This method is called when the Settings Menu Button is Clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Settings_Clicked(object sender, EventArgs e)
         {
+            // Push a new settings modal
             Navigation.PushModalAsync(new NavigationPage(new SettingsMenu()));
         }
-        
+
+        /// <summary>
+        /// This method is called when the Sign In or Out button is clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void SignInOut_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new NavigationPage(new CredentialSelectPage(false)));
+            // Push a new login page modal
+            await Navigation.PushModalAsync(new CredentialSelectPage());
+        }
+
+        public void ReAppearing()
+        {
+            OnAppearing();
         }
 
 		private void FavouriteButtonClicked(object sender, EventArgs e)

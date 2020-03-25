@@ -165,7 +165,7 @@ namespace prj3beer
             // Handle when your app resumes
         }
 
-        private async void LoadFixtures(BeerContext context)
+        private async void LoadFixtures()
         {
             /*
             List<Brand> brandList = new List<Brand>();
@@ -198,21 +198,21 @@ namespace prj3beer
 
             try
             {   // Try to Delete The Database
-                await context.Database.EnsureDeletedAsync();
+                await App.Context.Database.EnsureDeletedAsync();
                 // Try to Create the Database
-                await context.Database.EnsureCreatedAsync();
+                await App.Context.Database.EnsureCreatedAsync();
                 // Add Each beverage to the Database - ready to be written to the database.(watched)
-                context.Beverage.Add(bev1);
-                context.Beverage.Add(bev2);
-                context.Beverage.Add(bev3);
+                App.Context.Beverage.Add(bev1);
+                App.Context.Beverage.Add(bev2);
+                App.Context.Beverage.Add(bev3);
                 // Story 24 Beverages, for testing
-                context.Beverage.Add(bev4);
-                context.Beverage.Add(bev5);
-                context.Beverage.Add(bev6);
-                context.Preference.Add(pref1);
+                App.Context.Beverage.Add(bev4);
+                App.Context.Beverage.Add(bev5);
+                App.Context.Beverage.Add(bev6);
+                App.Context.Preference.Add(pref1);
 
                 // Save Changes (updates/new) to the database
-                await context.SaveChangesAsync();
+                await App.Context.SaveChangesAsync();
             }
             catch (SqliteException)
             {

@@ -39,6 +39,9 @@ namespace prj3beer.Models
         // Default value for Email should be null
         private static readonly string DefaultEmail = null;
 
+        private const string LoginMethodKey = "login_key";
+        private static readonly string LoginMethodDefault = null;
+
         // Stores a boolean for showing the welcome modal
         private const string WelcomePromptKey = "welcome_key";
         // Default value for the Welcome Prompt (show)
@@ -118,6 +121,18 @@ namespace prj3beer.Models
             {
                 //Sets the APIManager url to use for API interactions
                 AppSettings.AddOrUpdateValue(BaseURL, value);
+            }
+        }
+
+        public static string LoginMethodSetting
+        {
+            get
+            {   // Gets the value stored in the WelcomePromptKey, or the default user if it is not set.
+                return AppSettings.GetValueOrDefault(LoginMethodKey, LoginMethodDefault);
+            }
+            set
+            {   // Update the WelcomePromptKey with the passed in value
+                AppSettings.AddOrUpdateValue(LoginMethodKey, value);
             }
         }
 

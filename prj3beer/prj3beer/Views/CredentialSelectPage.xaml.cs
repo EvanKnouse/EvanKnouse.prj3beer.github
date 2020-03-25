@@ -28,12 +28,12 @@ namespace prj3beer.Views
         /// Default constructor, takes in the boolean from the previous screen
         /// </summary>
         /// <param name="isNew"></param>
-        public CredentialSelectPage(bool isNew)
+        public CredentialSelectPage()
         {
             InitializeComponent();
 
             // Set the new User boolean to true or false from passed in value
-            newUser = isNew;
+            //newUser = isNew;
 
             // Set the binding context of the View to the csvm, and instantiate it
             BindingContext = csvm = new CredentialSelectViewModel();
@@ -50,37 +50,27 @@ namespace prj3beer.Views
         {
             base.OnAppearing();
 
-            csvm.NavigateAway = false;
+            // Boolean to keep track of a signed in/out user.
+            bool loggedIn = Settings.CurrentUserEmail.Length != 0;
 
-            bool loggedin = Settings.CurrentUserEmail != "" && Settings.CurrentUserName != "";
+            // Change the message label based on a user being logged in or out.
+            MessageLabel.Text = loggedIn ? "Are You Sure You Want To Sign Out?" : "Sign In With";
 
-            MessageLabel.Text = loggedin ? "Are You Sure You Want To Sign Out?" : "Sign In With";
-
-            if (loggedin)
-            {
+            // If user is logged in
+            if (loggedIn)
+            {   // Hide the Facebook + Google Buttons
+                FacebookButton.IsVisible = false;
                 GoogleButton.IsVisible = false;
+                // Show the Yes button
                 YesButton.IsVisible = true;
-                //csvm.NavigateAway = true;
             }
             else
-            {
+            {   // Show the Facebook + Google Buttons
+                FacebookButton.IsVisible = true;
                 GoogleButton.IsVisible = true;
+                // Hide the Yes Button
                 YesButton.IsVisible = false;
             }
-
-            Device.StartTimer(TimeSpan.FromMilliseconds(1), () =>
-            {
-                if (csvm.NavigateAway)
-                {
-                    Task.Run(async () =>
-                    {
-                        csvm.NavigateAway = false;
-                        await Navigation.PopModalAsync();
-                        return false;
-                    });
-                }
-                return true;
-            });
         }
 
         /// <summary>
@@ -93,5 +83,23 @@ namespace prj3beer.Views
             //Close the Sign in/out screen
             Navigation.PopModalAsync();
         }
+
+        /* NOTE */
+        /* ENABLE THIS TO SEND USERS BACK TO THE START PAGE */
+        /* AFTER SIGNING IN OR OUT OF GOOGLE/FACEBOOK */
+        
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            //Application.Current.MainPage = new NavigationPage(new BeverageSelectPage());
+
+            //Application.Current.MainPage.Navigation.PushModalAsync(new Page());
+            //Application.Current.MainPage.Navigation.PopModalAsync();
+
+
+        }
+
+
+
     }
 }

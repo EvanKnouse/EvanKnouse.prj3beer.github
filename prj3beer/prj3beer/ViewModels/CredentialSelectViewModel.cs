@@ -1,13 +1,14 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Windows.Input;
-
 using prj3beer.Models;
-
 using Plugin.GoogleClient;
 using Plugin.GoogleClient.Shared;
-
 using Xamarin.Forms;
+using System.Threading.Tasks;
+using Plugin.FacebookClient;
+using Newtonsoft.Json.Linq;
+using prj3beer.Views;
+using System.Linq;
 
 namespace prj3beer.ViewModels
 {
@@ -18,6 +19,9 @@ namespace prj3beer.ViewModels
     /// </summary>
     public class CredentialSelectViewModel : INotifyPropertyChanged
     {
+        // Permissions string to store the keys for Facebook permissions
+        protected string[] permissions = new string[] { "email","public_profile","user_posts"};
+
         // Creates a new UserProfile, set up with a getter/setter for OAuth
         public UserProfile User { get; set; } = new UserProfile();
 
@@ -28,7 +32,7 @@ namespace prj3beer.ViewModels
         public string Email { get => User.Email; set => User.Email = value; }
 
         // Getter/Setter Attribute for the User's Picture
-        public Uri Picture{ get => User.Picture; set => User.Picture = value; }
+        public UriImageSource Picture{ get => User.Picture; set => User.Picture = value; }
 
         // Getter/Setter Attribute for a logged in status
         public bool IsLoggedIn { get; set; }
@@ -36,11 +40,17 @@ namespace prj3beer.ViewModels
         // Google's Token - Persistent for 1 hour
         public string Token { get; set; }
 
-        // ICommand that triggers when the User attempts to Log In
-        public ICommand LoginCommand { get; set; }
+        // Command that triggers when the user logs in with Google
+        public Command GoogleLoginCommand { get; set; }
 
-        // Icommand that will trigger when the User logs out
-        public ICommand LogoutCommand { get; set; }
+        // command that will trigger when the User logs out
+        public Command LogoutCommand { get; set; }
+
+        // Command that triggers when the user logs in with Facebook
+        public Command FacebookLoginCommand { get; set; }
+
+        // LoadFacebookDataCommand - trigger the command to load all the Facebook data using LoadFacebookData method
+        public Command LoadFacebookDataCommand { get; set; }
 
         // Private Interfaced GoogleClientManager
         // This interface enforces that elements on this ViewModel use certain methods.
@@ -49,13 +59,18 @@ namespace prj3beer.ViewModels
         // Event handler for properties changing
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public bool NavigateAway { get; set; }
 
         // Constructor for the Credential View Model
         public CredentialSelectViewModel()
         {
-            // Initialize the LogInCommand command
-            LoginCommand = new Command(LoginAsync);
+            // Initialize the GoogleLogInCommand command
+            GoogleLoginCommand = new Command(GoogleLoginAsync);
+
+            // Initialize the Facebook Login Command
+            FacebookLoginCommand = new Command(FacebookLogin);
+
+            // Initialize the LoadFacebook Data Command
+            //LoadFacebookDataCommand = new Command(LoadFacebookData);
 
             // Implement in the future for logging a user out!
             LogoutCommand = new Command(Logout);
@@ -70,25 +85,64 @@ namespace prj3beer.ViewModels
         // This method is called using the LogoutCommand
         public void Logout()
         {
-            _googleClientManager.OnLogout += OnLogoutCompleted;
-            _googleClientManager.Logout();
+            // Switch Statement (gets the last signed in method from settings)
+            switch (Settings.LoginMethodSetting)
+            {
+                case "Facebook":
+                    // If We are currently logged in with facebook,
+                    if(CrossFacebookClient.Current.IsLoggedIn)
+                    {   // Call the logout method 
+                        CrossFacebookClient.Current.Logout();
+                        // Set local IsLoggedIn bool to false;
+                        IsLoggedIn = false;
+
+                        // Clear the current local user email,
+                        User.Email = "";
+                        // Clear the currently logged in user from the settings.
+                        Settings.CurrentUserEmail = "";
+                        Settings.CurrentUserName = "";
+                        
+                        // Pop This Modal
+                        App.Current.MainPage.Navigation.PopModalAsync();
+                    }
+                    break;
+
+                case "Google":
+                    // Add the Event Handler to the OnLogout property of the Google Client Manager
+                    _googleClientManager.OnLogout += OnLogoutCompleted;
+                    // Call the logout function
+                    _googleClientManager.Logout();
+                    break;
+            }
+            
         }
 
+        /// <summary>
+        /// This function is called when a user logs out of Google
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="loginEventArgs"></param>
         private void OnLogoutCompleted(object sender, EventArgs loginEventArgs)
         {
+            // Set is logged in to false, and clear all User Credentials
             IsLoggedIn = false;
             User.Email = "";
             Settings.CurrentUserEmail = "";
             Settings.CurrentUserName = "";
 
-            NavigateAway = true;
+            // Pop the Modal off the Navigation Stack
+            App.Current.MainPage.Navigation.PopModalAsync();
 
+            // Remove the Event Handler from the Logout property
             _googleClientManager.OnLogout -= OnLogoutCompleted;
         }
 
         // This method is called using the LoginCommand
-        public async void LoginAsync()
+        public async void GoogleLoginAsync()
         {
+            // Set the Last Login Method to Google
+            Settings.LoginMethodSetting = "Google";
+
             // Add the Event Handler to the GoogleClient Manager's on login property
             _googleClientManager.OnLogin += OnLoginCompleted;
             
@@ -123,6 +177,58 @@ namespace prj3beer.ViewModels
         }
 
         /// <summary>
+        /// This method will complete all the Login Functionality For Google
+        /// </summary>
+        /// <returns></returns>
+        public async void FacebookLogin()
+        {
+            // Set the Last Login Method to Facebook
+            Settings.LoginMethodSetting = "Facebook";
+
+            // Grab the response from the Facebook Client using the LoginAsync Method
+            FacebookResponse<bool> response = await CrossFacebookClient.Current.LoginAsync(permissions);
+
+            // Switch Statement based on the Status Code returned
+            switch (response.Status)
+            {
+                // If the Login Was Completed
+                case FacebookActionStatus.Completed:
+                    // Set is Logged in to true,
+                    IsLoggedIn = true;
+                    // Load all of the User's Data
+                    await LoadFacebookData();
+
+                    // Task for poping the modal in the correct order
+                    // May not need to create the task anymore
+                    var syncTask2 = new Task(() => {
+                        App.Current.MainPage.Navigation.PopModalAsync();
+                    });
+
+                    // May not need to to do this now
+                    syncTask2.RunSynchronously();
+
+                    break;
+
+                // If a User Cancels out of the login process
+                case FacebookActionStatus.Canceled:
+                    // Perform No Tasks, as you will just return from the Facebook Login
+                    break;
+
+                // If the Facebook Account is unauthorized,
+                case FacebookActionStatus.Unauthorized:
+                    // Display an Unauthorized Message
+                    await App.Current.MainPage.DisplayAlert("Unauthorized", response.Message, "Ok");
+                    break;
+
+                // Display an error if there was an error with the login process
+                case FacebookActionStatus.Error:
+                    // Display an Error Message
+                    await App.Current.MainPage.DisplayAlert("Error", response.Message, "Ok");
+                    break;
+            }
+        }
+
+        /// <summary>
         /// This method is called when a user has completed the log in process
         /// </summary>
         /// <param name="loginEventArgs">The event that is triggered</param>
@@ -143,10 +249,6 @@ namespace prj3beer.ViewModels
                 // As well as store it in settings
                 Settings.CurrentUserEmail = googleUser.Email;
 
-                // Store the user's picture to the local user 
-                User.Picture = googleUser.Picture;
-                // Did not implement in permanent storage - we don't display it anywhere
-               
                 // Change the logged in boolean to true
                 IsLoggedIn = true;
 
@@ -156,7 +258,11 @@ namespace prj3beer.ViewModels
                 // Set the token to the Active Token from the Cross Google Client
                 Token = CrossGoogleClient.Current.ActiveToken;
 
-                NavigateAway = true;
+                // Also save it to the user
+                User.Token = CrossGoogleClient.Current.ActiveToken;
+
+                // Pop The Modal
+                App.Current.MainPage.Navigation.PopModalAsync();
             }
             else
             {   // If there is an issue retriving data from the returned event
@@ -165,6 +271,58 @@ namespace prj3beer.ViewModels
 
             // Removes (unsubscribes) the event handler from the GoogleClientHandler
             _googleClientManager.OnLogin -= OnLoginCompleted;
+        }
+
+        /// <summary>
+        /// This method will Populate all of the user's data from the facebook profile
+        /// </summary>
+        /// <returns></returns>
+        public async Task LoadFacebookData()
+        {
+            // Store the Facebook Data in a string, populated from the Current Facebook Profile
+            var jsonData = await CrossFacebookClient.Current.RequestUserDataAsync
+            (                   // Request the ID, Name, Email, Picture, Cover, Friends
+                  new string[] { "id", "name", "email", "picture", "cover", "friends" }, new string[] { }
+            );
+
+            // Parse the Data out of the JSON string
+            var data = JObject.Parse(jsonData.Data);
+
+            // Create a new User 
+            User = new UserProfile()
+            {   // Set it's name from the data[name] property,
+                Name = data["name"].ToString(),
+                // Set it's picture from the picture source, creating a new URI based on the picture, data, and url fields
+                Picture = new UriImageSource { Uri = new Uri($"{data["picture"]["data"]["url"]}") },
+                // Set it's email from the data[email] property
+                Email = data["email"].ToString(),
+            };
+            // After the user is created from the returned Facebook data, set persistent user's data
+            Settings.CurrentUserName = User.Name;
+            Settings.CurrentUserEmail = User.Email;
+
+            try
+            {   // Grab the last page in the stack, 
+                BeverageSelectPage current = (BeverageSelectPage)App.Current.MainPage.Navigation.NavigationStack.ElementAt(App.Current.MainPage.Navigation.NavigationStack.Count - 1);
+                // call the current last page on the stack's reappearing
+                current.ReAppearing();
+                
+            }
+            catch (Exception)
+            {
+                
+            }
+            try
+            {
+                 // Grab the last page in the stack, 
+                StatusPage current = (StatusPage)App.Current.MainPage.Navigation.NavigationStack.ElementAt(App.Current.MainPage.Navigation.NavigationStack.Count -1);
+                // call the current last page on the stack's reappearing
+                current.ReAppearing();
+            }
+            catch (Exception)
+            {
+
+            }
         }
     }
 }
