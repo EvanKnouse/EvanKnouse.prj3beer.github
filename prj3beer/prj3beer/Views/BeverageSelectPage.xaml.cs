@@ -36,7 +36,6 @@ namespace prj3beer.Views
         }
 
         #region Story 52 (The Carousel)
-
         private void PopulateCarousel()
         {
             // If there are no beverages favourited.
@@ -57,6 +56,11 @@ namespace prj3beer.Views
             {
                 // Hide the no favourites label.
                 NoFavouritesLabel.IsVisible = false;
+
+                foreach(Preference favPref in updatedFavorites)
+                {
+                    favPref.BevName = App.Context.Beverage.Find(favPref.BeverageID).Name;
+                }
 
                 // Set the FavouritesCarousel items source to the list of favourited beverages.
                 FavouritesCarousel.ItemsSource = updatedFavorites;
@@ -85,21 +89,16 @@ namespace prj3beer.Views
 
                     image.WidthRequest = 200;
                     image.HeightRequest = 200;
-                    
-                    // Label for displaying the preference's BeverageID, "necessary" for UI testing. Should be removed in final product.
-                    #if DEBUG
-                        Label lblIDForTesting = new Label();
-                        lblIDForTesting.SetBinding(Label.TextProperty, "BeverageID");
-                        StackLayout stackLayout = new StackLayout
-                        {
-                            Children = { image, lblIDForTesting }
-                        };
-                    #else
-                        StackLayout stackLayout = new StackLayout
-                        {
-                            Children = {image}
-                        };
-                    #endif
+
+                    Label lblBevName = new Label();
+                    lblBevName.SetBinding(Label.TextProperty, "BevName");
+
+                    StackLayout stackLayout = new StackLayout
+                    {
+                        HorizontalOptions = LayoutOptions.Center,
+                            Children = { image, lblBevName }
+                    };
+
                     Frame frame = new Frame
                     {
                         HasShadow = true,
@@ -120,7 +119,7 @@ namespace prj3beer.Views
                 });
             }
         }
-#endregion
+        #endregion
 
         protected override void OnAppearing()
         {

@@ -96,8 +96,8 @@ namespace UITests
         {
             SetFavouriteStatusOfBeverageUI("chu", first, true); // Select "Churchill Blonde Lager" and favourite it.
 
-            AppResult[] favBev = app.Query("5"); // Query the beverage select page for the beverage's ID.
-            Assert.IsTrue(favBev.Any()); // Passes if the ID is shown on the page.
+            AppResult[] favBev = app.Query("Churchill Blonde Lager"); // Query the beverage select page for the beverage.
+            Assert.IsTrue(favBev.Any()); // Passes if the beverage name is shown on the page.
         }
 
         // Favourite a beverage and test that it is displayed in the carousel, then
@@ -107,13 +107,13 @@ namespace UITests
         {
             SetFavouriteStatusOfBeverageUI("chu", first, true); // Select "Churchill Blonde Lager" and favourite it.
 
-            AppResult[] favBev = app.Query("5"); // Query the beverage select page for the beverage's ID.
-            Assert.IsTrue(favBev.Any()); // Passes if the ID is shown on the page.
+            AppResult[] favBev = app.Query("Churchill Blonde Lager"); // Query the beverage select page for "Churchill Blonde Lager". // ID: 5
+            Assert.IsTrue(favBev.Any()); // Passes if the beverage name is shown on the page.
 
             SetFavouriteStatusOfBeverageUI("chu", first, true); // Select "Churchill Blonde Lager" and unfavourite it.
 
-            favBev = app.Query("5"); // Query the beverage select page for the beverage's ID.
-            Assert.IsFalse(favBev.Any()); // Passes if the ID is not shown on the page.
+            favBev = app.Query("Churchill Blonde Lager"); // Query the beverage select page for "Churchill Blonde Lager". // ID: 5
+            Assert.IsFalse(favBev.Any()); // Passes if the beverage name is not shown on the page.
         }
 
         // Favourite two beverages and test that they are displayed in the carousel.
@@ -123,11 +123,11 @@ namespace UITests
             SetFavouriteStatusOfBeverageUI("c", first, false); // Select "Churchill Blonde Lager" and favourite it.
             SetFavouriteStatusOfBeverageUI("c", second, true); // Select "Great Western Pilsner" and favourite it.
 
-            AppResult[] favBev = app.Query("5"); // Query the beverage select page for the "Churchill Blonde Lager" ID.
-            Assert.IsTrue(favBev.Any()); // Passes if the ID is shown on the page.
+            AppResult[] favBev = app.Query("Churchill Blonde Lager"); // Query the beverage select page for "Churchill Blonde Lager". // ID: 5
+            Assert.IsTrue(favBev.Any()); // Passes if the beverage name is shown on the page.
 
-            favBev = app.Query("2"); // Query the beverage select page for the "Great Western Pilsner" ID.
-            Assert.IsTrue(favBev.Any()); // Passes if the ID is shown on the page.
+            favBev = app.Query("Great Western Pilsner"); // Query the beverage select page for "Great Western Pilsner". // ID: 2
+            Assert.IsTrue(favBev.Any()); // Passes if the beverage name is shown on the page.
         }
 
         // Favourite five beverages and test that they are all displayed in the carousel.
@@ -143,40 +143,30 @@ namespace UITests
             app.TapCoordinates(540, 805);
             app.Back();
             app.WaitForElement("FavouritesCarousel");
-            //app.WaitForElement("FavouritesCarousel");
-            //app.SwipeRightToLeft(0.9, 800, true);
-            //app.TapCoordinates(SearchClearX, SearchClearY);
-            //app.Back();
-            //app.WaitForElement("FavouritesCarousel");
-            //app.SwipeLeftToRight(0.9, 800, true);
-            //app.WaitForElement("FavouritesCarousel");
 
-            AppResult[] favBev = app.Query("1"); // Query the beverage select page for the "Great Western Radler" ID.
-            Assert.IsTrue(favBev.Any()); // Passes if the ID is shown on the page.
+            AppResult[] favBev = app.Query("Great Western Radler"); // Query the beverage select page for "Great Western Radler". // ID: 1
+            Assert.IsTrue(favBev.Any()); // Passes if the beverage name is shown on the page.
 
             app.SwipeRightToLeft(0.9, 1000, true);
             //app.WaitForElement("FavouritesCarousel");
 
-            favBev = app.Query("2"); // Query the beverage select page for the "Great Western Pilsner" ID.
-            Assert.IsTrue(favBev.Any()); // Passes if the ID is shown on the page.
+            favBev = app.Query("Great Western Pilsner"); // Query the beverage select page for "Great Western Pilsner". // ID: 2
+            Assert.IsTrue(favBev.Any()); // Passes if the beverage name is shown on the page.
 
             app.SwipeRightToLeft(0.9, 1000, true);
-            //app.SwipeRightToLeft(0.9, 800, true);
 
-            favBev = app.Query("3"); // Query the beverage select page for the "Original 16 Copper Ale" ID.
-            Assert.IsTrue(favBev.Any()); // Passes if the ID is shown on the page.
-
-            app.SwipeRightToLeft(0.9, 1000, true);
-            //app.WaitForElement("FavouritesCarousel");
-
-            favBev = app.Query("5"); // Query the beverage select page for the "Churchill Blonde Lager" ID.
-            Assert.IsTrue(favBev.Any()); // Passes if the ID is shown on the page.
+            favBev = app.Query("Original 16 Copper Ale"); // Query the beverage select page for "Original 16 Copper Ale". // ID: 3
+            Assert.IsTrue(favBev.Any()); // Passes if the beverage name is shown on the page.
 
             app.SwipeRightToLeft(0.9, 1000, true);
-            //app.WaitForElement("FavouritesCarousel");
 
-            favBev = app.Query("99"); // Query the beverage select page for the "Rebellion Pear Beer" ID.
-            Assert.IsTrue(favBev.Any()); // Passes if the ID is shown on the page.
+            favBev = app.Query("Churchill Blonde Lager"); // Query the beverage select page for "Churchill Blonde Lager". // ID: 5
+            Assert.IsTrue(favBev.Any()); // Passes if the beverage name is shown on the page.
+
+            app.SwipeRightToLeft(0.9, 1000, true);
+
+            favBev = app.Query("Rebellion Pear Beer"); // Query the beverage select page for "Rebellion Pear Beer". // ID: 99
+            Assert.IsTrue(favBev.Any()); // Passes if the beverage name is shown on the page.
         }
 
         // Favourite a beverage and test that it is displayed at the first position of the list with a symbol.

@@ -32,14 +32,15 @@ namespace prj3beer.Models
         [DefaultValue(false)]
         public bool Favourite { get; set; }
 
+        [NotMapped]
+        public string BevName { get; set; }
+
         //const Uri uriImage = new Uri("placeholder_can");
         //UriImageSource test = new UriImageSource { Uri = uriImage };
 
         //[DefaultValue("")]
         //public UriImageSource savedImg { get; set; }
         #endregion
-
-
 
         #region Story 7 code
         /// <summary>
