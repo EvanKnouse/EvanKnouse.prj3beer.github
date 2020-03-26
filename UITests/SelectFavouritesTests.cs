@@ -108,6 +108,8 @@ namespace UITests
             SetFavouriteStatusOfBeverageUI("chu", first, true); // Select "Churchill Blonde Lager" and favourite it.
 
             AppResult[] favBev = app.Query("Churchill Blonde Lager"); // Query the beverage select page for "Churchill Blonde Lager". // ID: 5
+            
+            
             Assert.IsTrue(favBev.Any()); // Passes if the beverage name is shown on the page.
 
             SetFavouriteStatusOfBeverageUI("chu", first, true); // Select "Churchill Blonde Lager" and unfavourite it.
@@ -230,7 +232,7 @@ namespace UITests
         // Have no favourites and test that the no favourites label is displayed, then
         // favourite a beverage and test that the no favourites label is not displayed.
         [Test]
-        public void UserWithFavoriteDrinksDoesNotSeeOutStockMessage()
+        public void UserWithFavoriteDrinksDoesNotSeeOurStockMessage()
         {
             AppResult[] noFavLabel = app.Query("Select a beverage and favourite it to view it here!"); // Query the beverage select page for the no favourites message.
             Assert.IsTrue(noFavLabel.Any()); // Passes if the no favourites label is displayed on the page.

@@ -236,7 +236,12 @@ namespace prj3beer.Views
                 errorLabel.IsVisible = false;
 
 
-#region Story 52 (Sort favorites first)
+                #region Story 52 (Sort favorites first)
+
+                //There is text, so hide carousel or message
+                FavouritesCarousel.IsVisible = false;
+                NoFavouritesLabel.IsVisible = false;
+
                 //Create seperate lists to sort by favorite
                 List<string> listFavorites = new List<string>();
                 List<string> listNonFav = new List<string>();
@@ -306,6 +311,11 @@ namespace prj3beer.Views
                 errorLabel.IsVisible = false;
                 //reset the list
                 beverageListView.ItemsSource = null;
+
+                //Display the carousel or no favorites message
+                if (updatedFavorites.Count() == 0) NoFavouritesLabel.IsVisible = true;
+                else FavouritesCarousel.IsVisible = true;
+                    
             }
             //hide the load spinner
             loadingSpinner.IsRunning = false;
@@ -389,26 +399,16 @@ namespace prj3beer.Views
         }
 
 
+        /// <summary>
+        /// This is being kept in as a placeholder for anyone else who may need it, or if design is changing
+        /// Currently this will tirgger when the search has focus, uncommet lines to hide carousel or message early
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SearchBeverageFocused(object sender, FocusEventArgs e)
         {
-            FavouritesCarousel.IsVisible = false;
-            NoFavouritesLabel.IsVisible = false;
-
-            if(searchBeverage.Text == null || searchBeverage.Text.Equals(""))
-            {
-                /*
-                List<String> bevNames = new List<String>();
-                IQueryable<Beverage> iQueryBevs = App.Context.Beverage.Where(b=>b.BrandID>0);
-                //bevs = iQueryBevs.ToList();
-
-                foreach(Beverage  bev in iQueryBevs)
-                {
-                    bevNames.Add(bev.Name);
-                }
-
-                beverageListView.ItemsSource = bevNames;
-                */
-            }
+            //FavouritesCarousel.IsVisible = false;
+            //NoFavouritesLabel.IsVisible = false;
         }
 
         private void SearchBeverageUnfocused(object sender, FocusEventArgs e)
