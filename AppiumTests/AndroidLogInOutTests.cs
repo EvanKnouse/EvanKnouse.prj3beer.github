@@ -42,6 +42,9 @@ namespace AppiumTests
         private void SelectBeverage()
         {
             TouchAction touchAction = new TouchAction(driver);
+
+            Thread.Sleep(500);
+
             //AndroidElement element = driver.FindElementByAndroidUIAutomator("new UiSelector().textContains(\"Please enter a beverage, type or brand!!\");");
             AndroidElement element = driver.FindElementByClassName("android.widget.EditText");
 
@@ -89,7 +92,9 @@ namespace AppiumTests
             Thread.Sleep(6000);
 
             // Find all the ListViews On The Page
-            var elements = driver.FindElementsByClassName("android.widget.ListView");
+            var elements = driver.FindElementsByClassName("//android.widget.LinearLayout[@resource-id='com.google.android.gms:id/container']");
+            //var elements = driver.FindElementsByClassName("android.widget.ListView");
+
             // The first List View Element is The Button We Want To Tap
             element = elements.ElementAt(0);
             // So I'm Gonna Tap It. 
