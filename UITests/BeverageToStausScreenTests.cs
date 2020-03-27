@@ -90,7 +90,8 @@ namespace UITests
             //app.Tap("Beverage Select");
             app.EnterText("searchBeverage", searchBeverage.ToString());
 
-            app.TapCoordinates(200, 710);
+            //app.TapCoordinates(200, 710);
+            app.TapCoordinates(200, 550);
         }
 
         //public void notSelectingBeverage()
@@ -116,13 +117,13 @@ namespace UITests
         }
 
 
-        [Test]//700f is 200 pixels
+        [Test]//700f is 200 pixels... and now 525 with newest emulator
         public void TestThatBelowMinBoundaryImageSizeIsScaledUp()
         {
             selectABeverage("Great Western Radler");
             app.WaitForElement("beverageImage");
             AppResult[] queryImage = app.Query("beverageImage");
-            if (queryImage[0].Rect.Width == 700f || queryImage[0].Rect.Height == 700f)
+            if (queryImage[0].Rect.Width == 525f || queryImage[0].Rect.Height == 525f)
                 Assert.IsTrue(true);
             else {
                 Assert.AreEqual(700f, queryImage[0].Rect.Height);
@@ -136,7 +137,7 @@ namespace UITests
             selectABeverage("Great Western Radler");
             app.WaitForElement("beverageImage");
             AppResult[] queryImage = app.Query("beverageImage");
-            if (queryImage[0].Rect.Width == 700f || queryImage[0].Rect.Height == 700f)
+            if (queryImage[0].Rect.Width == 525f || queryImage[0].Rect.Height == 525f)
                 Assert.IsTrue(true);
             else
                 Assert.IsTrue(false);

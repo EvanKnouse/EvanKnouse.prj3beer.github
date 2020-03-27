@@ -54,11 +54,27 @@ namespace UITests
             //Pick Status screen from the screen selection menu
             //app.Tap("Status");
 
+            app.EnterText("searchBeverage", "c"); //Entering code into the search bar
+            //app.TapCoordinates(200, 750); //Tapping a result from the list gotten from the search
+            app.TapCoordinates(200, 550);
+
+
+            //app.WaitForElement("Toolbar");
+            //app.Tap("Toolbar");
+            app.WaitForElement("FavouriteButton");
+            app.TapCoordinates(1020, 135);
+
+
             //Wait for the Settings button to appear on screen
-            app.WaitForElement("Settings");
+            //app.WaitForElement("Settings");
+            //app.WaitForElement("btnSettings");
+            app.WaitForNoElement("pickles"); // It worked, okay? As long as we never have an ID of "pickles", it's fine
 
             //Press Settings Menu button
-            app.Tap("Settings");
+            //app.Tap("Settings");
+            //app.Tap("btnSettings");
+
+            app.TapCoordinates(800, 135);
 
             //Wait for the Temperature switch to appear on screen
             app.WaitForElement("SettingsTable");
@@ -115,10 +131,17 @@ namespace UITests
             //app.Tap("Status");
 
             //Wait for the Settings button to appear on screen
-            app.WaitForElement("Settings");
+            //app.WaitForElement("Settings");
 
             //Press Settings menu button
-            app.Tap("Settings");
+            //app.Tap("Settings");
+
+            app.EnterText("searchBeverage", "c");
+            app.TapCoordinates(200, 550);
+            app.WaitForElement("FavouriteButton");
+            app.TapCoordinates(1020, 135);
+            app.WaitForNoElement("pickles");
+            app.TapCoordinates(800, 135);
 
             app.WaitForElement("SettingsTable");
 
@@ -146,10 +169,17 @@ namespace UITests
             //app.Tap("Status");
 
             //Wait for the Settings button to appear on screen
-            app.WaitForElement("Settings");
+            //app.WaitForElement("Settings");
 
             //Press Settings menu button
-            app.Tap("Settings");
+            //app.Tap("Settings");
+
+            app.EnterText("searchBeverage", "c");
+            app.TapCoordinates(200, 550);
+            app.WaitForElement("FavouriteButton");
+            app.TapCoordinates(1020, 135);
+            app.WaitForNoElement("pickles");
+            app.TapCoordinates(800, 135);
 
             app.WaitForElement("SettingsTable");
 
@@ -180,10 +210,17 @@ namespace UITests
             //Pick Status screen from the screen selection menu
             //app.Tap("Status");
 
-            app.WaitForElement("Settings");
+            //app.WaitForElement("Settings");
 
             //Press Settings menu button
-            app.Tap("Settings");
+            //app.Tap("Settings");
+
+            app.EnterText("searchBeverage", "c"); 
+            app.TapCoordinates(200, 550);
+            app.WaitForElement("FavouriteButton");
+            app.TapCoordinates(1020, 135);
+            app.WaitForNoElement("pickles");
+            app.TapCoordinates(800, 135);
 
             app.WaitForElement("SettingsTable");
 
@@ -197,10 +234,18 @@ namespace UITests
             //Tap into the screen navigation menu
             app.TapCoordinates(1350, 175);
 
-            app.WaitForElement("Settings");
+            //app.WaitForElement("Settings");
 
             //Press Settings menu button
-            app.Tap("Settings");
+            //app.Tap("Settings");
+
+            app.EnterText("searchBeverage", "c");
+            app.TapCoordinates(200, 550);
+            app.WaitForElement("FavouriteButton");
+            app.TapCoordinates(1020, 135);
+            app.WaitForNoElement("pickles");
+            app.TapCoordinates(800, 135);
+
 
             app.WaitForElement("SettingsTable");
 

@@ -31,7 +31,8 @@ namespace UITests
             //app.Tap("Beverage Select");
             app.EnterText("searchBeverage", searchBeverage.ToString());
 
-            app.TapCoordinates(200, 710);
+            //app.TapCoordinates(200, 710);
+            app.TapCoordinates(200, 550);
         }
 
         [SetUp]

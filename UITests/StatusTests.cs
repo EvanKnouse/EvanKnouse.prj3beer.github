@@ -66,7 +66,8 @@ namespace UITests
             //app.Tap("Beverage Select");
             app.EnterText("searchBeverage", searchBeverage.ToString());
 
-            app.TapCoordinates(200, 710);
+            //app.TapCoordinates(200, 710);
+            app.TapCoordinates(200, 550);
         }
 
         [Test]
@@ -78,10 +79,16 @@ namespace UITests
 
 
             //Wait for the Settings button to appear on screen
-            app.WaitForElement("Settings");
+            //app.WaitForElement("Settings");
 
             //Press Settings Menu button
-            app.Tap("Settings");
+            //app.Tap("Settings");
+
+            app.WaitForElement("FavouriteButton");
+            app.TapCoordinates(1020, 135);
+            app.WaitForNoElement("pickles");
+            app.TapCoordinates(800, 135);
+
 
             //Wait for the Temperature switch to appear on screen
             app.WaitForElement("SettingsTable");
@@ -113,11 +120,14 @@ namespace UITests
             //If equal, the temperature label has been set to Celsius
             bool isCelsius = tempLabel.Contains("\u00B0C");
 
-            app.TapCoordinates(1350, 175);
-
+            //app.TapCoordinates(1350, 175);
 
             //Press Settings menu button
-            app.Tap("Settings");
+            //app.Tap("Settings");
+
+            app.TapCoordinates(1020, 135);
+            app.WaitForNoElement("pickles");
+            app.TapCoordinates(800, 135);
 
             //Wait for the Temperature switch to appear on screen
             app.WaitForElement("SettingsTable");
@@ -135,10 +145,12 @@ namespace UITests
             app.TapCoordinates(1350, 175);
 
             //Slowing down the app to give the temperature display a chance to update - Don't send bad code to master
-            app.WaitForElement("Settings");
-            app.Tap("Settings");
-            app.WaitForElement("SettingsTable");
-            app.Back();
+            //app.WaitForElement("Settings");
+            //app.Tap("Settings");
+            //app.WaitForElement("SettingsTable");
+            //app.Back();
+
+            app.WaitForNoElement("SettingsTable");
 
             app.WaitForElement("currentTemperature");
 
@@ -159,13 +171,18 @@ namespace UITests
             //Pick status screen from the screen selection menu
             //app.Tap("Status");
 
-            app.TapCoordinates(1350, 175);
+            //app.TapCoordinates(1350, 175);
 
             //Wait for the Settings button to appear on screen
-            app.WaitForElement("Settings");
+            //app.WaitForElement("Settings");
 
             //Press Settings menu button
-            app.Tap("Settings");
+            //app.Tap("Settings");
+
+            
+            app.TapCoordinates(1020, 135);
+            app.WaitForNoElement("pickles");
+            app.TapCoordinates(800, 135);
 
             //Wait for the Temperature switch to appear on screen
             app.WaitForElement("SettingsTable");
@@ -265,7 +282,8 @@ namespace UITests
 
             int startTemp = int.Parse(app.Query("currentTarget")[0].Text);
 
-            app.TapCoordinates(860, 1960);
+            //app.TapCoordinates(860, 1960);
+            app.TapCoordinates(655, 1415);
 
             string targetTemperature = app.Query("currentTarget")[0].Text;
 
@@ -283,7 +301,8 @@ namespace UITests
 
             int startTemp = int.Parse(app.Query("currentTarget")[0].Text);
 
-            app.TapCoordinates(560, 1960);
+            //app.TapCoordinates(560, 1960);
+            app.TapCoordinates(420, 1415);
 
             string targetTemperature = app.Query("currentTarget")[0].Text;
 

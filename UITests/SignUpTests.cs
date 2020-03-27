@@ -38,7 +38,8 @@ namespace UITests
             app = ConfigureApp.Android.ApkFile(apkPath).StartApp();
 
             // Tap the Ellipsis menu button
-            app.TapCoordinates(1350, 175);
+            //app.TapCoordinates(1350, 175);
+            app.TapCoordinates(1020, 135);
         }
 
         #region Sign In/Up Tests
@@ -48,7 +49,8 @@ namespace UITests
         {
             // navigate to the sign up page
             //app.Tap("SignUpButton");
-            app.TapCoordinates(1350, 350);
+            //app.TapCoordinates(1350, 350);
+            app.TapCoordinates(1020, 265);
 
             // Wait for the Google button to appear on screen
             app.WaitForElement("GoogleButton");
@@ -78,7 +80,8 @@ namespace UITests
         {
             // navigate to the sign up page
             //app.Tap("SignInButton");
-            app.TapCoordinates(1350, 350);
+            //app.TapCoordinates(1350, 350);
+            app.TapCoordinates(1020, 265);
 
             // navigate to enter external credentials
             app.Tap("GoogleButton");
@@ -102,7 +105,8 @@ namespace UITests
             //Open the hamburger menu
             //app.TapCoordinates(150, 90);
             //Open ellipsis menu
-            app.TapCoordinates(1350, 175);
+            //app.TapCoordinates(1350, 175);
+            //app.TapCoordinates(1020, 135);
 
             //app.WaitForElement("btnSignOut");
 
@@ -118,8 +122,9 @@ namespace UITests
         {
             // navigate to the sign up page
             //app.Tap("SignInButton");
-            app.TapCoordinates(1350, 350);
-
+            //app.TapCoordinates(1350, 350);
+            app.TapCoordinates(1020, 265);
+            
             // navigate to enter external credentials
             app.Tap("GoogleButton");
 
@@ -132,16 +137,20 @@ namespace UITests
 
             //Open the hamburger menu
             //app.TapCoordinates(150, 90);
-            app.TapCoordinates(1350, 175);
+            //app.TapCoordinates(1350, 175);
+            app.TapCoordinates(1020, 135);
 
             //app.WaitForElement("btnSignOut");
 
-            app.TapCoordinates(1350, 350);
+            //app.TapCoordinates(1350, 350);
+            app.TapCoordinates(1020, 265);
+            
             //Sign out
             app.Tap("YesButton");
 
             //Tap the ellipsis menu
-            app.TapCoordinates(1350, 175);
+            //app.TapCoordinates(1350, 175);
+            app.TapCoordinates(1020, 135);
 
             // test that the sign in button is on the screen
             AppResult[] result = app.Query("Sign In");
