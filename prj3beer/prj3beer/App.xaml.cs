@@ -51,9 +51,7 @@ namespace prj3beer
         public static async void FetchData()
         {
             // REMOVE FOR PERSISTENT Data
-            #if DEBUG
             Context.Database.EnsureDeleted();
-            #endif
 
             // Ensure the Database is Created
             Context.Database.EnsureCreated();
@@ -66,23 +64,18 @@ namespace prj3beer
 
             try
             {
-                //Context.Brand.att
-#if DEBUG
+                Context.Brand.AttachRange(brands);
                 Context.Brand.AddRange(brands);
-#elif RELEASE
-                Context.Brand.UpdateRange(brands);
-#endif
             }
             catch (DbUpdateException exception)
             {
-                //Debug.WriteLine(exception.Message);
-                Context.Brand.UpdateRange(brands);
-                //Context.Brand.AddRange(brands);
-            }
+                Debug.WriteLine(exception.Message);
 
+                Context.Brand.UpdateRange(brands);
+            }
             finally
             {
-                //Context.ChangeTracker.DetectChanges();
+                Context.ChangeTracker.DetectChanges();
                 Context.SaveChanges();
             }
 
@@ -91,24 +84,20 @@ namespace prj3beer
 
             try
             {
-                //Context.Beverage.AttachRange(beverages);
-#if DEBUG
+                Context.Beverage.AttachRange(beverages);
                 Context.Beverage.AddRange(beverages);
-#elif RELEASE
-                Context.Beverage.UpdateRange(beverages);
-#endif
             }
             catch (DbUpdateException exception)
             {
-                //Debug.WriteLine(exception.Message);
+                Debug.WriteLine(exception.Message);
+
                 Context.Beverage.UpdateRange(beverages);
-                //Context.Beverage.AddRange(beverages);
 
             }
             finally
             {
 
-                //Context.ChangeTracker.DetectChanges();
+                Context.ChangeTracker.DetectChanges();
                 Context.SaveChanges();
             }
 
