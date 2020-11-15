@@ -1,5 +1,5 @@
-# prj3beer.github
-CST Capstone Prj3 Beer temperature monitoring app
+# Prj3 Beer
+CST Capstone Prj3 beer temperature monitoring app
 
 # Beer Monitoring App
 This app was created as the capstone project for the Computer Systems Technology program.
